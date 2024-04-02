@@ -9,6 +9,7 @@ const config = {
     "drizzle"
   ],
   "extends": [
+    "@extropysk/eslint-config-react",
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended-type-checked",
     "plugin:@typescript-eslint/stylistic-type-checked"
@@ -41,5 +42,5 @@ const config = {
     "drizzle/enforce-delete-with-where": "error",
     "drizzle/enforce-update-with-where": "error"
   }
-}
+};
 module.exports = config;
