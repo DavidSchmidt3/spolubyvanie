@@ -1,5 +1,5 @@
-import { MainNav } from "@/app/_components/layouts/main-nav";
-import { UserNav } from "@/app/_components/layouts/user-nav";
+import { MainNav } from "@/app/[locale]/_components/layouts/main-nav";
+import { UserNav } from "@/app/[locale]/_components/layouts/user-nav";
 import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
 import { TRPCReactProvider } from "@/trpc/react";
@@ -18,11 +18,13 @@ export const metadata = {
 
 export default function RootLayout({
   children,
+  params: { locale },
 }: {
   children: React.ReactNode;
+  params: { locale: string };
 }) {
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",

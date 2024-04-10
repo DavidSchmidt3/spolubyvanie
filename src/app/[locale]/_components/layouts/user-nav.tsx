@@ -1,5 +1,5 @@
-import { Avatar } from "@/app/_components/ui/avatar";
-import { Button } from "@/app/_components/ui/button";
+import { Avatar } from "@/app/[locale]/_components/ui/avatar";
+import { Button } from "@/app/[locale]/_components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,10 +8,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/app/_components/ui/dropdown-menu";
-import { Icons } from "@/app/_components/ui/icons";
-import { logout } from "@/app/login/actions";
-import Link from "next/link";
+} from "@/app/[locale]/_components/ui/dropdown-menu";
+import { Icons } from "@/app/[locale]/_components/ui/icons";
+import { logout } from "@/app/[locale]/login/actions";
+import { Link } from "@/lib/utils/localization/navigation";
 
 export function UserNav() {
   return (

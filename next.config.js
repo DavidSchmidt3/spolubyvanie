@@ -3,6 +3,11 @@
  * for Docker builds.
  */
 await import("./src/env.js");
+import createNextIntlPlugin from "next-intl/plugin";
+
+const withNextIntl = createNextIntlPlugin(
+  "./src/lib/utils/localization/i18n.ts"
+);
 
 /** @type {import("next").NextConfig} */
 const config = {
@@ -11,4 +16,4 @@ const config = {
   },
 };
 
-export default config;
+export default withNextIntl(config);

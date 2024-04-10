@@ -58,9 +58,8 @@ export async function updateSession(request: NextRequest) {
     }
   );
 
-  const { error, data } = await supabase.auth.getUser();
+  const { data, error } = await supabase.auth.getUser();
 
-  console.log(data, error);
   if (!data || error) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
