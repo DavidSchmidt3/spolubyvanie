@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 export function MainNav({
   className,
@@ -11,6 +12,10 @@ export function MainNav({
         className
       )}
       {...props}
-    ></nav>
+    >
+      <Link href="/">Home</Link>
+      <Link href="/settings">Settings</Link>
+      <Link href="/login">Login</Link>
+    </nav>
   );
 }

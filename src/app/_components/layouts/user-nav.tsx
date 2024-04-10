@@ -10,6 +10,8 @@ import {
   DropdownMenuTrigger,
 } from "@/app/_components/ui/dropdown-menu";
 import { Icons } from "@/app/_components/ui/icons";
+import { logout } from "@/app/login/actions";
+import Link from "next/link";
 
 export function UserNav() {
   return (
@@ -34,7 +36,24 @@ export function UserNav() {
         <DropdownMenuGroup>
           <DropdownMenuItem>daco</DropdownMenuItem>
         </DropdownMenuGroup>
-        <DropdownMenuItem>Logout</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href="/settings">Settings</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href="/login">Login</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <form>
+            <Button
+              variant="ghost"
+              className="w-full"
+              type="submit"
+              formAction={logout}
+            >
+              Logout
+            </Button>
+          </form>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
