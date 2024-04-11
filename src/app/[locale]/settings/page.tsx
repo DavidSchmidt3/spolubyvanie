@@ -1,88 +1,65 @@
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/app/[locale]/_components/ui/select";
-import * as z from "zod";
 
-import Loader from "@/app/[locale]/_components/common/loader";
-import { Button } from "@/app/[locale]/_components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/app/[locale]/_components/ui/form";
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from "@/app/[locale]/_components/ui/radio-group";
-import { useControlledForm } from "@/hooks/form";
-import { useSettingsQuery, useUpdateSettingsMutation } from "@/hooks/settings";
-import {
-  DEFAULT_LNG,
-  languages,
-  type Language,
-} from "@/utils/localization/i18n";
-import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
-import ErrorAlert from "../common/alerts/error";
-import { Icons } from "../icons";
-import { themes } from "../theme-provider";
+import { api } from "@/trpc/server";
+// import {
+//   DEFAULT_LNG,
+//   languages,
+//   type Language,
+// } from "@/utils/localization/i18n";
+// import ErrorAlert from "../common/alerts/error";
+// import { themes } from "../theme-provider";
 
-const SETTINGS_FORM_SCHEMA = z.object({
-  theme: z.enum(themes, {
-    required_error: "settings.theme.validation.required",
-  }),
-  language: z.enum(languages.map((language) => language.code) as [Language], {
-    required_error: "settings.language.validation.required",
-  }),
-});
+// const SETTINGS_FORM_SCHEMA = z.object({
+//   theme: z.enum(themes, {
+//     required_error: "settings.theme.validation.required",
+//   }),
+//   language: z.enum(languages.map((language) => language.code) as [Language], {
+//     required_error: "settings.language.validation.required",
+//   }),
+// });
 
-const DEFAULT: SettingsFormValues = {
-  theme: "dark",
-  language: DEFAULT_LNG,
-};
+// const DEFAULT: SettingsFormValues = {
+//   theme: "dark",
+//   language: DEFAULT_LNG,
+// };
 
-export type SettingsFormValues = z.infer<typeof SETTINGS_FORM_SCHEMA>;
+// export type SettingsFormValues = z.infer<typeof SETTINGS_FORM_SCHEMA>;
 
-export default function SettingsForm() {
-  const { t } = useTranslation();
-  const { data, isLoading } = useSettingsQuery();
+export default async function SettingsForm() {
+  const userQuery = await api.userSettings.get('cfc7134f-59be-4bde-a76f-0692e8724ac6')
+  // const { t } = useTranslation();
+  // const { data, isLoading } = useSettingsQuery();
 
-  const defaultValues = useMemo<SettingsFormValues>(() => {
-    return {
-      language: data?.language ?? DEFAULT.language,
-      theme: data?.theme ?? DEFAULT.theme,
-    };
-  }, [data]);
+  // const defaultValues = useMemo<SettingsFormValues>(() => {
+  //   return {
+  //     language: data?.language ?? DEFAULT.language,
+  //     theme: data?.theme ?? DEFAULT.theme,
+  //   };
+  // }, [data]);
 
-  const form = useControlledForm<SettingsFormValues>({
-    schema: SETTINGS_FORM_SCHEMA,
-    defaultValues,
-  });
+  // const form = useControlledForm<SettingsFormValues>({
+  //   schema: SETTINGS_FORM_SCHEMA,
+  //   defaultValues,
+  // });
 
-  const {
-    mutate: updateSettings,
-    isError,
-    isPending,
-    error,
-  } = useUpdateSettingsMutation();
-  function onSubmit(data: SettingsFormValues) {
-    updateSettings(data);
-  }
+  // const {
+  //   mutate: updateSettings,
+  //   isError,
+  //   isPending,
+  //   error,
+  // } = useUpdateSettingsMutation();
+  // function onSubmit(data: SettingsFormValues) {
+  //   updateSettings(data);
+  // }
 
-  if (isLoading) return <Loader />;
+  // if (isLoading) return <Loader />;
 
   return (
     <>
-      <Form {...form}>
+      <div>
+        {userQuery?.language}
+      </div>
+        {userQuery?.theme}
+      {/* <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 grid">
           <FormField
             control={form.control}
@@ -188,8 +165,8 @@ export default function SettingsForm() {
             {t("settings.save.button")}
           </Button>
         </form>
-      </Form>
-      {isError && <ErrorAlert error={error} />}
+      </Form> */}
+      {/* {isError && <ErrorAlert error={error} />} */}
     </>
   );
 }
