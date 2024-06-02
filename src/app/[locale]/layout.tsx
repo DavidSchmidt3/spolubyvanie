@@ -1,3 +1,4 @@
+import SuppressLogs from "@/app/[locale]/_components/common/suppressLogs";
 import { MainNav } from "@/app/[locale]/_components/layouts/main-nav";
 import { UserNav } from "@/app/[locale]/_components/layouts/user-nav";
 import { cn } from "@/lib/utils";
@@ -36,6 +37,8 @@ export default function RootLayout({
             <MainNav className="mx-6" />
             <div className="ml-auto flex items-center space-x-4">
               <UserNav />
+              {/* // TODO: - delete when https://github.com/radix-ui/primitives/pull/2811 gets merged  */}
+              <SuppressLogs />
             </div>
           </div>
           {children}
