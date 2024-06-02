@@ -13,6 +13,7 @@ const withNextIntl = createNextIntlPlugin(
 const config = {
   experimental: {
     ppr: true,
+    reactCompiler: true,
   },
 };
 

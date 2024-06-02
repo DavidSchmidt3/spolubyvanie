@@ -4,7 +4,7 @@ module.exports = {
   parserOptions: {
     project: true,
   },
-  plugins: ["@typescript-eslint", "drizzle"],
+  plugins: ["@typescript-eslint", "eslint-plugin-react-compiler"],
   extends: [
     "@extropysk/eslint-config-react",
     "next/core-web-vitals",
@@ -13,7 +13,9 @@ module.exports = {
   ],
   rules: {
     "@typescript-eslint/array-type": "off",
+    "jsx-a11y/heading-has-content": "off",
     "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/no-redundant-type-constituents": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
