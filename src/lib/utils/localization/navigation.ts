@@ -2,7 +2,7 @@ import {
   createLocalizedPathnamesNavigation,
   type Pathnames,
 } from "next-intl/navigation";
-import { localePrefix, locales } from "./i18n";
+import { LOCALES, LOCALE_PREFIX } from "./i18n";
 
 export const pathnames = {
   "/": "/",
@@ -30,7 +30,7 @@ export const pathnames = {
   //   en: "/categories/[...slug]",
   //   sk: "/kategorien/[...slug]",
   // },
-} satisfies Pathnames<typeof locales>;
+} satisfies Pathnames<typeof LOCALES>;
 
 export const { Link, redirect, usePathname, useRouter, getPathname } =
-  createLocalizedPathnamesNavigation({ locales, localePrefix, pathnames });
+  createLocalizedPathnamesNavigation({ locales: LOCALES, localePrefix: LOCALE_PREFIX, pathnames });
