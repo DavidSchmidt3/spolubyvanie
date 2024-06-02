@@ -11,7 +11,7 @@ export async function login() {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: `${process.env.BASE_URL}/auth/callback`, //TODO: change to env URL
+      redirectTo: `${process.env.BASE_URL}/auth/callback`,
     },
   });
 

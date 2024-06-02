@@ -1,5 +1,6 @@
 import { Avatar } from "@/app/[locale]/_components/ui/avatar";
 import { Button } from "@/app/[locale]/_components/ui/button";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
