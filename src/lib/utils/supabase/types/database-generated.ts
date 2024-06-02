@@ -1,0 +1,554 @@
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[];
+
+export type Database = {
+  public: {
+    Tables: {
+      advertisements: {
+        Row: {
+          apartment_area: number | null;
+          available_from: string | null;
+          created_at: string;
+          deleted_at: string | null;
+          description: string;
+          district_id: string;
+          email: string | null;
+          floor: number | null;
+          id: string;
+          living_type: number | null;
+          max_age: number | null;
+          max_apartment_people: number | null;
+          max_floor: number | null;
+          max_room_people: number | null;
+          min_age: number | null;
+          municipality_id: string;
+          name: string;
+          phone_number: string | null;
+          price: number;
+          primary_photo_url: string | null;
+          region_id: string;
+          room_area: number | null;
+          street: string | null;
+          title: string;
+          type: number;
+          user_id: string;
+        };
+        Insert: {
+          apartment_area?: number | null;
+          available_from?: string | null;
+          created_at?: string;
+          deleted_at?: string | null;
+          description: string;
+          district_id: string;
+          email?: string | null;
+          floor?: number | null;
+          id?: string;
+          living_type?: number | null;
+          max_age?: number | null;
+          max_apartment_people?: number | null;
+          max_floor?: number | null;
+          max_room_people?: number | null;
+          min_age?: number | null;
+          municipality_id: string;
+          name: string;
+          phone_number?: string | null;
+          price: number;
+          primary_photo_url?: string | null;
+          region_id: string;
+          room_area?: number | null;
+          street?: string | null;
+          title: string;
+          type: number;
+          user_id: string;
+        };
+        Update: {
+          apartment_area?: number | null;
+          available_from?: string | null;
+          created_at?: string;
+          deleted_at?: string | null;
+          description?: string;
+          district_id?: string;
+          email?: string | null;
+          floor?: number | null;
+          id?: string;
+          living_type?: number | null;
+          max_age?: number | null;
+          max_apartment_people?: number | null;
+          max_floor?: number | null;
+          max_room_people?: number | null;
+          min_age?: number | null;
+          municipality_id?: string;
+          name?: string;
+          phone_number?: string | null;
+          price?: number;
+          primary_photo_url?: string | null;
+          region_id?: string;
+          room_area?: number | null;
+          street?: string | null;
+          title?: string;
+          type?: number;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "public_advertisements_district_id_fkey";
+            columns: ["district_id"];
+            isOneToOne: false;
+            referencedRelation: "districts";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_advertisements_municipality_id_fkey";
+            columns: ["municipality_id"];
+            isOneToOne: false;
+            referencedRelation: "municipalities";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_advertisements_region_id_fkey";
+            columns: ["region_id"];
+            isOneToOne: false;
+            referencedRelation: "regions";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_advertisements_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      advertisements_apartment_rooms: {
+        Row: {
+          advertisement_id: string;
+          apartment_room_id: string;
+          id: string;
+        };
+        Insert: {
+          advertisement_id?: string;
+          apartment_room_id?: string;
+          id?: string;
+        };
+        Update: {
+          advertisement_id?: string;
+          apartment_room_id?: string;
+          id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "public_advertisements_apartment_rooms_advertisement_id_fkey";
+            columns: ["advertisement_id"];
+            isOneToOne: false;
+            referencedRelation: "advertisements";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_advertisements_apartment_rooms_apartment_room_id_fkey";
+            columns: ["apartment_room_id"];
+            isOneToOne: false;
+            referencedRelation: "apartment_rooms";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      advertisements_home_equipments: {
+        Row: {
+          advertisement_id: string;
+          home_equipment_id: string;
+          id: string;
+        };
+        Insert: {
+          advertisement_id?: string;
+          home_equipment_id?: string;
+          id?: string;
+        };
+        Update: {
+          advertisement_id?: string;
+          home_equipment_id?: string;
+          id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "public_advertisements_home_equipments_advertisement_id_fkey";
+            columns: ["advertisement_id"];
+            isOneToOne: false;
+            referencedRelation: "advertisements";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_advertisements_home_equipments_home_equipment_id_fkey";
+            columns: ["home_equipment_id"];
+            isOneToOne: false;
+            referencedRelation: "home_equiqments";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      advertisements_photos: {
+        Row: {
+          advertisement_id: string;
+          id: string;
+          order: number;
+          url: string;
+        };
+        Insert: {
+          advertisement_id: string;
+          id?: string;
+          order: number;
+          url: string;
+        };
+        Update: {
+          advertisement_id?: string;
+          id?: string;
+          order?: number;
+          url?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "public_advertisements_photos_advertisement_id_fkey";
+            columns: ["advertisement_id"];
+            isOneToOne: false;
+            referencedRelation: "advertisements";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      advertisements_room_equipments: {
+        Row: {
+          advertisement_id: string | null;
+          id: string;
+        };
+        Insert: {
+          advertisement_id?: string | null;
+          id?: string;
+        };
+        Update: {
+          advertisement_id?: string | null;
+          id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "public_advertisements_room_equipments_advertisement_id_fkey";
+            columns: ["advertisement_id"];
+            isOneToOne: false;
+            referencedRelation: "advertisements";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      advertisements_roommate_types: {
+        Row: {
+          advertisement_id: string;
+          id: string;
+          roommate_type_id: string;
+        };
+        Insert: {
+          advertisement_id?: string;
+          id?: string;
+          roommate_type_id?: string;
+        };
+        Update: {
+          advertisement_id?: string;
+          id?: string;
+          roommate_type_id?: string;
+        };
+        Relationships: [];
+      };
+      advertisements_tenant_attributes: {
+        Row: {
+          en_translation: string;
+          id: string;
+          sk_translation: string;
+          translation_key: string;
+        };
+        Insert: {
+          en_translation: string;
+          id?: string;
+          sk_translation: string;
+          translation_key: string;
+        };
+        Update: {
+          en_translation?: string;
+          id?: string;
+          sk_translation?: string;
+          translation_key?: string;
+        };
+        Relationships: [];
+      };
+      apartment_rooms: {
+        Row: {
+          id: string;
+          number: number;
+        };
+        Insert: {
+          id?: string;
+          number: number;
+        };
+        Update: {
+          id?: string;
+          number?: number;
+        };
+        Relationships: [];
+      };
+      districts: {
+        Row: {
+          id: string;
+          name: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+        };
+        Relationships: [];
+      };
+      home_equiqments: {
+        Row: {
+          en_translation: string;
+          id: string;
+          sk_translation: string;
+          translation_key: string;
+        };
+        Insert: {
+          en_translation: string;
+          id?: string;
+          sk_translation: string;
+          translation_key: string;
+        };
+        Update: {
+          en_translation?: string;
+          id?: string;
+          sk_translation?: string;
+          translation_key?: string;
+        };
+        Relationships: [];
+      };
+      municipalities: {
+        Row: {
+          id: string;
+          name: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+        };
+        Relationships: [];
+      };
+      regions: {
+        Row: {
+          id: string;
+          name: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+        };
+        Relationships: [];
+      };
+      room_equipments: {
+        Row: {
+          advertisement_id: string;
+          id: string;
+          room_equipment_id: string;
+        };
+        Insert: {
+          advertisement_id?: string;
+          id?: string;
+          room_equipment_id?: string;
+        };
+        Update: {
+          advertisement_id?: string;
+          id?: string;
+          room_equipment_id?: string;
+        };
+        Relationships: [];
+      };
+      roommate_types: {
+        Row: {
+          en_translation: string;
+          id: string;
+          sk_translation: string;
+          translation_key: string;
+        };
+        Insert: {
+          en_translation: string;
+          id?: string;
+          sk_translation: string;
+          translation_key: string;
+        };
+        Update: {
+          en_translation?: string;
+          id?: string;
+          sk_translation?: string;
+          translation_key?: string;
+        };
+        Relationships: [];
+      };
+      tenant_attributes: {
+        Row: {
+          en_translation: string;
+          id: string;
+          sk_translation: string;
+          translation_key: string;
+        };
+        Insert: {
+          en_translation: string;
+          id?: string;
+          sk_translation: string;
+          translation_key: string;
+        };
+        Update: {
+          en_translation?: string;
+          id?: string;
+          sk_translation?: string;
+          translation_key?: string;
+        };
+        Relationships: [];
+      };
+      user_settings: {
+        Row: {
+          created_at: string;
+          id: number;
+          language: string;
+          theme: string;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          id?: number;
+          language: string;
+          theme: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: number;
+          language?: string;
+          theme?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "public_settings_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+    };
+    Views: {
+      [_ in never]: never;
+    };
+    Functions: {
+      [_ in never]: never;
+    };
+    Enums: {
+      [_ in never]: never;
+    };
+    CompositeTypes: {
+      [_ in never]: never;
+    };
+  };
+};
+
+type PublicSchema = Database[Extract<keyof Database, "public">];
+
+export type Tables<
+  PublicTableNameOrOptions extends
+    | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+        Database[PublicTableNameOrOptions["schema"]]["Views"])
+    : never = never
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+      Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+      Row: infer R;
+    }
+    ? R
+    : never
+  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] &
+      PublicSchema["Views"])
+  ? (PublicSchema["Tables"] &
+      PublicSchema["Views"])[PublicTableNameOrOptions] extends {
+      Row: infer R;
+    }
+    ? R
+    : never
+  : never;
+
+export type TablesInsert<
+  PublicTableNameOrOptions extends
+    | keyof PublicSchema["Tables"]
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+    : never = never
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Insert: infer I;
+    }
+    ? I
+    : never
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+  ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+      Insert: infer I;
+    }
+    ? I
+    : never
+  : never;
+
+export type TablesUpdate<
+  PublicTableNameOrOptions extends
+    | keyof PublicSchema["Tables"]
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+    : never = never
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Update: infer U;
+    }
+    ? U
+    : never
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+  ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+      Update: infer U;
+    }
+    ? U
+    : never
+  : never;
+
+export type Enums<
+  PublicEnumNameOrOptions extends
+    | keyof PublicSchema["Enums"]
+    | { schema: keyof Database },
+  EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
+    : never = never
+> = PublicEnumNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
+  ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+  : never;
