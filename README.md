@@ -2,28 +2,21 @@
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
-## What's next? How do I make an app with this?
+## Technologies used
+I have modified the original template to include the following technologies:
+- [Next.js](https://nextjs.org/) - Using latest version - Next.js 15 RC including React 19 utilizing React compiler for best performance
+- [trpc](https://trpc.io/) - For type-safe server side API calls
+- [supabase](https://supabase.io/) - Used as postgres database, authentication layer 
+- [shadcn](https://ui.shadcn.com/) - Beautifully styled and highly customizable components
+- [tailwindcss](https://tailwindcss.com/) - For styling
+- [react-query](https://react-query.tanstack.com/) - For client side data fetching and mutation
+- [zod](https://zod.dev/) - For schema validation
+- [react-hook-form](https://react-hook-form.com/) - For form handling
+- [next-intl](https://next-intl-docs.vercel.app/) - For internationalization
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Main philosophy
+I wanted to create a project showcasing my skills using latest and one of the greatest technologies in react ecosystem. I have tried to follow all the best practices, code it as clean as possible.
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
-
-## Learn More
-
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
-
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
-
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
-
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+## Other
+All the pages are fully responsive up to 320 px width following the WCAG spec. 
