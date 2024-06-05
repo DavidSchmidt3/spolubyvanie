@@ -14,6 +14,7 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
       enableSystem
       disableTransitionOnChange
       defaultTheme="system"
+      // storageKey="" TODO: after known domain, add theme.domain as storage key
       {...props}
     >
       {children}
