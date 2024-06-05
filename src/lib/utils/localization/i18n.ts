@@ -1,14 +1,18 @@
 import { IntlErrorCode } from "next-intl";
-import { type Pathnames } from "next-intl/navigation";
 import { getRequestConfig } from "next-intl/server";
 import { notFound } from "next/navigation";
 
-export const LOCALES = ["sk", "en"] as const;
+export const LOCALES = [
+  { code: "sk", name: "Slovenčina" },
+  { code: "en", name: "English" },
+] as const;
+export const LOCALES_CODES = LOCALES.map((locale) => locale.code);
 export const DEFAULT_LOCALE = "sk";
 export const LOCALE_PREFIX = "always";
+export type Language = (typeof LOCALES)[number]["code"];
 
 export default getRequestConfig(async ({ locale }) => {
-  if (!LOCALES.includes(locale as (typeof LOCALES)[number])) notFound();
+  if (!LOCALES.some((l) => l.code === locale)) notFound();
 
   return {
     messages: (await import(`./${locale}/translation.json`)).default,
@@ -55,4 +59,4 @@ export const pathnames = {
   //   en: "/categories/[...slug]",
   //   sk: "/kategorien/[...slug]",
   // },
-} satisfies Pathnames<typeof LOCALES>;
+};

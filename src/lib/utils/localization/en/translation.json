@@ -1,7 +1,39 @@
 {
+  "navigation": {
+    "home": {
+      "label": "Home"
+    },
+    "login": {
+      "label": "Login"
+    },
+    "settings": {
+      "label": "Settings"
+    }
+  },
   "common": {
-    "home": "Home",
-    "settings": "Settings",
-    "login": "Login"
+    "error": {
+      "label": "Error"
+    },
+    "loading": {
+      "label": "Loading"
+    }
+  },
+  "settings": {
+    "language": {
+      "label": "Language",
+      "select_prompt": "Select a language"
+    },
+    "theme": {
+      "label": "Theme",
+      "light": {
+        "label": "Light"
+      },
+      "dark": {
+        "label": "Dark"
+      }
+    },
+    "save": {
+      "button": "Save"
+    }
   }
 }

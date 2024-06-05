@@ -1,7 +1,39 @@
 {
+  "navigation": {
+    "home": {
+      "label": "Domov"
+    },
+    "login": {
+      "label": "Prihlásenie"
+    },
+    "settings": {
+      "label": "Nastavenie"
+    }
+  },
   "common": {
-    "home": "Domov",
-    "settings": "Nastavenia",
-    "login": "Prihlásiť sa"
+    "error": {
+      "label": "Chyba"
+    },
+    "loading": {
+      "label": "Načítavanie"
+    }
+  },
+  "settings": {
+    "language": {
+      "label": "Jazyk",
+      "select_prompt": "Vybrať jazyk"
+    },
+    "theme": {
+      "label": "Téma",
+      "light": {
+        "label": "Svetlá"
+      },
+      "dark": {
+        "label": "Tmavá"
+      }
+    },
+    "save": {
+      "button": "Uložiť"
+    }
   }
 }
