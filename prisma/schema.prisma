@@ -280,7 +280,7 @@ model users {
   one_time_tokens             one_time_tokens[]
   sessions                    sessions[]
   advertisements              advertisements[]
-  user_settings               user_settings[]
+  user_settings               user_settings?
 
   @@index([instance_id])
   @@index([is_anonymous])
@@ -466,12 +466,11 @@ model tenant_attributes {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model user_settings {
-  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  user_id    String   @db.Uuid
+  id         String   @id @db.Uuid
   language   String   @db.VarChar
   theme      String   @db.VarChar
   created_at DateTime @default(now()) @db.Timestamptz(6)
-  users      users    @relation(fields: [user_id], references: [id], onDelete: NoAction, map: "public_settings_user_id_fkey")
+  users      users    @relation(fields: [id], references: [id], onDelete: NoAction)
 
   @@schema("public")
 }
