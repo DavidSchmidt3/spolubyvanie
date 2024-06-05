@@ -44,7 +44,7 @@
     "postgres": "^3.4.3",
     "react": "rc",
     "react-dom": "rc",
-    "react-hook-form": "^7.51.2",
+    "react-hook-form": "^7.51.5",
     "server-only": "^0.0.1",
     "superjson": "^2.2.1",
     "tailwind-merge": "^2.2.2",
