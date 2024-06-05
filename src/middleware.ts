@@ -1,7 +1,7 @@
 import {
   DEFAULT_LOCALE,
   LOCALE_PREFIX,
-  LOCALES,
+  LOCALES_CODES,
   pathnames,
 } from "@/lib/utils/localization/i18n";
 import { updateSession } from "@/lib/utils/supabase/middleware";
@@ -10,7 +10,7 @@ import { type NextRequest } from "next/server";
 
 const localizationMiddleWare = createMiddleware({
   defaultLocale: DEFAULT_LOCALE,
-  locales: LOCALES,
+  locales: LOCALES_CODES,
   localePrefix: LOCALE_PREFIX,
   pathnames,
 });
