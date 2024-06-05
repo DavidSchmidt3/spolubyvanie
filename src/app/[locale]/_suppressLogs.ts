@@ -1,9 +1,12 @@
-// TODO: - delete when https://github.com/radix-ui/primitives/pull/2811 gets merged
+// TODO: - delete when https://github.com/radix-ui/primitives/pull/2934 gets merged
 const prevConsoleError = console.error;
 const prevConsoleWarn = console.warn;
 
 console.error = (...args) => {
-  if (args[0].includes("Warning: Accessing element.ref")) {
+  if (
+    typeof args[0] === "string" &&
+    args[0]?.includes("Warning: Accessing element.ref")
+  ) {
     return;
   }
 
@@ -11,7 +14,10 @@ console.error = (...args) => {
 };
 
 console.warn = (...args) => {
-  if (args[0].includes("Warning: Accessing element.ref")) {
+  if (
+    typeof args[0] === "string" &&
+    args[0]?.includes("Warning: Accessing element.ref")
+  ) {
     return;
   }
 
