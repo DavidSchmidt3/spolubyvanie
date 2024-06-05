@@ -61,6 +61,8 @@ type Props = {
 };
 
 export default function SettingsForm({ userQuery }: Props) {
+  // TODO: remove after this is fixed: https://github.com/react-hook-form/react-hook-form/issues/11910
+  "use no memo";
   const t = useTranslations();
   const { data, isLoading } = useSettingsQuery();
 
