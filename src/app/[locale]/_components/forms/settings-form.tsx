@@ -199,7 +199,13 @@ export default function SettingsForm({ userQuery }: Props) {
               </FormItem>
             )}
           />
-          <Button type="submit" disabled={isPending}>
+          <Button
+            type="submit"
+            disabled={isPending}
+            variant="expandIcon"
+            Icon={<Icons.save className="w-4 h-4 mr-2" />}
+            iconPlacement="right"
+          >
             {isPending && (
               <Icons.spinner className="w-4 h-4 mr-2 animate-spin p" />
             )}
