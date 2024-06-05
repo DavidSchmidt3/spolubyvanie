@@ -13,7 +13,8 @@ I have modified the original template to include the following technologies:
 - [zod](https://zod.dev/) - For schema validation
 - [react-hook-form](https://react-hook-form.com/) - For form handling
 - [next-intl](https://next-intl-docs.vercel.app/) - For internationalization
-
+- [bun](https://bun.sh/) - For package management
+- [next-themes](https://github.com/pacocoursey/next-themes) - For theme switching support
 
 ## Main philosophy
 I wanted to create a project showcasing my skills using latest and one of the greatest technologies in react ecosystem. I have tried to follow all the best practices, code it as clean as possible.
