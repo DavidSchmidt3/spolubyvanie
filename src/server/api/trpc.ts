@@ -10,6 +10,7 @@ import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
+import { createClient } from "@/lib/utils/supabase/server";
 import { db } from "@/server/db";
 
 /**
@@ -25,8 +26,10 @@ import { db } from "@/server/db";
  * @see https://trpc.io/docs/server/context
  */
 export const createTRPCContext = async (opts: { headers: Headers }) => {
+  const supabase = createClient();
   return {
     db,
+    supabase,
     ...opts,
   };
 };

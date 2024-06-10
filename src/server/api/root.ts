@@ -1,6 +1,7 @@
 import { userSettingsRouter } from "@/server/api/routers/user_settings";
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
 import { type inferRouterInputs, type inferRouterOutputs } from "@trpc/server";
+import { userRouter } from "./routers/user";
 
 /**
  * This is the primary router for your server.
@@ -9,6 +10,7 @@ import { type inferRouterInputs, type inferRouterOutputs } from "@trpc/server";
  */
 export const appRouter = createTRPCRouter({
   userSettings: userSettingsRouter,
+  user: userRouter,
 });
 
 // export type definition of API
