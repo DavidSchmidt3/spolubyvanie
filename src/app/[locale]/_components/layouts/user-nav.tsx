@@ -4,7 +4,6 @@ import { Button } from "@/app/[locale]/_components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -18,8 +17,8 @@ export function UserNav() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-          <Avatar className="h-8 w-8 text-muted-foreground">
+        <Button variant="ghost" className="relative w-8 h-8 rounded-full">
+          <Avatar className="w-8 h-8 text-muted-foreground">
             <Icons.avatar className="w-8 h-8" />
           </Avatar>
         </Button>
@@ -34,11 +33,10 @@ export function UserNav() {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>daco</DropdownMenuItem>
-        </DropdownMenuGroup>
         <DropdownMenuItem>
-          <Link href="/settings">Settings</Link>
+          <Link href="/settings" className="w-full">
+            Settings
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
           <Link href="/login">Login</Link>

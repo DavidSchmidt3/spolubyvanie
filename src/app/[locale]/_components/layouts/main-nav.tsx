@@ -17,10 +17,6 @@ export function MainNav({
       {...props}
     >
       <Link href="/">{t("home.label")}</Link>
-      <div className="hidden sm:block space-x-8">
-        <Link href="/settings">{t("settings.label")}</Link>
-        <Link href="/login">{t("login.label")}</Link>
-      </div>
     </nav>
   );
 }
