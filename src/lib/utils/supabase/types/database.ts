@@ -11,16 +11,16 @@ export type Database = MergeDeep<
       Tables: {
         user_settings: {
           Row: {
-            theme: Theme | null;
-            language: Language | null;
+            theme: Theme;
+            language: Language;
           };
           Insert: {
-            theme?: Theme | null;
-            language?: Language | null;
+            theme?: Theme;
+            language?: Language;
           };
           Update: {
-            theme?: Theme | null;
-            language?: Language | null;
+            theme?: Theme;
+            language?: Language;
           };
         };
       };
