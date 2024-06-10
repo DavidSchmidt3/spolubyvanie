@@ -48,6 +48,11 @@ export const pathnames = {
     sk: "/prihlasenie",
   },
 
+  "/error": {
+    en: "/error",
+    sk: "/chyba",
+  },
+
   // Dynamic params are supported via square brackets
   // "/news/[articleSlug]-[articleId]": {
   //   en: "/news/[articleSlug]-[articleId]",
