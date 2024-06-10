@@ -1,13 +1,17 @@
 "use client";
 
+import ThemeInitializer from "@/app/[locale]/_components/theme-initializer";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { type ThemeProviderProps } from "next-themes/dist/types";
 
-export type Theme = "dark" | "light" | "system";
 export const THEMES = ["dark", "light", "system"] as const;
+export type Theme = (typeof THEMES)[number];
 export const DEFAULT_THEME: Theme = "dark";
 
-export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
+type Props = {
+  children: React.ReactNode;
+};
+
+export function ThemeProvider({ children }: Props) {
   return (
     <NextThemesProvider
       attribute="class"
@@ -15,8 +19,8 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
       disableTransitionOnChange
       defaultTheme="system"
       // storageKey="" TODO: after known domain, add theme.domain as storage key
-      {...props}
     >
+      <ThemeInitializer />
       {children}
     </NextThemesProvider>
   );
