@@ -1,9 +1,8 @@
 "use client";
-import ErrorAlert from "@/app/[locale]/_components/common/alerts/error";
-import Loader from "@/app/[locale]/_components/common/loader";
+import { ErrorAlert } from "@/app/[locale]/_components/common/alerts/error";
 import {
   DEFAULT_THEME,
-  THEMES,
+  type Theme,
 } from "@/app/[locale]/_components/theme-provider";
 import { Button } from "@/app/[locale]/_components/ui/button";
 import {
@@ -29,24 +28,25 @@ import {
   SelectValue,
 } from "@/app/[locale]/_components/ui/select";
 import { useControlledForm } from "@/hooks/form";
-import { useSettingsQuery, useUpdateSettingsMutation } from "@/hooks/settings";
+import { useUpdateSettingsMutation } from "@/hooks/settings";
 import {
   DEFAULT_LOCALE,
   LOCALES,
   type Language,
 } from "@/lib/utils/localization/i18n";
+import { usePathname, useRouter } from "@/lib/utils/localization/navigation";
+import { type User } from "@/server/api/routers/user";
 import { type UserSettings } from "@/server/api/routers/user_settings";
 import { useTranslations } from "next-intl";
-import { useMemo } from "react";
+import { useTheme } from "next-themes";
+import { useParams } from "next/navigation";
+import { startTransition, useEffect, useMemo } from "react";
 import * as z from "zod";
+import { useToast } from "../ui/use-toast";
 
 const SETTINGS_FORM_SCHEMA = z.object({
-  theme: z.enum(THEMES, {
-    required_error: "settings.theme.validation.required",
-  }),
-  language: z.enum(LOCALES.map((language) => language.code) as [Language], {
-    required_error: "settings.language.validation.required",
-  }),
+  theme: z.custom<Theme>(),
+  language: z.custom<Language>(),
 });
 
 const DEFAULT: SettingsFormValues = {
@@ -57,50 +57,82 @@ const DEFAULT: SettingsFormValues = {
 export type SettingsFormValues = z.infer<typeof SETTINGS_FORM_SCHEMA>;
 
 type Props = {
-  userQuery: UserSettings;
+  userSettings: UserSettings | null;
+  user: User | null;
 };
 
-export default function SettingsForm({ userQuery }: Props) {
+export default function SettingsForm({ userSettings, user }: Props) {
   // TODO: remove after this is fixed: https://github.com/react-hook-form/react-hook-form/issues/11910
   "use no memo";
   const t = useTranslations();
-  const { data, isLoading } = useSettingsQuery();
+  const { toast } = useToast();
+  const router = useRouter();
+  const pathname = usePathname();
+  const { setTheme, theme } = useTheme();
+  const params = useParams();
 
   const defaultValues = useMemo<SettingsFormValues>(() => {
     return {
-      language: data?.language ?? DEFAULT.language,
-      theme: data?.theme ?? DEFAULT.theme,
+      language:
+        userSettings?.language ??
+        (params.locale as Language) ??
+        DEFAULT.language,
+      theme: userSettings?.theme ?? (theme as Theme) ?? DEFAULT.theme,
     };
-  }, [data]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- we want to initialize only once after load, userData will be fetched on the server and available here if user has any
+  }, []);
 
   const form = useControlledForm<SettingsFormValues>({
     schema: SETTINGS_FORM_SCHEMA,
     defaultValues,
   });
 
-  // console.log(data, defaultValues, form.getValues());
-
   const {
-    mutate: updateSettings,
+    mutateAsync: saveSettings,
     isError,
     isPending,
     error,
+    isSuccess,
   } = useUpdateSettingsMutation();
 
-  function onSubmit(data: SettingsFormValues) {
-    updateSettings(data);
+  async function onSubmit(data: SettingsFormValues) {
+    // call RPC only when user is authenticated so we can save settings
+    if (user) {
+      await saveSettings(data);
+    } else {
+      updateSettings();
+    }
   }
 
-  if (isLoading) return <Loader />;
+  function updateSettings() {
+    toast({
+      title: t("settings.save.success.title"),
+      variant: "success",
+    });
+    setTheme(form.getValues().theme);
+    startTransition(() => {
+      router.replace(
+        // @ts-expect-error -- same as above
+        { pathname, params },
+        { locale: form.getValues().language }
+      );
+    });
+  }
+
+  useEffect(() => {
+    if (isSuccess) {
+      updateSettings();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess]);
 
   return (
-    <div className="px-4 sm:px-8 py-4 sm:py-8 w-full sm:w-auto sm:justify-center sm:flex sm:flex-col items-center">
-      <div>{userQuery?.language}</div>
-      {userQuery?.theme}
+    <div className="items-center w-full px-4 py-4 sm:px-8 sm:py-8 sm:w-auto sm:justify-center sm:flex sm:flex-col">
+      <h1 className="text-3xl">{t("settings.title")}</h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="grid space-y-3 sm:w-96 md:w-[40rem]"
+          className="grid space-y-3 sm:w-96 md:w-[40rem] mt-3"
         >
           <FormField
             control={form.control}
@@ -148,7 +180,7 @@ export default function SettingsForm({ userQuery }: Props) {
                       <FormControl>
                         <RadioGroupItem value="light" className="sr-only" />
                       </FormControl>
-                      <div className="items-center p-1 border-2 rounded-md border-muted hover:border-accent">
+                      <div className="items-center p-1 border-2 rounded-md border-muted hover:border-accent hover:cursor-pointer">
                         <div className="space-y-2 rounded-sm bg-[#ecedef] p-2">
                           <div className="p-2 space-y-2 bg-white rounded-md shadow-sm">
                             <div className="h-2 w-[80px] rounded-lg bg-[#ecedef]" />
@@ -174,7 +206,7 @@ export default function SettingsForm({ userQuery }: Props) {
                       <FormControl>
                         <RadioGroupItem value="dark" className="sr-only" />
                       </FormControl>
-                      <div className="items-center p-1 border-2 rounded-md border-muted bg-popover hover:bg-accent hover:text-accent-foreground">
+                      <div className="items-center p-1 border-2 rounded-md border-muted bg-popover hover:bg-accent hover:text-accent-foreground hover:cursor-pointer">
                         <div className="p-2 space-y-2 rounded-sm bg-slate-950">
                           <div className="p-2 space-y-2 rounded-md shadow-sm bg-slate-800">
                             <div className="h-2 w-[80px] rounded-lg bg-slate-400" />
@@ -199,13 +231,7 @@ export default function SettingsForm({ userQuery }: Props) {
               </FormItem>
             )}
           />
-          <Button
-            type="submit"
-            disabled={isPending}
-            variant="expandIcon"
-            Icon={<Icons.save className="w-4 h-4 mr-2" />}
-            iconPlacement="right"
-          >
+          <Button type="submit" disabled={isPending} variant="ringHover">
             {isPending && (
               <Icons.spinner className="w-4 h-4 mr-2 animate-spin p" />
             )}
