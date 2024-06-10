@@ -6,15 +6,18 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 
 export default async function SettingsPage() {
-  const messages = await getMessages();
-  const userQuery = await api.userSettings.get(
-    "cfc7134f-59be-4bde-a76f-0692e8724ac6"
-  );
+  const [messages, userSettings, user] = await Promise.all([
+    getMessages(),
+    api.userSettings.get(),
+    api.user.get(),
+  ]);
 
   return (
-    <NextIntlClientProvider messages={pick(messages, ["common", "settings"])}>
+    <NextIntlClientProvider
+      messages={pick(messages, ["common", "settings", "errors"])}
+    >
       <Container>
-        <SettingsForm userQuery={userQuery} />
+        <SettingsForm userSettings={userSettings} user={user} />
       </Container>
     </NextIntlClientProvider>
   );
