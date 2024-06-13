@@ -1,11 +1,8 @@
 "use client";
 
 import ThemeInitializer from "@/app/[locale]/_components/theme-initializer";
+import { DEFAULT_THEME } from "@/lib/utils/theme/config";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
-
-export const THEMES = ["dark", "light", "system"] as const;
-export type Theme = (typeof THEMES)[number];
-export const DEFAULT_THEME: Theme = "dark";
 
 type Props = {
   children: React.ReactNode;
@@ -17,7 +14,7 @@ export function ThemeProvider({ children }: Props) {
       attribute="class"
       enableSystem
       disableTransitionOnChange
-      defaultTheme="system"
+      defaultTheme={DEFAULT_THEME}
       // storageKey="" TODO: after known domain, add theme.domain as storage key
     >
       <ThemeInitializer />
