@@ -5,12 +5,10 @@ import {
   AlertTitle,
 } from "@/app/[locale]/_components/ui/alert";
 import { cn } from "@/lib/utils";
-import { type AppRouter } from "@/server/api/root";
-import { type TRPCClientErrorLike } from "@trpc/client";
 import { useTranslations } from "next-intl";
 
 interface Props {
-  error: Error | TRPCClientErrorLike<AppRouter>;
+  error: Error;
   className?: string;
 }
 
@@ -18,13 +16,15 @@ interface Props {
 // fix would be to not mark as client component, however that triggers next.js error that error components must be client components
 export const ErrorAlert = (props: Props) => {
   const t = useTranslations();
+  // TODO: fix translations
 
   return (
     <Alert variant="destructive" className={cn("mt-2", props.className)}>
       <AlertTitle>{t("common.error.label")}</AlertTitle>
       {!(props.error instanceof Error) ? (
         <AlertDescription>
-          {t(`errors.${props.error.data?.code}`)}
+          {/* TODO: fix error type */}
+          {/* {t(`errors.${props.error.data?.code}`)} */}
         </AlertDescription>
       ) : null}
     </Alert>
