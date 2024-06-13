@@ -1,9 +1,4 @@
 "use client";
-import { ErrorAlert } from "@/app/[locale]/_components/common/alerts/error";
-import {
-  DEFAULT_THEME,
-  type Theme,
-} from "@/app/[locale]/_components/theme-provider";
 import { Button } from "@/app/[locale]/_components/ui/button";
 import {
   Form,
@@ -27,27 +22,24 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/app/[locale]/_components/ui/select";
+import { useToast } from "@/app/[locale]/_components/ui/use-toast";
 import { useControlledForm } from "@/hooks/form";
-import { useUpdateSettingsMutation } from "@/hooks/settings";
+import { saveSettings } from "@/lib/utils/data/actions/settings";
+import { SETTINGS_FORM_SCHEMA } from "@/lib/utils/data/actions/settings/schema";
+import { type UserSettings } from "@/lib/utils/data/settings";
+import { type User } from "@/lib/utils/data/user";
 import {
   DEFAULT_LOCALE,
   LOCALES,
   type Language,
 } from "@/lib/utils/localization/i18n";
 import { usePathname, useRouter } from "@/lib/utils/localization/navigation";
-import { type User } from "@/server/api/routers/user";
-import { type UserSettings } from "@/server/api/routers/user_settings";
+import { DEFAULT_THEME, type Theme } from "@/lib/utils/theme/config";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { useParams } from "next/navigation";
-import { startTransition, useEffect, useMemo } from "react";
-import * as z from "zod";
-import { useToast } from "../ui/use-toast";
-
-const SETTINGS_FORM_SCHEMA = z.object({
-  theme: z.custom<Theme>(),
-  language: z.custom<Language>(),
-});
+import { startTransition, useMemo } from "react";
+import type * as z from "zod";
 
 const DEFAULT: SettingsFormValues = {
   theme: DEFAULT_THEME,
@@ -58,13 +50,13 @@ export type SettingsFormValues = z.infer<typeof SETTINGS_FORM_SCHEMA>;
 
 type Props = {
   userSettings: UserSettings | null;
-  user: User | null;
+  user: User;
 };
 
 export default function SettingsForm({ userSettings, user }: Props) {
   // TODO: remove after this is fixed: https://github.com/react-hook-form/react-hook-form/issues/11910
   "use no memo";
-  const t = useTranslations();
+  const t = useTranslations("translation.settings");
   const { toast } = useToast();
   const router = useRouter();
   const pathname = usePathname();
@@ -87,18 +79,20 @@ export default function SettingsForm({ userSettings, user }: Props) {
     defaultValues,
   });
 
-  const {
-    mutateAsync: saveSettings,
-    isError,
-    isPending,
-    error,
-    isSuccess,
-  } = useUpdateSettingsMutation();
-
   async function onSubmit(data: SettingsFormValues) {
     // call RPC only when user is authenticated so we can save settings
     if (user) {
-      await saveSettings(data);
+      const response = await saveSettings(data);
+      if (response.isError) {
+        console.log(response.error);
+        toast({
+          title: "alerts.settings.save.error.title",
+          description: response.error,
+          variant: "destructive",
+        });
+      } else {
+        updateSettings();
+      }
     } else {
       updateSettings();
     }
@@ -106,7 +100,7 @@ export default function SettingsForm({ userSettings, user }: Props) {
 
   function updateSettings() {
     toast({
-      title: t("settings.save.success.title"),
+      title: "alerts.settings.save.success.title",
       variant: "success",
     });
     setTheme(form.getValues().theme);
@@ -119,38 +113,31 @@ export default function SettingsForm({ userSettings, user }: Props) {
     });
   }
 
-  useEffect(() => {
-    if (isSuccess) {
-      updateSettings();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess]);
+  const isPending = form.formState.isSubmitting;
 
   return (
     <div className="items-center w-full px-4 py-4 sm:px-8 sm:py-8 sm:w-auto sm:justify-center sm:flex sm:flex-col">
-      <h1 className="text-3xl">{t("settings.title")}</h1>
+      <h1 className="text-3xl">{t("title")}</h1>
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
           className="grid space-y-3 sm:w-96 md:w-[40rem] mt-3"
+          onSubmit={form.handleSubmit(onSubmit)}
         >
           <FormField
             control={form.control}
             name="language"
             render={({ field }) => (
               <FormItem className="space-y-1">
-                <FormLabel>{t("settings.language.label")}</FormLabel>
+                <FormLabel>{t("language.label")}</FormLabel>
                 <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue
-                        placeholder={t("settings.language.select_prompt")}
-                      />
+                      <SelectValue placeholder={t("language.select_prompt")} />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
                     <SelectGroup>
-                      <SelectLabel>{t("settings.language.label")}</SelectLabel>
+                      <SelectLabel>{t("language.label")}</SelectLabel>
                       {LOCALES.map((language) => (
                         <SelectItem key={language.code} value={language.code}>
                           {language.name}
@@ -168,7 +155,7 @@ export default function SettingsForm({ userSettings, user }: Props) {
             name="theme"
             render={({ field }) => (
               <FormItem className="space-y-1">
-                <FormLabel>{t("settings.theme.label")}</FormLabel>
+                <FormLabel>{t("theme.label")}</FormLabel>
                 <FormMessage />
                 <RadioGroup
                   onValueChange={field.onChange}
@@ -197,7 +184,7 @@ export default function SettingsForm({ userSettings, user }: Props) {
                         </div>
                       </div>
                       <span className="block w-full p-2 font-normal text-center">
-                        {t("settings.theme.light.label")}
+                        {t("theme.light.label")}
                       </span>
                     </FormLabel>
                   </FormItem>
@@ -223,7 +210,7 @@ export default function SettingsForm({ userSettings, user }: Props) {
                         </div>
                       </div>
                       <span className="block w-full p-2 font-normal text-center">
-                        {t("settings.theme.dark.label")}
+                        {t("theme.dark.label")}
                       </span>
                     </FormLabel>
                   </FormItem>
@@ -231,17 +218,17 @@ export default function SettingsForm({ userSettings, user }: Props) {
               </FormItem>
             )}
           />
-          <Button type="submit" disabled={isPending} variant="ringHover">
+          <Button type="submit" variant="ringHover" disabled={isPending}>
             {isPending && (
               <Icons.spinner className="w-4 h-4 mr-2 animate-spin p" />
             )}
-            {t("settings.save.button")}
+            {t("save.button")}
           </Button>
         </form>
       </Form>
-      {isError && (
+      {/* {isError && (
         <ErrorAlert error={error} className="w-full sm:w-96 md:w-[40rem]" />
-      )}
+      )} */}
     </div>
   );
 }
