@@ -1,0 +1,27 @@
+{
+  "alerts": {
+    "settings": {
+      "language": {
+        "validation": {
+          "required": "Prosím vyberte jazyk"
+        }
+      },
+      "theme": {
+        "validation": {
+          "required": "Prosím vyberte tému"
+        }
+      },
+      "save": {
+        "success": {
+          "title": "Nastavenia boli úspešne uložené"
+        },
+        "error": {
+          "title": "Nastavenia sa nepodarilo uložiť"
+        }
+      }
+    },
+    "errors": {
+      "unauthenicated": "Prosím prihláste sa pre pokračovanie"
+    }
+  }
+}

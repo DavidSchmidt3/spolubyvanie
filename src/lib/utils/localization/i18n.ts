@@ -15,7 +15,10 @@ export default getRequestConfig(async ({ locale }) => {
   if (!LOCALES.some((l) => l.code === locale)) notFound();
 
   return {
-    messages: (await import(`./${locale}/translation.json`)).default,
+    messages: {
+      ...(await import(`./${locale}/alerts.json`)).default,
+      ...(await import(`./${locale}/translation.json`)).default,
+    },
     onError(error) {
       if (error.code === IntlErrorCode.MISSING_MESSAGE) {
         // TODO: log to grafana

@@ -1,0 +1,27 @@
+{
+  "alerts": {
+    "settings": {
+      "language": {
+        "validation": {
+          "required": "Language is required"
+        }
+      },
+      "theme": {
+        "validation": {
+          "required": "Theme is required"
+        }
+      },
+      "save": {
+        "success": {
+          "title": "Settings saved successfully"
+        },
+        "error": {
+          "title": "Failed to save settings"
+        }
+      }
+    },
+    "errors": {
+      "unauthenicated": "Please login to continue"
+    }
+  }
+}
