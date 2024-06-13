@@ -11,9 +11,14 @@ import {
 } from "@/app/[locale]/_components/ui/dropdown-menu";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { logout } from "@/app/[locale]/login/actions";
+import { getUser } from "@/lib/utils/data/user";
 import { Link } from "@/lib/utils/localization/navigation";
+import { getTranslations } from "next-intl/server";
 
-export function UserNav() {
+export default async function UserNav() {
+  const t = await getTranslations("translation");
+  const user = await getUser();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -26,32 +31,29 @@ export function UserNav() {
       <DropdownMenuContent className="" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">meno</p>
             <p className="text-xs leading-none text-muted-foreground">
-              {/* {user?.email} */} email
+              {user?.email}
             </p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <Link href="/settings" className="w-full">
-            Settings
+            {t("settings.title")}
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Link href="/login">Login</Link>
+          <Link href="/login">{t("login.button")}</Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <form>
-            <Button
-              variant="ghost"
-              className="w-full"
-              type="submit"
-              formAction={logout}
-            >
-              Logout
-            </Button>
-          </form>
+          <Button
+            variant="ghost"
+            className="w-full p-0 hover:bg-popover text-left justify-start h-6"
+            type="submit"
+            onClick={logout}
+          >
+            {t("logout.button")}
+          </Button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
