@@ -1,12 +1,14 @@
 import SuppressLogs from "@/app/[locale]/_components/common/suppress-logs";
 import { MainNav } from "@/app/[locale]/_components/layouts/main-nav";
-import { UserNav } from "@/app/[locale]/_components/layouts/user-nav";
+import UserNav from "@/app/[locale]/_components/layouts/user-nav";
 import { ThemeProvider } from "@/app/[locale]/_components/theme-provider";
 import { Toaster } from "@/app/[locale]/_components/ui/toaster";
 import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
-import { TRPCReactProvider } from "@/trpc/react";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 import { Inter } from "next/font/google";
+import { Suspense } from "react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -19,13 +21,15 @@ export const metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params: { locale },
 }: {
   children: React.ReactNode;
   params: { locale: string };
 }) {
+  const messages = await getMessages();
+  // TODO: pick only error messages
   return (
     <html lang={locale} suppressHydrationWarning>
       <body
@@ -34,12 +38,14 @@ export default function RootLayout({
           inter.variable
         )}
       >
-        <TRPCReactProvider>
+        <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
             <div className="sticky top-0 z-20 flex items-center w-full px-4 py-4 border-b min bg-background min-h-20">
               <MainNav className="mx-6" />
               <div className="flex items-center ml-auto space-x-4">
-                <UserNav />
+                <Suspense>
+                  <UserNav />
+                </Suspense>
                 {/* // TODO: - delete when https://github.com/radix-ui/primitives/pull/2811 gets merged  */}
                 <SuppressLogs />
                 <Toaster />
@@ -47,7 +53,7 @@ export default function RootLayout({
             </div>
             {children}
           </ThemeProvider>
-        </TRPCReactProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
