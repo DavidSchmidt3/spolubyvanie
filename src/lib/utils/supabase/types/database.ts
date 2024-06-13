@@ -1,5 +1,5 @@
-import { type Theme } from "@/app/[locale]/_components/theme-provider";
 import { type Language } from "@/lib/utils/localization/i18n";
+import { type Theme } from "@/lib/utils/theme/config";
 import { type MergeDeep } from "type-fest";
 import { type Database as DatabaseGenerated } from "./database-generated";
 export type { Json, Tables } from "./database-generated";
