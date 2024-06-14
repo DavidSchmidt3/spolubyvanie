@@ -1,7 +1,8 @@
 import SuppressLogs from "@/app/[locale]/_components/common/suppress-logs";
 import { MainNav } from "@/app/[locale]/_components/layouts/main-nav";
 import UserNav from "@/app/[locale]/_components/layouts/user-nav";
-import { ThemeProvider } from "@/app/[locale]/_components/theme-provider";
+import ThemeLocaleInitializer from "@/app/[locale]/_components/theme-locale-utils/fetcher";
+import { ThemeProvider } from "@/app/[locale]/_components/theme-locale-utils/theme-provider";
 import { Toaster } from "@/app/[locale]/_components/ui/toaster";
 import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
@@ -45,6 +46,7 @@ export default async function RootLayout({
               <div className="flex items-center ml-auto space-x-4">
                 <Suspense>
                   <UserNav />
+                  <ThemeLocaleInitializer />
                 </Suspense>
                 {/* // TODO: - delete when https://github.com/radix-ui/primitives/pull/2811 gets merged  */}
                 <SuppressLogs />

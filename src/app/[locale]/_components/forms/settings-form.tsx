@@ -80,36 +80,46 @@ export default function SettingsForm({ userSettings, user }: Props) {
   });
 
   async function onSubmit(data: SettingsFormValues) {
-    // call RPC only when user is authenticated so we can save settings
-    if (user) {
-      const response = await saveSettings(data);
-      if (response.isError) {
-        console.log(response.error);
-        toast({
-          title: "alerts.settings.save.error.title",
-          description: response.error,
-          variant: "destructive",
-        });
-      } else {
-        updateSettings();
-      }
-    } else {
+    if (!user) {
       updateSettings();
+      return;
     }
+
+    // call server action only when user is authenticated so we can save settings in DB
+    const response = await saveSettings(data);
+    if (response.isError) {
+      toast({
+        title: "alerts.settings.save.error.title",
+        description: response.error,
+        variant: "destructive",
+      });
+      return;
+    }
+    updateSettings();
   }
 
   function updateSettings() {
-    toast({
-      title: "alerts.settings.save.success.title",
-      variant: "success",
-    });
-    setTheme(form.getValues().theme);
     startTransition(() => {
-      router.replace(
-        // @ts-expect-error -- same as above
-        { pathname, params },
-        { locale: form.getValues().language }
-      );
+      toast({
+        title: "alerts.settings.save.success.title",
+        variant: "success",
+      });
+
+      const newTheme = form.getValues().theme;
+      if (theme !== newTheme) {
+        setTheme(newTheme);
+      }
+
+      const newLanguage = form.getValues().language;
+      if (params.locale !== newLanguage) {
+        router.replace(
+          // @ts-expect-error -- TypeScript will validate that only known `params`
+          // are used in combination with a given `pathname`. Since the two will
+          // always match for the current route, we can skip runtime checks.
+          { pathname, params },
+          { locale: newLanguage }
+        );
+      }
     });
   }
 

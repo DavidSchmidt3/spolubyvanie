@@ -1,6 +1,5 @@
 "use client";
 
-import ThemeInitializer from "@/app/[locale]/_components/theme-initializer";
 import { DEFAULT_THEME } from "@/lib/utils/theme/config";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
@@ -17,7 +16,6 @@ export function ThemeProvider({ children }: Props) {
       defaultTheme={DEFAULT_THEME}
       // storageKey="" TODO: after known domain, add theme.domain as storage key
     >
-      <ThemeInitializer />
       {children}
     </NextThemesProvider>
   );

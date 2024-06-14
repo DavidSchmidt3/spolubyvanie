@@ -24,7 +24,7 @@ export const saveSettings = async (input: unknown) => {
     };
   }
 
-  const response = await db.user_settings.upsert({
+  await db.user_settings.upsert({
     where: {
       id: user.id,
     },
@@ -35,9 +35,7 @@ export const saveSettings = async (input: unknown) => {
     update: validatedSettingsInput.data,
   });
 
-  // revalidatePath("/settings");
   return {
     isError: false,
-    data: response,
   };
 };
