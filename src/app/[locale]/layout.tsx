@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/app/[locale]/_components/theme-provider";
 import { Toaster } from "@/app/[locale]/_components/ui/toaster";
 import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
+import { pick } from "lodash";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Inter } from "next/font/google";
@@ -29,7 +30,6 @@ export default async function RootLayout({
   params: { locale: string };
 }) {
   const messages = await getMessages();
-  // TODO: pick only error messages
   return (
     <html lang={locale} suppressHydrationWarning>
       <body
@@ -38,7 +38,7 @@ export default async function RootLayout({
           inter.variable
         )}
       >
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider messages={pick(messages, ["alerts"])}>
           <ThemeProvider>
             <div className="sticky top-0 z-20 flex items-center w-full px-4 py-4 border-b min bg-background min-h-20">
               <MainNav className="mx-6" />

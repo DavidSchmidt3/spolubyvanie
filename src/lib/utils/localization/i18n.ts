@@ -17,7 +17,7 @@ export default getRequestConfig(async ({ locale }) => {
   return {
     messages: {
       ...(await import(`./${locale}/alerts.json`)).default,
-      ...(await import(`./${locale}/translation.json`)).default,
+      ...(await import(`./${locale}/translations.json`)).default,
     },
     onError(error) {
       if (error.code === IntlErrorCode.MISSING_MESSAGE) {

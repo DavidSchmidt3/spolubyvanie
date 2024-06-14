@@ -1,6 +1,6 @@
 "use server";
+import { getUser } from "@/lib/utils/data/user";
 import { db } from "@/lib/utils/prisma";
-import { getUser } from "../../user";
 import { SETTINGS_FORM_SCHEMA } from "./schema";
 
 export const saveSettings = async (input: unknown) => {

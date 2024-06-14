@@ -6,7 +6,7 @@ export function MainNav({
   className,
   ...props
 }: React.HTMLAttributes<HTMLElement>) {
-  const t = useTranslations("translation");
+  const t = useTranslations("translations");
 
   return (
     <nav

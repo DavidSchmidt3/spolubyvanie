@@ -2,7 +2,7 @@ import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { useTranslations } from "next-intl";
 
 export default function Loader() {
-  const t = useTranslations("translation");
+  const t = useTranslations("translations");
 
   return (
     <div className="flex items-center gap-2 justify-center mt-6">

@@ -16,9 +16,9 @@ export default async function SettingsPage() {
   return (
     <NextIntlClientProvider
       messages={pick(messages, [
-        "translation.common",
-        "translation.settings",
-        "translation.errors",
+        "translations.common",
+        "translations.settings",
+        "translations.errors",
       ])}
     >
       <Container>

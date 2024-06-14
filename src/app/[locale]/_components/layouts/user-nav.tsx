@@ -16,7 +16,7 @@ import { Link } from "@/lib/utils/localization/navigation";
 import { getTranslations } from "next-intl/server";
 
 export default async function UserNav() {
-  const t = await getTranslations("translation");
+  const t = await getTranslations("translations");
   const user = await getUser();
 
   return (
