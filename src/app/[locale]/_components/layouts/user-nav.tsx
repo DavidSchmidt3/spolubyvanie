@@ -32,29 +32,35 @@ export default async function UserNav() {
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-xs leading-none text-muted-foreground">
-              {user?.email}
+              {user?.email ?? t("navigation.guest.label")}
             </p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <Link href="/settings" className="w-full">
+        <Link href="/settings" className="w-full">
+          <DropdownMenuItem className="cursor-pointer hover:bg-accent/90">
             {t("settings.title")}
+          </DropdownMenuItem>
+        </Link>
+        {user ? (
+          <DropdownMenuItem>
+            <form action={logout} className="w-full">
+              <Button
+                variant="ghost"
+                className="w-full p-0 hover:bg-accent/90 text-left justify-start h-6 cursor-pointer"
+                type="submit"
+              >
+                {t("logout.button")}
+              </Button>
+            </form>
+          </DropdownMenuItem>
+        ) : (
+          <Link href="/login" className="w-full">
+            <DropdownMenuItem className="cursor-pointer hover:bg-accent/90">
+              {t("login.button")}
+            </DropdownMenuItem>
           </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Link href="/login">{t("login.button")}</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Button
-            variant="ghost"
-            className="w-full p-0 hover:bg-popover text-left justify-start h-6"
-            type="submit"
-            onClick={logout}
-          >
-            {t("logout.button")}
-          </Button>
-        </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

@@ -9,6 +9,9 @@
       },
       "settings": {
         "label": "Nastavenie"
+      },
+      "guest": {
+        "label": "Neprihlásený"
       }
     },
     "common": {

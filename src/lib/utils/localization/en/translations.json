@@ -9,6 +9,9 @@
       },
       "settings": {
         "label": "Settings"
+      },
+      "guest": {
+        "label": "Guest"
       }
     },
     "common": {
