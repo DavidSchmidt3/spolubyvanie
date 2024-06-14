@@ -1,14 +1,28 @@
-import { login, logout } from "./actions";
+import Container from "@/app/[locale]/_components/common/container";
+import { UserAuthForm } from "@/app/[locale]/_components/forms/user-auth-form";
+import { pick } from "lodash";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages, getTranslations } from "next-intl/server";
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const messages = await getMessages();
+  const t = await getTranslations("translations");
   return (
-    <>
-      <form>
-        <button formAction={login}>Log in</button>
-      </form>
-      <form>
-        <button formAction={logout}>Log out</button>
-      </form>
-    </>
+    <Container>
+      <div className="container relative flex-col h-full items-center justify-center flex px-5 sm:px-8">
+        <div className="mx-auto flex flex-col justify-center space-y-6 w-full sm:w-[350px] max-w-[350px]">
+          <div className="flex flex-col space-y-2 text-center">
+            <h1 className="text-2xl font-semibold tracking-tight">
+              {t("login.label")}
+            </h1>
+          </div>
+          <NextIntlClientProvider
+            messages={pick(messages, ["translations.login"])}
+          >
+            <UserAuthForm />
+          </NextIntlClientProvider>
+        </div>
+      </div>
+    </Container>
   );
 }

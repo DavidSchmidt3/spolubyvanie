@@ -45,7 +45,18 @@
       }
     },
     "login": {
-      "button": "Prihlásiť sa"
+      "label": "Prihlásenie",
+      "button": "Prihlásiť sa",
+      "email": {
+        "button": "Prihlásiť sa cez email",
+        "label": "Email"
+      },
+      "google": {
+        "button": "Prihlásiť sa cez google"
+      },
+      "alternative_method": {
+        "label": "alebo pokračujte cez"
+      }
     },
     "logout": {
       "button": "Odhlásiť sa"

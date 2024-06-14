@@ -45,7 +45,18 @@
       }
     },
     "login": {
-      "button": "Login"
+      "label": "Login",
+      "button": "Login",
+      "email": {
+        "button": "Login with Email",
+        "label": "Email"
+      },
+      "google": {
+        "button": "Login with Google"
+      },
+      "alternative_method": {
+        "label": "Or login with"
+      }
     },
     "logout": {
       "button": "Logout"
