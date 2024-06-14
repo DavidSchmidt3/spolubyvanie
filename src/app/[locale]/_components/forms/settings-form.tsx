@@ -54,8 +54,6 @@ type Props = {
 };
 
 export default function SettingsForm({ userSettings, user }: Props) {
-  // TODO: remove after this is fixed: https://github.com/react-hook-form/react-hook-form/issues/11910
-  "use no memo";
   const t = useTranslations("translations.settings");
   const { toast } = useToast();
   const router = useRouter();

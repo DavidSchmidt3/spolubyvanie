@@ -24,18 +24,26 @@ export const saveSettings = async (input: unknown) => {
     };
   }
 
-  await db.user_settings.upsert({
-    where: {
-      id: user.id,
-    },
-    create: {
-      ...validatedSettingsInput.data,
-      id: user.id,
-    },
-    update: validatedSettingsInput.data,
-  });
+  try {
+    await db.user_settings.upsert({
+      where: {
+        id: user.id,
+      },
+      create: {
+        ...validatedSettingsInput.data,
+        id: user.id,
+      },
+      update: validatedSettingsInput.data,
+    });
 
-  return {
-    isError: false,
-  };
+    return {
+      isError: false,
+    };
+  } catch (error) {
+    // TODO: log to grafana
+    return {
+      isError: true,
+      error: "alerts.settings.save.error.title",
+    };
+  }
 };
