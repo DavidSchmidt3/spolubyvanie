@@ -1,4 +1,3 @@
-import SuppressLogs from "@/app/[locale]/_components/common/suppress-logs";
 import { MainNav } from "@/app/[locale]/_components/layouts/main-nav";
 import UserNav from "@/app/[locale]/_components/layouts/user-nav";
 import ThemeLocaleInitializer from "@/app/[locale]/_components/theme-locale-utils/fetcher";
@@ -39,23 +38,21 @@ export default async function RootLayout({
           inter.variable
         )}
       >
-        <NextIntlClientProvider messages={pick(messages, ["alerts"])}>
-          <ThemeProvider>
-            <div className="sticky top-0 z-20 flex items-center w-full px-4 py-4 border-b min bg-background min-h-20">
-              <MainNav className="mx-6" />
-              <div className="flex items-center ml-auto space-x-4">
-                <Suspense>
-                  <UserNav />
-                  <ThemeLocaleInitializer />
-                </Suspense>
-                {/* // TODO: - delete when https://github.com/radix-ui/primitives/pull/2811 gets merged  */}
-                <SuppressLogs />
+        <ThemeProvider>
+          <div className="sticky top-0 z-20 flex items-center w-full px-4 py-4 border-b min bg-background min-h-20">
+            <MainNav className="mx-6" />
+            <div className="flex items-center ml-auto space-x-4">
+              <Suspense>
+                <UserNav />
+                <ThemeLocaleInitializer />
+              </Suspense>
+              <NextIntlClientProvider messages={pick(messages, ["alerts"])}>
                 <Toaster />
-              </div>
+              </NextIntlClientProvider>
             </div>
-            {children}
-          </ThemeProvider>
-        </NextIntlClientProvider>
+          </div>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
