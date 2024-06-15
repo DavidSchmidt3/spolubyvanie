@@ -1,7 +1,7 @@
 "use server";
 import { getUser } from "@/lib/utils/data/user";
 import { db } from "@/lib/utils/prisma";
-import { getZodErrors } from "@/lib/utils/zod";
+import { formatZodErrorsToArray } from "@/lib/utils/zod";
 import { type UserSettings } from "../../settings";
 import { SETTINGS_FORM_SCHEMA } from "./schema";
 
@@ -9,7 +9,7 @@ export const saveSettings = async (input: unknown) => {
   const validatedSettingsInput = SETTINGS_FORM_SCHEMA.safeParse(input);
 
   if (!validatedSettingsInput.success) {
-    const errors = getZodErrors(validatedSettingsInput);
+    const errors = formatZodErrorsToArray(validatedSettingsInput);
     return {
       isError: true,
       error: errors,
