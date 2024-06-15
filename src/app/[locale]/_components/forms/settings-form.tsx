@@ -79,7 +79,7 @@ export default function SettingsForm({ userSettings, user }: Props) {
 
   async function onSubmit(data: SettingsFormValues) {
     if (!user) {
-      updateSettings();
+      updateSettings(form.getValues().theme, form.getValues().language);
       return;
     }
 
@@ -93,23 +93,21 @@ export default function SettingsForm({ userSettings, user }: Props) {
       });
       return;
     }
-    updateSettings();
+    updateSettings(response.data?.theme, response.data?.language);
   }
 
-  function updateSettings() {
+  function updateSettings(newTheme?: Theme, newLanguage?: Language) {
     startTransition(() => {
       toast({
         title: "alerts.settings.save.success.title",
         variant: "success",
       });
 
-      const newTheme = form.getValues().theme;
-      if (theme !== newTheme) {
+      if (newTheme && theme !== newTheme) {
         setTheme(newTheme);
       }
 
-      const newLanguage = form.getValues().language;
-      if (params.locale !== newLanguage) {
+      if (newLanguage && params.locale !== newLanguage) {
         router.replace(
           // @ts-expect-error -- TypeScript will validate that only known `params`
           // are used in combination with a given `pathname`. Since the two will

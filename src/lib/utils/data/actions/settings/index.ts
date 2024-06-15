@@ -1,15 +1,15 @@
 "use server";
 import { getUser } from "@/lib/utils/data/user";
 import { db } from "@/lib/utils/prisma";
+import { getZodErrors } from "@/lib/utils/zod";
+import { type UserSettings } from "../../settings";
 import { SETTINGS_FORM_SCHEMA } from "./schema";
 
 export const saveSettings = async (input: unknown) => {
   const validatedSettingsInput = SETTINGS_FORM_SCHEMA.safeParse(input);
 
   if (!validatedSettingsInput.success) {
-    const fieldErrors = validatedSettingsInput.error.flatten().fieldErrors;
-    const keys = Object.keys(fieldErrors) as Array<keyof typeof fieldErrors>;
-    const errors = keys.map((key) => fieldErrors[key]!); // when key is present it will always have a value
+    const errors = getZodErrors(validatedSettingsInput);
     return {
       isError: true,
       error: errors,
@@ -25,7 +25,7 @@ export const saveSettings = async (input: unknown) => {
   }
 
   try {
-    await db.user_settings.upsert({
+    const newSettings = (await db.user_settings.upsert({
       where: {
         id: user.id,
       },
@@ -34,10 +34,11 @@ export const saveSettings = async (input: unknown) => {
         id: user.id,
       },
       update: validatedSettingsInput.data,
-    });
+    })) as unknown as UserSettings;
 
     return {
       isError: false,
+      data: newSettings,
     };
   } catch (error) {
     // TODO: log to grafana
