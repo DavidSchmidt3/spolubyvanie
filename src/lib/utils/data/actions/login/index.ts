@@ -6,7 +6,7 @@ import { redirect as redirectLocal } from "@/lib/utils/localization/navigation";
 import { createClient } from "@/lib/utils/supabase/server";
 import { redirect } from "next/navigation";
 
-export async function login() {
+export async function googleLogin() {
   const supabase = createClient();
 
   const { data, error } = await supabase.auth.signInWithOAuth({
