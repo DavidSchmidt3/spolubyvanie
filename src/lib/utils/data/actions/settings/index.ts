@@ -2,6 +2,7 @@
 import { getUser } from "@/lib/utils/data/user";
 import { db } from "@/lib/utils/prisma";
 import { formatZodErrorsToArray } from "@/lib/utils/zod";
+import { type MessageKeys } from "global";
 import { type UserSettings } from "../../settings";
 import { SETTINGS_FORM_SCHEMA } from "./schema";
 
@@ -20,7 +21,7 @@ export const saveSettings = async (input: unknown) => {
   if (!user) {
     return {
       isError: true,
-      error: "errors.unauthenticated",
+      error: "errors.unauthenticated" as MessageKeys<IntlMessages>,
     };
   }
 
@@ -44,7 +45,7 @@ export const saveSettings = async (input: unknown) => {
     // TODO: log to grafana
     return {
       isError: true,
-      error: "alerts.settings.save.error.title",
+      error: "alerts.settings.save.error.title" as MessageKeys<IntlMessages>,
     };
   }
 };

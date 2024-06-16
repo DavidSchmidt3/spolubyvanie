@@ -1,3 +1,4 @@
+import { type MessageKeys } from "global";
 import { type SafeParseError } from "zod";
 
 export const formatZodErrorsToArray = <T>(
@@ -7,5 +8,5 @@ export const formatZodErrorsToArray = <T>(
   const keys = Object.keys(fieldErrors) as Array<keyof typeof fieldErrors>;
   const errors = keys.map((key) => fieldErrors[key]!);
 
-  return errors;
+  return errors as MessageKeys<IntlMessages>[][];
 };
