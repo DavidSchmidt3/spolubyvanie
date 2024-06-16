@@ -3,6 +3,7 @@ import type {
   ToastActionElement,
   ToastProps,
 } from "@/app/[locale]/_components/ui/toast";
+import { type MessageKeys } from "global";
 import { useEffect, useState } from "react";
 
 const TOAST_LIMIT = 1;
@@ -10,8 +11,11 @@ const TOAST_REMOVE_DELAY = 4000;
 
 type ToasterToast = ToastProps & {
   id: string;
-  title?: React.ReactNode;
-  description?: string | string[] | string[][];
+  title?: MessageKeys<IntlMessages>;
+  description?:
+    | MessageKeys<IntlMessages>
+    | MessageKeys<IntlMessages>[]
+    | MessageKeys<IntlMessages>[][];
   action?: ToastActionElement;
 };
 
