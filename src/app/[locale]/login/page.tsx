@@ -1,5 +1,5 @@
 import Container from "@/app/[locale]/_components/common/container";
-import { UserAuthForm } from "@/app/[locale]/_components/forms/user-auth-form";
+import UserAuthForm from "@/app/[locale]/_components/login/form";
 import { pick } from "lodash";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
@@ -17,7 +17,7 @@ export default async function LoginPage() {
             </h1>
           </div>
           <NextIntlClientProvider
-            messages={pick(messages, ["translations.login"])}
+            messages={pick(messages, ["translations.login", "alerts.login"])}
           >
             <UserAuthForm />
           </NextIntlClientProvider>

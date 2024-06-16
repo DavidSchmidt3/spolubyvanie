@@ -19,6 +19,7 @@ export default async function SettingsPage() {
         "translations.common",
         "translations.settings",
         "translations.errors",
+        "alerts.settings",
       ])}
     >
       <Container>
