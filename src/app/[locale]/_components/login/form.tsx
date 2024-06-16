@@ -11,14 +11,15 @@ import {
 } from "@/app/[locale]/_components/ui/form";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { Input } from "@/app/[locale]/_components/ui/input";
+import { useControlledForm } from "@/hooks/form";
 import { cn } from "@/lib/utils";
-import { googleLogin } from "@/lib/utils/data/actions/login";
+import { googleLogin, signInWithEmail } from "@/lib/utils/data/actions/login";
 import { USER_AUTH_FORM_SCHEMA } from "@/lib/utils/data/actions/login/schema";
 import { useRouter } from "@/lib/utils/localization/navigation";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
-import { useForm } from "react-hook-form";
+import { useMemo } from "react";
 import { type z } from "zod";
+import { toast } from "../ui/use-toast";
 
 type UserAuthFormValues = z.infer<typeof USER_AUTH_FORM_SCHEMA>;
 type UserAuthFormProps = React.HTMLAttributes<HTMLDivElement>;
@@ -27,18 +28,32 @@ export default function UserAuthForm({
   className,
   ...props
 }: UserAuthFormProps) {
+  "use no memo";
   const t = useTranslations("translations");
   const router = useRouter();
 
-  const form = useForm<UserAuthFormValues>({
-    resolver: zodResolver(USER_AUTH_FORM_SCHEMA),
-    defaultValues: {
+  const defaultValues = useMemo<UserAuthFormValues>(() => {
+    return {
       email: "",
-    },
+      password: "",
+    };
+  }, []);
+
+  const form = useControlledForm<UserAuthFormValues>({
+    schema: USER_AUTH_FORM_SCHEMA,
+    defaultValues,
   });
 
-  function onSubmit(data: UserAuthFormValues) {
-    // signInWithEmail(data);
+  async function onSubmit(data: UserAuthFormValues) {
+    const response = await signInWithEmail(data);
+
+    if (response?.isError) {
+      toast({
+        title: "alerts.login.error.title",
+        description: response.error,
+        variant: "destructive",
+      });
+    }
   }
 
   const isPending = form.formState.isSubmitting;
@@ -54,7 +69,11 @@ export default function UserAuthForm({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder={t("login.email.label")} {...field} />
+                    <Input
+                      placeholder={t("login.email.label")}
+                      // autoComplete="email"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -69,6 +88,7 @@ export default function UserAuthForm({
                     <Input
                       type="password"
                       placeholder={t("login.password.label")}
+                      autoComplete="current-password"
                       {...field}
                     />
                   </FormControl>
@@ -78,7 +98,7 @@ export default function UserAuthForm({
             />
             <Button disabled={isPending} variant="ringHover">
               {isPending && (
-                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                <Icons.spinner className="w-4 h-4 mr-2 animate-spin" />
               )}
               {t("login.email.button")}
             </Button>
@@ -88,7 +108,7 @@ export default function UserAuthForm({
       <Divider text={t("login.alternative_method.label")} />
       <form action={googleLogin}>
         <Button variant="outline" type="submit" className="w-full">
-          <Icons.google className="mr-2 h-4 w-4" />
+          <Icons.google className="w-4 h-4 mr-2" />
           {t("login.google.button")}
         </Button>
       </form>
@@ -111,7 +131,7 @@ function Divider({ text }: { text: string }) {
         <span className="w-full border-t" />
       </div>
       <div className="relative flex justify-center text-xs uppercase">
-        <span className="bg-background px-2 text-muted-foreground">{text}</span>
+        <span className="px-2 bg-background text-muted-foreground">{text}</span>
       </div>
     </div>
   );
