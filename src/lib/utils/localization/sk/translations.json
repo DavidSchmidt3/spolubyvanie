@@ -51,11 +51,20 @@
         "button": "Prihlásiť sa cez email",
         "label": "Email"
       },
+      "password": {
+        "label": "Heslo"
+      },
       "google": {
         "button": "Prihlásiť sa cez google"
       },
       "alternative_method": {
         "label": "alebo pokračujte cez"
+      },
+      "no_account": {
+        "label": "Nemáte účet?"
+      },
+      "register": {
+        "button": "Registrovať sa"
       }
     },
     "logout": {

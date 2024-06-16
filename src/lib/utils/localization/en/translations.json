@@ -51,11 +51,20 @@
         "button": "Login with Email",
         "label": "Email"
       },
+      "password": {
+        "label": "Password"
+      },
       "google": {
         "button": "Login with Google"
       },
       "alternative_method": {
         "label": "Or login with"
+      },
+      "no_account": {
+        "label": "Don't have an account?"
+      },
+      "register": {
+        "button": "Register now"
       }
     },
     "logout": {

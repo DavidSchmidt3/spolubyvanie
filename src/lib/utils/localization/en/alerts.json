@@ -22,6 +22,19 @@
     },
     "errors": {
       "unauthenicated": "Please login to continue"
+    },
+    "login": {
+      "email": {
+        "validation": {
+          "invalid": "Please provide a valid email"
+        }
+      },
+      "password": {
+        "validation": {
+          "required": "Password is required",
+          "invalid": "Password must be at least 6 characters long"
+        }
+      }
     }
   }
 }

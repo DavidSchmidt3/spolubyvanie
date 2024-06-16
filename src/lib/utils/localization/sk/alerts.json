@@ -22,6 +22,19 @@
     },
     "errors": {
       "unauthenicated": "Prosím prihláste sa pre pokračovanie"
+    },
+    "login": {
+      "email": {
+        "validation": {
+          "invalid": "Prosím zadajte platný email"
+        }
+      },
+      "password": {
+        "validation": {
+          "required": "Heslo je povinné",
+          "invalid": "Heslo musí mať aspoň 6 znakov"
+        }
+      }
     }
   }
 }
