@@ -12,8 +12,9 @@ import {
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { Input } from "@/app/[locale]/_components/ui/input";
 import { cn } from "@/lib/utils";
-import { login } from "@/lib/utils/data/actions/login";
+import { googleLogin } from "@/lib/utils/data/actions/login";
 import { USER_AUTH_FORM_SCHEMA } from "@/lib/utils/data/actions/login/schema";
+import { useRouter } from "@/lib/utils/localization/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
@@ -22,8 +23,12 @@ import { type z } from "zod";
 type UserAuthFormValues = z.infer<typeof USER_AUTH_FORM_SCHEMA>;
 type UserAuthFormProps = React.HTMLAttributes<HTMLDivElement>;
 
-export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
+export default function UserAuthForm({
+  className,
+  ...props
+}: UserAuthFormProps) {
   const t = useTranslations("translations");
+  const router = useRouter();
 
   const form = useForm<UserAuthFormValues>({
     resolver: zodResolver(USER_AUTH_FORM_SCHEMA),
@@ -33,7 +38,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   });
 
   function onSubmit(data: UserAuthFormValues) {
-    signInWithEmail(data);
+    // signInWithEmail(data);
   }
 
   const isPending = form.formState.isSubmitting;
@@ -55,7 +60,23 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                 </FormItem>
               )}
             />
-            <Button disabled={isPending}>
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      type="password"
+                      placeholder={t("login.password.label")}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button disabled={isPending} variant="ringHover">
               {isPending && (
                 <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
               )}
@@ -64,22 +85,34 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           </div>
         </form>
       </Form>
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
-            {t("login.alternative_method.label")}
-          </span>
-        </div>
-      </div>
-      <form action={login}>
+      <Divider text={t("login.alternative_method.label")} />
+      <form action={googleLogin}>
         <Button variant="outline" type="submit" className="w-full">
           <Icons.google className="mr-2 h-4 w-4" />
           {t("login.google.button")}
         </Button>
       </form>
+      <Divider text={t("login.no_account.label")} />
+      <Button
+        onClick={() => router.push("/register")}
+        className="w-full"
+        variant="outline"
+      >
+        {t("login.register.button")}
+      </Button>
+    </div>
+  );
+}
+
+function Divider({ text }: { text: string }) {
+  return (
+    <div className="relative">
+      <div className="absolute inset-0 flex items-center">
+        <span className="w-full border-t" />
+      </div>
+      <div className="relative flex justify-center text-xs uppercase">
+        <span className="bg-background px-2 text-muted-foreground">{text}</span>
+      </div>
     </div>
   );
 }
