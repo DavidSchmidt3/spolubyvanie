@@ -4,6 +4,7 @@ import ThemeLocaleInitializer from "@/app/[locale]/_components/theme-locale-util
 import { ThemeProvider } from "@/app/[locale]/_components/theme-locale-utils/theme-provider";
 import { Toaster } from "@/app/[locale]/_components/ui/toaster";
 import { cn } from "@/lib/utils";
+import { LOCALES } from "@/lib/utils/localization/i18n";
 import "@/styles/globals.css";
 import { pick } from "lodash";
 import { NextIntlClientProvider } from "next-intl";
@@ -56,4 +57,8 @@ export default async function RootLayout({
       </body>
     </html>
   );
+}
+
+export function generateStaticParams() {
+  return LOCALES.map((locale) => ({ locale: locale.code }));
 }
