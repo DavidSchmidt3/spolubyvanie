@@ -34,6 +34,9 @@
           "required": "Password is required",
           "invalid": "Password must be at least 6 characters long"
         }
+      },
+      "error": {
+        "title": "Login failed"
       }
     }
   }

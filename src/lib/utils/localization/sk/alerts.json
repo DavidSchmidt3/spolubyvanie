@@ -34,6 +34,9 @@
           "required": "Heslo je povinné",
           "invalid": "Heslo musí mať aspoň 6 znakov"
         }
+      },
+      "error": {
+        "title": "Prihlásenie sa nepodarilo"
       }
     }
   }

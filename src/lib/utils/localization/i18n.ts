@@ -16,12 +16,13 @@ export default getRequestConfig(async ({ locale }) => {
 
   return {
     messages: {
+      ...(await import(`./${locale}/metadata.json`)).default,
       ...(await import(`./${locale}/alerts.json`)).default,
       ...(await import(`./${locale}/translations.json`)).default,
     },
     onError(error) {
       if (error.code === IntlErrorCode.MISSING_MESSAGE) {
-        // TODO: log to grafana
+        console.error("Missing message:", error);
       }
     },
     getMessageFallback({ namespace, key, error }) {
