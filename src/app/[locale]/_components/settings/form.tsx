@@ -117,9 +117,6 @@ export default function SettingsForm({ userSettings, user }: Props) {
           </Button>
         </form>
       </Form>
-      {/* {isError && (
-        <ErrorAlert error={error} className="w-full sm:w-96 md:w-[40rem]" />
-      )} */}
     </div>
   );
 }
