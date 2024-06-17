@@ -2,7 +2,6 @@
 import { getUser } from "@/lib/utils/data/user";
 import { db } from "@/lib/utils/prisma";
 import { formatZodErrorsToArray } from "@/lib/utils/zod";
-import { type MessageKeys } from "global";
 import { type UserSettings } from "../../settings";
 import { SETTINGS_FORM_SCHEMA } from "./schema";
 
@@ -19,9 +18,10 @@ export const saveSettings = async (input: unknown) => {
 
   const user = await getUser();
   if (!user) {
+    console.error("User not found while saving settings");
     return {
       isError: true,
-      error: "errors.unauthenticated" as MessageKeys<IntlMessages>,
+      error: "alerts.user.error.unauthenticated" as const,
     };
   }
 
@@ -42,10 +42,10 @@ export const saveSettings = async (input: unknown) => {
       data: newSettings,
     };
   } catch (error) {
-    // TODO: log to grafana
+    console.error("Error saving settings", error);
     return {
       isError: true,
-      error: "alerts.settings.save.error.title" as MessageKeys<IntlMessages>,
+      error: "alerts.settings.save.error.title" as const,
     };
   }
 };
