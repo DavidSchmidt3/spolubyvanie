@@ -48,17 +48,10 @@
       "label": "Login",
       "button": "Login",
       "email": {
-        "button": "Login with Email",
-        "label": "Email"
-      },
-      "password": {
-        "label": "Password"
+        "button": "Login with Email"
       },
       "google": {
         "button": "Login with Google"
-      },
-      "alternative_method": {
-        "label": "Or login with"
       },
       "no_account": {
         "label": "Don't have an account?"
@@ -69,6 +62,30 @@
     },
     "logout": {
       "button": "Logout"
+    },
+    "register": {
+      "label": "Register",
+      "button": "Register",
+      "google": {
+        "button": "Register with Google"
+      },
+      "already_have_account": {
+        "label": "Already have an account?"
+      },
+      "login": {
+        "button": "Login now"
+      }
+    },
+    "auth": {
+      "email": {
+        "label": "Email"
+      },
+      "password": {
+        "label": "Password"
+      },
+      "alternative_method": {
+        "label": "Or continue with"
+      }
     }
   }
 }

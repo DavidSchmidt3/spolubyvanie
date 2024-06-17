@@ -31,7 +31,12 @@ export default async function LoginPage({ params: { locale } }: Props) {
             </h1>
           </div>
           <NextIntlClientProvider
-            messages={pick(messages, ["translations.login", "alerts.login"])}
+            messages={pick(messages, [
+              "translations.auth",
+              "translations.login",
+              "alerts.login",
+              "alerts.auth",
+            ])}
           >
             <UserAuthForm />
           </NextIntlClientProvider>

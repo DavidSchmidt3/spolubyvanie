@@ -1,6 +1,7 @@
 "use client";
 import * as React from "react";
 
+import { Divider } from "@/app/[locale]/_components/common/divider";
 import { Button } from "@/app/[locale]/_components/ui/button";
 import {
   Form,
@@ -11,6 +12,7 @@ import {
 } from "@/app/[locale]/_components/ui/form";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { Input } from "@/app/[locale]/_components/ui/input";
+import { toast } from "@/app/[locale]/_components/ui/use-toast";
 import { useControlledForm } from "@/hooks/form";
 import { cn } from "@/lib/utils";
 import { googleLogin, signInWithEmail } from "@/lib/utils/data/actions/login";
@@ -19,15 +21,11 @@ import { useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import { type z } from "zod";
-import { toast } from "../ui/use-toast";
 
 type UserAuthFormValues = z.infer<typeof USER_AUTH_FORM_SCHEMA>;
-type UserAuthFormProps = React.HTMLAttributes<HTMLDivElement>;
+type UserLoginProps = React.HTMLAttributes<HTMLDivElement>;
 
-export default function UserAuthForm({
-  className,
-  ...props
-}: UserAuthFormProps) {
+export default function UserLoginForm({ className, ...props }: UserLoginProps) {
   "use no memo";
   const t = useTranslations("translations");
   const router = useRouter();
@@ -70,8 +68,8 @@ export default function UserAuthForm({
                 <FormItem>
                   <FormControl>
                     <Input
-                      placeholder={t("login.email.label")}
-                      // autoComplete="email"
+                      placeholder={t("auth.email.label")}
+                      autoComplete="email"
                       {...field}
                     />
                   </FormControl>
@@ -87,7 +85,7 @@ export default function UserAuthForm({
                   <FormControl>
                     <Input
                       type="password"
-                      placeholder={t("login.password.label")}
+                      placeholder={t("auth.password.label")}
                       autoComplete="current-password"
                       {...field}
                     />
@@ -105,7 +103,7 @@ export default function UserAuthForm({
           </div>
         </form>
       </Form>
-      <Divider text={t("login.alternative_method.label")} />
+      <Divider text={t("auth.alternative_method.label")} />
       <form action={googleLogin}>
         <Button variant="outline" type="submit" className="w-full">
           <Icons.google className="w-4 h-4 mr-2" />
@@ -120,19 +118,6 @@ export default function UserAuthForm({
       >
         {t("login.register.button")}
       </Button>
-    </div>
-  );
-}
-
-function Divider({ text }: { text: string }) {
-  return (
-    <div className="relative">
-      <div className="absolute inset-0 flex items-center">
-        <span className="w-full border-t" />
-      </div>
-      <div className="relative flex justify-center text-xs uppercase">
-        <span className="px-2 bg-background text-muted-foreground">{text}</span>
-      </div>
     </div>
   );
 }

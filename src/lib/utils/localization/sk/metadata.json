@@ -3,6 +3,10 @@
     "login": {
       "title": "Prihlásenie",
       "description": "Prihlásenie sa do aplikácie cez google alebo pomocou emailu a hesla"
+    },
+    "register": {
+      "title": "Registrácia",
+      "description": "Registrácia do aplikácie cez google alebo pomocou emailu a hesla"
     }
   }
 }

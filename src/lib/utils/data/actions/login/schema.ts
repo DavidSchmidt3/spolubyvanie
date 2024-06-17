@@ -2,13 +2,13 @@ import * as z from "zod";
 
 export const USER_AUTH_FORM_SCHEMA = z.object({
   email: z.string().email({
-    message: "alerts.login.email.validation.invalid",
+    message: "alerts.auth.email.validation.invalid",
   }),
   password: z
     .string({
-      required_error: "alerts.login.password.validation.required",
+      required_error: "alerts.auth.password.validation.required",
     })
-    .min(6, {
-      message: "alerts.login.password.validation.invalid",
+    .min(8, {
+      message: "alerts.auth.password.validation.invalid",
     }),
 });
