@@ -20,8 +20,10 @@
         }
       }
     },
-    "errors": {
-      "unauthenicated": "Please login to continue"
+    "user": {
+      "error": {
+        "unauthenticated": "Please login to continue"
+      }
     },
     "login": {
       "email": {
@@ -36,7 +38,10 @@
         }
       },
       "error": {
-        "title": "Login failed"
+        "title": "Login failed",
+        "invalid_credentials": "Invalid email or password",
+        "email_not_confirmed": "Please first confirm your email address",
+        "database_error": "An error occurred while trying to login, please try again later"
       }
     }
   }

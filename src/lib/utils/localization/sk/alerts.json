@@ -20,8 +20,10 @@
         }
       }
     },
-    "errors": {
-      "unauthenicated": "Prosím prihláste sa pre pokračovanie"
+    "user": {
+      "error": {
+        "unauthenticated": "Prosím prihláste sa pre pokračovanie"
+      }
     },
     "login": {
       "email": {
@@ -36,7 +38,10 @@
         }
       },
       "error": {
-        "title": "Prihlásenie sa nepodarilo"
+        "title": "Prihlásenie sa nepodarilo",
+        "invalid_credentials": "Neplatný email alebo heslo",
+        "email_not_confirmed": "Prosím najprv potvrďte svoju emailovú adresu",
+        "database_error": "Pri pokuse o prihlásenie sa vyskytla chyba, skúste to znova neskôr"
       }
     }
   }

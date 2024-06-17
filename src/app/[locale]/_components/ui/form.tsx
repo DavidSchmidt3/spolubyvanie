@@ -12,6 +12,7 @@ import {
 
 import { Label } from "@/app/[locale]/_components/ui/label";
 import { cn } from "@/lib/utils";
+import { type MessageKeys } from "global";
 import { useTranslations } from "next-intl";
 
 const Form = FormProvider;
@@ -161,7 +162,7 @@ const FormMessage = React.forwardRef<
       className={cn("text-sm font-medium text-destructive", className)}
       {...props}
     >
-      {t(body)}
+      {t(body as MessageKeys<IntlMessages>)}
     </p>
   );
 });
