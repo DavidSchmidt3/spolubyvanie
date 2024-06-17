@@ -1,0 +1,12 @@
+{
+  "metadata": {
+    "login": {
+      "title": "Login",
+      "description": "Login to the application via google or using email and password"
+    },
+    "register": {
+      "title": "Register",
+      "description": "Register to the application via google or using email and password"
+    }
+  }
+}

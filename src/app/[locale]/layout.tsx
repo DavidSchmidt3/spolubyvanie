@@ -1,12 +1,15 @@
-import SuppressLogs from "@/app/[locale]/_components/common/suppress-logs";
 import { MainNav } from "@/app/[locale]/_components/layouts/main-nav";
-import { UserNav } from "@/app/[locale]/_components/layouts/user-nav";
-import { ThemeProvider } from "@/app/[locale]/_components/theme-provider";
+import UserNav from "@/app/[locale]/_components/layouts/user-nav";
+import ThemeLocaleInitializer from "@/app/[locale]/_components/theme-locale-utils/fetcher";
+import { ThemeProvider } from "@/app/[locale]/_components/theme-locale-utils/theme-provider";
 import { Toaster } from "@/app/[locale]/_components/ui/toaster";
 import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
-import { TRPCReactProvider } from "@/trpc/react";
+import { pick } from "lodash";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 import { Inter } from "next/font/google";
+import { Suspense } from "react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -19,13 +22,14 @@ export const metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params: { locale },
 }: {
   children: React.ReactNode;
   params: { locale: string };
 }) {
+  const messages = await getMessages();
   return (
     <html lang={locale} suppressHydrationWarning>
       <body
@@ -34,20 +38,21 @@ export default function RootLayout({
           inter.variable
         )}
       >
-        <TRPCReactProvider>
-          <ThemeProvider>
-            <div className="sticky top-0 z-20 flex items-center w-full px-4 py-4 border-b min bg-background min-h-20">
-              <MainNav className="mx-6" />
-              <div className="flex items-center ml-auto space-x-4">
+        <ThemeProvider>
+          <div className="sticky top-0 z-20 flex items-center w-full px-4 py-4 border-b min bg-background min-h-20">
+            <MainNav className="mx-6" />
+            <div className="flex items-center ml-auto space-x-4">
+              <Suspense>
                 <UserNav />
-                {/* // TODO: - delete when https://github.com/radix-ui/primitives/pull/2811 gets merged  */}
-                <SuppressLogs />
+                <ThemeLocaleInitializer />
+              </Suspense>
+              <NextIntlClientProvider messages={pick(messages, ["alerts"])}>
                 <Toaster />
-              </div>
+              </NextIntlClientProvider>
             </div>
-            {children}
-          </ThemeProvider>
-        </TRPCReactProvider>
+          </div>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

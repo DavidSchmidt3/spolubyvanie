@@ -1,5 +1,5 @@
 import Container from "@/app/[locale]/_components/common/container";
-import UserAuthForm from "@/app/[locale]/_components/login/form";
+import UserRegisterForm from "@/app/[locale]/_components/register/form";
 import { LOCALES, type Language } from "@/lib/utils/localization/i18n";
 import { pick } from "lodash";
 import { NextIntlClientProvider } from "next-intl";
@@ -16,7 +16,7 @@ type Props = {
 };
 
 export const dynamic = "force-static";
-export default async function LoginPage({ params: { locale } }: Props) {
+export default async function RegisterPage({ params: { locale } }: Props) {
   unstable_setRequestLocale(locale);
   const messages = await getMessages();
   const t = await getTranslations("translations");
@@ -27,18 +27,18 @@ export default async function LoginPage({ params: { locale } }: Props) {
         <div className="mx-auto flex flex-col justify-center space-y-6 w-full sm:w-[350px] max-w-[350px]">
           <div className="flex flex-col space-y-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight">
-              {t("login.label")}
+              {t("register.label")}
             </h1>
           </div>
           <NextIntlClientProvider
             messages={pick(messages, [
+              "translations.register",
               "translations.auth",
-              "translations.login",
-              "alerts.login",
+              "alerts.register",
               "alerts.auth",
             ])}
           >
-            <UserAuthForm />
+            <UserRegisterForm />
           </NextIntlClientProvider>
         </div>
       </div>
@@ -50,8 +50,8 @@ export async function generateMetadata({ params: { locale } }: Props) {
   const t = await getTranslations({ locale, namespace: "metadata" });
 
   return {
-    title: t("login.title"),
-    description: t("login.description"),
+    title: t("register.title"),
+    description: t("register.description"),
   };
 }
 

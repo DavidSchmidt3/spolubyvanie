@@ -1,0 +1,91 @@
+{
+  "translations": {
+    "navigation": {
+      "home": {
+        "label": "Domov"
+      },
+      "login": {
+        "label": "Prihlásenie"
+      },
+      "settings": {
+        "label": "Nastavenie"
+      },
+      "guest": {
+        "label": "Neprihlásený"
+      }
+    },
+    "common": {
+      "error": {
+        "label": "Nastala chyba, skúste to neskôr"
+      },
+      "loading": {
+        "label": "Načítavanie"
+      }
+    },
+    "settings": {
+      "title": "Nastavenia",
+      "language": {
+        "label": "Jazyk",
+        "select_prompt": "Vybrať jazyk"
+      },
+      "theme": {
+        "label": "Téma",
+        "light": {
+          "label": "Svetlá"
+        },
+        "dark": {
+          "label": "Tmavá"
+        }
+      },
+      "save": {
+        "button": "Uložiť",
+        "success": {
+          "title": "Nastavenia boli úspešne uložené"
+        }
+      }
+    },
+    "login": {
+      "label": "Prihlásenie",
+      "button": "Prihlásiť sa",
+      "email": {
+        "button": "Prihlásiť sa cez email"
+      },
+      "google": {
+        "button": "Prihlásiť sa cez google"
+      },
+      "no_account": {
+        "label": "Nemáte účet?"
+      },
+      "register": {
+        "button": "Registrovať sa"
+      }
+    },
+    "logout": {
+      "button": "Odhlásiť sa"
+    },
+    "register": {
+      "label": "Registrácia",
+      "button": "Registrovať sa",
+      "google": {
+        "button": "Registrovať sa cez google"
+      },
+      "already_have_account": {
+        "label": "Už máte účet?"
+      },
+      "login": {
+        "button": "Prejsť na prihlásenie"
+      }
+    },
+    "auth": {
+      "email": {
+        "label": "Email"
+      },
+      "password": {
+        "label": "Heslo"
+      },
+      "alternative_method": {
+        "label": "Alebo pokračujte s"
+      }
+    }
+  }
+}

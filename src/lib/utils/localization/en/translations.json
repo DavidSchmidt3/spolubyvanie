@@ -1,0 +1,91 @@
+{
+  "translations": {
+    "navigation": {
+      "home": {
+        "label": "Home"
+      },
+      "login": {
+        "label": "Login"
+      },
+      "settings": {
+        "label": "Settings"
+      },
+      "guest": {
+        "label": "Guest"
+      }
+    },
+    "common": {
+      "error": {
+        "label": "Something went wrong, please try again later"
+      },
+      "loading": {
+        "label": "Loading"
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "language": {
+        "label": "Language",
+        "select_prompt": "Select a language"
+      },
+      "theme": {
+        "label": "Theme",
+        "light": {
+          "label": "Light"
+        },
+        "dark": {
+          "label": "Dark"
+        }
+      },
+      "save": {
+        "button": "Save",
+        "success": {
+          "title": "Settings saved successfully"
+        }
+      }
+    },
+    "login": {
+      "label": "Login",
+      "button": "Login",
+      "email": {
+        "button": "Login with Email"
+      },
+      "google": {
+        "button": "Login with Google"
+      },
+      "no_account": {
+        "label": "Don't have an account?"
+      },
+      "register": {
+        "button": "Register now"
+      }
+    },
+    "logout": {
+      "button": "Logout"
+    },
+    "register": {
+      "label": "Register",
+      "button": "Register",
+      "google": {
+        "button": "Register with Google"
+      },
+      "already_have_account": {
+        "label": "Already have an account?"
+      },
+      "login": {
+        "button": "Login now"
+      }
+    },
+    "auth": {
+      "email": {
+        "label": "Email"
+      },
+      "password": {
+        "label": "Password"
+      },
+      "alternative_method": {
+        "label": "Or continue with"
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 
 export default function Home() {
-  const t = useTranslations("common");
-  return <main>{t("home")}</main>;
+  const t = useTranslations("translations");
+  return <main>{t("navigation.home.label")}</main>;
 }

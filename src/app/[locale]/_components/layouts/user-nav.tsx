@@ -10,10 +10,15 @@ import {
   DropdownMenuTrigger,
 } from "@/app/[locale]/_components/ui/dropdown-menu";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
-import { logout } from "@/app/[locale]/login/actions";
+import { logout } from "@/lib/utils/data/actions/login";
+import { getUser } from "@/lib/utils/data/user";
 import { Link } from "@/lib/utils/localization/navigation";
+import { getTranslations } from "next-intl/server";
 
-export function UserNav() {
+export default async function UserNav() {
+  const t = await getTranslations("translations");
+  const user = await getUser();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -26,33 +31,36 @@ export function UserNav() {
       <DropdownMenuContent className="" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">meno</p>
             <p className="text-xs leading-none text-muted-foreground">
-              {/* {user?.email} */} email
+              {user?.email ?? t("navigation.guest.label")}
             </p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <Link href="/settings" className="w-full">
-            Settings
+        <Link href="/settings" className="w-full">
+          <DropdownMenuItem className="cursor-pointer hover:bg-accent/90">
+            {t("settings.title")}
+          </DropdownMenuItem>
+        </Link>
+        {user ? (
+          <DropdownMenuItem>
+            <form action={logout} className="w-full">
+              <Button
+                variant="ghost"
+                className="w-full p-0 hover:bg-accent/90 text-left justify-start h-6 cursor-pointer"
+                type="submit"
+              >
+                {t("logout.button")}
+              </Button>
+            </form>
+          </DropdownMenuItem>
+        ) : (
+          <Link href="/login" className="w-full">
+            <DropdownMenuItem className="cursor-pointer hover:bg-accent/90">
+              {t("login.button")}
+            </DropdownMenuItem>
           </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Link href="/login">Login</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <form>
-            <Button
-              variant="ghost"
-              className="w-full"
-              type="submit"
-              formAction={logout}
-            >
-              Logout
-            </Button>
-          </form>
-        </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

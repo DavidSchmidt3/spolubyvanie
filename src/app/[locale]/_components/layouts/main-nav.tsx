@@ -6,7 +6,7 @@ export function MainNav({
   className,
   ...props
 }: React.HTMLAttributes<HTMLElement>) {
-  const t = useTranslations("navigation");
+  const t = useTranslations("translations");
 
   return (
     <nav
@@ -16,7 +16,7 @@ export function MainNav({
       )}
       {...props}
     >
-      <Link href="/">{t("home.label")}</Link>
+      <Link href="/">{t("navigation.home.label")}</Link>
     </nav>
   );
 }

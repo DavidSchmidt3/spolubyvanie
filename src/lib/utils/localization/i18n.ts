@@ -15,10 +15,14 @@ export default getRequestConfig(async ({ locale }) => {
   if (!LOCALES.some((l) => l.code === locale)) notFound();
 
   return {
-    messages: (await import(`./${locale}/translation.json`)).default,
+    messages: {
+      ...(await import(`./${locale}/metadata.json`)).default,
+      ...(await import(`./${locale}/alerts.json`)).default,
+      ...(await import(`./${locale}/translations.json`)).default,
+    },
     onError(error) {
       if (error.code === IntlErrorCode.MISSING_MESSAGE) {
-        // TODO: log to grafana
+        console.error("Missing message:", error);
       }
     },
     getMessageFallback({ namespace, key, error }) {
@@ -51,6 +55,11 @@ export const pathnames = {
   "/error": {
     en: "/error",
     sk: "/chyba",
+  },
+
+  "/register": {
+    en: "/register",
+    sk: "/registracia",
   },
 
   // Dynamic params are supported via square brackets

@@ -12,6 +12,8 @@ import {
 
 import { Label } from "@/app/[locale]/_components/ui/label";
 import { cn } from "@/lib/utils";
+import { type MessageKeys } from "global";
+import { useTranslations } from "next-intl";
 
 const Form = FormProvider;
 
@@ -145,6 +147,7 @@ const FormMessage = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, children, ...props }, ref) => {
+  const t = useTranslations();
   const { error, formMessageId } = useFormField();
   const body = error ? String(error?.message) : children;
 
@@ -159,7 +162,7 @@ const FormMessage = React.forwardRef<
       className={cn("text-sm font-medium text-destructive", className)}
       {...props}
     >
-      {body}
+      {t(body as MessageKeys<IntlMessages>)}
     </p>
   );
 });
