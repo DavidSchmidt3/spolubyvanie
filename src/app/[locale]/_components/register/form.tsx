@@ -55,7 +55,15 @@ export default function UserRegisterForm({
         description: response.error,
         variant: "destructive",
       });
+      return;
     }
+
+    toast({
+      title: "alerts.register.success.title",
+      description: "alerts.register.success.description",
+      variant: "success",
+    });
+    router.push("/login");
   }
 
   const isPending = form.formState.isSubmitting;

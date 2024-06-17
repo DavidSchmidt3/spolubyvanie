@@ -38,6 +38,10 @@
         "title": "Registration failed",
         "user_already_registered": "User with this email already exists",
         "database_error": "An error occurred while trying to register, please try again later"
+      },
+      "success": {
+        "title": "Registration successful",
+        "description": "A confirmation email has been sent to your email address. Please confirm your email address."
       }
     },
     "auth": {

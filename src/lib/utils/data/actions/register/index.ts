@@ -1,9 +1,7 @@
 "use server";
 
-import { redirect as redirectLocal } from "@/lib/utils/localization/navigation";
 import { createClient } from "@/lib/utils/supabase/server";
 import { formatZodErrorsToArray } from "@/lib/utils/zod";
-import { revalidatePath } from "next/cache";
 import { USER_AUTH_FORM_SCHEMA } from "../login/schema";
 import { getTranslatedSupabaseSignUpError } from "./supabase-sign-up-errors";
 
@@ -20,13 +18,10 @@ export async function signUpWithEmail(input: unknown) {
   }
 
   const { email, password } = validatedSettingsInput.data;
-  console.log("Signing up with email", email, password);
-  const { error, data } = await supabase.auth.signUp({
+  const { error } = await supabase.auth.signUp({
     email,
     password,
   });
-
-  console.log("Sign up response", error, data);
 
   if (error) {
     console.error("Error signing up with email", error);
@@ -35,7 +30,4 @@ export async function signUpWithEmail(input: unknown) {
       error: getTranslatedSupabaseSignUpError(error.message),
     };
   }
-
-  revalidatePath("/", "layout");
-  redirectLocal("/");
 }

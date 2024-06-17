@@ -38,6 +38,10 @@
         "title": "Registrácia sa nepodarila",
         "user_already_registered": "Používateľ s týmto emailom už existuje",
         "database_error": "Pri pokuse o registráciu sa vyskytla chyba, skúste to znova neskôr"
+      },
+      "success": {
+        "title": "Registrácia úspešná",
+        "description": "Na vašu emailovú adresu bol odoslaný potvrdzovací email. Prosím potvrďte svoju emailovú adresu."
       }
     },
     "auth": {
