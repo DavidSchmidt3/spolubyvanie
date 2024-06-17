@@ -6,7 +6,7 @@ import { formatZodErrorsToArray } from "@/lib/utils/zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { USER_AUTH_FORM_SCHEMA } from "./schema";
-import { getTranslatedSupabaseSignInError } from "./supabaseSignInErrors";
+import { getTranslatedSupabaseSignInError } from "./supabase-sign-in-errors";
 
 export async function googleLogin() {
   const supabase = createClient();
@@ -47,10 +47,9 @@ export async function signInWithEmail(input: unknown) {
   const validatedSettingsInput = USER_AUTH_FORM_SCHEMA.safeParse(input);
 
   if (!validatedSettingsInput.success) {
-    const errors = formatZodErrorsToArray(validatedSettingsInput);
     return {
       isError: true,
-      error: errors,
+      error: formatZodErrorsToArray(validatedSettingsInput),
     };
   }
 
@@ -62,40 +61,9 @@ export async function signInWithEmail(input: unknown) {
 
   if (error) {
     console.error("Error signing in with email", error);
-    const translatedError = getTranslatedSupabaseSignInError(error.message);
     return {
       isError: true,
-      error: translatedError,
-    };
-  }
-
-  revalidatePath("/", "layout");
-  redirectLocal("/");
-}
-
-export async function signUpWithEmail(input: unknown) {
-  const supabase = createClient();
-  const validatedSettingsInput = USER_AUTH_FORM_SCHEMA.safeParse(input);
-
-  if (!validatedSettingsInput.success) {
-    const errors = formatZodErrorsToArray(validatedSettingsInput);
-    return {
-      isError: true,
-      error: errors,
-    };
-  }
-
-  const { email, password } = validatedSettingsInput.data;
-  const { error } = await supabase.auth.signUp({
-    email,
-    password,
-  });
-
-  if (error) {
-    console.error("Error signing up with email", error);
-    return {
-      isError: true,
-      error: error.message,
+      error: getTranslatedSupabaseSignInError(error.message),
     };
   }
 
