@@ -6,7 +6,10 @@ import { formatZodErrorsToArray } from "@/lib/utils/zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { USER_AUTH_FORM_SCHEMA } from "./schema";
-import { getTranslatedSupabaseSignInError } from "./supabase-sign-in-errors";
+import {
+  getTranslatedSupabaseSignInError,
+  supabaseSignInErrors,
+} from "./supabase-sign-in-errors";
 
 export async function googleLogin() {
   const supabase = createClient();
@@ -44,10 +47,10 @@ export async function logout() {
 
 export async function signInWithEmail(input: unknown) {
   const supabase = createClient();
-  const validatedSettingsInput = USER_AUTH_FORM_SCHEMA.safeParse(input);
+  const validatedSignInInput = USER_AUTH_FORM_SCHEMA.safeParse(input);
 
-  if (!validatedSettingsInput.success) {
-    const errors = formatZodErrorsToArray(validatedSettingsInput);
+  if (!validatedSignInInput.success) {
+    const errors = formatZodErrorsToArray(validatedSignInInput);
     console.error("Error validating sign in input", errors.flat());
     return {
       isError: true,
@@ -55,14 +58,20 @@ export async function signInWithEmail(input: unknown) {
     };
   }
 
-  const { email, password } = validatedSettingsInput.data;
+  const { email, password } = validatedSignInInput.data;
   const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
 
   if (error) {
-    console.error("Error signing in with email", error);
+    // don't care about email not confirmed and invalid credentials errors
+    if (
+      error.message !== supabaseSignInErrors.emailNotConfirmed &&
+      error.message !== supabaseSignInErrors.invalidCredentials
+    ) {
+      console.error("Error signing in with email", error);
+    }
     return {
       isError: true,
       error: getTranslatedSupabaseSignInError(error.message),

@@ -1,6 +1,6 @@
 import { type MessageKeys } from "global";
 
-const supabaseSignInErrors = {
+export const supabaseSignInErrors = {
   invalidCredentials: "Invalid login credentials",
   emailNotConfirmed: "Email not confirmed",
   databaseError: "Database error querying schema",

@@ -7,10 +7,10 @@ import { getTranslatedSupabaseSignUpError } from "./supabase-sign-up-errors";
 
 export async function signUpWithEmail(input: unknown) {
   const supabase = createClient();
-  const validatedSettingsInput = USER_AUTH_FORM_SCHEMA.safeParse(input);
+  const validatedSignUpInput = USER_AUTH_FORM_SCHEMA.safeParse(input);
 
-  if (!validatedSettingsInput.success) {
-    const errors = formatZodErrorsToArray(validatedSettingsInput);
+  if (!validatedSignUpInput.success) {
+    const errors = formatZodErrorsToArray(validatedSignUpInput);
     console.error("Error validating sign up input", errors.flat());
     return {
       isError: true,
@@ -18,7 +18,7 @@ export async function signUpWithEmail(input: unknown) {
     };
   }
 
-  const { email, password } = validatedSettingsInput.data;
+  const { email, password } = validatedSignUpInput.data;
   const { error } = await supabase.auth.signUp({
     email,
     password,
