@@ -62,6 +62,11 @@ export const pathnames = {
     sk: "/registracia",
   },
 
+  "/password-reset": {
+    en: "/password-reset",
+    sk: "/obnova-hesla",
+  },
+
   // Dynamic params are supported via square brackets
   // "/news/[articleSlug]-[articleId]": {
   //   en: "/news/[articleSlug]-[articleId]",

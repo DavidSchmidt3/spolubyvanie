@@ -86,6 +86,10 @@
       "alternative_method": {
         "label": "Alebo pokračujte s"
       }
+    },
+    "password_reset": {
+      "title": "Reset hesla",
+      "button": "Resetovať heslo"
     }
   }
 }

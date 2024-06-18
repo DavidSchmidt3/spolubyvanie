@@ -56,6 +56,17 @@
           "invalid": "Heslo musí mať aspoň 8 znakov"
         }
       }
+    },
+    "reset_password": {
+      "error": {
+        "title": "Nepodarilo sa resetovať heslo",
+        "user_not_found": "Používateľ s týmto emailom neexistuje",
+        "database_error": "Pri pokuse o resetovanie hesla sa vyskytla chyba, skúste to znova neskôr"
+      },
+      "success": {
+        "title": "Resetovanie hesla bolo úspešné",
+        "description": "Na vašu emailovú adresu bol odoslaný email s inštrukciami na resetovanie hesla"
+      }
     }
   }
 }

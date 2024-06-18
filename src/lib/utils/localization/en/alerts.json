@@ -56,6 +56,16 @@
           "invalid": "Password must be at least 8 characters long"
         }
       }
+    },
+    "reset_password": {
+      "error": {
+        "title": "Failed to reset password",
+        "database_error": "An error occurred while trying to reset password, please try again later"
+      },
+      "success": {
+        "title": "Password reset successful",
+        "description": "A password reset link has been sent to your email address. Please check your email."
+      }
     }
   }
 }

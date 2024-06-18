@@ -86,6 +86,10 @@
       "alternative_method": {
         "label": "Or continue with"
       }
+    },
+    "password_reset": {
+      "title": "Password Reset",
+      "button": "Reset Password"
     }
   }
 }
