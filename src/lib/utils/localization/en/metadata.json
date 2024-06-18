@@ -7,6 +7,10 @@
     "register": {
       "title": "Register",
       "description": "Register to the application via google or using email and password"
+    },
+    "password_reset": {
+      "title": "Password Reset",
+      "description": "Pasword reset via email link"
     }
   }
 }

@@ -50,8 +50,8 @@ export async function generateMetadata({ params: { locale } }: Props) {
   const t = await getTranslations({ locale, namespace: "metadata" });
 
   return {
-    title: t("register.title"),
-    description: t("register.description"),
+    title: t("password_reset.title"),
+    description: t("password_reset.description"),
   };
 }
 

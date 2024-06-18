@@ -7,6 +7,10 @@
     "register": {
       "title": "Registrácia",
       "description": "Registrácia do aplikácie cez google alebo pomocou emailu a hesla"
+    },
+    "password_reset": {
+      "title": "Obnova hesla",
+      "description": "Obnova hesla pomocou emailového odkazu"
     }
   }
 }
