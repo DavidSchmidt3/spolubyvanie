@@ -17,7 +17,7 @@ import { useControlledForm } from "@/hooks/form";
 import { cn } from "@/lib/utils";
 import { googleLogin, signInWithEmail } from "@/lib/utils/data/actions/login";
 import { USER_AUTH_FORM_SCHEMA } from "@/lib/utils/data/actions/login/schema";
-import { useRouter } from "@/lib/utils/localization/navigation";
+import { Link, useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import { type z } from "zod";
@@ -94,6 +94,9 @@ export default function UserLoginForm({ className, ...props }: UserLoginProps) {
                 </FormItem>
               )}
             />
+            <Link href="/password-reset" className="text-sm text-primary">
+              {t("login.forgot_password.link")}
+            </Link>
             <Button disabled={isPending} variant="ringHover">
               {isPending && (
                 <Icons.spinner className="w-4 h-4 mr-2 animate-spin" />

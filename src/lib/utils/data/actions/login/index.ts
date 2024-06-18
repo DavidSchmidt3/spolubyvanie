@@ -47,9 +47,11 @@ export async function signInWithEmail(input: unknown) {
   const validatedSettingsInput = USER_AUTH_FORM_SCHEMA.safeParse(input);
 
   if (!validatedSettingsInput.success) {
+    const errors = formatZodErrorsToArray(validatedSettingsInput);
+    console.error("Error validating sign in input", errors.flat());
     return {
       isError: true,
-      error: formatZodErrorsToArray(validatedSettingsInput),
+      error: errors,
     };
   }
 

@@ -58,6 +58,9 @@
       },
       "register": {
         "button": "Registrovať sa"
+      },
+      "forgot_password": {
+        "link": "Zabudli ste heslo?"
       }
     },
     "logout": {

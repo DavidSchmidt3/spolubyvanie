@@ -58,6 +58,9 @@
       },
       "register": {
         "button": "Register now"
+      },
+      "forgot_password": {
+        "link": "Forgot password?"
       }
     },
     "logout": {
