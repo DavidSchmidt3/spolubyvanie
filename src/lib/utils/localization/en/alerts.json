@@ -73,7 +73,8 @@
     "password_change": {
       "error": {
         "title": "Failed to change password",
-        "database_error": "A link has expired or has been used already, please try again"
+        "database_error": "A link has expired or has been used already, please try again",
+        "password_same_as_old": "New password should be different from the old password, the link has expired, please request password reset again"
       },
       "success": {
         "title": "Password changed successful",

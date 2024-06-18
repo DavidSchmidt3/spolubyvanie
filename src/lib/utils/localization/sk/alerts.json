@@ -70,19 +70,23 @@
       "schema": {
         "invalid": "Nastala neočakávaná chyba, skúste to znova neskôr"
       }
-    }
-  },
-  "password_change": {
-    "error": {
-      "title": "Nepodarilo sa zmeniť heslo",
-      "database_error": "Link exspiroval alebo už bol použitý, skúste resetovať heslo znova"
     },
-    "success": {
-      "title": "Heslo zmenené uspešne",
-      "description": "Heslo bolo zmenené uspešne, prosím prihláste sa s novým heslom."
-    },
-    "passwords": {
-      "not_matching": "Hesla sa nezhodujú"
+    "password_change": {
+      "error": {
+        "title": "Nepodarilo sa zmeniť heslo",
+        "database_error": "Link exspiroval alebo už bol použitý, skúste resetovať heslo znova",
+        "password_same_as_old": "Nové heslo musí byť iné ako staré heslo, link bol exspirovaný, požiadajte o reset hesla znova"
+      },
+      "success": {
+        "title": "Heslo zmenené uspešne",
+        "description": "Heslo bolo zmenené uspešne, prosím prihláste sa s novým heslom."
+      },
+      "passwords": {
+        "not_matching": "Hesla sa nezhodujú"
+      },
+      "access_token": {
+        "invalid": "Nastala neočakávaná chyba, skúste to znova neskôr"
+      }
     }
   }
 }

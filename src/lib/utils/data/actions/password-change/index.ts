@@ -3,6 +3,7 @@
 import { createClient } from "@/lib/utils/supabase/server";
 import { formatZodErrorsToArray } from "@/lib/utils/zod";
 import { PASSWORD_CHANGE_SCHEMA } from "./schema";
+import { getTranslatedSupabasePasswordChangeError } from "./supabase-password-change-errors";
 
 export async function changePassword(input: unknown) {
   const supabase = createClient();
@@ -33,11 +34,13 @@ export async function changePassword(input: unknown) {
     password: validatedChangePasswordInput.data.password,
   });
 
+  await supabase.auth.signOut();
+
   if (error) {
     console.error("Error resetting password with email", error);
     return {
       isError: true,
-      error: "alerts.password_change.error.database_error" as const,
+      error: getTranslatedSupabasePasswordChangeError(error.message),
     };
   }
 }

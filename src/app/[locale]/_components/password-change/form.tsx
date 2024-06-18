@@ -37,7 +37,7 @@ export default function PasswordChangeForm({
 
   useEffect(() => {
     if (!accessToken) {
-      router.push("/login");
+      router.push("/");
     }
   }, [accessToken, router]);
 
@@ -63,6 +63,7 @@ export default function PasswordChangeForm({
         description: response.error,
         variant: "destructive",
       });
+      router.push("/password-reset");
       return;
     }
     toast({
