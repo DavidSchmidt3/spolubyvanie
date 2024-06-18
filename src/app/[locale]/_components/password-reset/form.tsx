@@ -14,13 +14,15 @@ import { Input } from "@/app/[locale]/_components/ui/input";
 import { toast } from "@/app/[locale]/_components/ui/use-toast";
 import { useControlledForm } from "@/hooks/form";
 import { cn } from "@/lib/utils";
-import { resetPassword } from "@/lib/utils/data/actions/reset-password";
-import { RESET_PASSWORD_SCHEMA } from "@/lib/utils/data/actions/reset-password/schema";
+import { resetPassword } from "@/lib/utils/data/actions/password-reset";
+import { PASSWORD_RESET_SCHEMA } from "@/lib/utils/data/actions/password-reset/schema";
+import { DEFAULT_LOCALE, type Language } from "@/lib/utils/localization/i18n";
 import { useTranslations } from "next-intl";
+import { useParams } from "next/navigation";
 import { useMemo } from "react";
 import { type z } from "zod";
 
-type ResetPasswordFormValues = z.infer<typeof RESET_PASSWORD_SCHEMA>;
+type ResetPasswordFormValues = z.infer<typeof PASSWORD_RESET_SCHEMA>;
 type ResetPasswordProps = React.HTMLAttributes<HTMLDivElement>;
 
 export default function PasswordResetForm({
@@ -29,15 +31,18 @@ export default function PasswordResetForm({
 }: ResetPasswordProps) {
   "use no memo";
   const t = useTranslations("translations");
+  const params = useParams();
 
   const defaultValues = useMemo<ResetPasswordFormValues>(() => {
     return {
       email: "",
+      language: (params.locale as Language) ?? DEFAULT_LOCALE,
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const form = useControlledForm<ResetPasswordFormValues>({
-    schema: RESET_PASSWORD_SCHEMA,
+    schema: PASSWORD_RESET_SCHEMA,
     defaultValues,
   });
 
@@ -46,15 +51,15 @@ export default function PasswordResetForm({
 
     if (response?.isError) {
       toast({
-        title: "alerts.reset_password.error.title",
+        title: "alerts.password_reset.error.title",
         description: response.error,
         variant: "destructive",
       });
       return;
     }
     toast({
-      title: "alerts.reset_password.success.title",
-      description: "alerts.reset_password.success.description",
+      title: "alerts.password_reset.success.title",
+      description: "alerts.password_reset.success.description",
       variant: "success",
     });
   }

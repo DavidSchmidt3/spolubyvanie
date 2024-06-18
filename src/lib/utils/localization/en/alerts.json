@@ -57,7 +57,7 @@
         }
       }
     },
-    "reset_password": {
+    "password_reset": {
       "error": {
         "title": "Failed to reset password",
         "database_error": "An error occurred while trying to reset password, please try again later"
@@ -65,6 +65,25 @@
       "success": {
         "title": "Password reset successful",
         "description": "A password reset link has been sent to your email address. Please check your email."
+      },
+      "schema": {
+        "invalid": "There was an unexpected error, please try again later"
+      }
+    },
+    "password_change": {
+      "error": {
+        "title": "Failed to change password",
+        "database_error": "A link has expired or has been used already, please try again"
+      },
+      "success": {
+        "title": "Password changed successful",
+        "description": "Password has been changed successfully, please login with new password."
+      },
+      "passwords": {
+        "not_matching": "Passwords do not match"
+      },
+      "access_token": {
+        "invalid": "There was an unexpected error, please try again later"
       }
     }
   }

@@ -86,6 +86,9 @@
       "password": {
         "label": "Password"
       },
+      "password_confirm": {
+        "label": "Confirm Password"
+      },
       "alternative_method": {
         "label": "Or continue with"
       }
@@ -93,6 +96,10 @@
     "password_reset": {
       "title": "Password Reset",
       "button": "Reset Password"
+    },
+    "password_change": {
+      "title": "Password Change",
+      "button": "Change Password"
     }
   }
 }

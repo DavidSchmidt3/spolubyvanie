@@ -86,13 +86,20 @@
       "password": {
         "label": "Heslo"
       },
+      "password_confirm": {
+        "label": "Potvrdenie hesla"
+      },
       "alternative_method": {
         "label": "Alebo pokračujte s"
       }
     },
     "password_reset": {
-      "title": "Reset hesla",
-      "button": "Resetovať heslo"
+      "title": "Obnova hesla",
+      "button": "Obnoviť heslo"
+    },
+    "password_change": {
+      "title": "Zmena hesla",
+      "button": "Zmeniť heslo"
     }
   }
 }

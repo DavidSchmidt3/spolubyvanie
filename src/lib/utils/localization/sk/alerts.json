@@ -57,7 +57,7 @@
         }
       }
     },
-    "reset_password": {
+    "password_reset": {
       "error": {
         "title": "Nepodarilo sa resetovať heslo",
         "user_not_found": "Používateľ s týmto emailom neexistuje",
@@ -66,7 +66,23 @@
       "success": {
         "title": "Resetovanie hesla bolo úspešné",
         "description": "Na vašu emailovú adresu bol odoslaný email s inštrukciami na resetovanie hesla"
+      },
+      "schema": {
+        "invalid": "Nastala neočakávaná chyba, skúste to znova neskôr"
       }
+    }
+  },
+  "password_change": {
+    "error": {
+      "title": "Nepodarilo sa zmeniť heslo",
+      "database_error": "Link exspiroval alebo už bol použitý, skúste resetovať heslo znova"
+    },
+    "success": {
+      "title": "Heslo zmenené uspešne",
+      "description": "Heslo bolo zmenené uspešne, prosím prihláste sa s novým heslom."
+    },
+    "passwords": {
+      "not_matching": "Hesla sa nezhodujú"
     }
   }
 }
