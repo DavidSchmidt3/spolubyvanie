@@ -17,6 +17,7 @@ import { cn } from "@/lib/utils";
 import { resetPassword } from "@/lib/utils/data/actions/password-reset";
 import { PASSWORD_RESET_SCHEMA } from "@/lib/utils/data/actions/password-reset/schema";
 import { DEFAULT_LOCALE, type Language } from "@/lib/utils/localization/i18n";
+import { useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { useMemo } from "react";
@@ -32,6 +33,7 @@ export default function PasswordResetForm({
   "use no memo";
   const t = useTranslations("translations");
   const params = useParams();
+  const router = useRouter();
 
   const defaultValues = useMemo<ResetPasswordFormValues>(() => {
     return {
@@ -62,6 +64,7 @@ export default function PasswordResetForm({
       description: "alerts.password_reset.success.description",
       variant: "success",
     });
+    router.push("/login");
   }
 
   const isPending = form.formState.isSubmitting;
