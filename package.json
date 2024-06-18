@@ -36,6 +36,7 @@
     "next": "rc",
     "next-intl": "^3.11.1",
     "next-safe": "^3.5.0",
+    "next-safe-action": "^7.0.2",
     "next-themes": "^0.3.0",
     "postgres": "^3.4.3",
     "react": "rc",
