@@ -11,6 +11,7 @@ export async function signUpWithEmail(input: unknown) {
 
   if (!validatedSettingsInput.success) {
     const errors = formatZodErrorsToArray(validatedSettingsInput);
+    console.error("Error validating sign up input", errors.flat());
     return {
       isError: true,
       error: errors,
