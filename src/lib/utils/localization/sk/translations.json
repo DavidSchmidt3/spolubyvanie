@@ -24,7 +24,7 @@
     },
     "settings": {
       "title": "Nastavenia",
-      "language": {
+      "locale": {
         "label": "Jazyk",
         "select_prompt": "Vybrať jazyk"
       },

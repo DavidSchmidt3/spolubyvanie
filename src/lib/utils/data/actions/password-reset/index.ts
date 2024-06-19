@@ -1,6 +1,6 @@
 "use server";
 
-import { pathnames, type Language } from "@/lib/utils/localization/i18n";
+import { pathnames, type Locale } from "@/lib/utils/localization/i18n";
 import { createClient } from "@/lib/utils/supabase/server";
 import { formatZodErrorsToArray } from "@/lib/utils/zod";
 import { PASSWORD_RESET_SCHEMA } from "./schema";
@@ -18,8 +18,8 @@ export async function resetPassword(input: unknown) {
     };
   }
 
-  const { email, language } = validatedResetPasswordInput.data;
-  const redirectUrl = getPasswordChangeRedirectUrl(language);
+  const { email, locale } = validatedResetPasswordInput.data;
+  const redirectUrl = getPasswordChangeRedirectUrl(locale);
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: redirectUrl,
   });
@@ -33,7 +33,7 @@ export async function resetPassword(input: unknown) {
   }
 }
 
-const getPasswordChangeRedirectUrl = (language: Language) => {
+const getPasswordChangeRedirectUrl = (locale: Locale) => {
   const redirectUrl = pathnames["/password-change"];
-  return `${process.env.BASE_URL}/${language}${redirectUrl[language]}`;
+  return `${process.env.BASE_URL}/${locale}${redirectUrl[locale]}`;
 };
