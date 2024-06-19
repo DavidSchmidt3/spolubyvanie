@@ -1,5 +1,6 @@
 import { type MessageKeys } from "global";
 import { createSafeActionClient } from "next-safe-action";
+import { getUser } from "../user";
 
 export class ActionError extends Error {
   message: MessageKeys<IntlMessages>;
@@ -18,4 +19,14 @@ export const actionClient = createSafeActionClient({
 
     return "alerts.global.error.description";
   },
+});
+
+export const authActionClient = actionClient.use(async ({ next }) => {
+  const user = await getUser();
+
+  if (!user) {
+    throw new ActionError("alerts.user.error.unauthenticated");
+  }
+
+  return next({ ctx: { userId: user.id } });
 });
