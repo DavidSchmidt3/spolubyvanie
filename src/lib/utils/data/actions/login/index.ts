@@ -7,7 +7,6 @@ import {
 import { redirect as redirectLocal } from "@/lib/utils/localization/navigation";
 import { createClient } from "@/lib/utils/supabase/server";
 import { formatZodErrors } from "@/lib/utils/zod";
-import { flattenValidationErrors } from "next-safe-action";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { USER_AUTH_FORM_SCHEMA } from "./schema";
@@ -52,8 +51,7 @@ export async function logout() {
 
 export const signInWithEmail = actionClient
   .schema(USER_AUTH_FORM_SCHEMA, {
-    handleValidationErrorsShape: (ve) =>
-      formatZodErrors(flattenValidationErrors(ve).fieldErrors),
+    handleValidationErrorsShape: formatZodErrors,
   })
   .action(async ({ parsedInput: { email, password } }) => {
     const supabase = createClient();
