@@ -23,14 +23,14 @@ export default function ThemeLocaleInitializer({ settings }: Props) {
         setTheme(settings?.theme ?? DEFAULT_THEME);
       });
     }
-    if (settings?.language && params.locale !== settings.language) {
+    if (settings?.locale && params.locale !== settings.locale) {
       startTransition(() => {
         router.replace(
           // @ts-expect-error -- TypeScript will validate that only known `params`
           // are used in combination with a given `pathname`. Since the two will
           // always match for the current route, we can skip runtime checks.
           { pathname, params },
-          { locale: settings.language }
+          { locale: settings.locale }
         );
       });
     }

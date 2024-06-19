@@ -1,6 +1,6 @@
 import Container from "@/app/[locale]/_components/common/container";
 import UserAuthForm from "@/app/[locale]/_components/login/form";
-import { LOCALES, type Language } from "@/lib/utils/localization/i18n";
+import { LOCALES, type Locale } from "@/lib/utils/localization/i18n";
 import { pick } from "lodash";
 import { NextIntlClientProvider } from "next-intl";
 import {
@@ -11,7 +11,7 @@ import {
 
 type Props = {
   params: {
-    locale: Language;
+    locale: Locale;
   };
 };
 

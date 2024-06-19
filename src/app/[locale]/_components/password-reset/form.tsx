@@ -16,7 +16,7 @@ import { useControlledForm } from "@/hooks/form";
 import { cn } from "@/lib/utils";
 import { resetPassword } from "@/lib/utils/data/actions/password-reset";
 import { PASSWORD_RESET_SCHEMA } from "@/lib/utils/data/actions/password-reset/schema";
-import { DEFAULT_LOCALE, type Language } from "@/lib/utils/localization/i18n";
+import { DEFAULT_LOCALE, type Locale } from "@/lib/utils/localization/i18n";
 import { useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
@@ -38,7 +38,7 @@ export default function PasswordResetForm({
   const defaultValues = useMemo<ResetPasswordFormValues>(() => {
     return {
       email: "",
-      language: (params.locale as Language) ?? DEFAULT_LOCALE,
+      locale: (params.locale as Locale) ?? DEFAULT_LOCALE,
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

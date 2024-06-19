@@ -24,7 +24,7 @@
     },
     "settings": {
       "title": "Settings",
-      "language": {
+      "locale": {
         "label": "Language",
         "select_prompt": "Select a language"
       },

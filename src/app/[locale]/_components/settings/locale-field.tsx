@@ -24,27 +24,27 @@ type Props = {
   control: Control<SettingsFormValues>;
 };
 
-export default function LanguageField({ control }: Props) {
+export default function LocaleField({ control }: Props) {
   const t = useTranslations("translations.settings");
   return (
     <FormField
       control={control}
-      name="language"
+      name="locale"
       render={({ field }) => (
         <FormItem className="space-y-1">
-          <FormLabel>{t("language.label")}</FormLabel>
+          <FormLabel>{t("locale.label")}</FormLabel>
           <Select onValueChange={field.onChange} value={field.value}>
             <FormControl>
               <SelectTrigger>
-                <SelectValue placeholder={t("language.select_prompt")} />
+                <SelectValue placeholder={t("locale.select_prompt")} />
               </SelectTrigger>
             </FormControl>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>{t("language.label")}</SelectLabel>
-                {LOCALES.map((language) => (
-                  <SelectItem key={language.code} value={language.code}>
-                    {language.name}
+                <SelectLabel>{t("locale.label")}</SelectLabel>
+                {LOCALES.map((locale) => (
+                  <SelectItem key={locale.code} value={locale.code}>
+                    {locale.name}
                   </SelectItem>
                 ))}
               </SelectGroup>

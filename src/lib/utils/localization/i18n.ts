@@ -9,7 +9,7 @@ export const LOCALES = [
 export const LOCALES_CODES = LOCALES.map((locale) => locale.code);
 export const DEFAULT_LOCALE = "sk";
 export const LOCALE_PREFIX = "always";
-export type Language = (typeof LOCALES)[number]["code"];
+export type Locale = (typeof LOCALES)[number]["code"];
 
 export default getRequestConfig(async ({ locale }) => {
   if (!LOCALES.some((l) => l.code === locale)) notFound();

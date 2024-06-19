@@ -1,4 +1,4 @@
-import { type Language } from "@/lib/utils/localization/i18n";
+import { type Locale } from "@/lib/utils/localization/i18n";
 import { type Theme } from "@/lib/utils/theme/config";
 import { type MergeDeep } from "type-fest";
 import { type Database as DatabaseGenerated } from "./database-generated";
@@ -12,15 +12,15 @@ export type Database = MergeDeep<
         user_settings: {
           Row: {
             theme: Theme;
-            language: Language;
+            locale: Locale;
           };
           Insert: {
             theme?: Theme;
-            language?: Language;
+            locale?: Locale;
           };
           Update: {
             theme?: Theme;
-            language?: Language;
+            locale?: Locale;
           };
         };
       };
