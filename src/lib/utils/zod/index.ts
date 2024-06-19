@@ -1,4 +1,5 @@
 import { type MessageKeys } from "global";
+import { flattenValidationErrors } from "next-safe-action";
 import { type SafeParseError } from "zod";
 
 export const formatZodErrorsToArray = <T>(
@@ -11,9 +12,18 @@ export const formatZodErrorsToArray = <T>(
   return errors as MessageKeys<IntlMessages>[][];
 };
 
-export const formatZodErrors = (
-  formErrors: Record<string, string[] | undefined>
-) => {
+type FormErrorsRaw = {
+  _errors?: string[] | undefined;
+} & Record<
+  string,
+  | {
+      _errors?: string[] | undefined;
+    }
+  | undefined
+>;
+
+export const formatZodErrors = (formErrorsRaw: FormErrorsRaw) => {
+  const formErrors = flattenValidationErrors(formErrorsRaw).fieldErrors;
   const keys = Object.keys(formErrors);
   const errors = keys.map((key) => formErrors[key]!);
 
