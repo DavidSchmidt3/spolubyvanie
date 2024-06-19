@@ -12,15 +12,16 @@ import {
 } from "@/app/[locale]/_components/ui/form";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { Input } from "@/app/[locale]/_components/ui/input";
-import { toast } from "@/app/[locale]/_components/ui/use-toast";
 import { useControlledForm } from "@/hooks/form";
 import { cn } from "@/lib/utils";
 import { googleLogin, signInWithEmail } from "@/lib/utils/data/actions/login";
 import { USER_AUTH_FORM_SCHEMA } from "@/lib/utils/data/actions/login/schema";
 import { Link, useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
-import { useMemo } from "react";
+import { useAction } from "next-safe-action/hooks";
+import { useEffect, useMemo } from "react";
 import { type z } from "zod";
+import { useToast } from "../ui/use-toast";
 
 type UserAuthFormValues = z.infer<typeof USER_AUTH_FORM_SCHEMA>;
 type UserLoginProps = React.HTMLAttributes<HTMLDivElement>;
@@ -29,6 +30,9 @@ export default function UserLoginForm({ className, ...props }: UserLoginProps) {
   "use no memo";
   const t = useTranslations("translations");
   const router = useRouter();
+  const { toast } = useToast();
+  const { execute, isExecuting, result, hasErrored } =
+    useAction(signInWithEmail);
 
   const defaultValues = useMemo<UserAuthFormValues>(() => {
     return {
@@ -42,19 +46,20 @@ export default function UserLoginForm({ className, ...props }: UserLoginProps) {
     defaultValues,
   });
 
-  async function onSubmit(data: UserAuthFormValues) {
-    const response = await signInWithEmail(data);
-
-    if (response?.isError) {
+  useEffect(() => {
+    if (hasErrored) {
       toast({
         title: "alerts.login.error.title",
-        description: response.error,
+        description: result.validationErrors ?? result.serverError,
         variant: "destructive",
       });
     }
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result, hasErrored]);
 
-  const isPending = form.formState.isSubmitting;
+  async function onSubmit(data: UserAuthFormValues) {
+    execute(data);
+  }
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
@@ -97,8 +102,8 @@ export default function UserLoginForm({ className, ...props }: UserLoginProps) {
             <Link href="/password-reset" className="text-sm text-primary">
               {t("login.forgot_password.link")}
             </Link>
-            <Button disabled={isPending} variant="ringHover">
-              {isPending && (
+            <Button disabled={isExecuting} variant="ringHover">
+              {isExecuting && (
                 <Icons.spinner className="w-4 h-4 mr-2 animate-spin" />
               )}
               {t("login.email.button")}

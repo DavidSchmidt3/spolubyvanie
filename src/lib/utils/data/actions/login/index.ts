@@ -1,8 +1,13 @@
 "use server";
 
+import {
+  ActionError,
+  actionClient,
+} from "@/lib/utils/data/actions/safe-action-client";
 import { redirect as redirectLocal } from "@/lib/utils/localization/navigation";
 import { createClient } from "@/lib/utils/supabase/server";
-import { formatZodErrorsToArray } from "@/lib/utils/zod";
+import { formatZodErrors } from "@/lib/utils/zod";
+import { flattenValidationErrors } from "next-safe-action";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { USER_AUTH_FORM_SCHEMA } from "./schema";
@@ -45,39 +50,30 @@ export async function logout() {
   redirectLocal("/");
 }
 
-export async function signInWithEmail(input: unknown) {
-  const supabase = createClient();
-  const validatedSignInInput = USER_AUTH_FORM_SCHEMA.safeParse(input);
+export const signInWithEmail = actionClient
+  .schema(USER_AUTH_FORM_SCHEMA, {
+    handleValidationErrorsShape: (ve) =>
+      formatZodErrors(flattenValidationErrors(ve).fieldErrors),
+  })
+  .action(async ({ parsedInput: { email, password } }) => {
+    const supabase = createClient();
 
-  if (!validatedSignInInput.success) {
-    const errors = formatZodErrorsToArray(validatedSignInInput);
-    console.error("Error validating sign in input", errors.flat());
-    return {
-      isError: true,
-      error: errors,
-    };
-  }
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
-  const { email, password } = validatedSignInInput.data;
-  const { error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
-
-  if (error) {
-    // don't care about email not confirmed and invalid credentials errors
-    if (
-      error.message !== supabaseSignInErrors.emailNotConfirmed &&
-      error.message !== supabaseSignInErrors.invalidCredentials
-    ) {
-      console.error("Error signing in with email", error);
+    if (error) {
+      // don't care about email not confirmed and invalid credentials errors
+      if (
+        error.message !== supabaseSignInErrors.emailNotConfirmed &&
+        error.message !== supabaseSignInErrors.invalidCredentials
+      ) {
+        console.error("Error signing in with email", error);
+      }
+      throw new ActionError(getTranslatedSupabaseSignInError(error.message));
     }
-    return {
-      isError: true,
-      error: getTranslatedSupabaseSignInError(error.message),
-    };
-  }
 
-  revalidatePath("/", "layout");
-  redirectLocal("/");
-}
+    revalidatePath("/", "layout");
+    redirectLocal("/");
+  });

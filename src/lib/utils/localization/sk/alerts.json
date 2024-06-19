@@ -87,6 +87,11 @@
       "access_token": {
         "invalid": "Nastala neočakávaná chyba, skúste to znova neskôr"
       }
+    },
+    "global": {
+      "error": {
+        "description": "Vyskytla sa neočakávaná chyba, skúste to znova neskôr"
+      }
     }
   }
 }
