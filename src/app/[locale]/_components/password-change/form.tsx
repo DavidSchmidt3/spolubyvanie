@@ -11,7 +11,7 @@ import {
 } from "@/app/[locale]/_components/ui/form";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { Input } from "@/app/[locale]/_components/ui/input";
-import { toast } from "@/app/[locale]/_components/ui/use-toast";
+import { useToast } from "@/app/[locale]/_components/ui/use-toast";
 import { useControlledForm } from "@/hooks/form";
 import { cn } from "@/lib/utils";
 import { changePassword } from "@/lib/utils/data/actions/password-change";
@@ -32,6 +32,7 @@ export default function PasswordChangeForm({
   "use no memo";
   const t = useTranslations("translations");
   const router = useRouter();
+  const { toast } = useToast();
   const searchParams = useSearchParams();
   const accessToken = searchParams.get("code") ?? "";
 

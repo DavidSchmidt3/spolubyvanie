@@ -11,7 +11,7 @@ import {
 } from "@/app/[locale]/_components/ui/form";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { Input } from "@/app/[locale]/_components/ui/input";
-import { toast } from "@/app/[locale]/_components/ui/use-toast";
+import { useToast } from "@/app/[locale]/_components/ui/use-toast";
 import { useControlledForm } from "@/hooks/form";
 import { cn } from "@/lib/utils";
 import { resetPassword } from "@/lib/utils/data/actions/password-reset";
@@ -34,6 +34,7 @@ export default function PasswordResetForm({
   const t = useTranslations("translations");
   const params = useParams();
   const router = useRouter();
+  const { toast } = useToast();
 
   const defaultValues = useMemo<ResetPasswordFormValues>(() => {
     return {
