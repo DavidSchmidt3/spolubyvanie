@@ -19,8 +19,9 @@ import { PASSWORD_RESET_SCHEMA } from "@/lib/utils/data/actions/password-reset/s
 import { DEFAULT_LOCALE, type Locale } from "@/lib/utils/localization/i18n";
 import { useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
+import { useAction } from "next-safe-action/hooks";
 import { useParams } from "next/navigation";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { type z } from "zod";
 
 type ResetPasswordFormValues = z.infer<typeof PASSWORD_RESET_SCHEMA>;
@@ -35,6 +36,8 @@ export default function PasswordResetForm({
   const params = useParams();
   const router = useRouter();
   const { toast } = useToast();
+  const { execute, isExecuting, result, hasErrored, hasSucceeded } =
+    useAction(resetPassword);
 
   const defaultValues = useMemo<ResetPasswordFormValues>(() => {
     return {
@@ -49,26 +52,29 @@ export default function PasswordResetForm({
     defaultValues,
   });
 
-  async function onSubmit(data: ResetPasswordFormValues) {
-    const response = await resetPassword(data);
-
-    if (response?.isError) {
+  useEffect(() => {
+    if (hasErrored) {
       toast({
         title: "alerts.password_reset.error.title",
-        description: response.error,
+        description: result.validationErrors ?? result.serverError,
         variant: "destructive",
       });
-      return;
     }
-    toast({
-      title: "alerts.password_reset.success.title",
-      description: "alerts.password_reset.success.description",
-      variant: "success",
-    });
-    router.push("/login");
-  }
 
-  const isPending = form.formState.isSubmitting;
+    if (hasSucceeded) {
+      toast({
+        title: "alerts.password_reset.success.title",
+        description: "alerts.password_reset.success.description",
+        variant: "success",
+      });
+      router.push("/login");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result, hasErrored, hasSucceeded]);
+
+  async function onSubmit(data: ResetPasswordFormValues) {
+    execute(data);
+  }
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
@@ -91,8 +97,8 @@ export default function PasswordResetForm({
                 </FormItem>
               )}
             />
-            <Button disabled={isPending} variant="ringHover" type="submit">
-              {isPending && (
+            <Button disabled={isExecuting} variant="ringHover" type="submit">
+              {isExecuting && (
                 <Icons.spinner className="w-4 h-4 mr-2 animate-spin" />
               )}
               {t("password_reset.button")}

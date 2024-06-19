@@ -18,8 +18,9 @@ import { changePassword } from "@/lib/utils/data/actions/password-change";
 import { PASSWORD_CHANGE_SCHEMA } from "@/lib/utils/data/actions/password-change/schema";
 import { useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
+import { useAction } from "next-safe-action/hooks";
 import { useSearchParams } from "next/navigation";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { type z } from "zod";
 
 type ChangePasswordFormValues = z.infer<typeof PASSWORD_CHANGE_SCHEMA>;
@@ -35,6 +36,8 @@ export default function PasswordChangeForm({
   const { toast } = useToast();
   const searchParams = useSearchParams();
   const accessToken = searchParams.get("code") ?? "";
+  const { execute, isExecuting, result, hasErrored, hasSucceeded } =
+    useAction(changePassword);
 
   const defaultValues = useMemo<ChangePasswordFormValues>(() => {
     return {
@@ -49,27 +52,30 @@ export default function PasswordChangeForm({
     defaultValues,
   });
 
-  async function onSubmit(data: ChangePasswordFormValues) {
-    const response = await changePassword(data);
-
-    if (response?.isError) {
+  useEffect(() => {
+    if (hasErrored) {
       toast({
         title: "alerts.password_change.error.title",
-        description: response.error,
+        description: result.validationErrors ?? result.serverError,
         variant: "destructive",
       });
       router.push("/password-reset");
-      return;
     }
-    toast({
-      title: "alerts.password_change.success.title",
-      description: "alerts.password_change.success.description",
-      variant: "success",
-    });
-    router.push("/login");
-  }
 
-  const isPending = form.formState.isSubmitting;
+    if (hasSucceeded) {
+      toast({
+        title: "alerts.password_change.success.title",
+        description: "alerts.password_change.success.description",
+        variant: "success",
+      });
+      router.push("/login");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result, hasErrored, hasSucceeded]);
+
+  async function onSubmit(data: ChangePasswordFormValues) {
+    execute(data);
+  }
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
@@ -110,8 +116,8 @@ export default function PasswordChangeForm({
                 </FormItem>
               )}
             />
-            <Button disabled={isPending} variant="ringHover" type="submit">
-              {isPending && (
+            <Button disabled={isExecuting} variant="ringHover" type="submit">
+              {isExecuting && (
                 <Icons.spinner className="w-4 h-4 mr-2 animate-spin" />
               )}
               {t("password_change.button")}

@@ -20,7 +20,8 @@ import { USER_AUTH_FORM_SCHEMA } from "@/lib/utils/data/actions/login/schema";
 import { signUpWithEmail } from "@/lib/utils/data/actions/register";
 import { useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
-import { useMemo } from "react";
+import { useAction } from "next-safe-action/hooks";
+import { useEffect, useMemo } from "react";
 import { type z } from "zod";
 
 type UserAuthFormValues = z.infer<typeof USER_AUTH_FORM_SCHEMA>;
@@ -34,6 +35,8 @@ export default function UserRegisterForm({
   const t = useTranslations("translations");
   const router = useRouter();
   const { toast } = useToast();
+  const { execute, isExecuting, result, hasErrored, hasSucceeded } =
+    useAction(signUpWithEmail);
 
   const defaultValues = useMemo<UserAuthFormValues>(() => {
     return {
@@ -47,27 +50,29 @@ export default function UserRegisterForm({
     defaultValues,
   });
 
-  async function onSubmit(data: UserAuthFormValues) {
-    const response = await signUpWithEmail(data);
-
-    if (response?.isError) {
+  useEffect(() => {
+    if (hasErrored) {
       toast({
         title: "alerts.register.error.title",
-        description: response.error,
+        description: result.validationErrors ?? result.serverError,
         variant: "destructive",
       });
-      return;
     }
 
-    toast({
-      title: "alerts.register.success.title",
-      description: "alerts.register.success.description",
-      variant: "success",
-    });
-    router.push("/login");
-  }
+    if (hasSucceeded) {
+      toast({
+        title: "alerts.register.success.title",
+        description: "alerts.register.success.description",
+        variant: "success",
+      });
+      router.push("/login");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result, hasErrored, hasSucceeded]);
 
-  const isPending = form.formState.isSubmitting;
+  async function onSubmit(data: UserAuthFormValues) {
+    execute(data);
+  }
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
@@ -107,8 +112,8 @@ export default function UserRegisterForm({
                 </FormItem>
               )}
             />
-            <Button disabled={isPending} variant="ringHover">
-              {isPending && (
+            <Button disabled={isExecuting} variant="ringHover">
+              {isExecuting && (
                 <Icons.spinner className="w-4 h-4 mr-2 animate-spin" />
               )}
               {t("register.button")}
