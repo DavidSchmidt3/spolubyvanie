@@ -19,7 +19,7 @@ import { PASSWORD_CHANGE_SCHEMA } from "@/lib/utils/data/actions/password-change
 import { useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { type z } from "zod";
 
 type ChangePasswordFormValues = z.infer<typeof PASSWORD_CHANGE_SCHEMA>;
@@ -34,12 +34,6 @@ export default function PasswordChangeForm({
   const router = useRouter();
   const searchParams = useSearchParams();
   const accessToken = searchParams.get("code") ?? "";
-
-  useEffect(() => {
-    if (!accessToken) {
-      router.push("/");
-    }
-  }, [accessToken, router]);
 
   const defaultValues = useMemo<ChangePasswordFormValues>(() => {
     return {

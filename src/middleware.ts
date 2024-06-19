@@ -6,7 +6,7 @@ import {
 } from "@/lib/utils/localization/i18n";
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import createMiddleware from "next-intl/middleware";
-import { type NextRequest } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import { type Database } from "./lib/utils/supabase/types/database";
 
 const localizationMiddleWare = createMiddleware({
@@ -43,7 +43,28 @@ export async function middleware(request: NextRequest) {
     }
   );
 
-  await supabase.auth.getUser();
+  const { data } = await supabase.auth.getUser();
+  const pathnameWithoutLocale = request.nextUrl.pathname.replace(
+    new RegExp(`^/(${LOCALES_CODES.join("|")})`),
+    ""
+  );
+
+  const redirectLocale = response.headers.get(
+    "x-middleware-request-x-next-intl-locale"
+  );
+
+  // if user is already logged in, don't allow him to visit auth pages
+  if (data.user && authPathnames.includes(pathnameWithoutLocale)) {
+    return NextResponse.redirect(`${process.env.BASE_URL}/${redirectLocale}`);
+  }
+
+  // if user wants to change password, there must be a code in the url
+  if (
+    changePasswordPathnames.includes(pathnameWithoutLocale) &&
+    !request.nextUrl.searchParams.get("code")
+  ) {
+    return NextResponse.redirect(`${process.env.BASE_URL}/${redirectLocale}`);
+  }
 
   return localizationMiddleWare(request);
 }
@@ -52,3 +73,14 @@ export const config = {
   // Match only internationalized pathnames
   matcher: ["/", "/(sk|en)/:path*"],
 };
+
+const authPathnames = [
+  ...Object.values(pathnames["/login"]),
+  ...Object.values(pathnames["/register"]),
+  ...Object.values(pathnames["/password-reset"]),
+  ...Object.values(pathnames["/password-change"]),
+] as string[];
+
+const changePasswordPathnames = [
+  ...Object.values(pathnames["/password-change"]),
+] as string[];
