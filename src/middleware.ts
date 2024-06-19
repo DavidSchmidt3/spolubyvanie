@@ -61,7 +61,7 @@ export async function middleware(request: NextRequest) {
   // if user wants to change password, there must be a code in the url
   if (
     changePasswordPathnames.includes(pathnameWithoutLocale) &&
-    request.nextUrl.searchParams.get("code") === null
+    !request.nextUrl.searchParams.get("code")
   ) {
     return NextResponse.redirect(`${process.env.BASE_URL}/${redirectLocale}`);
   }
