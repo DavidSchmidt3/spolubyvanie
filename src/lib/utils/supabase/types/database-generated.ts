@@ -427,19 +427,19 @@ export type Database = {
         Row: {
           created_at: string;
           id: string;
-          language: string;
+          locale: string;
           theme: string;
         };
         Insert: {
           created_at?: string;
           id: string;
-          language: string;
+          locale: string;
           theme: string;
         };
         Update: {
           created_at?: string;
           id?: string;
-          language?: string;
+          locale?: string;
           theme?: string;
         };
         Relationships: [

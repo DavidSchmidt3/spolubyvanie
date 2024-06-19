@@ -1,7 +1,7 @@
 {
   "alerts": {
     "settings": {
-      "language": {
+      "locale": {
         "validation": {
           "required": "Prosím vyberte jazyk"
         }
