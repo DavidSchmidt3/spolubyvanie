@@ -18,7 +18,6 @@ export default async function SettingsPage() {
       messages={pickLocaleMessages(messages, [
         "translations.common",
         "translations.settings",
-        "translations.errors",
         "alerts.settings",
       ])}
     >
