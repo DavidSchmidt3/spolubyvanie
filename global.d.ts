@@ -22,3 +22,13 @@ type LeafKeys<T, P extends string = ""> = T extends object
   : "";
 
 export type MessageKeys<T> = LeafKeys<T>;
+
+type AllKeys<T, P extends string = ""> = T extends object
+  ? {
+      [K in keyof T]: T[K] extends object
+        ? `${P}${K}` | AllKeys<T[K], `${P}${K}.`>
+        : `${P}${K}`;
+    }[keyof T]
+  : never;
+
+export type PathKeys<T> = AllKeys<T>;

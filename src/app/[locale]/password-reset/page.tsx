@@ -1,7 +1,10 @@
 import Container from "@/app/[locale]/_components/common/container";
 import PasswordResetForm from "@/app/[locale]/_components/password-reset/form";
-import { LOCALES, type Locale } from "@/lib/utils/localization/i18n";
-import { pick } from "lodash";
+import {
+  LOCALES,
+  pickLocaleMessages,
+  type Locale,
+} from "@/lib/utils/localization/i18n";
 import { NextIntlClientProvider } from "next-intl";
 import {
   getMessages,
@@ -31,7 +34,7 @@ export default async function PasswordReset({ params: { locale } }: Props) {
             </h1>
           </div>
           <NextIntlClientProvider
-            messages={pick(messages, [
+            messages={pickLocaleMessages(messages, [
               "translations.password_reset",
               "translations.auth",
               "alerts.password_reset",

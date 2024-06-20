@@ -1,4 +1,6 @@
-import { IntlErrorCode } from "next-intl";
+import { type MessageKeys, type PathKeys } from "global";
+import { pick } from "lodash";
+import { IntlErrorCode, type AbstractIntlMessages } from "next-intl";
 import { getRequestConfig } from "next-intl/server";
 import { notFound } from "next/navigation";
 
@@ -84,3 +86,12 @@ export const pathnames = {
   //   sk: "/kategorien/[...slug]",
   // },
 } as const;
+
+export function pickLocaleMessages(
+  messages: AbstractIntlMessages,
+  keys: PathKeys<IntlMessages>[]
+) {
+  const additionalKeys = ["alerts.global" as MessageKeys<IntlMessages>];
+  const combinedKeys = [...keys, ...additionalKeys];
+  return pick(messages, combinedKeys);
+}

@@ -1,6 +1,6 @@
 import Container from "@/app/[locale]/_components/common/container";
 import PasswordChangeForm from "@/app/[locale]/_components/password-change/form";
-import { pick } from "lodash";
+import { pickLocaleMessages } from "@/lib/utils/localization/i18n";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 
@@ -18,7 +18,7 @@ export default async function PasswordChange() {
             </h1>
           </div>
           <NextIntlClientProvider
-            messages={pick(messages, [
+            messages={pickLocaleMessages(messages, [
               "translations.password_change",
               "translations.auth",
               "alerts.password_change",
