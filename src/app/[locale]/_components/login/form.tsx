@@ -12,6 +12,8 @@ import {
 } from "@/app/[locale]/_components/ui/form";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { Input } from "@/app/[locale]/_components/ui/input";
+import { PasswordInput } from "@/app/[locale]/_components/ui/password";
+import { useToast } from "@/app/[locale]/_components/ui/use-toast";
 import { useControlledForm } from "@/hooks/form";
 import { cn } from "@/lib/utils";
 import { googleLogin, signInWithEmail } from "@/lib/utils/data/actions/login";
@@ -21,7 +23,6 @@ import { useTranslations } from "next-intl";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect, useMemo } from "react";
 import { type z } from "zod";
-import { useToast } from "../ui/use-toast";
 
 type UserAuthFormValues = z.infer<typeof USER_AUTH_FORM_SCHEMA>;
 type UserLoginProps = React.HTMLAttributes<HTMLDivElement>;
@@ -88,8 +89,7 @@ export default function UserLoginForm({ className, ...props }: UserLoginProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      type="password"
+                    <PasswordInput
                       placeholder={t("auth.password.label")}
                       autoComplete="current-password"
                       {...field}

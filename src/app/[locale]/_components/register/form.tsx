@@ -12,6 +12,7 @@ import {
 } from "@/app/[locale]/_components/ui/form";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { Input } from "@/app/[locale]/_components/ui/input";
+import { PasswordInput } from "@/app/[locale]/_components/ui/password";
 import { useToast } from "@/app/[locale]/_components/ui/use-toast";
 import { useControlledForm } from "@/hooks/form";
 import { cn } from "@/lib/utils";
@@ -101,8 +102,7 @@ export default function UserRegisterForm({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      type="password"
+                    <PasswordInput
                       placeholder={t("auth.password.label")}
                       autoComplete="new-password"
                       {...field}
