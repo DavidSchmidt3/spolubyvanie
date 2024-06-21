@@ -11,10 +11,6 @@
     "password_reset": {
       "title": "Password Reset",
       "description": "Pasword reset via email link"
-    },
-    "error": {
-      "title": "Error page",
-      "description": "Error page when something went wrong"
     }
   }
 }
