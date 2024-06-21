@@ -1,10 +1,7 @@
 import Container from "@/app/[locale]/_components/common/container";
 import UserAuthForm from "@/app/[locale]/_components/login/form";
-import {
-  LOCALES,
-  pickLocaleMessages,
-  type Locale,
-} from "@/lib/utils/localization/i18n";
+import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
+import { LOCALES, type Locale } from "@/lib/utils/localization/i18n";
 import { NextIntlClientProvider } from "next-intl";
 import {
   getMessages,

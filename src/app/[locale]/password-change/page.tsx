@@ -1,6 +1,6 @@
 import Container from "@/app/[locale]/_components/common/container";
 import PasswordChangeForm from "@/app/[locale]/_components/password-change/form";
-import { pickLocaleMessages } from "@/lib/utils/localization/i18n";
+import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 

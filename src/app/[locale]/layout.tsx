@@ -4,7 +4,7 @@ import ThemeLocaleInitializer from "@/app/[locale]/_components/theme-locale-util
 import { ThemeProvider } from "@/app/[locale]/_components/theme-locale-utils/theme-provider";
 import { Toaster } from "@/app/[locale]/_components/ui/toaster";
 import { cn } from "@/lib/utils";
-import { pickLocaleMessages } from "@/lib/utils/localization/i18n";
+import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
 import "@/styles/globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";

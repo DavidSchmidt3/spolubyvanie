@@ -2,7 +2,7 @@ import Container from "@/app/[locale]/_components/common/container";
 import SettingsForm from "@/app/[locale]/_components/settings/form";
 import { getSettings } from "@/lib/utils/data/settings";
 import { getUser } from "@/lib/utils/data/user";
-import { pickLocaleMessages } from "@/lib/utils/localization/i18n";
+import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 
