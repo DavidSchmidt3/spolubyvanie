@@ -16,7 +16,8 @@
     },
     "common": {
       "error": {
-        "label": "Something went wrong, please try again later"
+        "label": "Something went wrong, please try again later",
+        "redirect_home": "Continue to homepage"
       },
       "loading": {
         "label": "Loading"

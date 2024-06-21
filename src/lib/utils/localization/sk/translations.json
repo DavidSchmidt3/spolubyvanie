@@ -16,7 +16,8 @@
     },
     "common": {
       "error": {
-        "label": "Nastala chyba, skúste to neskôr"
+        "label": "Nastala chyba, skúste to neskôr",
+        "redirect_home": "Presmerovať na domovskú stránku"
       },
       "loading": {
         "label": "Načítavanie"

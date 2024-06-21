@@ -11,6 +11,10 @@
     "password_reset": {
       "title": "Obnova hesla",
       "description": "Obnova hesla pomocou emailového odkazu"
+    },
+    "error": {
+      "title": "Stránka pri neočakavanej chybe",
+      "description": "Stránka pri neočakavanej chybe, kde je používateľ presmerovaný, ak niečo sa pokazilo"
     }
   }
 }
