@@ -86,6 +86,11 @@
       "access_token": {
         "invalid": "There was an unexpected error, please try again later"
       }
+    },
+    "global": {
+      "error": {
+        "description": "Unexpected error, please try again later"
+      }
     }
   }
 }

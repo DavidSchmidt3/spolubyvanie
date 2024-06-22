@@ -2,36 +2,27 @@
 
 import { pathnames, type Locale } from "@/lib/utils/localization/i18n";
 import { createClient } from "@/lib/utils/supabase/server";
-import { formatZodErrorsToArray } from "@/lib/utils/zod";
+import { formatZodErrors } from "@/lib/utils/zod";
+import { ActionError, actionClient } from "../safe-action-client";
 import { PASSWORD_RESET_SCHEMA } from "./schema";
 
-export async function resetPassword(input: unknown) {
-  const supabase = createClient();
-  const validatedResetPasswordInput = PASSWORD_RESET_SCHEMA.safeParse(input);
+export const resetPassword = actionClient
+  .schema(PASSWORD_RESET_SCHEMA, {
+    handleValidationErrorsShape: formatZodErrors,
+  })
+  .action(async ({ parsedInput: { email, locale } }) => {
+    const supabase = createClient();
 
-  if (!validatedResetPasswordInput.success) {
-    const errors = formatZodErrorsToArray(validatedResetPasswordInput);
-    console.error("Error validating reset password input", errors.flat());
-    return {
-      isError: true,
-      error: errors,
-    };
-  }
+    const redirectUrl = getPasswordChangeRedirectUrl(locale);
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: redirectUrl,
+    });
 
-  const { email, locale } = validatedResetPasswordInput.data;
-  const redirectUrl = getPasswordChangeRedirectUrl(locale);
-  const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: redirectUrl,
+    if (error) {
+      console.error("Error resetting password with email", error);
+      throw new ActionError("alerts.password_reset.error.database_error");
+    }
   });
-
-  if (error) {
-    console.error("Error resetting password with email", error);
-    return {
-      isError: true,
-      error: "alerts.password_reset.error.database_error" as const,
-    };
-  }
-}
 
 const getPasswordChangeRedirectUrl = (locale: Locale) => {
   const redirectUrl = pathnames["/password-change"];

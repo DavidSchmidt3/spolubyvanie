@@ -60,7 +60,6 @@
     "password_reset": {
       "error": {
         "title": "Nepodarilo sa resetovať heslo",
-        "user_not_found": "Používateľ s týmto emailom neexistuje",
         "database_error": "Pri pokuse o resetovanie hesla sa vyskytla chyba, skúste to znova neskôr"
       },
       "success": {
@@ -86,6 +85,11 @@
       },
       "access_token": {
         "invalid": "Nastala neočakávaná chyba, skúste to znova neskôr"
+      }
+    },
+    "global": {
+      "error": {
+        "description": "Vyskytla sa neočakávaná chyba, skúste to znova neskôr"
       }
     }
   }

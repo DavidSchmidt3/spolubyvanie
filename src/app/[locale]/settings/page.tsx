@@ -2,7 +2,7 @@ import Container from "@/app/[locale]/_components/common/container";
 import SettingsForm from "@/app/[locale]/_components/settings/form";
 import { getSettings } from "@/lib/utils/data/settings";
 import { getUser } from "@/lib/utils/data/user";
-import { pick } from "lodash";
+import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 
@@ -15,10 +15,9 @@ export default async function SettingsPage() {
 
   return (
     <NextIntlClientProvider
-      messages={pick(messages, [
+      messages={pickLocaleMessages(messages, [
         "translations.common",
         "translations.settings",
-        "translations.errors",
         "alerts.settings",
       ])}
     >

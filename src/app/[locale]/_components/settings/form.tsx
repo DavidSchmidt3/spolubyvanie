@@ -12,9 +12,10 @@ import { DEFAULT_LOCALE, type Locale } from "@/lib/utils/localization/i18n";
 import { usePathname, useRouter } from "@/lib/utils/localization/navigation";
 import { DEFAULT_THEME, type Theme } from "@/lib/utils/theme/config";
 import { useTranslations } from "next-intl";
+import { useAction } from "next-safe-action/hooks";
 import { useTheme } from "next-themes";
 import { useParams } from "next/navigation";
-import { startTransition, useMemo } from "react";
+import { startTransition, useEffect, useMemo } from "react";
 import type * as z from "zod";
 import LocaleField from "./locale-field";
 import ThemeField from "./theme-field";
@@ -38,6 +39,8 @@ export default function SettingsForm({ userSettings, user }: Props) {
   const pathname = usePathname();
   const { setTheme, theme } = useTheme();
   const params = useParams();
+  const { execute, isExecuting, result, hasErrored, hasSucceeded } =
+    useAction(saveSettings);
 
   const defaultValues = useMemo<SettingsFormValues>(() => {
     return {
@@ -60,17 +63,27 @@ export default function SettingsForm({ userSettings, user }: Props) {
     }
 
     // call server action only when user is authenticated so we can save settings in DB
-    const response = await saveSettings(data);
-    if (response.isError) {
+    execute(data);
+  }
+
+  useEffect(() => {
+    if (hasErrored) {
       toast({
         title: "alerts.settings.save.error.title",
-        description: response.error,
+        description: result.validationErrors ?? result.serverError,
         variant: "destructive",
       });
-      return;
     }
-    updateSettings(response.data?.theme, response.data?.locale);
-  }
+
+    if (hasSucceeded) {
+      toast({
+        title: "alerts.settings.save.success.title",
+        variant: "success",
+      });
+      updateSettings(result.data?.theme, result.data?.locale);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result, hasErrored, hasSucceeded]);
 
   function updateSettings(newTheme?: Theme, newLocale?: Locale) {
     startTransition(() => {
@@ -95,7 +108,7 @@ export default function SettingsForm({ userSettings, user }: Props) {
     });
   }
 
-  const isPending = form.formState.isSubmitting;
+  const isPending = form.formState.isSubmitting || isExecuting;
 
   return (
     <div className="items-center w-full px-4 py-4 sm:px-8 sm:py-8 sm:w-auto sm:justify-center sm:flex sm:flex-col">

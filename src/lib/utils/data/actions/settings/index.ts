@@ -1,51 +1,28 @@
 "use server";
-import { getUser } from "@/lib/utils/data/user";
 import { db } from "@/lib/utils/prisma";
-import { formatZodErrorsToArray } from "@/lib/utils/zod";
+import { formatZodErrors } from "@/lib/utils/zod";
 import { type UserSettings } from "../../settings";
+import { ActionError, authActionClient } from "../safe-action-client";
 import { SETTINGS_FORM_SCHEMA } from "./schema";
 
-export const saveSettings = async (input: unknown) => {
-  const validatedSettingsInput = SETTINGS_FORM_SCHEMA.safeParse(input);
-
-  if (!validatedSettingsInput.success) {
-    const errors = formatZodErrorsToArray(validatedSettingsInput);
-    return {
-      isError: true,
-      error: errors,
-    };
-  }
-
-  const user = await getUser();
-  if (!user) {
-    console.error("User not found while saving settings");
-    return {
-      isError: true,
-      error: "alerts.user.error.unauthenticated" as const,
-    };
-  }
-
-  try {
-    const newSettings = (await db.user_settings.upsert({
-      where: {
-        id: user.id,
-      },
-      create: {
-        ...validatedSettingsInput.data,
-        id: user.id,
-      },
-      update: validatedSettingsInput.data,
-    })) as unknown as UserSettings;
-
-    return {
-      isError: false,
-      data: newSettings,
-    };
-  } catch (error) {
-    console.error("Error saving settings", error);
-    return {
-      isError: true,
-      error: "alerts.settings.save.error.title" as const,
-    };
-  }
-};
+export const saveSettings = authActionClient
+  .schema(SETTINGS_FORM_SCHEMA, {
+    handleValidationErrorsShape: formatZodErrors,
+  })
+  .action(async ({ parsedInput: data, ctx: { userId } }) => {
+    try {
+      return (await db.user_settings.upsert({
+        where: {
+          id: userId,
+        },
+        create: {
+          ...data,
+          id: userId,
+        },
+        update: data,
+      })) as unknown as UserSettings;
+    } catch (error) {
+      console.error("Error saving settings", error);
+      throw new ActionError("alerts.settings.save.error.title");
+    }
+  });
