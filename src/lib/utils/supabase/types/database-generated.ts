@@ -16,7 +16,6 @@ export type Database = {
           created_at: string;
           deleted_at: string | null;
           description: string;
-          district_id: string;
           email: string | null;
           floor: number | null;
           id: string;
@@ -31,7 +30,6 @@ export type Database = {
           phone_number: string | null;
           price: number;
           primary_photo_url: string | null;
-          region_id: string;
           room_area: number | null;
           street: string | null;
           title: string;
@@ -44,7 +42,6 @@ export type Database = {
           created_at?: string;
           deleted_at?: string | null;
           description: string;
-          district_id: string;
           email?: string | null;
           floor?: number | null;
           id?: string;
@@ -59,7 +56,6 @@ export type Database = {
           phone_number?: string | null;
           price: number;
           primary_photo_url?: string | null;
-          region_id: string;
           room_area?: number | null;
           street?: string | null;
           title: string;
@@ -72,7 +68,6 @@ export type Database = {
           created_at?: string;
           deleted_at?: string | null;
           description?: string;
-          district_id?: string;
           email?: string | null;
           floor?: number | null;
           id?: string;
@@ -87,7 +82,6 @@ export type Database = {
           phone_number?: string | null;
           price?: number;
           primary_photo_url?: string | null;
-          region_id?: string;
           room_area?: number | null;
           street?: string | null;
           title?: string;
@@ -96,24 +90,10 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: "public_advertisements_district_id_fkey";
-            columns: ["district_id"];
-            isOneToOne: false;
-            referencedRelation: "districts";
-            referencedColumns: ["id"];
-          },
-          {
             foreignKeyName: "public_advertisements_municipality_id_fkey";
             columns: ["municipality_id"];
             isOneToOne: false;
             referencedRelation: "municipalities";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "public_advertisements_region_id_fkey";
-            columns: ["region_id"];
-            isOneToOne: false;
-            referencedRelation: "regions";
             referencedColumns: ["id"];
           },
           {
@@ -301,16 +281,27 @@ export type Database = {
         Row: {
           id: string;
           name: string;
+          region_id: string;
         };
         Insert: {
           id?: string;
           name: string;
+          region_id: string;
         };
         Update: {
           id?: string;
           name?: string;
+          region_id?: string;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "districts_region_id_fkey";
+            columns: ["region_id"];
+            isOneToOne: false;
+            referencedRelation: "regions";
+            referencedColumns: ["id"];
+          }
+        ];
       };
       home_equiqments: {
         Row: {
@@ -335,18 +326,39 @@ export type Database = {
       };
       municipalities: {
         Row: {
+          district_id: string;
           id: string;
           name: string;
+          region_id: string;
         };
         Insert: {
+          district_id: string;
           id?: string;
           name: string;
+          region_id: string;
         };
         Update: {
+          district_id?: string;
           id?: string;
           name?: string;
+          region_id?: string;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "municipalities_district_id_fkey";
+            columns: ["district_id"];
+            isOneToOne: false;
+            referencedRelation: "districts";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "municipalities_region_id_fkey";
+            columns: ["region_id"];
+            isOneToOne: false;
+            referencedRelation: "regions";
+            referencedColumns: ["id"];
+          }
+        ];
       };
       regions: {
         Row: {

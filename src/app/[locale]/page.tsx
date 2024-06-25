@@ -1,6 +1,32 @@
-import { useTranslations } from "next-intl";
+import {
+  getDistricts,
+  getMunicipalities,
+  getRegions,
+} from "@/lib/utils/data/administrative-divisions";
+import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
+import AdministrativeDivisionFilter from "./_components/home/administrative-division-filter";
 
-export default function Home() {
-  const t = useTranslations("translations");
-  return <main>{t("navigation.home.label")}</main>;
+export default async function Home() {
+  const [regions, districts, municipalities, messages] = await Promise.all([
+    getRegions(),
+    getDistricts(),
+    getMunicipalities(),
+    getMessages(),
+  ]);
+
+  return (
+    <main>
+      <NextIntlClientProvider
+        messages={pickLocaleMessages(messages, ["translations.filter"])}
+      >
+        <AdministrativeDivisionFilter
+          regions={regions}
+          districts={districts}
+          municipalities={municipalities}
+        />
+      </NextIntlClientProvider>
+    </main>
+  );
 }

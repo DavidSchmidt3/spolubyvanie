@@ -101,6 +101,26 @@
     "password_change": {
       "title": "Zmena hesla",
       "button": "Zmeniť heslo"
+    },
+    "filter": {
+      "region": {
+        "label": "Kraj",
+        "search_placeholder": "Vyhľadať kraj...",
+        "select_text": "Vybrať kraj",
+        "empty_text": "Neboli nájdené žiadne kraje"
+      },
+      "district": {
+        "label": "Okres",
+        "search_placeholder": "Vyhľadať okres...",
+        "select_text": "Vybrať okres",
+        "empty_text": "Neboli nájdené žiadne okresy"
+      },
+      "municipality": {
+        "label": "Obec",
+        "search_placeholder": "Vyhľadať obec...",
+        "select_text": "Vybrať obec",
+        "empty_text": "Neboli nájdené žiadne obce"
+      }
     }
   }
 }
