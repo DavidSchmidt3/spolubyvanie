@@ -12,27 +12,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/app/[locale]/_components/ui/popover";
-import pkg, { type IndexOptionsForDocumentSearch } from "flexsearch";
-import { useEffect, useState } from "react";
+import { useCombobox } from "@/hooks/combobox";
 import { FixedSizeList } from "react-window";
-import { TRANSITION_DURATION } from "tailwind.config";
 import { Icons } from "../ui/icons";
 import { type FilterData } from "./administrative-division-filter";
-const { Document } = pkg;
-
-const documentIndexParams = {
-  document: {
-    id: "id",
-    index: [
-      {
-        field: "name",
-        tokenize: "forward",
-        resolution: 9,
-      },
-    ],
-    store: true,
-  },
-} satisfies IndexOptionsForDocumentSearch<unknown, boolean>;
 
 type Props = {
   filterData: FilterData[];
@@ -55,51 +38,8 @@ export default function PopoverFilterField({
   selectRowText,
   title,
 }: Props) {
-  const [open, setOpen] = useState(false);
-  const [searchIndex, setSearchIndex] = useState(
-    new Document(documentIndexParams)
-  );
-  const [searchResults, setSearchResults] = useState(filterData);
-
-  function searchFilterData(event: React.ChangeEvent<HTMLInputElement>) {
-    if (!event.target.value) {
-      setSearchResults(filterData);
-      return;
-    }
-    const [nameFieldResult] = searchIndex.search(event.target.value, {
-      enrich: true,
-      index: "name",
-    });
-    const formattedResults = nameFieldResult?.result.map((result) => {
-      // @ts-ignore wrong type
-      const doc = result.doc;
-      return doc as unknown as FilterData;
-    });
-    setSearchResults(formattedResults ?? []);
-  }
-
-  useEffect(() => {
-    if (!open) {
-      setTimeout(() => {
-        setSearchResults(filterData);
-      }, TRANSITION_DURATION);
-    }
-  }, [open, filterData]);
-
-  useEffect(() => {
-    setSearchResults(filterData);
-    const newSearchIndex = new Document(documentIndexParams);
-    filterData.forEach((row) => {
-      newSearchIndex.add({
-        id: row.id,
-        name: row.name,
-        region_id: row.region_id,
-        district_id: row.district_id,
-      });
-    });
-    setSearchIndex(newSearchIndex);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { searchResults, searchFilterData, open, setOpen } =
+    useCombobox(filterData);
 
   const finalData = searchResults.filter((row) => {
     return filterFunction(row);
