@@ -21,6 +21,9 @@
       },
       "loading": {
         "label": "Loading"
+      },
+      "cancel": {
+        "label": "Cancel"
       }
     },
     "settings": {
@@ -85,7 +88,9 @@
         "label": "Email"
       },
       "password": {
-        "label": "Password"
+        "label": "Password",
+        "hide": "Hide password",
+        "show": "Show password"
       },
       "password_confirm": {
         "label": "Confirm Password"

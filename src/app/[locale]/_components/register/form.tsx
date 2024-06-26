@@ -112,7 +112,11 @@ export default function UserRegisterForm({
                 </FormItem>
               )}
             />
-            <Button disabled={isExecuting} variant="ringHover">
+            <Button
+              disabled={isExecuting}
+              variant="ringHover"
+              aria-label={t("register.button")}
+            >
               {isExecuting && (
                 <Icons.spinner className="w-4 h-4 mr-2 animate-spin" />
               )}
@@ -123,7 +127,12 @@ export default function UserRegisterForm({
       </Form>
       <Divider text={t("auth.alternative_method.label")} />
       <form action={googleRegister}>
-        <Button variant="outline" type="submit" className="w-full">
+        <Button
+          variant="outline"
+          type="submit"
+          className="w-full"
+          aria-label={t("register.google.button")}
+        >
           <Icons.google className="w-4 h-4 mr-2" />
           {t("register.google.button")}
         </Button>
@@ -131,6 +140,7 @@ export default function UserRegisterForm({
       <Divider text={t("register.already_have_account.label")} />
       <Button
         onClick={() => router.push("/login")}
+        aria-label={t("register.login.button")}
         className="w-full"
         variant="outline"
       >

@@ -35,7 +35,7 @@ export default function LocaleField({ control }: Props) {
           <FormLabel>{t("locale.label")}</FormLabel>
           <Select onValueChange={field.onChange} value={field.value}>
             <FormControl>
-              <SelectTrigger>
+              <SelectTrigger aria-label={t("locale.select_prompt")}>
                 <SelectValue placeholder={t("locale.select_prompt")} />
               </SelectTrigger>
             </FormControl>

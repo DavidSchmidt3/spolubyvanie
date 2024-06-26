@@ -6,7 +6,10 @@ export function pickLocaleMessages(
   messages: AbstractIntlMessages,
   keys: PathKeys<IntlMessages>[]
 ) {
-  const additionalKeys = ["alerts.global" as MessageKeys<IntlMessages>];
+  const additionalKeys = [
+    "alerts.global" as MessageKeys<IntlMessages>,
+    "common" as MessageKeys<IntlMessages>,
+  ];
   const combinedKeys = [...keys, ...additionalKeys];
   return pick(messages, combinedKeys);
 }

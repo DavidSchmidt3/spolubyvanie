@@ -24,6 +24,7 @@ export function AdvertisementTypeFilter() {
         <SelectTrigger
           className="h-11 text-center justify-between w-full px-4"
           value={selectedAdType}
+          aria-label={t("translations.advertisement.types.select_text")}
         >
           <SelectValue
             placeholder={t("translations.advertisement.types.select_text")}

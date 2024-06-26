@@ -3,6 +3,7 @@
 import { pathnames, type Locale } from "@/lib/utils/localization/i18n";
 import { createClient } from "@/lib/utils/supabase/server";
 import { formatZodErrors } from "@/lib/utils/zod";
+import { getProtocol } from "@/middleware";
 import { ActionError, actionClient } from "../safe-action-client";
 import { PASSWORD_RESET_SCHEMA } from "./schema";
 
@@ -26,5 +27,7 @@ export const resetPassword = actionClient
 
 const getPasswordChangeRedirectUrl = (locale: Locale) => {
   const redirectUrl = pathnames["/password-change"];
-  return `${process.env.BASE_URL}/${locale}${redirectUrl[locale]}`;
+  return `${getProtocol()}://${process.env.VERCEL_URL}/${locale}${
+    redirectUrl[locale]
+  }`;
 };

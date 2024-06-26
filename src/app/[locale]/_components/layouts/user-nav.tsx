@@ -22,7 +22,11 @@ export default async function UserNav() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative w-8 h-8 rounded-full">
+        <Button
+          variant="ghost"
+          className="relative w-8 h-8 rounded-full"
+          aria-label={t("navigation.guest.label")}
+        >
           <Avatar className="w-8 h-8 text-muted-foreground">
             <Icons.avatar className="w-8 h-8" />
           </Avatar>
@@ -46,6 +50,7 @@ export default async function UserNav() {
           <DropdownMenuItem>
             <form action={logout} className="w-full">
               <Button
+                aria-label={t("logout.button")}
                 variant="ghost"
                 className="w-full p-0 hover:bg-accent/90 text-left justify-start h-6 cursor-pointer"
                 type="submit"

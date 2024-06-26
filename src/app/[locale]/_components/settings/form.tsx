@@ -120,7 +120,12 @@ export default function SettingsForm({ userSettings, user }: Props) {
         >
           <LocaleField control={form.control} />
           <ThemeField control={form.control} />
-          <Button type="submit" variant="ringHover" disabled={isPending}>
+          <Button
+            type="submit"
+            variant="ringHover"
+            disabled={isPending}
+            aria-label={t("save.button")}
+          >
             {isPending && (
               <Icons.spinner className="w-4 h-4 mr-2 animate-spin p" />
             )}

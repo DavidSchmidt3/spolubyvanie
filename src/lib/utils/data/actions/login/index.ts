@@ -7,6 +7,7 @@ import {
 import { redirect as redirectLocal } from "@/lib/utils/localization/navigation";
 import { createClient } from "@/lib/utils/supabase/server";
 import { formatZodErrors } from "@/lib/utils/zod";
+import { getProtocol } from "@/middleware";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { USER_AUTH_FORM_SCHEMA } from "./schema";
@@ -21,7 +22,7 @@ export async function googleLogin() {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: `${process.env.BASE_URL}/auth/callback`,
+      redirectTo: `${getProtocol()}://${process.env.VERCEL_URL}/auth/callback`,
     },
   });
 

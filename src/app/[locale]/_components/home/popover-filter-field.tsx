@@ -52,6 +52,7 @@ export default function PopoverFilterField({
             <Button
               variant="outline"
               role="combobox"
+              aria-label={selectRowText}
               aria-expanded={open}
               className="w-full"
             >

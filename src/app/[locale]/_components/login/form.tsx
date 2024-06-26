@@ -102,7 +102,11 @@ export default function UserLoginForm({ className, ...props }: UserLoginProps) {
             <Link href="/password-reset" className="text-sm text-primary">
               {t("login.forgot_password.link")}
             </Link>
-            <Button disabled={isExecuting} variant="ringHover">
+            <Button
+              disabled={isExecuting}
+              variant="ringHover"
+              aria-label={t("login.email.button")}
+            >
               {isExecuting && (
                 <Icons.spinner className="w-4 h-4 mr-2 animate-spin" />
               )}
@@ -113,7 +117,12 @@ export default function UserLoginForm({ className, ...props }: UserLoginProps) {
       </Form>
       <Divider text={t("auth.alternative_method.label")} />
       <form action={googleLogin}>
-        <Button variant="outline" type="submit" className="w-full">
+        <Button
+          variant="outline"
+          type="submit"
+          className="w-full"
+          aria-label={t("login.google.button")}
+        >
           <Icons.google className="w-4 h-4 mr-2" />
           {t("login.google.button")}
         </Button>
@@ -123,6 +132,7 @@ export default function UserLoginForm({ className, ...props }: UserLoginProps) {
         onClick={() => router.push("/register")}
         className="w-full"
         variant="outline"
+        aria-label={t("login.register.button")}
       >
         {t("login.register.button")}
       </Button>
