@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "@/app/[locale]/_components/ui/select";
 import SelectCancelButton from "@/app/[locale]/_components/ui/select-cancel-button";
-import { adTypeKeys, type AdType } from "@/lib/utils/data/advertisements";
+import { adTypeKeys, type AdType } from "@/lib/utils/data/advertisements/types";
 import { type MessageKeys } from "global";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
