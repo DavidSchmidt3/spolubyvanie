@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
 
+export const TRANSITION_DURATION = 150;
 const config = {
   darkMode: ["class"],
   content: [
@@ -11,6 +12,9 @@ const config = {
   ],
   prefix: "",
   theme: {
+    transitionDuration: {
+      DEFAULT: `${TRANSITION_DURATION}ms`,
+    },
     container: {
       center: true,
       padding: "2rem",
