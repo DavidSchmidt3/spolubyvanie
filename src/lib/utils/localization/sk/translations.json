@@ -21,6 +21,9 @@
       },
       "loading": {
         "label": "Načítavanie"
+      },
+      "cancel": {
+        "label": "Zrušiť"
       }
     },
     "settings": {
@@ -85,7 +88,9 @@
         "label": "Email"
       },
       "password": {
-        "label": "Heslo"
+        "label": "Heslo",
+        "hide": "Skryť heslo",
+        "show": "Zobraziť heslo"
       },
       "password_confirm": {
         "label": "Potvrdenie hesla"

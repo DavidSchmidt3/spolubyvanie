@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 export default function SubmitButton() {
   const t = useTranslations("translations.advertisement");
   return (
-    <Button type="submit" variant="ringHover">
+    <Button type="submit" variant="ringHover" aria-label={t("filter.button")}>
       {t("filter.button")}
     </Button>
   );

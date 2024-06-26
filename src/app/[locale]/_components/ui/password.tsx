@@ -4,10 +4,12 @@ import { Button } from "@/app/[locale]/_components/ui/button";
 import { Input, type InputProps } from "@/app/[locale]/_components/ui/input";
 import { cn } from "@/lib/utils";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { forwardRef, useState } from "react";
 
 const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
   ({ className, ...props }, ref) => {
+    const t = useTranslations("translations");
     const [showPassword, setShowPassword] = useState(false);
     const disabled =
       props.value === "" || props.value === undefined || props.disabled;
@@ -21,6 +23,9 @@ const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
           {...props}
         />
         <Button
+          aria-label={
+            showPassword ? t("auth.password.hide") : t("auth.password.show")
+          }
           type="button"
           variant="ghost"
           size="sm"
@@ -34,7 +39,7 @@ const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
             <EyeOffIcon className="h-4 w-4" aria-hidden="true" />
           )}
           <span className="sr-only">
-            {showPassword ? "Hide password" : "Show password"}
+            {showPassword ? t("auth.password.hide") : t("auth.password.show")}
           </span>
         </Button>
 

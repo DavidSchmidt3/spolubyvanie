@@ -114,7 +114,12 @@ export default function PasswordChangeForm({
                 </FormItem>
               )}
             />
-            <Button disabled={isExecuting} variant="ringHover" type="submit">
+            <Button
+              disabled={isExecuting}
+              variant="ringHover"
+              type="submit"
+              aria-label={t("password_change.button")}
+            >
               {isExecuting && (
                 <Icons.spinner className="w-4 h-4 mr-2 animate-spin" />
               )}
