@@ -26,5 +26,5 @@ export const resetPassword = actionClient
 
 const getPasswordChangeRedirectUrl = (locale: Locale) => {
   const redirectUrl = pathnames["/password-change"];
-  return `${process.env.BASE_URL}/${locale}${redirectUrl[locale]}`;
+  return `${process.env.VERCEL_URL}/${locale}${redirectUrl[locale]}`;
 };
