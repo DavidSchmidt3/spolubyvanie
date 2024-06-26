@@ -1,3 +1,4 @@
+import { type FilterData } from "@/app/[locale]/_components/home/administrative-division-filter";
 import { Button } from "@/app/[locale]/_components/ui/button";
 import {
   Command,
@@ -12,10 +13,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/app/[locale]/_components/ui/popover";
+import SelectCancelButton from "@/app/[locale]/_components/ui/select-cancel-button";
 import { useCombobox } from "@/hooks/combobox";
+import { ChevronDown } from "lucide-react";
 import { FixedSizeList } from "react-window";
-import { Icons } from "../ui/icons";
-import { type FilterData } from "./administrative-division-filter";
 
 type Props = {
   filterData: FilterData[];
@@ -25,7 +26,6 @@ type Props = {
   placeholderText: string;
   emptyText: string;
   selectRowText: string;
-  title: string;
 };
 
 export default function PopoverFilterField({
@@ -36,7 +36,6 @@ export default function PopoverFilterField({
   placeholderText,
   emptyText,
   selectRowText,
-  title,
 }: Props) {
   const { searchResults, searchFilterData, open, setOpen } =
     useCombobox(filterData);
@@ -47,31 +46,31 @@ export default function PopoverFilterField({
 
   return (
     <div className="flex flex-col w-full">
-      <h1 className="text-md font-semibold mb-2">{title}</h1>
       <Popover open={open} onOpenChange={setOpen}>
-        <div className="flex gap-1 w-full">
-          <PopoverTrigger asChild>
+        <div className="flex w-full gap-1">
+          <PopoverTrigger asChild className="h-11">
             <Button
               variant="outline"
               role="combobox"
               aria-expanded={open}
               className="w-full"
             >
-              {filterData.find((row) => row.id === selectedRow)?.name ??
-                selectRowText}
+              {filterData.find((row) => row.id === selectedRow) ? (
+                <div className="flex items-center justify-start w-full">
+                  <p className="text-wrap pr-4">
+                    {filterData.find((row) => row.id === selectedRow)?.name}
+                  </p>
+                </div>
+              ) : (
+                <div className="flex justify-between relative w-full items-center">
+                  <p>{selectRowText}</p>
+                  <ChevronDown className="h-4 w-4 opacity-50 z-10" />
+                </div>
+              )}
             </Button>
           </PopoverTrigger>
-          <div className="w-14">
-            {selectedRow && (
-              <Button
-                variant="ghost"
-                onClick={() => {
-                  setSelectedRow(undefined);
-                }}
-              >
-                <Icons.cross />
-              </Button>
-            )}
+          <div className="z-20 flex items-center -ml-11">
+            {selectedRow && <SelectCancelButton onCancel={setSelectedRow} />}
           </div>
         </div>
         <PopoverContent
@@ -85,13 +84,13 @@ export default function PopoverFilterField({
               <CommandGroup>
                 <FixedSizeList
                   width={"100%"}
-                  height={200}
+                  height={250}
                   itemCount={finalData.length}
-                  itemSize={40}
+                  itemSize={44}
                 >
                   {({ index, style }) => (
                     <CommandItem
-                      className="justify-center hover:cursor-pointer"
+                      className="justify-center hover:cursor-pointer text-center"
                       key={finalData[index]?.id}
                       value={finalData[index]?.id}
                       onSelect={(currentValue) => {

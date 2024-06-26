@@ -46,8 +46,8 @@ export const useCombobox = <T>(data: T[]) => {
   // Initialize the data index
   useEffect(() => {
     const index = new Document(documentIndexParams);
-    for (let i = 0; i < data.length; i++) {
-      index.add(data[i]);
+    for (const item of data) {
+      index.add(item);
     }
     setSearchIndex(index);
   }, [data]);

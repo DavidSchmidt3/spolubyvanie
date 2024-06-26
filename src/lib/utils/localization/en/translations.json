@@ -102,24 +102,36 @@
       "title": "Password Change",
       "button": "Change Password"
     },
-    "filter": {
+    "advertisement": {
       "region": {
-        "label": "Region",
         "search_placeholder": "Search region...",
         "select_text": "Select a region",
         "empty_text": "No region found."
       },
       "district": {
-        "label": "District",
         "search_placeholder": "Search district...",
         "select_text": "Select a district",
         "empty_text": "No district found."
       },
       "municipality": {
-        "label": "Municipality",
         "search_placeholder": "Search municipality...",
         "select_text": "Select a municipality",
         "empty_text": "No municipality found."
+      },
+      "price": {
+        "min_label": "Price from",
+        "max_label": "Price to"
+      },
+      "types": {
+        "select_label": "Types of advertisement",
+        "select_text": "Select ",
+        "searching_room": "Searching room",
+        "offering_room": "Offering room",
+        "searching_apartment": "Searching apartment",
+        "offering_apartment": "Offering apartment"
+      },
+      "filter": {
+        "button": "Search advertisements"
       }
     }
   }

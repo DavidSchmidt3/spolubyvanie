@@ -27,7 +27,7 @@ export default function AdministrativeDivisionFilter({
   districts,
   municipalities,
 }: Props) {
-  const t = useTranslations("translations.filter");
+  const t = useTranslations("translations.advertisement");
   const [selectedRegion, setSelectedRegion] = useState<FilterData>();
   const prevRegion = usePrevious(selectedRegion);
   const [selectedDistrict, setSelectedDistrict] = useState<FilterData>();
@@ -137,7 +137,7 @@ export default function AdministrativeDivisionFilter({
   }
 
   return (
-    <div className="grid gap-2 mt-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-4 sm:px-8">
+    <div className="grid w-full grid-cols-1 gap-3 mt-2 lg:grid-cols-3 sm:col-span-5">
       <PopoverFilterField
         filterData={regions}
         selectedRow={selectedRegion?.id}
@@ -146,7 +146,6 @@ export default function AdministrativeDivisionFilter({
         placeholderText={t("region.search_placeholder")}
         selectRowText={t("region.select_text")}
         emptyText={t("region.empty_text")}
-        title={t("region.label")}
       />
       <PopoverFilterField
         filterData={districts}
@@ -156,7 +155,6 @@ export default function AdministrativeDivisionFilter({
         placeholderText={t("district.search_placeholder")}
         selectRowText={t("district.select_text")}
         emptyText={t("district.empty_text")}
-        title={t("district.label")}
       />
       <PopoverFilterField
         filterData={municipalities}
@@ -166,7 +164,6 @@ export default function AdministrativeDivisionFilter({
         placeholderText={t("municipality.search_placeholder")}
         selectRowText={t("municipality.select_text")}
         emptyText={t("municipality.empty_text")}
-        title={t("municipality.label")}
       />
     </div>
   );

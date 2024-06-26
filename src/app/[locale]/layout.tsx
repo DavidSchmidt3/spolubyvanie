@@ -6,6 +6,7 @@ import { Toaster } from "@/app/[locale]/_components/ui/toaster";
 import { cn } from "@/lib/utils";
 import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
 import "@/styles/globals.css";
+import { Loader } from "lucide-react";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Inter } from "next/font/google";
@@ -39,12 +40,13 @@ export default async function RootLayout({
         )}
       >
         <ThemeProvider>
-          <div className="sticky top-0 z-20 flex items-center w-full px-4 py-4 border-b min bg-background min-h-20">
+          <div className="sticky top-0 z-20 flex items-center w-full px-4 py-4 border-b min bg-background">
             <MainNav className="mx-6" />
             <div className="flex items-center ml-auto space-x-4">
-              <Suspense>
+              <Suspense fallback={<Loader height={32} />}>
                 <UserNav />
                 <ThemeLocaleInitializer />
+                {/* <Loader height={32} /> */}
               </Suspense>
               <NextIntlClientProvider
                 messages={pickLocaleMessages(messages, ["alerts"])}
