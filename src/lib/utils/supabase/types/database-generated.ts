@@ -16,18 +16,10 @@ export type Database = {
           created_at: string;
           deleted_at: string | null;
           description: string;
-          email: string | null;
           floor: number | null;
           id: string;
-          living_type: number | null;
-          max_age: number | null;
-          max_apartment_people: number | null;
           max_floor: number | null;
-          max_room_people: number | null;
-          min_age: number | null;
           municipality_id: string;
-          name: string;
-          phone_number: string | null;
           price: number;
           primary_photo_url: string | null;
           room_area: number | null;
@@ -42,18 +34,10 @@ export type Database = {
           created_at?: string;
           deleted_at?: string | null;
           description: string;
-          email?: string | null;
           floor?: number | null;
           id?: string;
-          living_type?: number | null;
-          max_age?: number | null;
-          max_apartment_people?: number | null;
           max_floor?: number | null;
-          max_room_people?: number | null;
-          min_age?: number | null;
           municipality_id: string;
-          name: string;
-          phone_number?: string | null;
           price: number;
           primary_photo_url?: string | null;
           room_area?: number | null;
@@ -68,18 +52,10 @@ export type Database = {
           created_at?: string;
           deleted_at?: string | null;
           description?: string;
-          email?: string | null;
           floor?: number | null;
           id?: string;
-          living_type?: number | null;
-          max_age?: number | null;
-          max_apartment_people?: number | null;
           max_floor?: number | null;
-          max_room_people?: number | null;
-          min_age?: number | null;
           municipality_id?: string;
-          name?: string;
-          phone_number?: string | null;
           price?: number;
           primary_photo_url?: string | null;
           room_area?: number | null;
@@ -101,72 +77,6 @@ export type Database = {
             columns: ["user_id"];
             isOneToOne: false;
             referencedRelation: "users";
-            referencedColumns: ["id"];
-          }
-        ];
-      };
-      advertisements_apartment_rooms: {
-        Row: {
-          advertisement_id: string;
-          apartment_room_id: string;
-          id: string;
-        };
-        Insert: {
-          advertisement_id?: string;
-          apartment_room_id?: string;
-          id?: string;
-        };
-        Update: {
-          advertisement_id?: string;
-          apartment_room_id?: string;
-          id?: string;
-        };
-        Relationships: [
-          {
-            foreignKeyName: "public_advertisements_apartment_rooms_advertisement_id_fkey";
-            columns: ["advertisement_id"];
-            isOneToOne: false;
-            referencedRelation: "advertisements";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "public_advertisements_apartment_rooms_apartment_room_id_fkey";
-            columns: ["apartment_room_id"];
-            isOneToOne: false;
-            referencedRelation: "apartment_rooms";
-            referencedColumns: ["id"];
-          }
-        ];
-      };
-      advertisements_home_equipments: {
-        Row: {
-          advertisement_id: string;
-          home_equipment_id: string;
-          id: string;
-        };
-        Insert: {
-          advertisement_id?: string;
-          home_equipment_id?: string;
-          id?: string;
-        };
-        Update: {
-          advertisement_id?: string;
-          home_equipment_id?: string;
-          id?: string;
-        };
-        Relationships: [
-          {
-            foreignKeyName: "public_advertisements_home_equipments_advertisement_id_fkey";
-            columns: ["advertisement_id"];
-            isOneToOne: false;
-            referencedRelation: "advertisements";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "public_advertisements_home_equipments_home_equipment_id_fkey";
-            columns: ["home_equipment_id"];
-            isOneToOne: false;
-            referencedRelation: "home_equiqments";
             referencedColumns: ["id"];
           }
         ];
@@ -200,83 +110,6 @@ export type Database = {
           }
         ];
       };
-      advertisements_room_equipments: {
-        Row: {
-          advertisement_id: string | null;
-          id: string;
-        };
-        Insert: {
-          advertisement_id?: string | null;
-          id?: string;
-        };
-        Update: {
-          advertisement_id?: string | null;
-          id?: string;
-        };
-        Relationships: [
-          {
-            foreignKeyName: "public_advertisements_room_equipments_advertisement_id_fkey";
-            columns: ["advertisement_id"];
-            isOneToOne: false;
-            referencedRelation: "advertisements";
-            referencedColumns: ["id"];
-          }
-        ];
-      };
-      advertisements_roommate_types: {
-        Row: {
-          advertisement_id: string;
-          id: string;
-          roommate_type_id: string;
-        };
-        Insert: {
-          advertisement_id?: string;
-          id?: string;
-          roommate_type_id?: string;
-        };
-        Update: {
-          advertisement_id?: string;
-          id?: string;
-          roommate_type_id?: string;
-        };
-        Relationships: [];
-      };
-      advertisements_tenant_attributes: {
-        Row: {
-          en_translation: string;
-          id: string;
-          sk_translation: string;
-          translation_key: string;
-        };
-        Insert: {
-          en_translation: string;
-          id?: string;
-          sk_translation: string;
-          translation_key: string;
-        };
-        Update: {
-          en_translation?: string;
-          id?: string;
-          sk_translation?: string;
-          translation_key?: string;
-        };
-        Relationships: [];
-      };
-      apartment_rooms: {
-        Row: {
-          id: string;
-          number: number;
-        };
-        Insert: {
-          id?: string;
-          number: number;
-        };
-        Update: {
-          id?: string;
-          number?: number;
-        };
-        Relationships: [];
-      };
       districts: {
         Row: {
           id: string;
@@ -302,27 +135,6 @@ export type Database = {
             referencedColumns: ["id"];
           }
         ];
-      };
-      home_equiqments: {
-        Row: {
-          en_translation: string;
-          id: string;
-          sk_translation: string;
-          translation_key: string;
-        };
-        Insert: {
-          en_translation: string;
-          id?: string;
-          sk_translation: string;
-          translation_key: string;
-        };
-        Update: {
-          en_translation?: string;
-          id?: string;
-          sk_translation?: string;
-          translation_key?: string;
-        };
-        Relationships: [];
       };
       municipalities: {
         Row: {
@@ -372,66 +184,6 @@ export type Database = {
         Update: {
           id?: string;
           name?: string;
-        };
-        Relationships: [];
-      };
-      room_equipments: {
-        Row: {
-          advertisement_id: string;
-          id: string;
-          room_equipment_id: string;
-        };
-        Insert: {
-          advertisement_id?: string;
-          id?: string;
-          room_equipment_id?: string;
-        };
-        Update: {
-          advertisement_id?: string;
-          id?: string;
-          room_equipment_id?: string;
-        };
-        Relationships: [];
-      };
-      roommate_types: {
-        Row: {
-          en_translation: string;
-          id: string;
-          sk_translation: string;
-          translation_key: string;
-        };
-        Insert: {
-          en_translation: string;
-          id?: string;
-          sk_translation: string;
-          translation_key: string;
-        };
-        Update: {
-          en_translation?: string;
-          id?: string;
-          sk_translation?: string;
-          translation_key?: string;
-        };
-        Relationships: [];
-      };
-      tenant_attributes: {
-        Row: {
-          en_translation: string;
-          id: string;
-          sk_translation: string;
-          translation_key: string;
-        };
-        Insert: {
-          en_translation: string;
-          id?: string;
-          sk_translation: string;
-          translation_key: string;
-        };
-        Update: {
-          en_translation?: string;
-          id?: string;
-          sk_translation?: string;
-          translation_key?: string;
         };
         Relationships: [];
       };
