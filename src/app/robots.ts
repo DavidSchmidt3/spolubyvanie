@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/auth", "/password-reset", "/password-change"],
     },
-    sitemap: "https://spolubyvanie.vercel.app/sitemap.xml",
+    sitemap: "https://spolubyvanie.vercel.app/sitemap",
   };
 }
