@@ -38,7 +38,7 @@ export const useCombobox = <T>(data: T[]) => {
     const formattedResults = nameFieldResult?.result.map((result) => {
       // @ts-ignore wrong type after enrich
       const doc = result.doc;
-      return doc as unknown as (typeof data)[number];
+      return doc as unknown as T;
     });
     setSearchResults(formattedResults ?? ([] as T[]));
   }
