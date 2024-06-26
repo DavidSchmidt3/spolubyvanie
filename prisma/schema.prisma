@@ -289,58 +289,25 @@ model users {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model advertisements {
-  id                             String                           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  user_id                        String                           @db.Uuid
-  municipality_id                String                           @db.Uuid
-  price                          Int
-  type                           Int                              @db.SmallInt
-  living_type                    Int?                             @db.SmallInt
-  max_apartment_people           Int?                             @db.SmallInt
-  max_room_people                Int?                             @db.SmallInt
-  min_age                        Int?                             @db.SmallInt
-  max_age                        Int?                             @db.SmallInt
-  street                         String?                          @db.VarChar
-  apartment_area                 Int?
-  room_area                      Int?                             @db.SmallInt
-  floor                          Int?                             @db.SmallInt
-  max_floor                      Int?                             @db.SmallInt
-  name                           String                           @db.VarChar
-  email                          String?                          @db.VarChar
-  phone_number                   String?                          @db.VarChar
-  description                    String
-  available_from                 DateTime?                        @db.Date
-  primary_photo_url              String?                          @db.VarChar
-  created_at                     DateTime                         @default(now()) @db.Timestamptz(6)
-  deleted_at                     DateTime?                        @db.Timestamptz(6)
-  title                          String                           @db.VarChar
-  municipalities                 municipalities                   @relation(fields: [municipality_id], references: [id], onDelete: NoAction, map: "public_advertisements_municipality_id_fkey")
-  users                          users                            @relation(fields: [user_id], references: [id], onDelete: NoAction, map: "public_advertisements_user_id_fkey")
-  advertisements_apartment_rooms advertisements_apartment_rooms[]
-  advertisements_home_equipments advertisements_home_equipments[]
-  advertisements_photos          advertisements_photos[]
-  advertisements_room_equipments advertisements_room_equipments[]
-
-  @@schema("public")
-}
-
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model advertisements_apartment_rooms {
-  id                String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  advertisement_id  String          @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  apartment_room_id String          @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  advertisements    advertisements  @relation(fields: [advertisement_id], references: [id], onDelete: Cascade, map: "public_advertisements_apartment_rooms_advertisement_id_fkey")
-  apartment_rooms   apartment_rooms @relation(fields: [apartment_room_id], references: [id], onDelete: Cascade, map: "public_advertisements_apartment_rooms_apartment_room_id_fkey")
-
-  @@schema("public")
-}
-
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model advertisements_home_equipments {
-  id                String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  advertisement_id  String          @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  home_equipment_id String          @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  advertisements    advertisements  @relation(fields: [advertisement_id], references: [id], onDelete: Cascade, map: "public_advertisements_home_equipments_advertisement_id_fkey")
-  home_equiqments   home_equiqments @relation(fields: [home_equipment_id], references: [id], onDelete: Cascade, map: "public_advertisements_home_equipments_home_equipment_id_fkey")
+  id                    String                  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id               String                  @db.Uuid
+  municipality_id       String                  @db.Uuid
+  price                 Int
+  type                  Int                     @db.SmallInt
+  street                String?                 @db.VarChar
+  apartment_area        Int?
+  room_area             Int?                    @db.SmallInt
+  floor                 Int?                    @db.SmallInt
+  max_floor             Int?                    @db.SmallInt
+  description           String
+  available_from        DateTime?               @db.Date
+  primary_photo_url     String?                 @db.VarChar
+  created_at            DateTime                @default(now()) @db.Timestamptz(6)
+  deleted_at            DateTime?               @db.Timestamptz(6)
+  title                 String                  @db.VarChar
+  municipalities        municipalities          @relation(fields: [municipality_id], references: [id], onDelete: NoAction, map: "public_advertisements_municipality_id_fkey")
+  users                 users                   @relation(fields: [user_id], references: [id], onDelete: NoAction, map: "public_advertisements_user_id_fkey")
+  advertisements_photos advertisements_photos[]
 
   @@schema("public")
 }
@@ -357,60 +324,12 @@ model advertisements_photos {
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model advertisements_room_equipments {
-  id               String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  advertisement_id String?         @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  advertisements   advertisements? @relation(fields: [advertisement_id], references: [id], onDelete: Cascade, map: "public_advertisements_room_equipments_advertisement_id_fkey")
-
-  @@schema("public")
-}
-
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model advertisements_roommate_types {
-  id               String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  advertisement_id String @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  roommate_type_id String @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-
-  @@schema("public")
-}
-
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model advertisements_tenant_attributes {
-  id              String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  translation_key String @db.VarChar
-  sk_translation  String @db.VarChar
-  en_translation  String @db.VarChar
-
-  @@schema("public")
-}
-
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model apartment_rooms {
-  id                             String                           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  number                         Int                              @db.SmallInt
-  advertisements_apartment_rooms advertisements_apartment_rooms[]
-
-  @@schema("public")
-}
-
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model districts {
   id             String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name           String           @unique @db.VarChar
   region_id      String           @db.Uuid
   regions        regions          @relation(fields: [region_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   municipalities municipalities[]
-
-  @@schema("public")
-}
-
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model home_equiqments {
-  id                             String                           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  translation_key                String                           @db.VarChar
-  sk_translation                 String                           @db.VarChar
-  en_translation                 String                           @db.VarChar
-  advertisements_home_equipments advertisements_home_equipments[]
 
   @@schema("public")
 }
@@ -434,35 +353,6 @@ model regions {
   name           String           @unique @db.VarChar
   districts      districts[]
   municipalities municipalities[]
-
-  @@schema("public")
-}
-
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model room_equipments {
-  id                String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  advertisement_id  String @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  room_equipment_id String @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-
-  @@schema("public")
-}
-
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model roommate_types {
-  id              String @id(map: "roommate_type_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  translation_key String @db.VarChar
-  sk_translation  String @db.VarChar
-  en_translation  String @db.VarChar
-
-  @@schema("public")
-}
-
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model tenant_attributes {
-  id              String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  translation_key String @db.VarChar
-  sk_translation  String @db.VarChar
-  en_translation  String @db.VarChar
 
   @@schema("public")
 }
