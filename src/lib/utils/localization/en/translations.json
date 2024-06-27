@@ -109,16 +109,19 @@
     },
     "advertisement": {
       "region": {
+        "title": "Region",
         "search_placeholder": "Search region...",
         "select_text": "Select a region",
         "empty_text": "No region found."
       },
       "district": {
+        "title": "District",
         "search_placeholder": "Search district...",
         "select_text": "Select a district",
         "empty_text": "No district found."
       },
       "municipality": {
+        "title": "Municipality",
         "search_placeholder": "Search municipality...",
         "select_text": "Select a municipality",
         "empty_text": "No municipality found."
@@ -129,13 +132,14 @@
       },
       "types": {
         "select_label": "Types of advertisement",
-        "select_text": "Select ",
+        "select_text": "Select advertisement type",
         "searching_room": "Searching room",
         "offering_room": "Offering room",
         "searching_apartment": "Searching apartment",
         "offering_apartment": "Offering apartment"
       },
       "filter": {
+        "title": "Filter advertisements",
         "button": "Search advertisements"
       }
     }

@@ -137,7 +137,7 @@ export default function AdministrativeDivisionFilter({
   }
 
   return (
-    <div className="grid w-full grid-cols-1 gap-3 mt-2 lg:grid-cols-3 sm:col-span-5">
+    <div className="flex flex-col gap-y-2 gap-x-4 sm:gap-x-8">
       <PopoverFilterField
         filterData={regions}
         selectedRow={selectedRegion?.id}
@@ -146,6 +146,7 @@ export default function AdministrativeDivisionFilter({
         placeholderText={t("region.search_placeholder")}
         selectRowText={t("region.select_text")}
         emptyText={t("region.empty_text")}
+        title={t("region.title")}
       />
       <PopoverFilterField
         filterData={districts}
@@ -155,6 +156,7 @@ export default function AdministrativeDivisionFilter({
         placeholderText={t("district.search_placeholder")}
         selectRowText={t("district.select_text")}
         emptyText={t("district.empty_text")}
+        title={t("district.title")}
       />
       <PopoverFilterField
         filterData={municipalities}
@@ -164,6 +166,7 @@ export default function AdministrativeDivisionFilter({
         placeholderText={t("municipality.search_placeholder")}
         selectRowText={t("municipality.select_text")}
         emptyText={t("municipality.empty_text")}
+        title={t("municipality.title")}
       />
     </div>
   );

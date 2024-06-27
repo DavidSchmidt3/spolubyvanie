@@ -26,6 +26,7 @@ type Props = {
   placeholderText: string;
   emptyText: string;
   selectRowText: string;
+  title: string;
 };
 
 export default function PopoverFilterField({
@@ -36,6 +37,7 @@ export default function PopoverFilterField({
   placeholderText,
   emptyText,
   selectRowText,
+  title,
 }: Props) {
   const { searchResults, searchFilterData, open, setOpen } =
     useCombobox(filterData);
@@ -47,14 +49,15 @@ export default function PopoverFilterField({
   return (
     <div className="flex flex-col w-full">
       <Popover open={open} onOpenChange={setOpen}>
-        <div className="flex w-full gap-1">
-          <PopoverTrigger asChild className="h-11">
+        <div className="flex flex-col w-full gap-y-1 relative">
+          <h4 className="text-sm">{title}</h4>
+          <PopoverTrigger asChild>
             <Button
               variant="outline"
               role="combobox"
               aria-label={selectRowText}
               aria-expanded={open}
-              className="w-full"
+              className="w-full h-11"
             >
               {filterData.find((row) => row.id === selectedRow) ? (
                 <div className="flex items-center justify-start w-full">
@@ -70,7 +73,7 @@ export default function PopoverFilterField({
               )}
             </Button>
           </PopoverTrigger>
-          <div className="z-20 flex items-center -ml-11">
+          <div className="z-20 items-center -ml-11 absolute right-0 bottom-0 mr-2 mb-1.5">
             {selectedRow && <SelectCancelButton onCancel={setSelectedRow} />}
           </div>
         </div>

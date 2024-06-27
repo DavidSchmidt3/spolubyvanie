@@ -19,7 +19,10 @@ export function AdvertisementTypeFilter() {
   const t = useTranslations();
 
   return (
-    <div className="flex items-center w-full gap-1">
+    <div className="flex justify-center w-full gap-1 flex-col relative">
+      <h4 className="text-sm">
+        {t("translations.advertisement.types.select_label")}
+      </h4>
       <Select value={selectedAdType} onValueChange={setSelectedAdType}>
         <SelectTrigger
           className="h-11 text-center justify-between w-full px-4"
@@ -48,7 +51,7 @@ export function AdvertisementTypeFilter() {
           </SelectGroup>
         </SelectContent>
       </Select>
-      <div className="z-20 flex items-center -ml-11">
+      <div className="z-20 flex items-center -ml-11 absolute right-0 bottom-0 mr-2 mb-1.5">
         {selectedAdType && (
           <SelectCancelButton onCancel={() => setSelectedAdType("")} />
         )}

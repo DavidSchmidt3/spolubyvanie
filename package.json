@@ -19,6 +19,7 @@
     "@hookform/resolvers": "^3.3.4",
     "@prisma/client": "latest",
     "@radix-ui/react-avatar": "next",
+    "@radix-ui/react-collapsible": "^1.1.0",
     "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-dropdown-menu": "next",
     "@radix-ui/react-label": "next",
