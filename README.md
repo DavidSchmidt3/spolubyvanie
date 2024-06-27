@@ -1,6 +1,6 @@
 # Create T3 App
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`. TRPC was removed as there aren't many dynamic data fetching needs in this project. For server side data fetching I use React Server Components.
+This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`. TRPC was removed as there aren't many dynamic data fetching needs in this project and there is no need for mobile app. For server side data fetching I use React Server Components.
 
 ## Technologies used
 I have modified the original template to include the following technologies:
