@@ -109,16 +109,19 @@
     },
     "advertisement": {
       "region": {
+        "title": "Kraj",
         "search_placeholder": "Vyhľadať kraj...",
         "select_text": "Vybrať kraj",
         "empty_text": "Neboli nájdené žiadne kraje"
       },
       "district": {
+        "title": "Okres",
         "search_placeholder": "Vyhľadať okres...",
         "select_text": "Vybrať okres",
         "empty_text": "Neboli nájdené žiadne okresy"
       },
       "municipality": {
+        "title": "Obec",
         "search_placeholder": "Vyhľadať obec...",
         "select_text": "Vybrať obec",
         "empty_text": "Neboli nájdené žiadne obce"
@@ -136,6 +139,7 @@
         "offering_apartment": "Ponúkam byt"
       },
       "filter": {
+        "title": "Filtrovanie ponúk",
         "button": "Hľadaj inzeráty"
       }
     }

@@ -1,4 +1,4 @@
-import { type MessageKeys, type PathKeys } from "global";
+import { type AllKeys, type PathKeys } from "global";
 import { pick } from "lodash";
 import { type AbstractIntlMessages } from "next-intl";
 
@@ -7,9 +7,9 @@ export function pickLocaleMessages(
   keys: PathKeys<IntlMessages>[]
 ) {
   const additionalKeys = [
-    "alerts.global" as MessageKeys<IntlMessages>,
-    "common" as MessageKeys<IntlMessages>,
-  ];
+    "alerts.global",
+    "translations.common",
+  ] as AllKeys<IntlMessages>[];
   const combinedKeys = [...keys, ...additionalKeys];
   return pick(messages, combinedKeys);
 }

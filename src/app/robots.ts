@@ -5,7 +5,13 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/auth", "/password-reset", "/password-change"],
+      disallow: [
+        "/auth",
+        "/password-reset",
+        "/password-change",
+        "/settings",
+        "/error",
+      ],
     },
     sitemap: "https://spolubyvanie.vercel.app/sitemap",
   };
