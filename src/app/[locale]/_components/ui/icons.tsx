@@ -314,4 +314,22 @@ export const Icons = {
       <path d="M20.71 9.29l-6-6a1 1 0 00-.32-.21A1.09 1.09 0 0014 3H6a3 3 0 00-3 3v12a3 3 0 003 3h12a3 3 0 003-3v-8a1 1 0 00-.29-.71zM9 5h4v2H9zm6 14H9v-3a1 1 0 011-1h4a1 1 0 011 1zm4-1a1 1 0 01-1 1h-1v-3a3 3 0 00-3-3h-4a3 3 0 00-3 3v3H6a1 1 0 01-1-1V6a1 1 0 011-1h1v3a1 1 0 001 1h6a1 1 0 001-1V6.41l4 4z" />
     </svg>
   ),
+  filter: (props: IconProps) => (
+    <svg
+      className="w-6 h-6 text-gray-800 dark:text-white"
+      aria-hidden="true"
+      width="24"
+      height="24"
+      fill="none"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <path
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeWidth="2"
+        d="M18.796 4H5.204a1 1 0 0 0-.753 1.659l5.302 6.058a1 1 0 0 1 .247.659v4.874a.5.5 0 0 0 .2.4l3 2.25a.5.5 0 0 0 .8-.4v-7.124a1 1 0 0 1 .247-.659l5.302-6.059c.566-.646.106-1.658-.753-1.658Z"
+      />
+    </svg>
+  ),
 };

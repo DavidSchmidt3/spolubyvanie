@@ -108,6 +108,8 @@
       "button": "Change Password"
     },
     "advertisement": {
+      "title": "Discover Your Perfect Shared Living Space",
+      "description": "Browse our top listings for affordable and convenient co-living",
       "region": {
         "title": "Region",
         "search_placeholder": "Search region...",

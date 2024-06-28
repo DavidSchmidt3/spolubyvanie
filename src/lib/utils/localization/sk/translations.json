@@ -108,6 +108,8 @@
       "button": "Zmeniť heslo"
     },
     "advertisement": {
+      "title": "Objavte svoje ideálne spolubývanie",
+      "description": "Prezrite si naše najlepšie ponuky cenovo dostupného a pohodlného spolubývania",
       "region": {
         "title": "Kraj",
         "search_placeholder": "Vyhľadať kraj...",
@@ -139,7 +141,7 @@
         "offering_apartment": "Ponúkam byt"
       },
       "filter": {
-        "title": "Filtrovanie ponúk",
+        "title": "Filtrovanie inzerátov",
         "button": "Hľadaj inzeráty"
       }
     }
