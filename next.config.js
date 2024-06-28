@@ -25,6 +25,7 @@ const cspHeader = `
 const config = {
   experimental: {
     ppr: true,
+    esmExternals: false,
     reactCompiler: true,
   },
   async headers() {
