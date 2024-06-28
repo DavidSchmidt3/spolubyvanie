@@ -48,14 +48,14 @@ export default async function Home() {
           <Credenza>
             <CredenzaTrigger asChild className="px-4 py-2 sm:py-2">
               <Button
-                className="text-md flex gap-2 text-wrap h-14 w-40"
+                className="text-md flex gap-2 text-wrap h-14 w-48"
                 variant="outline"
               >
                 <Icons.filter className="w-8 h-8" />
                 {t("advertisement.filter.title")}
               </Button>
             </CredenzaTrigger>
-            <CredenzaContent className="max-w-3xl pb-8 sm:pb-0">
+            <CredenzaContent className="max-w-3xl pb-8">
               <CredenzaHeader>
                 <CredenzaTitle>{t("advertisement.filter.title")}</CredenzaTitle>
               </CredenzaHeader>

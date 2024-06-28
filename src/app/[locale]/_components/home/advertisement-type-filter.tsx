@@ -25,7 +25,7 @@ export function AdvertisementTypeFilter() {
       </h4>
       <Select value={selectedAdType} onValueChange={setSelectedAdType}>
         <SelectTrigger
-          className="h-11 text-center justify-between w-full px-4"
+          className="h-11 text-center justify-between w-full px-4 hover:bg-accent"
           value={selectedAdType}
           aria-label={t("translations.advertisement.types.select_text")}
         >
@@ -43,7 +43,11 @@ export function AdvertisementTypeFilter() {
               const value =
                 `translations.advertisement.types.${adTypeKeys[adTypeKey]}` as MessageKeys<IntlMessages>;
               return (
-                <SelectItem key={key} value={key}>
+                <SelectItem
+                  key={key}
+                  value={key}
+                  className="hover:cursor-pointer hover:bg-accent"
+                >
                   {t(value)}
                 </SelectItem>
               );

@@ -48,7 +48,7 @@ export default function PopoverFilterField({
 
   return (
     <div className="flex flex-col w-full">
-      <Popover open={open} onOpenChange={setOpen}>
+      <Popover open={open} onOpenChange={setOpen} modal={true}>
         <div className="flex flex-col w-full gap-y-1 relative">
           <h4 className="text-sm">{title}</h4>
           <PopoverTrigger asChild>
@@ -90,11 +90,11 @@ export default function PopoverFilterField({
                   width={"100%"}
                   height={250}
                   itemCount={finalData.length}
-                  itemSize={44}
+                  itemSize={36}
                 >
                   {({ index, style }) => (
                     <CommandItem
-                      className="justify-center hover:cursor-pointer text-center"
+                      className="justify-start hover:cursor-pointer px-8"
                       key={finalData[index]?.id}
                       value={finalData[index]?.id}
                       onSelect={(currentValue) => {
