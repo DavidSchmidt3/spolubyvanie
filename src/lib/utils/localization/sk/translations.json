@@ -129,8 +129,8 @@
         "empty_text": "Neboli nájdené žiadne obce"
       },
       "price": {
-        "min_label": "Cena od",
-        "max_label": "Cena do"
+        "min_label": "Cena od (€)",
+        "max_label": "Cena do (€)"
       },
       "types": {
         "select_label": "Typ inzerátu",

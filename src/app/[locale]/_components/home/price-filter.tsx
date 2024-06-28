@@ -11,7 +11,7 @@ export default function PriceFilter() {
           placeholder={t("price.min_label")}
           type="number"
           min="0"
-          className="w-full h-11"
+          className="w-full h-11 hover:bg-accent"
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -20,7 +20,7 @@ export default function PriceFilter() {
           placeholder={t("price.max_label")}
           type="number"
           min="0"
-          className="w-full h-11"
+          className="w-full h-11 hover:bg-accent"
         />
       </div>
     </div>
