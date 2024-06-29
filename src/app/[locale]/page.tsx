@@ -48,7 +48,7 @@ export default async function Home() {
           <Credenza>
             <CredenzaTrigger asChild className="px-4 py-2 sm:py-2">
               <Button
-                className="text-md flex gap-2 text-wrap h-14 w-48"
+                className="text-md flex gap-2 text-wrap h-14 w-48 bg-foreground text-background hover:bg-accent-foreground hover:text-background"
                 variant="outline"
               >
                 <Icons.filter className="w-8 h-8" />
