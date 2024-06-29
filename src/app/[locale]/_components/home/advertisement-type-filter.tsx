@@ -46,7 +46,7 @@ export function AdvertisementTypeFilter() {
                 <SelectItem
                   key={key}
                   value={key}
-                  className="hover:cursor-pointer hover:bg-accent"
+                  className="hover:cursor-pointer"
                 >
                   {t(value)}
                 </SelectItem>
