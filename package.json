@@ -33,7 +33,7 @@
     "@t3-oss/env-nextjs": "^0.9.2",
     "@tanstack/react-virtual": "^3.7.0",
     "@types/react-window": "^1.8.8",
-    "babel-plugin-react-compiler": "^0.0.0-experimental-938cd9a-20240601",
+    "babel-plugin-react-compiler": "^0.0.0-experimental-696af53-20240625",
     "class-variance-authority": "^0.7.0",
     "clsx": "2.1.1",
     "cmdk": "^1.0.0",
