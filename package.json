@@ -69,7 +69,7 @@
     "@typescript-eslint/parser": "7.11.0",
     "eslint": "^8.57.0",
     "eslint-config-next": "rc",
-    "eslint-plugin-react-compiler": "^0.0.0-experimental-51a85ea-20240601",
+    "eslint-plugin-react-compiler": "^0.0.0-experimental-0998c1e-20240625",
     "pg": "^8.11.3",
     "postcss": "^8.4.34",
     "prisma": "latest",
