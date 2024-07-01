@@ -1,4 +1,5 @@
 "use client";
+import PopoverFilterField from "@/app/[locale]/_components/home/popover-filter-field";
 import usePrevious from "@/hooks/previous-value";
 import {
   type District,
@@ -7,7 +8,6 @@ import {
 } from "@/lib/utils/data/administrative-divisions";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import PopoverFilterField from "./popover-filter-field";
 
 type Props = {
   regions: Region[];

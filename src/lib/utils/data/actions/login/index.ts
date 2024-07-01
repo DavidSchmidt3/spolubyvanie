@@ -1,5 +1,10 @@
 "use server";
 
+import { USER_AUTH_FORM_SCHEMA } from "@/lib/utils/data/actions/login/schema";
+import {
+  getTranslatedSupabaseSignInError,
+  supabaseSignInErrors,
+} from "@/lib/utils/data/actions/login/supabase-sign-in-errors";
 import {
   ActionError,
   actionClient,
@@ -10,11 +15,6 @@ import { formatZodErrors } from "@/lib/utils/zod";
 import { getProtocol } from "@/middleware";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { USER_AUTH_FORM_SCHEMA } from "./schema";
-import {
-  getTranslatedSupabaseSignInError,
-  supabaseSignInErrors,
-} from "./supabase-sign-in-errors";
 
 export async function googleLogin() {
   const supabase = createClient();

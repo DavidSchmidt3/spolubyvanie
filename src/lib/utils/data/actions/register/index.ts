@@ -1,10 +1,13 @@
 "use server";
 
+import { USER_AUTH_FORM_SCHEMA } from "@/lib/utils/data/actions/login/schema";
+import { getTranslatedSupabaseSignUpError } from "@/lib/utils/data/actions/register/supabase-sign-up-errors";
+import {
+  ActionError,
+  actionClient,
+} from "@/lib/utils/data/actions/safe-action-client";
 import { createClient } from "@/lib/utils/supabase/server";
 import { formatZodErrors } from "@/lib/utils/zod";
-import { USER_AUTH_FORM_SCHEMA } from "../login/schema";
-import { ActionError, actionClient } from "../safe-action-client";
-import { getTranslatedSupabaseSignUpError } from "./supabase-sign-up-errors";
 
 export const signUpWithEmail = actionClient
   .schema(USER_AUTH_FORM_SCHEMA, {

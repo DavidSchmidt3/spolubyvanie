@@ -1,4 +1,5 @@
 "use client";
+import { type SettingsFormValues } from "@/app/[locale]/_components/settings/form";
 import {
   FormControl,
   FormField,
@@ -18,7 +19,6 @@ import {
 import { LOCALES } from "@/lib/utils/localization/i18n";
 import { useTranslations } from "next-intl";
 import { type Control } from "react-hook-form";
-import { type SettingsFormValues } from "./form";
 
 type Props = {
   control: Control<SettingsFormValues>;

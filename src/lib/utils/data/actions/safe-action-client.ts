@@ -1,6 +1,6 @@
+import { getUser } from "@/lib/utils/data/user";
 import { type MessageKeys } from "global";
 import { createSafeActionClient } from "next-safe-action";
-import { getUser } from "../user";
 
 export class ActionError extends Error {
   message: MessageKeys<IntlMessages>;

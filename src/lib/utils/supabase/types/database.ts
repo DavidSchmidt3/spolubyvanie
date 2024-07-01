@@ -1,8 +1,11 @@
 import { type Locale } from "@/lib/utils/localization/i18n";
+import { type Database as DatabaseGenerated } from "@/lib/utils/supabase/types/database-generated";
 import { type Theme } from "@/lib/utils/theme/config";
 import { type MergeDeep } from "type-fest";
-import { type Database as DatabaseGenerated } from "./database-generated";
-export type { Json, Tables } from "./database-generated";
+export type {
+  Json,
+  Tables,
+} from "@/lib/utils/supabase/types/database-generated";
 
 export type Database = MergeDeep<
   DatabaseGenerated,
