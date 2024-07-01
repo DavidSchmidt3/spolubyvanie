@@ -35,27 +35,28 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "bg-background h-dvh font-sans antialiased overflow-y-hidden",
           inter.variable
         )}
       >
         <ThemeProvider>
-          <div className="sticky top-0 z-20 flex items-center w-full px-4 py-4 border-b min bg-background">
-            <MainNav className="mx-6" />
-            <div className="flex items-center ml-auto space-x-4">
-              <Suspense fallback={<Loader height={32} />}>
-                <UserNav />
-                <ThemeLocaleInitializer />
-                {/* <Loader height={32} /> */}
-              </Suspense>
-              <NextIntlClientProvider
-                messages={pickLocaleMessages(messages, ["alerts"])}
-              >
-                <Toaster />
-              </NextIntlClientProvider>
+          <div className="flex flex-col h-screen">
+            <div className="fixed top-0 z-10 flex left-0 h-16 items-center w-full px-4 py-4 border-b bg-background">
+              <MainNav className="mx-6" />
+              <div className="flex items-center ml-auto space-x-4">
+                <Suspense fallback={<Loader height={32} />}>
+                  <UserNav />
+                  <ThemeLocaleInitializer />
+                </Suspense>
+                <NextIntlClientProvider
+                  messages={pickLocaleMessages(messages, ["alerts"])}
+                >
+                  <Toaster />
+                </NextIntlClientProvider>
+              </div>
             </div>
+            <div className="flex-1 mt-16 overflow-y-auto">{children}</div>
           </div>
-          {children}
         </ThemeProvider>
       </body>
     </html>
