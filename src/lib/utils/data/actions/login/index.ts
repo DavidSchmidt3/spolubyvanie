@@ -8,7 +8,6 @@ import { redirect as redirectLocal } from "@/lib/utils/localization/navigation";
 import { createClient } from "@/lib/utils/supabase/server";
 import { formatZodErrors } from "@/lib/utils/zod";
 import { getBaseUrl } from "@/middleware";
-import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { USER_AUTH_FORM_SCHEMA } from "./schema";
 import {
@@ -39,7 +38,7 @@ export async function googleLogin() {
     redirectLocal("/error");
   }
 
-  revalidatePath("/", "layout");
+  // revalidatePath("/", "layout");
   redirectLocal("/");
 }
 
@@ -48,7 +47,7 @@ export async function logout() {
 
   await supabase.auth.signOut();
 
-  revalidatePath("/", "layout");
+  // revalidatePath("/", "layout");
   redirectLocal("/");
 }
 
@@ -75,6 +74,6 @@ export const signInWithEmail = actionClient
       throw new ActionError(getTranslatedSupabaseSignInError(error.message));
     }
 
-    revalidatePath("/", "layout");
+    // revalidatePath("/", "layout");
     redirectLocal("/");
   });
