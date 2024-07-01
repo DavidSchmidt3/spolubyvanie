@@ -87,5 +87,5 @@ const changePasswordPathnames = [
 
 export function getBaseUrl() {
   const protocol = process.env.VERCEL_ENV === "production" ? "https" : "http";
-  return `${protocol}://${process.env.VERCEL_URL}`;
+  return `${protocol}://${process.env.BASE_URL}`;
 }
