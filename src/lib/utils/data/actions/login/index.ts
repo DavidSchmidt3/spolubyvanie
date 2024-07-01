@@ -27,7 +27,6 @@ export async function googleLogin() {
   });
 
   if (data.url) {
-    console.log(data.url);
     // this is a redirect to the supabase oauth page outside of the app
     // localized redirect would also work here, but typescript would complain about the type, since this url is not part of the pathnames, but outside of the app
     redirect(data.url);

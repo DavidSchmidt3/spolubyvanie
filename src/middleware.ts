@@ -53,26 +53,18 @@ export async function middleware(request: NextRequest) {
     "x-middleware-request-x-next-intl-locale"
   );
 
-  console.log("user 1", data.user?.email);
   // if user is already logged in, don't allow him to visit auth pages
   if (data.user && authPathnames.includes(pathnameWithoutLocale)) {
-    return NextResponse.redirect(
-      `${getBaseUrl()}://${process.env.VERCEL_URL}/${redirectLocale}`
-    );
+    return NextResponse.redirect(`${getBaseUrl()}/${redirectLocale}`);
   }
 
-  console.log("user 2", data.user?.email);
   // if user wants to change password, there must be a code in the url
   if (
     changePasswordPathnames.includes(pathnameWithoutLocale) &&
     !request.nextUrl.searchParams.get("code")
   ) {
-    return NextResponse.redirect(
-      `${getBaseUrl()}://${process.env.VERCEL_URL}/${redirectLocale}`
-    );
+    return NextResponse.redirect(`${getBaseUrl()}/${redirectLocale}`);
   }
-
-  console.log("user 3", data.user?.email);
 
   return localizationMiddleWare(request);
 }
