@@ -31,10 +31,12 @@ export async function GET(request: Request) {
     );
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
+      // TODO: redirect to auth error page indicating error
       return NextResponse.redirect(`${origin}${next}`);
     }
   }
 
   // return the user to an error page with instructions
-  return NextResponse.redirect(`${origin}/auth/auth-code-error`);
+  // TODO: redirect to auth error page indicating error
+  return NextResponse.redirect(`${origin}/`);
 }
