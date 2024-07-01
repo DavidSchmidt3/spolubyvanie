@@ -19,6 +19,7 @@ import {
 export async function googleLogin() {
   const supabase = createClient();
 
+  console.log(`${getProtocol()}://${process.env.VERCEL_URL}/auth/callback`);
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {

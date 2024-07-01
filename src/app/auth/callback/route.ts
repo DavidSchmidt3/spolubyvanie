@@ -30,11 +30,13 @@ export async function GET(request: Request) {
       }
     );
     const { error } = await supabase.auth.exchangeCodeForSession(code);
+    console.error(error);
     if (!error) {
       return NextResponse.redirect(`${origin}${next}`);
     }
   }
 
+  console.error("Error");
   // return the user to an error page with instructions
-  return NextResponse.redirect(`${origin}/auth/auth-code-error`);
+  return NextResponse.redirect(`${origin}/`);
 }
