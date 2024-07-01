@@ -7,7 +7,7 @@ import {
 import { redirect as redirectLocal } from "@/lib/utils/localization/navigation";
 import { createClient } from "@/lib/utils/supabase/server";
 import { formatZodErrors } from "@/lib/utils/zod";
-import { getProtocol } from "@/middleware";
+import { getBaseUrl } from "@/middleware";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { USER_AUTH_FORM_SCHEMA } from "./schema";
@@ -19,15 +19,16 @@ import {
 export async function googleLogin() {
   const supabase = createClient();
 
-  console.log(`${getProtocol()}://${process.env.VERCEL_URL}/auth/callback`);
+  console.log(`${getBaseUrl()}/auth/callback`);
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: `${getProtocol()}://${process.env.VERCEL_URL}/auth/callback`,
+      redirectTo: `${getBaseUrl()}/auth/callback`,
     },
   });
 
   if (data.url) {
+    console.log(data.url);
     // this is a redirect to the supabase oauth page outside of the app
     // localized redirect would also work here, but typescript would complain about the type, since this url is not part of the pathnames, but outside of the app
     redirect(data.url);

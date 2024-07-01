@@ -56,7 +56,7 @@ export async function middleware(request: NextRequest) {
   // if user is already logged in, don't allow him to visit auth pages
   if (data.user && authPathnames.includes(pathnameWithoutLocale)) {
     return NextResponse.redirect(
-      `${getProtocol()}://${process.env.VERCEL_URL}/${redirectLocale}`
+      `${getBaseUrl()}://${process.env.VERCEL_URL}/${redirectLocale}`
     );
   }
 
@@ -66,7 +66,7 @@ export async function middleware(request: NextRequest) {
     !request.nextUrl.searchParams.get("code")
   ) {
     return NextResponse.redirect(
-      `${getProtocol()}://${process.env.VERCEL_URL}/${redirectLocale}`
+      `${getBaseUrl()}://${process.env.VERCEL_URL}/${redirectLocale}`
     );
   }
 
@@ -89,5 +89,7 @@ const changePasswordPathnames = [
   ...Object.values(pathnames["/password-change"]),
 ] as string[];
 
-export const getProtocol = () =>
-  process.env.VERCEL_ENV === "development" ? "http" : "https";
+export function getBaseUrl() {
+  const protocol = process.env.VERCEL_ENV === "production" ? "https" : "http";
+  return `${protocol}://${process.env.VERCEL_URL}`;
+}
