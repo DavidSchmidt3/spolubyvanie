@@ -8,8 +8,6 @@ import {
 import { pathnames, type Locale } from "@/lib/utils/localization/i18n";
 import { createClient } from "@/lib/utils/supabase/server";
 import { formatZodErrors } from "@/lib/utils/zod";
-import { ActionError, actionClient } from "../safe-action-client";
-import { PASSWORD_RESET_SCHEMA } from "./schema";
 
 export const resetPassword = actionClient
   .schema(PASSWORD_RESET_SCHEMA, {
