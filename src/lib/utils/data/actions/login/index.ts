@@ -12,8 +12,6 @@ import {
 import { redirect as redirectLocal } from "@/lib/utils/localization/navigation";
 import { createClient } from "@/lib/utils/supabase/server";
 import { formatZodErrors } from "@/lib/utils/zod";
-import { getProtocol } from "@/middleware";
-import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function googleLogin() {
@@ -22,7 +20,7 @@ export async function googleLogin() {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: `${getProtocol()}://${process.env.VERCEL_URL}/auth/callback`,
+      redirectTo: `${process.env.BASE_URL}/auth/callback`,
     },
   });
 
@@ -37,7 +35,7 @@ export async function googleLogin() {
     redirectLocal("/error");
   }
 
-  revalidatePath("/", "layout");
+  // revalidatePath("/", "layout");
   redirectLocal("/");
 }
 
@@ -46,7 +44,7 @@ export async function logout() {
 
   await supabase.auth.signOut();
 
-  revalidatePath("/", "layout");
+  // revalidatePath("/", "layout");
   redirectLocal("/");
 }
 
@@ -73,6 +71,6 @@ export const signInWithEmail = actionClient
       throw new ActionError(getTranslatedSupabaseSignInError(error.message));
     }
 
-    revalidatePath("/", "layout");
+    // revalidatePath("/", "layout");
     redirectLocal("/");
   });
