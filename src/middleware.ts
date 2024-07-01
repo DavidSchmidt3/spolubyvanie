@@ -55,7 +55,7 @@ export async function middleware(request: NextRequest) {
 
   // if user is already logged in, don't allow him to visit auth pages
   if (data.user && authPathnames.includes(pathnameWithoutLocale)) {
-    return NextResponse.redirect(`${getBaseUrl()}/${redirectLocale}`);
+    return NextResponse.redirect(`${process.env.BASE_URL}/${redirectLocale}`);
   }
 
   // if user wants to change password, there must be a code in the url
@@ -63,7 +63,7 @@ export async function middleware(request: NextRequest) {
     changePasswordPathnames.includes(pathnameWithoutLocale) &&
     !request.nextUrl.searchParams.get("code")
   ) {
-    return NextResponse.redirect(`${getBaseUrl()}/${redirectLocale}`);
+    return NextResponse.redirect(`${process.env.BASE_URL}/${redirectLocale}`);
   }
 
   return localizationMiddleWare(request);
@@ -84,8 +84,3 @@ const authPathnames = [
 const changePasswordPathnames = [
   ...Object.values(pathnames["/password-change"]),
 ] as string[];
-
-export function getBaseUrl() {
-  const protocol = process.env.VERCEL_ENV === "production" ? "https" : "http";
-  return `${protocol}://${process.env.BASE_URL}`;
-}

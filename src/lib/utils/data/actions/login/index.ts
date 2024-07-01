@@ -7,7 +7,6 @@ import {
 import { redirect as redirectLocal } from "@/lib/utils/localization/navigation";
 import { createClient } from "@/lib/utils/supabase/server";
 import { formatZodErrors } from "@/lib/utils/zod";
-import { getBaseUrl } from "@/middleware";
 import { redirect } from "next/navigation";
 import { USER_AUTH_FORM_SCHEMA } from "./schema";
 import {
@@ -18,11 +17,10 @@ import {
 export async function googleLogin() {
   const supabase = createClient();
 
-  console.log(`${getBaseUrl()}/auth/callback`);
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: `${getBaseUrl()}/auth/callback`,
+      redirectTo: `${process.env.BASE_URL}/auth/callback`,
     },
   });
 
