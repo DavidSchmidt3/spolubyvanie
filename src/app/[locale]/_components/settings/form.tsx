@@ -1,4 +1,6 @@
 "use client";
+import LocaleField from "@/app/[locale]/_components/settings/locale-field";
+import ThemeField from "@/app/[locale]/_components/settings/theme-field";
 import { Button } from "@/app/[locale]/_components/ui/button";
 import { Form } from "@/app/[locale]/_components/ui/form";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
@@ -17,8 +19,6 @@ import { useTheme } from "next-themes";
 import { useParams } from "next/navigation";
 import { startTransition, useEffect, useMemo } from "react";
 import type * as z from "zod";
-import LocaleField from "./locale-field";
-import ThemeField from "./theme-field";
 
 const DEFAULT: SettingsFormValues = {
   theme: DEFAULT_THEME,

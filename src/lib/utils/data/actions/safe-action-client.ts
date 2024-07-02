@@ -1,6 +1,6 @@
+import { getUser } from "@/lib/utils/data/user";
 import { type MessageKeys } from "global";
 import { createSafeActionClient } from "next-safe-action";
-import { getUser } from "../user";
 
 export class ActionError extends Error {
   message: MessageKeys<IntlMessages>;
@@ -16,6 +16,7 @@ export const actionClient = createSafeActionClient({
     if (e instanceof ActionError) {
       return e.message;
     }
+    console.error(e);
 
     return "alerts.global.error.description";
   },

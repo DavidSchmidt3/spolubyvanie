@@ -24,6 +24,10 @@
       },
       "cancel": {
         "label": "Zrušiť"
+      },
+      "pagination": {
+        "previous": "Predchádzajúca",
+        "next": "Nasledujúca"
       }
     },
     "settings": {

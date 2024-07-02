@@ -24,6 +24,10 @@
       },
       "cancel": {
         "label": "Cancel"
+      },
+      "pagination": {
+        "previous": "Previous",
+        "next": "Next"
       }
     },
     "settings": {

@@ -4,10 +4,10 @@ import {
   LOCALES_CODES,
   pathnames,
 } from "@/lib/utils/localization/i18n";
+import { type Database } from "@/lib/utils/supabase/types/database";
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import createMiddleware from "next-intl/middleware";
 import { NextResponse, type NextRequest } from "next/server";
-import { type Database } from "./lib/utils/supabase/types/database";
 
 const localizationMiddleWare = createMiddleware({
   defaultLocale: DEFAULT_LOCALE,

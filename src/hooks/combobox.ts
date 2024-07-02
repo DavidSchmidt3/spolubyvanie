@@ -1,6 +1,6 @@
 import pkg, { type IndexOptionsForDocumentSearch } from "flexsearch";
 import { useEffect, useState } from "react";
-import { TRANSITION_DURATION } from "../../tailwind.config";
+import { TRANSITION_DURATION } from "tailwind.config";
 const { Document } = pkg;
 
 const documentIndexParams = {

@@ -1,9 +1,12 @@
 "use server";
+import {
+  ActionError,
+  authActionClient,
+} from "@/lib/utils/data/actions/safe-action-client";
+import { SETTINGS_FORM_SCHEMA } from "@/lib/utils/data/actions/settings/schema";
+import { type UserSettings } from "@/lib/utils/data/settings";
 import { db } from "@/lib/utils/prisma";
 import { formatZodErrors } from "@/lib/utils/zod";
-import { type UserSettings } from "../../settings";
-import { ActionError, authActionClient } from "../safe-action-client";
-import { SETTINGS_FORM_SCHEMA } from "./schema";
 
 export const saveSettings = authActionClient
   .schema(SETTINGS_FORM_SCHEMA, {

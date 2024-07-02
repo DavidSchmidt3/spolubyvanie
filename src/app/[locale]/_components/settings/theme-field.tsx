@@ -1,4 +1,5 @@
 "use client";
+import { type SettingsFormValues } from "@/app/[locale]/_components/settings/form";
 import {
   FormControl,
   FormField,
@@ -12,7 +13,6 @@ import {
 } from "@/app/[locale]/_components/ui/radio-group";
 import { useTranslations } from "next-intl";
 import { type Control } from "react-hook-form";
-import { type SettingsFormValues } from "./form";
 
 type Props = {
   control: Control<SettingsFormValues>;

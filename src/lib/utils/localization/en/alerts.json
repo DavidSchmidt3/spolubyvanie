@@ -87,6 +87,15 @@
         "invalid": "There was an unexpected error, please try again later"
       }
     },
+    "advertisement": {
+      "price": {
+        "invalid": "Price must be higher than 0",
+        "max_higher_than_min": "Max price must be higher than min price"
+      },
+      "error": {
+        "title": "Failed to filter advertisements"
+      }
+    },
     "global": {
       "error": {
         "description": "Unexpected error, please try again later"

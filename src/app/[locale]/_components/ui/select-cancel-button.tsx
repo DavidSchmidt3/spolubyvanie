@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 
 type Props = {
-  onCancel: (value?: string) => void;
+  onCancel: (value?: string | null) => void;
   className?: string;
 };
 
@@ -15,9 +15,7 @@ export default function SelectCancelButton({ onCancel, className }: Props) {
       variant="ghost"
       aria-label={t("common.cancel.label")}
       className={cn("w-8 h-8 p-1", className)}
-      onClick={() => {
-        onCancel(undefined);
-      }}
+      onClick={() => onCancel()}
     >
       <Icons.cross />
     </Button>

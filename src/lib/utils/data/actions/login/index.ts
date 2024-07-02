@@ -1,5 +1,10 @@
 "use server";
 
+import { USER_AUTH_FORM_SCHEMA } from "@/lib/utils/data/actions/login/schema";
+import {
+  getTranslatedSupabaseSignInError,
+  supabaseSignInErrors,
+} from "@/lib/utils/data/actions/login/supabase-sign-in-errors";
 import {
   ActionError,
   actionClient,
@@ -8,11 +13,6 @@ import { redirect as redirectLocal } from "@/lib/utils/localization/navigation";
 import { createClient } from "@/lib/utils/supabase/server";
 import { formatZodErrors } from "@/lib/utils/zod";
 import { redirect } from "next/navigation";
-import { USER_AUTH_FORM_SCHEMA } from "./schema";
-import {
-  getTranslatedSupabaseSignInError,
-  supabaseSignInErrors,
-} from "./supabase-sign-in-errors";
 
 export async function googleLogin() {
   const supabase = createClient();
@@ -35,7 +35,6 @@ export async function googleLogin() {
     redirectLocal("/error");
   }
 
-  // revalidatePath("/", "layout");
   redirectLocal("/");
 }
 
@@ -44,7 +43,6 @@ export async function logout() {
 
   await supabase.auth.signOut();
 
-  // revalidatePath("/", "layout");
   redirectLocal("/");
 }
 
