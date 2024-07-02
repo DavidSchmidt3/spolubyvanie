@@ -7,11 +7,20 @@ import {
   getRegions,
 } from "@/lib/utils/data/administrative-divisions";
 import { getAdvertisements } from "@/lib/utils/data/advertisements";
+import { ADVERTISEMENTS_FILTER_SCHEMA } from "@/lib/utils/data/advertisements/schema";
 import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import { type ParsedUrlQuery } from "querystring";
 
-export default async function Home() {
+type Props = {
+  searchParams: ParsedUrlQuery;
+};
+
+export default async function Home({ searchParams }: Props) {
+  const safelyParsedSearchParams =
+    ADVERTISEMENTS_FILTER_SCHEMA.safeParse(searchParams);
+
   const [
     regions,
     districts,
@@ -23,7 +32,9 @@ export default async function Home() {
     getDistricts(),
     getMunicipalities(),
     getMessages(),
-    getAdvertisements(null),
+    getAdvertisements(
+      safelyParsedSearchParams.success ? safelyParsedSearchParams.data : null
+    ),
   ]);
 
   return (

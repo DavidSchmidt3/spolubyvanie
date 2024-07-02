@@ -72,34 +72,31 @@ export default function AdministrativeDivisionFilter({
     const selectedMunicipalityObject = municipalities.find(
       (municipality) => municipality.id === selectedMunicipality
     );
-    return (
-      districts.find(
-        (district) => district.id === selectedMunicipalityObject?.district_id
-      )?.id ?? null
-    );
+    return districts.find(
+      (district) => district.id === selectedMunicipalityObject?.district_id
+    )?.id;
   }
 
   function getSelectedDistrictRegionId() {
     const selectedDistrictObject = districts.find(
       (district) => district.id === selectedDistrict
     );
-    return (
-      regions.find((region) => region.id === selectedDistrictObject?.region_id)
-        ?.id ?? null
-    );
+    return regions.find(
+      (region) => region.id === selectedDistrictObject?.region_id
+    )?.id;
   }
 
   // If we change the region and the district id is not the same as the selected region's district id, we need to set the district to undefined
   // So we also need to set the municipality to undefined, because it will be in the wrong district
   function afterRegionChange() {
     if (getSelectedDistrictRegionId() !== selectedRegion) {
-      form.setValue("municipality", null);
-      form.setValue("district", null);
+      form.setValue("municipality", undefined);
+      form.setValue("district", undefined);
       return;
     }
 
     if (getSelectedMunicipalityDistrictId() !== selectedDistrict) {
-      form.setValue("municipality", null);
+      form.setValue("municipality", undefined);
     }
   }
 
@@ -107,7 +104,7 @@ export default function AdministrativeDivisionFilter({
   // Also if the selected municipality district is not the same as the selected district, we need to set the municipality to undefined
   function afterDistrictChange() {
     if (getSelectedMunicipalityDistrictId() !== selectedDistrict) {
-      form.setValue("municipality", null);
+      form.setValue("municipality", undefined);
     }
     if (!selectedRegion) {
       form.setValue("region", getSelectedDistrictRegionId());

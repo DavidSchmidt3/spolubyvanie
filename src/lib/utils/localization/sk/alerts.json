@@ -91,6 +91,9 @@
       "price": {
         "invalid": "Cena musí byť väčšia ako 0",
         "max_higher_than_min": "Cena do musí byť väčšia ako cena od"
+      },
+      "error": {
+        "title": "Nepodarilo sa filtrovať inzeráty"
       }
     },
     "global": {

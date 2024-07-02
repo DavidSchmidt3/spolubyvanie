@@ -25,8 +25,11 @@ import {
   ADVERTISEMENTS_FILTER_SCHEMA,
   type AdvertisementFilterFormValues,
 } from "@/lib/utils/data/advertisements/schema";
+import { type pathnames } from "@/lib/utils/localization/i18n";
+import { usePathname, useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
-import { useMemo } from "react";
+import { useSearchParams } from "next/navigation";
+import { useMemo, useState } from "react";
 
 type Props = {
   regions: Awaited<ReturnType<typeof getRegions>>;
@@ -40,16 +43,21 @@ export default function AdvertisementFilter({
   municipalities,
 }: Props) {
   "use no memo";
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const defaultValues = useMemo<AdvertisementFilterFormValues>(() => {
     return {
-      municipality: null,
-      district: null,
-      region: null,
-      price_min: "",
-      price_max: "",
-      advertisement_type: "",
+      municipality: searchParams.get("municipality") ?? undefined,
+      district: searchParams.get("district") ?? undefined,
+      region: searchParams.get("region") ?? undefined,
+      price_min: searchParams.get("price_min") ?? "",
+      price_max: searchParams.get("price_max") ?? "",
+      advertisement_type: searchParams.get("advertisement_type") ?? "",
     };
-  }, []);
+  }, [searchParams]);
 
   const form = useControlledForm<AdvertisementFilterFormValues>({
     schema: ADVERTISEMENTS_FILTER_SCHEMA,
@@ -58,8 +66,22 @@ export default function AdvertisementFilter({
 
   const t = useTranslations("translations");
 
-  function onSubmit(data: AdvertisementFilterFormValues) {
-    console.log(data);
+  function createQueryString(data: AdvertisementFilterFormValues) {
+    const queryString = new URLSearchParams();
+    Object.keys(data).forEach((key) => {
+      if (data[key as keyof typeof data]) {
+        queryString.append(key, data[key as keyof typeof data] ?? "");
+      }
+    });
+    return queryString.toString();
+  }
+
+  async function onSubmit(data: AdvertisementFilterFormValues) {
+    const newPathnameWithQuery = `${pathname}?${createQueryString(
+      data
+    )}` as (typeof pathnames)["/"];
+    router.push(newPathnameWithQuery);
+    setOpen(false);
   }
 
   return (
@@ -73,7 +95,7 @@ export default function AdvertisementFilter({
             {t("advertisement.description")}
           </h2>
         </div>
-        <Credenza>
+        <Credenza open={open} onOpenChange={setOpen}>
           <CredenzaTrigger asChild className="px-4 py-2 sm:py-2">
             <Button
               className="flex w-48 gap-2 text-md text-wrap h-14 bg-foreground text-background hover:bg-accent-foreground hover:text-background"
@@ -101,7 +123,7 @@ export default function AdvertisementFilter({
                       <PriceFilter control={form.control} />
                       <AdvertisementTypeFilter
                         control={form.control}
-                        resetField={form.resetField}
+                        setValue={form.setValue}
                       />
                     </div>
                     <SubmitButton />

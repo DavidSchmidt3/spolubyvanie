@@ -3,27 +3,17 @@ import {
   CardContent,
   CardHeader,
 } from "@/app/[locale]/_components/ui/card";
+import { type Advertisement as AdvertisementType } from "@/lib/utils/data/advertisements";
 import Image from "next/image";
 
 type Props = {
-  price: number;
-  title: string;
-  description: string;
-  street: string;
-  municipality: string;
-  district: string;
-  region: string;
+  advertisement: AdvertisementType;
 };
 
-export default function Advertisement({
-  price,
-  title,
-  description,
-  street,
-  municipality,
-  district,
-  region,
-}: Props) {
+export default function Advertisement({ advertisement }: Props) {
+  const { price, title, description, street, municipality, district, region } =
+    advertisement;
+
   return (
     <Card className="w-full h-auto p-6">
       <CardHeader className="p-0 pb-2">
