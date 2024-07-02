@@ -68,30 +68,37 @@ export default function AdministrativeDivisionFilter({
     return true;
   }
 
-  // If we change the region and the district id is not the same as the selected region's district id, we need to set the district to undefined
-  // So we also need to set the municipality to undefined, because it will be in the wrong district
-  function afterRegionChange() {
+  function getSelectedMunicipalityDistrictId() {
+    const selectedMunicipalityObject = municipalities.find(
+      (municipality) => municipality.id === selectedMunicipality
+    );
+    return (
+      districts.find(
+        (district) => district.id === selectedMunicipalityObject?.district_id
+      )?.id ?? null
+    );
+  }
+
+  function getSelectedDistrictRegionId() {
     const selectedDistrictObject = districts.find(
       (district) => district.id === selectedDistrict
     );
-    const regionOfSelectedDistrict = regions.find(
-      (region) => region.id === selectedDistrictObject?.region_id
+    return (
+      regions.find((region) => region.id === selectedDistrictObject?.region_id)
+        ?.id ?? null
     );
+  }
 
-    if (regionOfSelectedDistrict?.id !== selectedRegion) {
+  // If we change the region and the district id is not the same as the selected region's district id, we need to set the district to undefined
+  // So we also need to set the municipality to undefined, because it will be in the wrong district
+  function afterRegionChange() {
+    if (getSelectedDistrictRegionId() !== selectedRegion) {
       form.setValue("municipality", null);
       form.setValue("district", null);
       return;
     }
 
-    const selectedMunicipalityObject = municipalities.find(
-      (municipality) => municipality.id === selectedMunicipality
-    );
-    const districtOfSelectedMunicipality = districts.find(
-      (district) => district.id === selectedMunicipalityObject?.district_id
-    );
-
-    if (districtOfSelectedMunicipality?.id !== selectedDistrict) {
+    if (getSelectedMunicipalityDistrictId() !== selectedDistrict) {
       form.setValue("municipality", null);
     }
   }
@@ -99,37 +106,18 @@ export default function AdministrativeDivisionFilter({
   // If we change the district and there is no region selected, we need to set the region to the selected district's region
   // Also if the selected municipality district is not the same as the selected district, we need to set the municipality to undefined
   function afterDistrictChange() {
-    const selectedMunicipalityObject = municipalities.find(
-      (municipality) => municipality.id === selectedMunicipality
-    );
-    const districtOfSelectedMunicipality = districts.find(
-      (district) => district.id === selectedMunicipalityObject?.district_id
-    );
-
-    if (districtOfSelectedMunicipality?.id !== selectedDistrict) {
+    if (getSelectedMunicipalityDistrictId() !== selectedDistrict) {
       form.setValue("municipality", null);
     }
     if (!selectedRegion) {
-      const selectedDistrictObject = districts.find(
-        (district) => district.id === selectedDistrict
-      );
-      const regionOfSelectedDistrict = regions.find(
-        (region) => region.id === selectedDistrictObject?.region_id
-      );
-      form.setValue("region", regionOfSelectedDistrict?.id ?? null);
+      form.setValue("region", getSelectedDistrictRegionId());
     }
   }
 
   // If we change the municipality and there is no district selected, we need to set the district to the selected municipality's district
   function afterMunicipalityChange() {
     if (!selectedDistrict) {
-      const selectedMunicipalityObject = municipalities.find(
-        (municipality) => municipality.id === selectedMunicipality
-      );
-      const district = districts.find(
-        (district) => district.id === selectedMunicipalityObject?.district_id
-      );
-      form.setValue("district", district?.id ?? null);
+      form.setValue("district", getSelectedMunicipalityDistrictId());
     }
   }
 
