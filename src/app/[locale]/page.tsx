@@ -6,21 +6,32 @@ import {
   getMunicipalities,
   getRegions,
 } from "@/lib/utils/data/administrative-divisions";
+import { getAdvertisements } from "@/lib/utils/data/advertisements";
 import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 
 export default async function Home() {
-  const [regions, districts, municipalities, messages] = await Promise.all([
+  const [
+    regions,
+    districts,
+    municipalities,
+    messages,
+    advertisementsActionFetchResult,
+  ] = await Promise.all([
     getRegions(),
     getDistricts(),
     getMunicipalities(),
     getMessages(),
+    getAdvertisements(null),
   ]);
 
   return (
     <NextIntlClientProvider
-      messages={pickLocaleMessages(messages, ["translations.advertisement"])}
+      messages={pickLocaleMessages(messages, [
+        "translations.advertisement",
+        "alerts.advertisement",
+      ])}
     >
       <div className="flex flex-col justify-between h-full overflow-auto">
         <AdvertisementFilter
@@ -28,7 +39,9 @@ export default async function Home() {
           districts={districts}
           municipalities={municipalities}
         />
-        <AdvertisementList />
+        <AdvertisementList
+          advertisementsActionFetchResult={advertisementsActionFetchResult}
+        />
         <AdvertisementPagination />
       </div>
     </NextIntlClientProvider>

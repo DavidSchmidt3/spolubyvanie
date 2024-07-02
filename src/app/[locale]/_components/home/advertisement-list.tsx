@@ -1,6 +1,15 @@
 import Advertisement from "@/app/[locale]/_components/home/advertisement";
+import { type getAdvertisements } from "@/lib/utils/data/advertisements";
 
-export default function AdvertisementList() {
+type Props = {
+  advertisementsActionFetchResult: Awaited<
+    ReturnType<typeof getAdvertisements>
+  >;
+};
+
+export default function AdvertisementList({
+  advertisementsActionFetchResult,
+}: Props) {
   return (
     <div className="flex flex-col justify-center w-full items-center gap-y-4 px-4 sm:px-16 py-4 sm:py-8">
       {Array(3)

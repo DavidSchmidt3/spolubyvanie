@@ -87,6 +87,12 @@
         "invalid": "Nastala neočakávaná chyba, skúste to znova neskôr"
       }
     },
+    "advertisement": {
+      "price": {
+        "invalid": "Cena musí byť väčšia ako 0",
+        "max_higher_than_min": "Cena do musí byť väčšia ako cena od"
+      }
+    },
     "global": {
       "error": {
         "description": "Vyskytla sa neočakávaná chyba, skúste to znova neskôr"

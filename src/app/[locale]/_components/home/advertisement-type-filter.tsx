@@ -1,4 +1,9 @@
-"use client";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/app/[locale]/_components/ui/form";
 import {
   Select,
   SelectContent,
@@ -9,57 +14,88 @@ import {
   SelectValue,
 } from "@/app/[locale]/_components/ui/select";
 import SelectCancelButton from "@/app/[locale]/_components/ui/select-cancel-button";
+import { type AdvertisementFilterFormValues } from "@/lib/utils/data/advertisements/schema";
 import { adTypeKeys, type AdType } from "@/lib/utils/data/advertisements/types";
 import { type MessageKeys } from "global";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { type Control, type UseFormResetField } from "react-hook-form";
 
-export function AdvertisementTypeFilter() {
-  const [selectedAdType, setSelectedAdType] = useState("");
+type Props = {
+  control: Control<AdvertisementFilterFormValues>;
+  resetField: UseFormResetField<AdvertisementFilterFormValues>;
+};
+
+export function AdvertisementTypeFilter({ control, resetField }: Props) {
   const t = useTranslations();
 
   return (
-    <div className="flex justify-center w-full gap-1 flex-col relative">
+    <div className="relative flex flex-col justify-center w-full gap-1">
       <h4 className="text-sm">
         {t("translations.advertisement.types.select_label")}
       </h4>
-      <Select value={selectedAdType} onValueChange={setSelectedAdType}>
-        <SelectTrigger
-          className="h-11 text-center justify-between w-full px-4 hover:bg-accent"
-          value={selectedAdType}
-          aria-label={t("translations.advertisement.types.select_text")}
-        >
-          <SelectValue
-            placeholder={t("translations.advertisement.types.select_text")}
-          />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>
-              {t("translations.advertisement.types.select_label")}
-            </SelectLabel>
-            {Object.keys(adTypeKeys).map((key) => {
-              const adTypeKey = parseInt(key) as AdType;
-              const value =
-                `translations.advertisement.types.${adTypeKeys[adTypeKey]}` as MessageKeys<IntlMessages>;
-              return (
-                <SelectItem
-                  key={key}
-                  value={key}
-                  className="hover:cursor-pointer"
+      <FormField
+        control={control}
+        name="advertisement_type"
+        render={({ field }) => (
+          <FormItem className="relative">
+            <Select
+              value={field.value}
+              onValueChange={(value) => {
+                field.onChange(value);
+              }}
+            >
+              <FormControl>
+                <SelectTrigger
+                  value={field.value}
+                  className="justify-between w-full px-4 text-center h-11 hover:bg-accent"
+                  aria-label={t("translations.advertisement.types.select_text")}
                 >
-                  {t(value)}
-                </SelectItem>
-              );
-            })}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
-      <div className="z-20 flex items-center -ml-11 absolute right-0 bottom-0 mr-2 mb-1.5">
-        {selectedAdType && (
-          <SelectCancelButton onCancel={() => setSelectedAdType("")} />
+                  {field.value ? (
+                    <SelectValue
+                      placeholder={t(
+                        "translations.advertisement.types.select_text"
+                      )}
+                    />
+                  ) : (
+                    t("translations.advertisement.types.select_text")
+                  )}
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>
+                    {t("translations.advertisement.types.select_label")}
+                  </SelectLabel>
+                  {Object.keys(adTypeKeys).map((key) => {
+                    const adTypeKey = parseInt(key) as AdType;
+                    const value =
+                      `translations.advertisement.types.${adTypeKeys[adTypeKey]}` as MessageKeys<IntlMessages>;
+                    return (
+                      <SelectItem
+                        key={key}
+                        value={key}
+                        className="hover:cursor-pointer"
+                      >
+                        {t(value)}
+                      </SelectItem>
+                    );
+                  })}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            <div className="absolute -top-0.5 right-0 z-20 flex items-center mr-2 -ml-11">
+              {field.value && (
+                <SelectCancelButton
+                  onCancel={() => {
+                    resetField("advertisement_type");
+                  }}
+                />
+              )}
+            </div>
+            <FormMessage />
+          </FormItem>
         )}
-      </div>
+      />
     </div>
   );
 }

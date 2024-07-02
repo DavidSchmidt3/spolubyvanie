@@ -1,4 +1,3 @@
-"use client";
 import PopoverFilterField from "@/app/[locale]/_components/home/popover-filter-field";
 import usePrevious from "@/hooks/previous-value";
 import {
@@ -6,13 +5,16 @@ import {
   type Municipality,
   type Region,
 } from "@/lib/utils/data/administrative-divisions";
+import { type AdvertisementFilterFormValues } from "@/lib/utils/data/advertisements/schema";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { type UseFormReturn } from "react-hook-form";
 
 type Props = {
   regions: Region[];
   districts: District[];
   municipalities: Municipality[];
+  form: UseFormReturn<AdvertisementFilterFormValues>;
 };
 
 export type FilterData = {
@@ -26,14 +28,14 @@ export default function AdministrativeDivisionFilter({
   regions,
   districts,
   municipalities,
+  form,
 }: Props) {
   const t = useTranslations("translations.advertisement");
-  const [selectedRegion, setSelectedRegion] = useState<FilterData>();
+  const selectedRegion = form.watch("region");
+  const selectedDistrict = form.watch("district");
+  const selectedMunicipality = form.watch("municipality");
   const prevRegion = usePrevious(selectedRegion);
-  const [selectedDistrict, setSelectedDistrict] = useState<FilterData>();
   const prevDistrict = usePrevious(selectedDistrict);
-  const [selectedMunicipality, setSelectedMunicipality] =
-    useState<FilterData>();
   const prevMunicipality = usePrevious(selectedMunicipality);
 
   function filterMunicipality(municipality: FilterData) {
@@ -42,16 +44,16 @@ export default function AdministrativeDivisionFilter({
     }
 
     if (selectedRegion && !selectedDistrict) {
-      return municipality.region_id === selectedRegion.id;
+      return municipality.region_id === selectedRegion;
     }
 
     if (!selectedRegion && selectedDistrict) {
-      return municipality.district_id === selectedDistrict.id;
+      return municipality.district_id === selectedDistrict;
     }
 
     return (
-      municipality.district_id === selectedDistrict?.id &&
-      municipality.region_id === selectedRegion?.id
+      municipality.district_id === selectedDistrict &&
+      municipality.region_id === selectedRegion
     );
   }
 
@@ -59,7 +61,7 @@ export default function AdministrativeDivisionFilter({
     if (!selectedRegion) {
       return true;
     }
-    return district.region_id === selectedRegion.id;
+    return district.region_id === selectedRegion;
   }
 
   function filterRegion(_: FilterData) {
@@ -69,104 +71,117 @@ export default function AdministrativeDivisionFilter({
   // If we change the region and the district id is not the same as the selected region's district id, we need to set the district to undefined
   // So we also need to set the municipality to undefined, because it will be in the wrong district
   function afterRegionChange() {
-    if (selectedDistrict?.region_id !== selectedRegion?.id) {
-      setSelectedDistrict(undefined);
-      setSelectedMunicipality(undefined);
+    const selectedDistrictObject = districts.find(
+      (district) => district.id === selectedDistrict
+    );
+    const regionOfSelectedDistrict = regions.find(
+      (region) => region.id === selectedDistrictObject?.region_id
+    );
+
+    if (regionOfSelectedDistrict?.id !== selectedRegion) {
+      form.setValue("municipality", null);
+      form.setValue("district", null);
       return;
     }
 
-    if (selectedMunicipality?.district_id !== selectedDistrict?.id) {
-      setSelectedMunicipality(undefined);
+    const selectedMunicipalityObject = municipalities.find(
+      (municipality) => municipality.id === selectedMunicipality
+    );
+    const districtOfSelectedMunicipality = districts.find(
+      (district) => district.id === selectedMunicipalityObject?.district_id
+    );
+
+    if (districtOfSelectedMunicipality?.id !== selectedDistrict) {
+      form.setValue("municipality", null);
     }
   }
 
   // If we change the district and there is no region selected, we need to set the region to the selected district's region
   // Also if the selected municipality district is not the same as the selected district, we need to set the municipality to undefined
   function afterDistrictChange() {
-    if (selectedMunicipality?.district_id !== selectedDistrict?.id) {
-      setSelectedMunicipality(undefined);
+    const selectedMunicipalityObject = municipalities.find(
+      (municipality) => municipality.id === selectedMunicipality
+    );
+    const districtOfSelectedMunicipality = districts.find(
+      (district) => district.id === selectedMunicipalityObject?.district_id
+    );
+
+    if (districtOfSelectedMunicipality?.id !== selectedDistrict) {
+      form.setValue("municipality", null);
     }
     if (!selectedRegion) {
-      const region = regions.find(
-        (region) => region.id === selectedDistrict?.region_id
+      const selectedDistrictObject = districts.find(
+        (district) => district.id === selectedDistrict
       );
-      setSelectedRegion(region);
+      const regionOfSelectedDistrict = regions.find(
+        (region) => region.id === selectedDistrictObject?.region_id
+      );
+      form.setValue("region", regionOfSelectedDistrict?.id ?? null);
     }
   }
 
   // If we change the municipality and there is no district selected, we need to set the district to the selected municipality's district
   function afterMunicipalityChange() {
     if (!selectedDistrict) {
-      const district = districts.find(
-        (district) => district.id === selectedMunicipality?.district_id
+      const selectedMunicipalityObject = municipalities.find(
+        (municipality) => municipality.id === selectedMunicipality
       );
-      setSelectedDistrict(district);
+      const district = districts.find(
+        (district) => district.id === selectedMunicipalityObject?.district_id
+      );
+      form.setValue("district", district?.id ?? null);
     }
   }
 
   useEffect(() => {
-    if (prevRegion?.id !== selectedRegion?.id) {
+    if (prevRegion !== selectedRegion) {
       afterRegionChange();
     }
 
-    if (prevDistrict?.id !== selectedDistrict?.id) {
+    if (prevDistrict !== selectedDistrict) {
       afterDistrictChange();
     }
 
-    if (prevMunicipality?.id !== selectedMunicipality?.id) {
+    if (prevMunicipality !== selectedMunicipality) {
       afterMunicipalityChange();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedRegion, selectedDistrict, selectedMunicipality]);
 
-  function handleRegionChange(regionId?: string) {
-    const region = regions.find((region) => region.id === regionId);
-    setSelectedRegion(region);
-  }
-
-  function handleDistrictChange(districtId?: string) {
-    const district = districts.find((district) => district.id === districtId);
-    setSelectedDistrict(district);
-  }
-
-  function handleMunicipalityChange(municipalityId?: string) {
-    const municipality = municipalities.find(
-      (municipality) => municipality.id === municipalityId
-    );
-    setSelectedMunicipality(municipality);
-  }
-
   return (
     <div className="flex flex-col gap-y-2 gap-x-4 sm:gap-x-8">
       <PopoverFilterField
         filterData={regions}
-        selectedRow={selectedRegion?.id}
-        setSelectedRow={handleRegionChange}
         filterFunction={filterRegion}
         placeholderText={t("region.search_placeholder")}
         selectRowText={t("region.select_text")}
         emptyText={t("region.empty_text")}
         title={t("region.title")}
+        control={form.control}
+        fieldName="region"
+        setValue={form.setValue}
       />
       <PopoverFilterField
         filterData={districts}
-        selectedRow={selectedDistrict?.id}
-        setSelectedRow={handleDistrictChange}
         filterFunction={filterDistrict}
         placeholderText={t("district.search_placeholder")}
         selectRowText={t("district.select_text")}
         emptyText={t("district.empty_text")}
         title={t("district.title")}
+        control={form.control}
+        fieldName="district"
+        setValue={form.setValue}
       />
       <PopoverFilterField
         filterData={municipalities}
-        selectedRow={selectedMunicipality?.id}
-        setSelectedRow={handleMunicipalityChange}
         filterFunction={filterMunicipality}
         placeholderText={t("municipality.search_placeholder")}
         selectRowText={t("municipality.select_text")}
         emptyText={t("municipality.empty_text")}
         title={t("municipality.title")}
+        control={form.control}
+        fieldName="municipality"
+        setValue={form.setValue}
       />
     </div>
   );
