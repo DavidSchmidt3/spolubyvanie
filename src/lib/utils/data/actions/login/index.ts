@@ -35,7 +35,6 @@ export async function googleLogin() {
     redirectLocal("/error");
   }
 
-  // revalidatePath("/", "layout");
   redirectLocal("/");
 }
 
@@ -44,7 +43,6 @@ export async function logout() {
 
   await supabase.auth.signOut();
 
-  // revalidatePath("/", "layout");
   redirectLocal("/");
 }
 
