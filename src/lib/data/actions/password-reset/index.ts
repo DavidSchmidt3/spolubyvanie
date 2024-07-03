@@ -1,10 +1,10 @@
 "use server";
 
-import { PASSWORD_RESET_SCHEMA } from "@/lib/utils/data/actions/password-reset/schema";
+import { PASSWORD_RESET_SCHEMA } from "@/lib/data/actions/password-reset/schema";
 import {
   ActionError,
   actionClient,
-} from "@/lib/utils/data/actions/safe-action-client";
+} from "@/lib/data/actions/safe-action-client";
 import { pathnames, type Locale } from "@/lib/utils/localization/i18n";
 import { createClient } from "@/lib/utils/supabase/server";
 import { formatZodErrors } from "@/lib/utils/zod";

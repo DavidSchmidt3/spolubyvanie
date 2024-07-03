@@ -2,9 +2,9 @@
 import {
   ActionError,
   authActionClient,
-} from "@/lib/utils/data/actions/safe-action-client";
-import { SETTINGS_FORM_SCHEMA } from "@/lib/utils/data/actions/settings/schema";
-import { type UserSettings } from "@/lib/utils/data/settings";
+} from "@/lib/data/actions/safe-action-client";
+import { SETTINGS_FORM_SCHEMA } from "@/lib/data/actions/settings/schema";
+import { type UserSettings } from "@/lib/data/settings";
 import { db } from "@/lib/utils/prisma";
 import { formatZodErrors } from "@/lib/utils/zod";
 

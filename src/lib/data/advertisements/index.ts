@@ -1,9 +1,9 @@
 "use server";
-import { actionClient } from "@/lib/utils/data/actions/safe-action-client";
+import { actionClient } from "@/lib/data/actions/safe-action-client";
 import {
   ADVERTISEMENTS_FILTER_SCHEMA,
   type AdvertisementFilterFormValues,
-} from "@/lib/utils/data/advertisements/schema";
+} from "@/lib/data/advertisements/schema";
 import { db } from "@/lib/utils/prisma";
 import { formatZodErrors } from "@/lib/utils/zod";
 import { type Prisma } from "@prisma/client";

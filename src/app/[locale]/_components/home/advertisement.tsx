@@ -3,7 +3,7 @@ import {
   CardContent,
   CardHeader,
 } from "@/app/[locale]/_components/ui/card";
-import { type Advertisement as AdvertisementType } from "@/lib/utils/data/advertisements";
+import { type Advertisement as AdvertisementType } from "@/lib/data/advertisements";
 import Image from "next/image";
 
 type Props = {

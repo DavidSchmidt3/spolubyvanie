@@ -13,8 +13,8 @@ import {
   type getDistricts,
   type getMunicipalities,
   type getRegions,
-} from "@/lib/utils/data/administrative-divisions";
-import { type AdvertisementFilterFormValues } from "@/lib/utils/data/advertisements/schema";
+} from "@/lib/data/administrative-divisions";
+import { type AdvertisementFilterFormValues } from "@/lib/data/advertisements/schema";
 import { useTranslations } from "next-intl";
 import { type UseFormReturn } from "react-hook-form";
 

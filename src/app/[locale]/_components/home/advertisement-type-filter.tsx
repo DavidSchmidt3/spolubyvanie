@@ -14,8 +14,8 @@ import {
   SelectValue,
 } from "@/app/[locale]/_components/ui/select";
 import SelectCancelButton from "@/app/[locale]/_components/ui/select-cancel-button";
-import { type AdvertisementFilterFormValues } from "@/lib/utils/data/advertisements/schema";
-import { adTypeKeys, type AdType } from "@/lib/utils/data/advertisements/types";
+import { type AdvertisementFilterFormValues } from "@/lib/data/advertisements/schema";
+import { adTypeKeys, type AdType } from "@/lib/data/advertisements/types";
 import { type MessageKeys } from "global";
 import { useTranslations } from "next-intl";
 import { type Control, type UseFormSetValue } from "react-hook-form";

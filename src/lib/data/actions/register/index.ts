@@ -1,11 +1,11 @@
 "use server";
 
-import { USER_AUTH_FORM_SCHEMA } from "@/lib/utils/data/actions/login/schema";
-import { getTranslatedSupabaseSignUpError } from "@/lib/utils/data/actions/register/supabase-sign-up-errors";
+import { USER_AUTH_FORM_SCHEMA } from "@/lib/data/actions/login/schema";
+import { getTranslatedSupabaseSignUpError } from "@/lib/data/actions/register/supabase-sign-up-errors";
 import {
   ActionError,
   actionClient,
-} from "@/lib/utils/data/actions/safe-action-client";
+} from "@/lib/data/actions/safe-action-client";
 import { createClient } from "@/lib/utils/supabase/server";
 import { formatZodErrors } from "@/lib/utils/zod";
 

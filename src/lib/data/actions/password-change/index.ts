@@ -1,11 +1,11 @@
 "use server";
 
-import { PASSWORD_CHANGE_SCHEMA } from "@/lib/utils/data/actions/password-change/schema";
-import { getTranslatedSupabasePasswordChangeError } from "@/lib/utils/data/actions/password-change/supabase-password-change-errors";
+import { PASSWORD_CHANGE_SCHEMA } from "@/lib/data/actions/password-change/schema";
+import { getTranslatedSupabasePasswordChangeError } from "@/lib/data/actions/password-change/supabase-password-change-errors";
 import {
   ActionError,
   actionClient,
-} from "@/lib/utils/data/actions/safe-action-client";
+} from "@/lib/data/actions/safe-action-client";
 import { createClient } from "@/lib/utils/supabase/server";
 import { formatZodErrors } from "@/lib/utils/zod";
 

@@ -15,7 +15,7 @@ import {
 } from "@/app/[locale]/_components/ui/popover";
 import SelectCancelButton from "@/app/[locale]/_components/ui/select-cancel-button";
 import { useCombobox } from "@/hooks/combobox";
-import { type AdvertisementFilterFormValues } from "@/lib/utils/data/advertisements/schema";
+import { type AdvertisementFilterFormValues } from "@/lib/data/advertisements/schema";
 import { ChevronDown } from "lucide-react";
 import { type Control, type UseFormSetValue } from "react-hook-form";
 import { FixedSizeList } from "react-window";

@@ -1,4 +1,4 @@
-import { getUser } from "@/lib/utils/data/user";
+import { getUser } from "@/lib/data/user";
 import { type MessageKeys } from "global";
 import { createSafeActionClient } from "next-safe-action";
 

@@ -5,7 +5,7 @@ import {
   FormMessage,
 } from "@/app/[locale]/_components/ui/form";
 import { Input } from "@/app/[locale]/_components/ui/input";
-import { type AdvertisementFilterFormValues } from "@/lib/utils/data/advertisements/schema";
+import { type AdvertisementFilterFormValues } from "@/lib/data/advertisements/schema";
 import { useTranslations } from "next-intl";
 import { type Control } from "react-hook-form";
 

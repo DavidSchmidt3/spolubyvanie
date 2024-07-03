@@ -1,4 +1,4 @@
-import { getUser } from "@/lib/utils/data/user";
+import { getUser } from "@/lib/data/user";
 import { db } from "@/lib/utils/prisma";
 import { type Database } from "@/lib/utils/supabase/types/database";
 import { cache } from "react";

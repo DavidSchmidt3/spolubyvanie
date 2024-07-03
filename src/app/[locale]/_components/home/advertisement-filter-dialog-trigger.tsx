@@ -11,11 +11,11 @@ import {
   type getDistricts,
   type getMunicipalities,
   type getRegions,
-} from "@/lib/utils/data/administrative-divisions";
+} from "@/lib/data/administrative-divisions";
 import {
   ADVERTISEMENTS_FILTER_SCHEMA,
   type AdvertisementFilterFormValues,
-} from "@/lib/utils/data/advertisements/schema";
+} from "@/lib/data/advertisements/schema";
 import { type pathnames } from "@/lib/utils/localization/i18n";
 import { usePathname, useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";

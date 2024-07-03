@@ -10,8 +10,8 @@ import {
   DropdownMenuTrigger,
 } from "@/app/[locale]/_components/ui/dropdown-menu";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
-import { logout } from "@/lib/utils/data/actions/login";
-import { getUser } from "@/lib/utils/data/user";
+import { logout } from "@/lib/data/actions/login";
+import { getUser } from "@/lib/data/user";
 import { Link } from "@/lib/utils/localization/navigation";
 import { getTranslations } from "next-intl/server";
 

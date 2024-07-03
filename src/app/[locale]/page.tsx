@@ -5,9 +5,9 @@ import {
   getDistricts,
   getMunicipalities,
   getRegions,
-} from "@/lib/utils/data/administrative-divisions";
-import { getAdvertisements } from "@/lib/utils/data/advertisements";
-import { ADVERTISEMENTS_FILTER_SCHEMA } from "@/lib/utils/data/advertisements/schema";
+} from "@/lib/data/administrative-divisions";
+import { getAdvertisements } from "@/lib/data/advertisements";
+import { ADVERTISEMENTS_FILTER_SCHEMA } from "@/lib/data/advertisements/schema";
 import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";

@@ -1,6 +1,6 @@
 "use client";
 
-import { type getSettings } from "@/lib/utils/data/settings";
+import { type getSettings } from "@/lib/data/settings";
 import { usePathname, useRouter } from "@/lib/utils/localization/navigation";
 import { DEFAULT_THEME } from "@/lib/utils/theme/config";
 import { useTheme } from "next-themes";
