@@ -35,14 +35,14 @@ export default async function UserNav() {
       <DropdownMenuContent className="" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-xs leading-none text-muted-foreground">
+            <p className="text-sm leading-none text-muted-foreground">
               {user?.email ?? t("navigation.guest.label")}
             </p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <Link href="/settings" className="w-full">
-          <DropdownMenuItem className="cursor-pointer hover:bg-accent/90">
+          <DropdownMenuItem className="cursor-pointer hover:bg-accent/90 text-base">
             {t("settings.title")}
           </DropdownMenuItem>
         </Link>
@@ -52,7 +52,7 @@ export default async function UserNav() {
               <Button
                 aria-label={t("logout.button")}
                 variant="ghost"
-                className="w-full p-0 hover:bg-accent/90 text-left justify-start h-6 cursor-pointer"
+                className="w-full p-0 hover:bg-accent/90 text-left justify-start h-6 cursor-pointer text-base"
                 type="submit"
               >
                 {t("logout.button")}
@@ -61,7 +61,7 @@ export default async function UserNav() {
           </DropdownMenuItem>
         ) : (
           <Link href="/login" className="w-full">
-            <DropdownMenuItem className="cursor-pointer hover:bg-accent/90">
+            <DropdownMenuItem className="cursor-pointer hover:bg-accent/90 text-base">
               {t("login.button")}
             </DropdownMenuItem>
           </Link>

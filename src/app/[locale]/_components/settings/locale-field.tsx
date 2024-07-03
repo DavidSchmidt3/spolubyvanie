@@ -32,18 +32,27 @@ export default function LocaleField({ control }: Props) {
       name="locale"
       render={({ field }) => (
         <FormItem className="space-y-1">
-          <FormLabel>{t("locale.label")}</FormLabel>
+          <FormLabel className="text-base">{t("locale.label")}</FormLabel>
           <Select onValueChange={field.onChange} value={field.value}>
             <FormControl>
-              <SelectTrigger aria-label={t("locale.select_prompt")}>
+              <SelectTrigger
+                aria-label={t("locale.select_prompt")}
+                className="text-base"
+              >
                 <SelectValue placeholder={t("locale.select_prompt")} />
               </SelectTrigger>
             </FormControl>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>{t("locale.label")}</SelectLabel>
+                <SelectLabel className="text-base">
+                  {t("locale.label")}
+                </SelectLabel>
                 {LOCALES.map((locale) => (
-                  <SelectItem key={locale.code} value={locale.code}>
+                  <SelectItem
+                    className="text-base"
+                    key={locale.code}
+                    value={locale.code}
+                  >
                     {locale.name}
                   </SelectItem>
                 ))}

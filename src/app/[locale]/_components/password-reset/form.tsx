@@ -90,6 +90,7 @@ export default function PasswordResetForm({
                     <Input
                       placeholder={t("auth.email.label")}
                       autoComplete="email"
+                      className="text-base"
                       {...field}
                     />
                   </FormControl>
@@ -101,6 +102,7 @@ export default function PasswordResetForm({
               disabled={isExecuting}
               variant="ringHover"
               type="submit"
+              className="text-base"
               aria-label={t("password_reset.button")}
             >
               {isExecuting && (

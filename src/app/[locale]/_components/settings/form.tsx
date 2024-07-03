@@ -125,6 +125,7 @@ export default function SettingsForm({ userSettings, user }: Props) {
             variant="ringHover"
             disabled={isPending}
             aria-label={t("save.button")}
+            className="text-base"
           >
             {isPending && (
               <Icons.spinner className="w-4 h-4 mr-2 animate-spin p" />

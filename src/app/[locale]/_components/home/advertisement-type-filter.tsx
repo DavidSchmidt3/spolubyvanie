@@ -30,9 +30,7 @@ export function AdvertisementTypeFilter({ control, setValue }: Props) {
 
   return (
     <div className="relative flex flex-col justify-center w-full gap-1">
-      <h4 className="text-sm">
-        {t("translations.advertisement.types.select_label")}
-      </h4>
+      <h4>{t("translations.advertisement.types.select_label")}</h4>
       <FormField
         control={control}
         name="advertisement_type"
@@ -47,7 +45,7 @@ export function AdvertisementTypeFilter({ control, setValue }: Props) {
               <FormControl>
                 <SelectTrigger
                   value={field.value}
-                  className="justify-between w-full px-4 text-center h-11 hover:bg-accent"
+                  className="justify-between w-full text-base px-4 text-center h-11 hover:bg-accent"
                   aria-label={t("translations.advertisement.types.select_text")}
                 >
                   {field.value ? (
@@ -63,7 +61,7 @@ export function AdvertisementTypeFilter({ control, setValue }: Props) {
               </FormControl>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>
+                  <SelectLabel className="text-base">
                     {t("translations.advertisement.types.select_label")}
                   </SelectLabel>
                   {Object.keys(adTypeKeys).map((key) => {
@@ -74,7 +72,7 @@ export function AdvertisementTypeFilter({ control, setValue }: Props) {
                       <SelectItem
                         key={key}
                         value={key}
-                        className="hover:cursor-pointer"
+                        className="hover:cursor-pointer text-base"
                       >
                         {t(value)}
                       </SelectItem>

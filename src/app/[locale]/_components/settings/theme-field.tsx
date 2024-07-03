@@ -26,7 +26,7 @@ export default function ThemeField({ control }: Props) {
       name="theme"
       render={({ field }) => (
         <FormItem className="space-y-1">
-          <FormLabel>{t("theme.label")}</FormLabel>
+          <FormLabel className="text-base">{t("theme.label")}</FormLabel>
           <FormMessage />
           <RadioGroup
             onValueChange={field.onChange}
@@ -54,7 +54,7 @@ export default function ThemeField({ control }: Props) {
                     </div>
                   </div>
                 </div>
-                <span className="block w-full p-2 font-normal text-center">
+                <span className="block w-full p-2 font-normal text-center text-base">
                   {t("theme.light.label")}
                 </span>
               </FormLabel>
@@ -80,7 +80,7 @@ export default function ThemeField({ control }: Props) {
                     </div>
                   </div>
                 </div>
-                <span className="block w-full p-2 font-normal text-center">
+                <span className="block w-full p-2 font-normal text-center text-base">
                   {t("theme.dark.label")}
                 </span>
               </FormLabel>

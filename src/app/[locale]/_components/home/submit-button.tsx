@@ -8,7 +8,7 @@ export default function SubmitButton() {
       type="submit"
       variant="ringHover"
       aria-label={t("filter.button")}
-      className="sm:col-span-2"
+      className="sm:col-span-2 text-base"
     >
       {t("filter.button")}
     </Button>

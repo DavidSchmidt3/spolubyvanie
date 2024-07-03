@@ -76,6 +76,7 @@ export default function UserLoginForm({ className, ...props }: UserLoginProps) {
                     <Input
                       placeholder={t("auth.email.label")}
                       autoComplete="email"
+                      className="text-base"
                       {...field}
                     />
                   </FormControl>
@@ -92,6 +93,7 @@ export default function UserLoginForm({ className, ...props }: UserLoginProps) {
                     <PasswordInput
                       placeholder={t("auth.password.label")}
                       autoComplete="current-password"
+                      className="text-base"
                       {...field}
                     />
                   </FormControl>
@@ -105,6 +107,7 @@ export default function UserLoginForm({ className, ...props }: UserLoginProps) {
             <Button
               disabled={isExecuting}
               variant="ringHover"
+              className="text-base"
               aria-label={t("login.email.button")}
             >
               {isExecuting && (
@@ -120,7 +123,7 @@ export default function UserLoginForm({ className, ...props }: UserLoginProps) {
         <Button
           variant="outline"
           type="submit"
-          className="w-full"
+          className="w-full text-base"
           aria-label={t("login.google.button")}
         >
           <Icons.google className="w-4 h-4 mr-2" />
@@ -130,7 +133,7 @@ export default function UserLoginForm({ className, ...props }: UserLoginProps) {
       <Divider text={t("login.no_account.label")} />
       <Button
         onClick={() => router.push("/register")}
-        className="w-full"
+        className="w-full text-base"
         variant="outline"
         aria-label={t("login.register.button")}
       >

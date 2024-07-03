@@ -91,6 +91,7 @@ export default function PasswordChangeForm({
                     <PasswordInput
                       placeholder={t("auth.password.label")}
                       autoComplete="new-password"
+                      className="text-base"
                       {...field}
                     />
                   </FormControl>
@@ -107,6 +108,7 @@ export default function PasswordChangeForm({
                     <PasswordInput
                       placeholder={t("auth.password_confirm.label")}
                       autoComplete="new-password"
+                      className="text-base"
                       {...field}
                     />
                   </FormControl>

@@ -89,6 +89,7 @@ export default function UserRegisterForm({
                     <Input
                       placeholder={t("auth.email.label")}
                       autoComplete="email"
+                      className="text-base"
                       {...field}
                     />
                   </FormControl>
@@ -105,6 +106,7 @@ export default function UserRegisterForm({
                     <PasswordInput
                       placeholder={t("auth.password.label")}
                       autoComplete="new-password"
+                      className="text-base"
                       {...field}
                     />
                   </FormControl>
@@ -115,6 +117,7 @@ export default function UserRegisterForm({
             <Button
               disabled={isExecuting}
               variant="ringHover"
+              className="text-base"
               aria-label={t("register.button")}
             >
               {isExecuting && (
@@ -130,7 +133,7 @@ export default function UserRegisterForm({
         <Button
           variant="outline"
           type="submit"
-          className="w-full"
+          className="w-full text-base"
           aria-label={t("register.google.button")}
         >
           <Icons.google className="w-4 h-4 mr-2" />
@@ -141,7 +144,7 @@ export default function UserRegisterForm({
       <Button
         onClick={() => router.push("/login")}
         aria-label={t("register.login.button")}
-        className="w-full"
+        className="w-full text-base"
         variant="outline"
       >
         {t("register.login.button")}
