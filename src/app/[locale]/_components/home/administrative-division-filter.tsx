@@ -134,7 +134,7 @@ export default function AdministrativeDivisionFilter({
   }, [selectedRegion, selectedDistrict, selectedMunicipality]);
 
   return (
-    <div className="flex flex-col gap-y-2 gap-x-4 sm:gap-x-8">
+    <div className="flex flex-col gap-y-2 gap-x-4 sm:gap-x-8 order-2 sm:order-1">
       <PopoverFilterField
         filterData={regions}
         filterFunction={filterRegion}

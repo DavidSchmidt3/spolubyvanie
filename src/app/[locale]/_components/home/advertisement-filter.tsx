@@ -121,7 +121,7 @@ export default function AdvertisementFilter({
                       municipalities={municipalities}
                       form={form}
                     />
-                    <div className="flex flex-col gap-y-2 gap-x-4 sm:gap-x-8">
+                    <div className="order-1 sm:order-2 flex flex-col gap-y-2 gap-x-4 sm:gap-x-8">
                       <PriceFilter control={form.control} />
                       <AdvertisementTypeFilter
                         control={form.control}
