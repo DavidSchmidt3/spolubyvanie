@@ -105,13 +105,13 @@ export default function AdvertisementFilter({
               {t("advertisement.filter.title")}
             </Button>
           </CredenzaTrigger>
-          <CredenzaContent className="max-w-3xl pb-8 bottom-0">
+          <CredenzaContent className="max-w-3xl pb-8 bottom-0 h-fit">
             <CredenzaHeader>
               <CredenzaTitle className="text-2xl">
                 {t("advertisement.filter.title")}
               </CredenzaTitle>
             </CredenzaHeader>
-            <CredenzaBody className="overflow-y-auto min-h-96">
+            <CredenzaBody className="overflow-y-auto">
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
                   <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-8 px-1">
