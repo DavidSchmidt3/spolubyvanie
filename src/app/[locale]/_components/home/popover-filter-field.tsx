@@ -60,7 +60,7 @@ export default function PopoverFilterField({
           <FormItem>
             <Popover open={open} onOpenChange={setOpen} modal={true}>
               <div className="flex flex-col w-full gap-y-1 relative">
-                <h4 className="text-sm">{title}</h4>
+                <h4 className="text-base">{title}</h4>
                 <PopoverTrigger asChild>
                   <Button
                     variant="outline"
@@ -71,7 +71,7 @@ export default function PopoverFilterField({
                   >
                     {filterData.find((row) => row.id === field.value) ? (
                       <div className="flex items-center justify-start w-full">
-                        <p className="text-wrap pr-4">
+                        <p className="text-wrap pr-4 text-base">
                           {
                             filterData.find((row) => row.id === field.value)
                               ?.name
@@ -80,7 +80,7 @@ export default function PopoverFilterField({
                       </div>
                     ) : (
                       <div className="flex justify-between relative w-full items-center">
-                        <p>{selectRowText}</p>
+                        <p className="text-base">{selectRowText}</p>
                         <ChevronDown className="h-4 w-4 opacity-50 z-10" />
                       </div>
                     )}
@@ -99,9 +99,14 @@ export default function PopoverFilterField({
                 align="start"
               >
                 <Command shouldFilter={false} onChange={searchFilterData}>
-                  <CommandInput placeholder={placeholderText} />
+                  <CommandInput
+                    placeholder={placeholderText}
+                    className="text-base"
+                  />
                   <CommandList>
-                    <CommandEmpty>{emptyText}</CommandEmpty>
+                    <CommandEmpty className="text-base">
+                      {emptyText}
+                    </CommandEmpty>
                     <CommandGroup>
                       <FixedSizeList
                         width={"100%"}
@@ -111,7 +116,7 @@ export default function PopoverFilterField({
                       >
                         {({ index, style }) => (
                           <CommandItem
-                            className="justify-start hover:cursor-pointer px-8"
+                            className="justify-start hover:cursor-pointer px-8 text-base"
                             key={finalData[index]?.id}
                             value={finalData[index]?.id}
                             onSelect={(currentValue) => {

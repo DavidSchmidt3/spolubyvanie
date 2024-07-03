@@ -16,7 +16,9 @@ export function MainNav({
       )}
       {...props}
     >
-      <Link href="/">{t("navigation.home.label")}</Link>
+      <Link href="/" className="text-lg">
+        {t("navigation.home.label")}
+      </Link>
     </nav>
   );
 }
