@@ -1,13 +1,13 @@
 import AdvertisementList from "@/app/[locale]/_components/home/advertisement-list";
 import AdvertisementPagination from "@/app/[locale]/_components/home/advertisement-pagination";
 import AdvertisementFilterDialogTrigger from "@/app/[locale]/_components/home/filter/advertisement-filter-dialog-trigger";
+import { getAdvertisements } from "@/lib/data/actions/advertisements";
+import { ADVERTISEMENTS_FILTER_SCHEMA } from "@/lib/data/actions/advertisements/schema";
 import {
   getDistricts,
   getMunicipalities,
   getRegions,
 } from "@/lib/data/administrative-divisions";
-import { getAdvertisements } from "@/lib/data/advertisements";
-import { ADVERTISEMENTS_FILTER_SCHEMA } from "@/lib/data/advertisements/schema";
 import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";

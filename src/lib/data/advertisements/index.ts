@@ -1,14 +1,8 @@
 "use server";
-import { actionClient } from "@/lib/data/actions/safe-action-client";
-import {
-  ADVERTISEMENTS_FILTER_SCHEMA,
-  type AdvertisementFilterFormValues,
-} from "@/lib/data/advertisements/schema";
+import { type AdvertisementFilterFormValues } from "@/lib/data/actions/advertisements/schema";
 import { db } from "@/lib/utils/prisma";
-import { formatZodErrors } from "@/lib/utils/zod";
 import { type Prisma } from "@prisma/client";
 import { unstable_cache as next_cache } from "next/cache";
-import * as z from "zod";
 
 function getFormattedAdvertisement(
   advertisement: Awaited<ReturnType<typeof fetchAdvertisements>>[number]
@@ -87,15 +81,3 @@ export const getAdvertisementsFiltered = async ({
   });
   return advertisements.map(getFormattedAdvertisement);
 };
-
-export const getAdvertisements = actionClient
-  .schema(ADVERTISEMENTS_FILTER_SCHEMA.or(z.null()), {
-    handleValidationErrorsShape: formatZodErrors,
-  })
-  .action(async ({ parsedInput }) => {
-    if (!parsedInput) {
-      return getAdvertisementsCached();
-    }
-
-    return getAdvertisementsFiltered(parsedInput);
-  });

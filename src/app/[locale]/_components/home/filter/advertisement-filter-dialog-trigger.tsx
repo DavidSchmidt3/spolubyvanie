@@ -8,14 +8,14 @@ import {
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { useControlledForm } from "@/hooks/form";
 import {
+  ADVERTISEMENTS_FILTER_SCHEMA,
+  type AdvertisementFilterFormValues,
+} from "@/lib/data/actions/advertisements/schema";
+import {
   type getDistricts,
   type getMunicipalities,
   type getRegions,
 } from "@/lib/data/administrative-divisions";
-import {
-  ADVERTISEMENTS_FILTER_SCHEMA,
-  type AdvertisementFilterFormValues,
-} from "@/lib/data/advertisements/schema";
 import { type pathnames } from "@/lib/utils/localization/i18n";
 import { usePathname, useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";

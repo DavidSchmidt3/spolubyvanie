@@ -1,5 +1,5 @@
 import Advertisement from "@/app/[locale]/_components/home/advertisement";
-import { type getAdvertisements } from "@/lib/data/advertisements";
+import { type getAdvertisements } from "@/lib/data/actions/advertisements";
 
 type Props = {
   advertisementsActionFetchResult: Awaited<
