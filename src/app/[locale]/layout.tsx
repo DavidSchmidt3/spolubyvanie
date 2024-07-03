@@ -32,15 +32,15 @@ export default async function RootLayout({
 }) {
   const messages = await getMessages();
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning className="overflow-hidden">
       <body
         className={cn(
-          "bg-background h-dvh font-sans antialiased overflow-y-hidden",
+          "bg-background h-dvh font-sans antialiased",
           inter.variable
         )}
       >
         <ThemeProvider>
-          <div className="flex flex-col h-screen">
+          <div className="flex flex-col h-full">
             <div className="fixed top-0 z-10 flex left-0 h-16 items-center w-full px-4 py-4 border-b bg-background">
               <MainNav className="mx-6" />
               <div className="flex items-center ml-auto space-x-4">
