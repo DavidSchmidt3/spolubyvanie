@@ -33,6 +33,7 @@ export default function AdvertisementFilterDialogContent({
   form,
   onSubmit,
 }: Props) {
+  "use no memo";
   const t = useTranslations("translations");
   return (
     <CredenzaContent className="max-w-3xl pb-8 bottom-0 h-fit">
