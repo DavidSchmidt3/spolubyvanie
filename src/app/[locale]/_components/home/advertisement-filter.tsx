@@ -105,7 +105,7 @@ export default function AdvertisementFilter({
               {t("advertisement.filter.title")}
             </Button>
           </CredenzaTrigger>
-          <CredenzaContent className="max-w-3xl pb-8">
+          <CredenzaContent className="max-w-3xl pb-8 bottom-0">
             <CredenzaHeader>
               <CredenzaTitle className="text-2xl">
                 {t("advertisement.filter.title")}
