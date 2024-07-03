@@ -1,4 +1,4 @@
-import AdvertisementFilter from "@/app/[locale]/_components/home/advertisement-filter";
+import AdvertisementFilterDialogTrigger from "@/app/[locale]/_components/home/advertisement-filter-dialog-trigger";
 import AdvertisementList from "@/app/[locale]/_components/home/advertisement-list";
 import AdvertisementPagination from "@/app/[locale]/_components/home/advertisement-pagination";
 import {
@@ -45,7 +45,7 @@ export default async function Home({ searchParams }: Props) {
       ])}
     >
       <div className="flex flex-col justify-between h-full overflow-auto">
-        <AdvertisementFilter
+        <AdvertisementFilterDialogTrigger
           regions={regions}
           districts={districts}
           municipalities={municipalities}
