@@ -13,6 +13,7 @@ export default function SelectCancelButton({ onCancel, className }: Props) {
   return (
     <Button
       variant="ghost"
+      type="button"
       aria-label={t("common.cancel.label")}
       className={cn("w-8 h-8 p-1", className)}
       onClick={() => onCancel()}

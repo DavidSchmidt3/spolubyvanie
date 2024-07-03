@@ -63,6 +63,7 @@ export default function PopoverFilterField({
                 <h4 className="text-base">{title}</h4>
                 <PopoverTrigger asChild>
                   <Button
+                    type="button"
                     variant="outline"
                     role="combobox"
                     aria-label={selectRowText}
@@ -89,7 +90,7 @@ export default function PopoverFilterField({
                 <div className="z-20 items-center -ml-11 absolute right-0 bottom-0 mr-2 mb-1.5">
                   {field.value && (
                     <SelectCancelButton
-                      onCancel={() => setValue(fieldName, undefined)}
+                      onCancel={() => setValue(fieldName, "")}
                     />
                   )}
                 </div>

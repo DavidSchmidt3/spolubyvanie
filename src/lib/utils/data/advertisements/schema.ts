@@ -3,9 +3,9 @@ import { createAdTypeRegex } from "./types";
 
 export const ADVERTISEMENTS_FILTER_SCHEMA = z
   .object({
-    municipality: z.string().uuid().or(z.undefined()),
-    district: z.string().uuid().or(z.undefined()),
-    region: z.string().uuid().or(z.undefined()),
+    municipality: z.string().uuid().or(z.literal("")),
+    district: z.string().uuid().or(z.literal("")),
+    region: z.string().uuid().or(z.literal("")),
     price_min: z
       .string()
       .regex(/^\s*\d*\s*$/, {
@@ -14,7 +14,7 @@ export const ADVERTISEMENTS_FILTER_SCHEMA = z
       .refine((val) => !val || parseInt(val) >= 0, {
         message: "alerts.advertisement.price.invalid",
       })
-      .or(z.undefined()),
+      .or(z.literal("")),
     price_max: z
       .string()
       .regex(/^\s*\d*\s*$/, {
@@ -23,8 +23,8 @@ export const ADVERTISEMENTS_FILTER_SCHEMA = z
       .refine((val) => !val || parseInt(val) >= 0, {
         message: "alerts.advertisement.price.invalid",
       })
-      .or(z.undefined()),
-    advertisement_type: z.string().regex(createAdTypeRegex()).or(z.undefined()),
+      .or(z.literal("")),
+    advertisement_type: z.string().regex(createAdTypeRegex()).or(z.literal("")),
   })
   .superRefine((data, context) => {
     if (!data.price_min || !data.price_max) {

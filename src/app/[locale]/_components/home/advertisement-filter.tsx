@@ -50,9 +50,9 @@ export default function AdvertisementFilter({
 
   const defaultValues = useMemo<AdvertisementFilterFormValues>(() => {
     return {
-      municipality: searchParams.get("municipality") ?? undefined,
-      district: searchParams.get("district") ?? undefined,
-      region: searchParams.get("region") ?? undefined,
+      municipality: searchParams.get("municipality") ?? "",
+      district: searchParams.get("district") ?? "",
+      region: searchParams.get("region") ?? "",
       price_min: searchParams.get("price_min") ?? "",
       price_max: searchParams.get("price_max") ?? "",
       advertisement_type: searchParams.get("advertisement_type") ?? "",
