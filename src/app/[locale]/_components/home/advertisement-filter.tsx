@@ -111,7 +111,7 @@ export default function AdvertisementFilter({
                 {t("advertisement.filter.title")}
               </CredenzaTitle>
             </CredenzaHeader>
-            <CredenzaBody className="overflow-y-auto max-h-[calc(100vh-20px)]">
+            <CredenzaBody className="overflow-y-auto min-h-96">
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
                   <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-8 px-1">
