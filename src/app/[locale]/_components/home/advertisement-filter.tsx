@@ -114,7 +114,7 @@ export default function AdvertisementFilter({
             <CredenzaBody className="overflow-y-auto max-h-[calc(100vh-20px)]">
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
-                  <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-8">
+                  <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-8 px-1">
                     <AdministrativeDivisionFilter
                       regions={regions}
                       districts={districts}
