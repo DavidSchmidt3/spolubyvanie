@@ -27,8 +27,10 @@ export default function PriceFilter({ control }: Props) {
               <FormControl>
                 <Input
                   placeholder={t("price.min_label")}
-                  type="number"
                   className="w-full h-11 text-base hover:bg-accent"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  type="number"
                   {...field}
                 />
               </FormControl>
@@ -47,8 +49,10 @@ export default function PriceFilter({ control }: Props) {
               <FormControl>
                 <Input
                   placeholder={t("price.max_label")}
-                  type="number"
                   className="w-full h-11 text-base hover:bg-accent"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  type="number"
                   {...field}
                 />
               </FormControl>

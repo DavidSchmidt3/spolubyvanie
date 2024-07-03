@@ -8,7 +8,7 @@ export const ADVERTISEMENTS_FILTER_SCHEMA = z
     region: z.string().uuid().or(z.undefined()),
     price_min: z
       .string()
-      .regex(/^\d+$/, {
+      .regex(/^\s*\d*\s*$/, {
         message: "alerts.advertisement.price.number",
       })
       .refine((val) => !val || parseInt(val) >= 0, {
@@ -17,7 +17,7 @@ export const ADVERTISEMENTS_FILTER_SCHEMA = z
       .or(z.undefined()),
     price_max: z
       .string()
-      .regex(/^\d+$/, {
+      .regex(/^\s*\d*\s*$/, {
         message: "alerts.advertisement.price.number",
       })
       .refine((val) => !val || parseInt(val) >= 0, {
