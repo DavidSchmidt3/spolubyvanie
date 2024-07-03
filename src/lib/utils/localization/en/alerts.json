@@ -89,6 +89,7 @@
     },
     "advertisement": {
       "price": {
+        "number": "Price must be a number",
         "invalid": "Price must be higher than 0",
         "max_higher_than_min": "Max price must be higher than min price"
       },
