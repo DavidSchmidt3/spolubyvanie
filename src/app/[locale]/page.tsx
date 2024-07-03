@@ -1,6 +1,6 @@
-import AdvertisementFilterDialogTrigger from "@/app/[locale]/_components/home/advertisement-filter-dialog-trigger";
 import AdvertisementList from "@/app/[locale]/_components/home/advertisement-list";
 import AdvertisementPagination from "@/app/[locale]/_components/home/advertisement-pagination";
+import AdvertisementFilterDialogTrigger from "@/app/[locale]/_components/home/filter/advertisement-filter-dialog-trigger";
 import {
   getDistricts,
   getMunicipalities,

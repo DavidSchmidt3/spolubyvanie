@@ -1,4 +1,4 @@
-import PopoverFilterField from "@/app/[locale]/_components/home/popover-filter-field";
+import PopoverFilterField from "@/app/[locale]/_components/home/filter/popover-filter-field";
 import usePrevious from "@/hooks/previous-value";
 import {
   type District,

@@ -1,4 +1,4 @@
-import { type FilterData } from "@/app/[locale]/_components/home/administrative-division-filter";
+import { type FilterData } from "@/app/[locale]/_components/home/filter/administrative-division-filter";
 import { Button } from "@/app/[locale]/_components/ui/button";
 import {
   Command,
@@ -19,7 +19,7 @@ import { type AdvertisementFilterFormValues } from "@/lib/data/advertisements/sc
 import { ChevronDown } from "lucide-react";
 import { type Control, type UseFormSetValue } from "react-hook-form";
 import { FixedSizeList } from "react-window";
-import { FormField, FormItem, FormMessage } from "../ui/form";
+import { FormField, FormItem, FormMessage } from "../../ui/form";
 
 type Props = {
   filterData: FilterData[];

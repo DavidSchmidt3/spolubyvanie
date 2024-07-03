@@ -1,7 +1,7 @@
-import AdministrativeDivisionFilter from "@/app/[locale]/_components/home/administrative-division-filter";
-import { AdvertisementTypeFilter } from "@/app/[locale]/_components/home/advertisement-type-filter";
-import PriceFilter from "@/app/[locale]/_components/home/price-filter";
-import SubmitButton from "@/app/[locale]/_components/home/submit-button";
+import AdministrativeDivisionFilter from "@/app/[locale]/_components/home/filter/administrative-division-filter";
+import { AdvertisementTypeFilter } from "@/app/[locale]/_components/home/filter/advertisement-type-filter";
+import PriceFilter from "@/app/[locale]/_components/home/filter/price-filter";
+import SubmitButton from "@/app/[locale]/_components/home/filter/submit-button";
 import {
   CredenzaBody,
   CredenzaContent,
