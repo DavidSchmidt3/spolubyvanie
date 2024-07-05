@@ -20,20 +20,17 @@ export default function Advertisement({ advertisement }: Props) {
         <h3 className="text-3xl font-bold text-center">{title}</h3>
       </CardHeader>
       <CardContent className="grid p-3 pt-3 grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 w-full">
-        <div className="w-full h-full relative">
+        <div className="w-full relative">
           <Image
-            src="/room.jpg"
+            src="/room.webp"
             alt="Advertisement"
-            width="0"
-            height="0"
-            sizes="100vw"
-            className="w-full h-auto rounded-lg"
+            width="1440"
+            height="1080"
+            className="rounded-lg"
           />
         </div>
-        <div className="grid grid-rows-1 xl:grid-cols-2 gap-4">
-          <div>
-            <p>{description}</p>
-          </div>
+        <div className="grid grid-rows-1 grid-cols-1 xl:grid-cols-2 gap-4 relative">
+          <p className="text-wrap break-words">{description}</p>
           <div className="flex flex-col gap-y-3">
             <div className="flex justify-between text-xl gap-x-8">
               <p>Cena:</p>
@@ -53,7 +50,9 @@ export default function Advertisement({ advertisement }: Props) {
             </div>
             <div className="flex justify-between text-xl gap-x-8">
               <p>Kraj:</p>
-              <span className="font-bold text-right">{region}</span>
+              <div className="font-bold text-right break-words overflow-hidden">
+                {region}
+              </div>
             </div>
           </div>
         </div>
