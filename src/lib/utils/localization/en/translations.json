@@ -146,7 +146,10 @@
       },
       "filter": {
         "title": "Filter advertisements",
-        "button": "Search advertisements"
+        "button": "Search advertisements",
+        "clear": {
+          "button": "Clear filters"
+        }
       }
     }
   }

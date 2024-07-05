@@ -44,6 +44,7 @@ export default function AdvertisementFilterDialog({
 }: Props) {
   "use no memo";
   const [initialized, setInitialized] = useState(false);
+  const [open, setOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -81,13 +82,19 @@ export default function AdvertisementFilterDialog({
       data
     )}` as (typeof pathnames)["/"];
     void pushRouteWithTransition(newPathnameWithQuery, router);
+    setOpen(false);
   }
 
   function onOpenChange(open: boolean) {
+    setOpen(open);
     if (open && !initialized) {
       setInitialized(true);
     }
   }
+
+  const isFilterActive = Object.keys(defaultValues).some(
+    (key) => defaultValues[key as keyof typeof defaultValues]
+  );
 
   return (
     <Card className="rounded-none">
@@ -100,26 +107,38 @@ export default function AdvertisementFilterDialog({
             {t("advertisement.description")}
           </h2>
         </div>
-        <Credenza onOpenChange={onOpenChange}>
-          <CredenzaTrigger asChild className="px-4 py-2 sm:py-2">
+        <div className="flex flex-col gap-4">
+          <Credenza onOpenChange={onOpenChange} open={open}>
+            <CredenzaTrigger asChild className="px-4 py-2 sm:py-2">
+              <Button
+                className="flex w-48 gap-2 text-base text-wrap h-14 bg-foreground text-background hover:bg-accent-foreground hover:text-background"
+                variant="outline"
+              >
+                <Icons.filter className="w-8 h-8" />
+                {t("advertisement.filter.title")}
+              </Button>
+            </CredenzaTrigger>
+            {initialized && (
+              <AdvertisementFilterDialogContent
+                regions={regions}
+                districts={districts}
+                municipalities={municipalities}
+                form={form}
+                onSubmit={onSubmit}
+              />
+            )}
+          </Credenza>
+          {isFilterActive && (
             <Button
-              className="flex w-48 gap-2 text-base text-wrap h-14 bg-foreground text-background hover:bg-accent-foreground hover:text-background"
-              variant="outline"
+              variant="destructive"
+              className="text-base h-auto"
+              onClick={() => pushRouteWithTransition("/", router)}
             >
-              <Icons.filter className="w-8 h-8" />
-              {t("advertisement.filter.title")}
+              <Icons.cross className="w-6 h-6" />
+              {t("advertisement.filter.clear.button")}
             </Button>
-          </CredenzaTrigger>
-          {initialized && (
-            <AdvertisementFilterDialogContent
-              regions={regions}
-              districts={districts}
-              municipalities={municipalities}
-              form={form}
-              onSubmit={onSubmit}
-            />
           )}
-        </Credenza>
+        </div>
       </CardContent>
     </Card>
   );
