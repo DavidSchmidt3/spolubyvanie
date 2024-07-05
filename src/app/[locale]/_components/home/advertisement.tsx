@@ -30,7 +30,7 @@ export default function Advertisement({ advertisement }: Props) {
             className="w-full h-auto rounded-lg"
           />
         </div>
-        <div className="grid grid-rows-1 lg:grid-cols-2 gap-4">
+        <div className="grid grid-rows-1 xl:grid-cols-2 gap-4">
           <div>
             <p>{description}</p>
           </div>
