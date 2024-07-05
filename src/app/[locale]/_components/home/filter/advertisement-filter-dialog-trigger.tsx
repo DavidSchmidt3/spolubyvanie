@@ -43,7 +43,7 @@ export default function AdvertisementFilterDialog({
   municipalities,
 }: Props) {
   "use no memo";
-  const [open, setOpen] = useState(false);
+  const [initialized, setInitialized] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -81,7 +81,12 @@ export default function AdvertisementFilterDialog({
       data
     )}` as (typeof pathnames)["/"];
     void pushRouteWithTransition(newPathnameWithQuery, router);
-    setOpen(false);
+  }
+
+  function onOpenChange(open: boolean) {
+    if (open && !initialized) {
+      setInitialized(true);
+    }
   }
 
   return (
@@ -95,7 +100,7 @@ export default function AdvertisementFilterDialog({
             {t("advertisement.description")}
           </h2>
         </div>
-        <Credenza open={open} onOpenChange={setOpen}>
+        <Credenza onOpenChange={onOpenChange}>
           <CredenzaTrigger asChild className="px-4 py-2 sm:py-2">
             <Button
               className="flex w-48 gap-2 text-base text-wrap h-14 bg-foreground text-background hover:bg-accent-foreground hover:text-background"
@@ -105,7 +110,7 @@ export default function AdvertisementFilterDialog({
               {t("advertisement.filter.title")}
             </Button>
           </CredenzaTrigger>
-          {open && (
+          {initialized && (
             <AdvertisementFilterDialogContent
               regions={regions}
               districts={districts}
