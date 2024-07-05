@@ -17,7 +17,11 @@ import {
   type getRegions,
 } from "@/lib/data/administrative-divisions";
 import { type pathnames } from "@/lib/utils/localization/i18n";
-import { usePathname, useRouter } from "@/lib/utils/localization/navigation";
+import {
+  pushRouteWithTransition,
+  usePathname,
+  useRouter,
+} from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
@@ -76,7 +80,7 @@ export default function AdvertisementFilterDialog({
     const newPathnameWithQuery = `${pathname}?${createQueryString(
       data
     )}` as (typeof pathnames)["/"];
-    router.push(newPathnameWithQuery);
+    void pushRouteWithTransition(newPathnameWithQuery, router);
     setOpen(false);
   }
 

@@ -1,6 +1,7 @@
 import { Avatar } from "@/app/[locale]/_components/ui/avatar";
 import { Button } from "@/app/[locale]/_components/ui/button";
 
+import { TransitionLink } from "@/app/[locale]/_components/common/transition-link";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,7 +13,6 @@ import {
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { logout } from "@/lib/data/actions/login";
 import { getUser } from "@/lib/data/user";
-import { Link } from "@/lib/utils/localization/navigation";
 import { getTranslations } from "next-intl/server";
 
 export default async function UserNav() {
@@ -41,11 +41,11 @@ export default async function UserNav() {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <Link href="/settings" className="w-full">
+        <TransitionLink href="/settings" className="w-full">
           <DropdownMenuItem className="cursor-pointer hover:bg-accent/90 text-base">
             {t("settings.title")}
           </DropdownMenuItem>
-        </Link>
+        </TransitionLink>
         {user ? (
           <DropdownMenuItem>
             <form action={logout} className="w-full">
@@ -60,11 +60,11 @@ export default async function UserNav() {
             </form>
           </DropdownMenuItem>
         ) : (
-          <Link href="/login" className="w-full">
+          <TransitionLink href="/login" className="w-full">
             <DropdownMenuItem className="cursor-pointer hover:bg-accent/90 text-base">
               {t("login.button")}
             </DropdownMenuItem>
-          </Link>
+          </TransitionLink>
         )}
       </DropdownMenuContent>
     </DropdownMenu>

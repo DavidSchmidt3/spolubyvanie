@@ -17,7 +17,10 @@ import { resetPassword } from "@/lib/data/actions/password-reset";
 import { PASSWORD_RESET_SCHEMA } from "@/lib/data/actions/password-reset/schema";
 import { cn } from "@/lib/utils";
 import { DEFAULT_LOCALE, type Locale } from "@/lib/utils/localization/i18n";
-import { useRouter } from "@/lib/utils/localization/navigation";
+import {
+  pushRouteWithTransition,
+  useRouter,
+} from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 import { useAction } from "next-safe-action/hooks";
 import { useParams } from "next/navigation";
@@ -67,7 +70,7 @@ export default function PasswordResetForm({
         description: "alerts.password_reset.success.description",
         variant: "success",
       });
-      router.push("/login");
+      void pushRouteWithTransition("/login", router);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result, hasErrored, hasSucceeded]);

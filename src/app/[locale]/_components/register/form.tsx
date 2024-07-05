@@ -19,7 +19,10 @@ import { googleLogin as googleRegister } from "@/lib/data/actions/login";
 import { USER_AUTH_FORM_SCHEMA } from "@/lib/data/actions/login/schema";
 import { signUpWithEmail } from "@/lib/data/actions/register";
 import { cn } from "@/lib/utils";
-import { useRouter } from "@/lib/utils/localization/navigation";
+import {
+  pushRouteWithTransition,
+  useRouter,
+} from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect, useMemo } from "react";
@@ -66,7 +69,7 @@ export default function UserRegisterForm({
         description: "alerts.register.success.description",
         variant: "success",
       });
-      router.push("/login");
+      void pushRouteWithTransition("/login", router);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result, hasErrored, hasSucceeded]);
@@ -142,7 +145,7 @@ export default function UserRegisterForm({
       </form>
       <Divider text={t("register.already_have_account.label")} />
       <Button
-        onClick={() => router.push("/login")}
+        onClick={() => pushRouteWithTransition("/login", router)}
         aria-label={t("register.login.button")}
         className="w-full text-base"
         variant="outline"

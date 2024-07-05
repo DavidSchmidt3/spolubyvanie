@@ -1,13 +1,12 @@
 import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
 import * as React from "react";
 
-import {
-  buttonVariants,
-  type ButtonProps,
-} from "@/app/[locale]/_components/ui/button";
+import { TransitionLink } from "@/app/[locale]/_components/common/transition-link";
+import { buttonVariants } from "@/app/[locale]/_components/ui/button";
 import { cn } from "@/lib/utils";
-import { Link } from "@/lib/utils/localization/navigation";
+import { type pathnames } from "@/lib/utils/localization/i18n";
 import { useTranslations } from "next-intl";
+import { type LinkProps } from "next/link";
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
   <nav
@@ -39,18 +38,22 @@ const PaginationItem = React.forwardRef<
 ));
 PaginationItem.displayName = "PaginationItem";
 
-type PaginationLinkProps = {
+interface TransitionLinkProps extends LinkProps {
+  children?: React.ReactNode;
+  href: keyof typeof pathnames;
+  className?: string;
   isActive?: boolean;
-} & Pick<ButtonProps, "size"> &
-  React.ComponentProps<typeof Link>;
+  size?: "icon" | "default";
+}
 
 const PaginationLink = ({
   className,
   isActive,
   size = "icon",
+  children,
   ...props
-}: PaginationLinkProps) => (
-  <Link
+}: TransitionLinkProps) => (
+  <TransitionLink
     aria-current={isActive ? "page" : undefined}
     className={cn(
       buttonVariants({
@@ -60,7 +63,9 @@ const PaginationLink = ({
       className
     )}
     {...props}
-  />
+  >
+    {children}
+  </TransitionLink>
 );
 PaginationLink.displayName = "PaginationLink";
 

@@ -2,6 +2,7 @@
 import * as React from "react";
 
 import { Divider } from "@/app/[locale]/_components/common/divider";
+import { TransitionLink } from "@/app/[locale]/_components/common/transition-link";
 import { Button } from "@/app/[locale]/_components/ui/button";
 import {
   Form,
@@ -18,7 +19,10 @@ import { useControlledForm } from "@/hooks/form";
 import { googleLogin, signInWithEmail } from "@/lib/data/actions/login";
 import { USER_AUTH_FORM_SCHEMA } from "@/lib/data/actions/login/schema";
 import { cn } from "@/lib/utils";
-import { Link, useRouter } from "@/lib/utils/localization/navigation";
+import {
+  pushRouteWithTransition,
+  useRouter,
+} from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect, useMemo } from "react";
@@ -101,9 +105,12 @@ export default function UserLoginForm({ className, ...props }: UserLoginProps) {
                 </FormItem>
               )}
             />
-            <Link href="/password-reset" className="text-sm text-primary">
+            <TransitionLink
+              href="/password-reset"
+              className="text-sm text-primary"
+            >
               {t("login.forgot_password.link")}
-            </Link>
+            </TransitionLink>
             <Button
               disabled={isExecuting}
               variant="ringHover"
@@ -132,7 +139,7 @@ export default function UserLoginForm({ className, ...props }: UserLoginProps) {
       </form>
       <Divider text={t("login.no_account.label")} />
       <Button
-        onClick={() => router.push("/register")}
+        onClick={() => pushRouteWithTransition("/register", router)}
         className="w-full text-base"
         variant="outline"
         aria-label={t("login.register.button")}

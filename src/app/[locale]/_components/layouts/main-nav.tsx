@@ -1,5 +1,5 @@
+import { TransitionLink } from "@/app/[locale]/_components/common/transition-link";
 import { cn } from "@/lib/utils";
-import { Link } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 
 export function MainNav({
@@ -16,9 +16,9 @@ export function MainNav({
       )}
       {...props}
     >
-      <Link href="/" className="text-lg">
+      <TransitionLink href="/" className="text-lg">
         {t("navigation.home.label")}
-      </Link>
+      </TransitionLink>
     </nav>
   );
 }
