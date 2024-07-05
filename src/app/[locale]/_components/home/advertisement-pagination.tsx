@@ -13,7 +13,7 @@ export default function AdvertisementPagination() {
     <Pagination>
       <PaginationContent className="pb-4 justify-center flex-wrap">
         <PaginationItem>
-          <PaginationPrevious href="/" translate="yes" />
+          <PaginationPrevious href="/" />
         </PaginationItem>
         <div className="flex flex-row gap-1">
           <PaginationItem>
