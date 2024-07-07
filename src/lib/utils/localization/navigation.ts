@@ -24,5 +24,4 @@ export async function pushRouteWithTransition(
   await new Promise((resolve) => setTimeout(resolve, 200));
 
   body?.classList.remove("page-transition");
-  return;
 }
