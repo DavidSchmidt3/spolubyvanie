@@ -1,15 +1,22 @@
 import Advertisement from "@/app/[locale]/_components/home/advertisement";
-import { type getAdvertisements } from "@/lib/data/actions/advertisements";
+import { getAdvertisements } from "@/lib/data/actions/advertisements";
+import { type AdvertisementFilterFormValues } from "@/lib/data/actions/advertisements/schema";
+import { type SafeParseReturnType } from "zod";
 
 type Props = {
-  advertisementsActionFetchResult: Awaited<
-    ReturnType<typeof getAdvertisements>
+  safelyParsedSearchParams: SafeParseReturnType<
+    AdvertisementFilterFormValues,
+    AdvertisementFilterFormValues
   >;
 };
 
-export default function AdvertisementList({
-  advertisementsActionFetchResult,
+export default async function AdvertisementList({
+  safelyParsedSearchParams,
 }: Props) {
+  const advertisementsActionFetchResult = await getAdvertisements(
+    safelyParsedSearchParams.success ? safelyParsedSearchParams.data : null
+  );
+
   return (
     <div className="flex flex-col justify-center w-full items-center gap-y-4 px-4 sm:px-16 py-4 sm:py-8">
       {/* {Array(3)
