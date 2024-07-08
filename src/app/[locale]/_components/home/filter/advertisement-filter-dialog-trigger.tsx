@@ -18,14 +18,15 @@ import {
 } from "@/lib/data/administrative-divisions";
 import { type pathnames } from "@/lib/utils/localization/i18n";
 import {
-  pushRouteWithTransition,
+  createQueryStringFromObject,
+  getCurrentQueryString,
   usePathname,
   useRouter,
 } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 const AdvertisementFilterDialogContent = dynamic(
   () => import("./advertisement-filter-dialog-content"),
   { ssr: false }
@@ -45,6 +46,7 @@ export default function AdvertisementFilterDialog({
   "use no memo";
   const [initialized, setInitialized] = useState(false);
   const [open, setOpen] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -67,23 +69,24 @@ export default function AdvertisementFilterDialog({
 
   const t = useTranslations("translations");
 
-  function createQueryString(data: AdvertisementFilterFormValues) {
-    const queryString = new URLSearchParams();
-    Object.keys(data).forEach((key) => {
-      if (data[key as keyof typeof data]) {
-        queryString.append(key, data[key as keyof typeof data] ?? "");
-      }
-    });
-    return queryString.toString();
+  async function onSubmit(data: AdvertisementFilterFormValues) {
+    const currentQueryString = getCurrentQueryString(searchParams);
+    const newQueryString = createQueryStringFromObject(data);
+
+    if (currentQueryString === newQueryString) {
+      setOpen(false);
+      return;
+    }
+    setIsFetching(true);
+    const newPathnameWithQuery =
+      `${pathname}?${newQueryString}` as (typeof pathnames)["/"];
+    router.push(newPathnameWithQuery);
   }
 
-  async function onSubmit(data: AdvertisementFilterFormValues) {
-    const newPathnameWithQuery = `${pathname}?${createQueryString(
-      data
-    )}` as (typeof pathnames)["/"];
-    void pushRouteWithTransition(newPathnameWithQuery, router);
+  useEffect(() => {
     setOpen(false);
-  }
+    setIsFetching(false);
+  }, [pathname]);
 
   function onOpenChange(open: boolean) {
     setOpen(open);
@@ -121,23 +124,15 @@ export default function AdvertisementFilterDialog({
             {initialized && (
               <AdvertisementFilterDialogContent
                 regions={regions}
+                isFilterActive={isFilterActive}
                 districts={districts}
                 municipalities={municipalities}
                 form={form}
                 onSubmit={onSubmit}
+                isFetching={isFetching}
               />
             )}
           </Credenza>
-          {isFilterActive && (
-            <Button
-              variant="destructive"
-              className="text-base h-auto"
-              onClick={() => pushRouteWithTransition("/", router)}
-            >
-              <Icons.cross className="w-6 h-6" />
-              {t("advertisement.filter.clear.button")}
-            </Button>
-          )}
         </div>
       </CardContent>
     </Card>
