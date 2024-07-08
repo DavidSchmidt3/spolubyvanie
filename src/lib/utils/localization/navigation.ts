@@ -25,3 +25,21 @@ export async function pushRouteWithTransition(
 
   body?.classList.remove("page-transition");
 }
+
+export function getCurrentQueryString(searchParams: URLSearchParams) {
+  const queryString = new URLSearchParams();
+  for (const [key, value] of searchParams.entries()) {
+    queryString.append(key, value);
+  }
+  return queryString.toString();
+}
+
+export function createQueryStringFromObject(data: Record<string, string>) {
+  const queryString = new URLSearchParams();
+  Object.keys(data).forEach((key) => {
+    if (data[key]) {
+      queryString.append(key, data[key] ?? "");
+    }
+  });
+  return queryString.toString();
+}
