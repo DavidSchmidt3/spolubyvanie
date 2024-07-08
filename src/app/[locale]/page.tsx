@@ -9,6 +9,7 @@ import {
   getRegions,
 } from "@/lib/data/administrative-divisions";
 import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
+import { createQueryStringFromObject } from "@/lib/utils/localization/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { type ParsedUrlQuery } from "querystring";
@@ -29,11 +30,9 @@ export default async function Home({ searchParams }: Props) {
     getMessages(),
   ]);
 
-  const safelyParsedData: Record<string, string> =
-    safelyParsedSearchParams?.data ?? {};
-  const queryString = Object.keys(safelyParsedData)
-    .map((key) => `${key}=${safelyParsedData[key]}`)
-    .join("&");
+  const queryString = createQueryStringFromObject(
+    safelyParsedSearchParams?.data ?? {}
+  );
   const keyString = `search=${queryString}`;
 
   return (
