@@ -12,6 +12,9 @@
       },
       "guest": {
         "label": "Neprihlásený"
+      },
+      "contact": {
+        "label": "Kontakt"
       }
     },
     "common": {
@@ -151,6 +154,9 @@
           "button": "Zrušiť filtre"
         }
       }
+    },
+    "contact": {
+      "title": "V prípade akýchkoľvek otázok ma kontaktujte na"
     }
   }
 }

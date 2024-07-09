@@ -72,6 +72,11 @@ export const pathnames = {
     sk: "/zmena-hesla",
   },
 
+  "/contact": {
+    en: "/contact",
+    sk: "/kontakt",
+  },
+
   // Dynamic params are supported via square brackets
   // "/news/[articleSlug]-[articleId]": {
   //   en: "/news/[articleSlug]-[articleId]",

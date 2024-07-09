@@ -19,6 +19,9 @@ export function MainNav({
       <TransitionLink href="/" className="text-lg">
         {t("navigation.home.label")}
       </TransitionLink>
+      <TransitionLink href="/contact" className="text-lg">
+        {t("navigation.contact.label")}
+      </TransitionLink>
     </nav>
   );
 }
