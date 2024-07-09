@@ -33,32 +33,30 @@ export default async function Home({ searchParams }: Props) {
     safelyParsedSearchParams?.data ?? {}
   );
   const keyString = `search=${queryString}`;
+  console.log(keyString);
 
   return (
-    <>
-      <div></div>
-      <NextIntlClientProvider
-        messages={pickLocaleMessages(messages, [
-          "translations.advertisement",
-          "alerts.advertisement",
-        ])}
-      >
-        {/* We need to suspense when search params change, therefore pass a key to suspense, so we need to explicitly use this with suspense and not use loading.tsx
+    <NextIntlClientProvider
+      messages={pickLocaleMessages(messages, [
+        "translations.advertisement",
+        "alerts.advertisement",
+      ])}
+    >
+      {/* We need to suspense when search params change, therefore pass a key to suspense, so we need to explicitly use this with suspense and not use loading.tsx
         https://github.com/vercel/next.js/issues/53543#issuecomment-1664793532
       */}
-        <div className="flex flex-col justify-start h-full overflow-auto">
-          <Suspense fallback={<Loading />} key={keyString}>
-            <AdvertisementFilterDialogTrigger
-              regions={regions}
-              districts={districts}
-              municipalities={municipalities}
-            />
-            <AdvertisementList
-              safelyParsedSearchParams={safelyParsedSearchParams}
-            />
-          </Suspense>
-        </div>
-      </NextIntlClientProvider>
-    </>
+      <div className="flex flex-col justify-start h-full overflow-auto">
+        <Suspense fallback={<Loading />} key={keyString}>
+          <AdvertisementFilterDialogTrigger
+            regions={regions}
+            districts={districts}
+            municipalities={municipalities}
+          />
+          <AdvertisementList
+            safelyParsedSearchParams={safelyParsedSearchParams}
+          />
+        </Suspense>
+      </div>
+    </NextIntlClientProvider>
   );
 }
