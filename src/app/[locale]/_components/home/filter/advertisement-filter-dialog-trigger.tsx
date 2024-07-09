@@ -84,14 +84,8 @@ export default function AdvertisementFilterDialog({
   }
 
   useEffect(() => {
-    console.log("useEffect");
     setOpen(false);
     setIsFetching(false);
-    focus();
-    scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
   }, [pathname]);
 
   function onOpenChange(open: boolean) {
