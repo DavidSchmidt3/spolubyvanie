@@ -150,6 +150,9 @@
         "clear": {
           "button": "Clear filters"
         }
+      },
+      "no_results": {
+        "title": "No results found"
       }
     }
   }
