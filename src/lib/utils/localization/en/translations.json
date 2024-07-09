@@ -12,6 +12,9 @@
       },
       "guest": {
         "label": "Guest"
+      },
+      "contact": {
+        "label": "Contact"
       }
     },
     "common": {
@@ -154,6 +157,9 @@
       "no_results": {
         "title": "No results found"
       }
+    },
+    "contact": {
+      "title": "If you have any questions, please contact me at"
     }
   }
 }

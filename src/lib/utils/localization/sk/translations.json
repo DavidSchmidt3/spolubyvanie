@@ -12,6 +12,9 @@
       },
       "guest": {
         "label": "Neprihlásený"
+      },
+      "contact": {
+        "label": "Kontakt"
       }
     },
     "common": {
@@ -154,6 +157,9 @@
       "no_results": {
         "title": "Neboli nájdené žiadne výsledky"
       }
+    },
+    "contact": {
+      "title": "V prípade akýchkoľvek otázok ma kontaktujte na"
     }
   }
 }
