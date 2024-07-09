@@ -84,6 +84,7 @@ export default function AdvertisementFilterDialog({
   }
 
   useEffect(() => {
+    console.log("useEffect");
     setOpen(false);
     setIsFetching(false);
     window.scrollTo(0, 0);
