@@ -47,6 +47,7 @@
     "next-safe-action": "experimental",
     "next-themes": "^0.3.0",
     "postgres": "^3.4.3",
+    "prisma-extension-pagination": "^0.7.4",
     "react": "rc",
     "react-dom": "rc",
     "react-hook-form": "^7.51.5",
