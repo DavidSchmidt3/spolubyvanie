@@ -13,7 +13,6 @@ export const getAdvertisements = actionClient
   })
   .action(async ({ parsedInput }) => {
     const paramsNumber = Object.keys(parsedInput ?? {}).length;
-    console.log(paramsNumber, parsedInput?.page);
     if (
       !parsedInput ||
       paramsNumber === 0 ||
