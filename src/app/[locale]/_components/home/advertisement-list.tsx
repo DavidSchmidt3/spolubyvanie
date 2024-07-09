@@ -31,7 +31,10 @@ export default async function AdvertisementList({
         <AdvertisementListNoResults />
       )}
       {paginationData && (
-        <AdvertisementPagination paginationData={paginationData} />
+        <AdvertisementPagination
+          paginationData={paginationData}
+          safelyParsedSearchParams={safelyParsedSearchParams}
+        />
       )}
     </div>
   );

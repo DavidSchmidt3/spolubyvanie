@@ -1,4 +1,3 @@
-"use client";
 import {
   Pagination,
   PaginationContent,
@@ -7,21 +6,30 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/app/[locale]/_components/ui/pagination";
+import { type AdvertisementFullSchemaValues } from "@/lib/data/actions/advertisements/schema";
 import { type AdvertisementMeta } from "@/lib/data/advertisements";
 import {
   buildPaginatedQuery,
   getCurrentQueryString,
 } from "@/lib/utils/localization/navigation";
-import { useSearchParams } from "next/navigation";
+import { type SafeParseReturnType } from "zod";
 
 type Props = {
   paginationData: AdvertisementMeta;
+  safelyParsedSearchParams: SafeParseReturnType<
+    AdvertisementFullSchemaValues,
+    AdvertisementFullSchemaValues
+  >;
 };
 
-export default function AdvertisementPagination({ paginationData }: Props) {
-  const searchParams = useSearchParams();
+export default function AdvertisementPagination({
+  paginationData,
+  safelyParsedSearchParams,
+}: Props) {
   const { isFirstPage, isLastPage, currentPage, pageCount } = paginationData;
-  const currentQueryString = getCurrentQueryString(searchParams);
+  const currentQueryString = getCurrentQueryString(
+    safelyParsedSearchParams.data as Record<string, string>
+  );
 
   return (
     <Pagination>
