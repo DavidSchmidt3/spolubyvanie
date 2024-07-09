@@ -43,3 +43,9 @@ export function createQueryStringFromObject(data: Record<string, string>) {
   });
   return queryString.toString();
 }
+
+export function buildPaginatedQuery(currentQueryString: string, page: number) {
+  const queryString = new URLSearchParams(currentQueryString);
+  queryString.set("page", page.toString());
+  return queryString.toString();
+}

@@ -5,14 +5,14 @@ import {
 } from "@/lib/data/advertisements";
 import { formatZodErrors } from "@/lib/utils/zod";
 import * as z from "zod";
-import { ADVERTISEMENTS_FILTER_SCHEMA } from "./schema";
+import { ADVERTISEMENTS_FULL_SCHEMA } from "./schema";
 
 export const getAdvertisements = actionClient
-  .schema(ADVERTISEMENTS_FILTER_SCHEMA.or(z.null()), {
+  .schema(ADVERTISEMENTS_FULL_SCHEMA.or(z.null()), {
     handleValidationErrorsShape: formatZodErrors,
   })
   .action(async ({ parsedInput }) => {
-    if (!parsedInput) {
+    if (!parsedInput || Object.keys(parsedInput).length === 0) {
       return getAdvertisementsCached();
     }
 
