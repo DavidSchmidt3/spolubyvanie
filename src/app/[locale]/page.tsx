@@ -22,6 +22,7 @@ export default async function Home({ searchParams }: Props) {
   const safelyParsedSearchParams =
     ADVERTISEMENTS_FULL_SCHEMA.safeParse(searchParams);
 
+  console.time("fetching data");
   const [regions, districts, municipalities, messages] = await Promise.all([
     getRegions(),
     getDistricts(),
@@ -34,6 +35,7 @@ export default async function Home({ searchParams }: Props) {
   );
   const keyString = `search=${queryString}`;
   console.log(keyString);
+  console.timeEnd("fetching data");
 
   return (
     <NextIntlClientProvider
