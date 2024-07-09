@@ -52,8 +52,6 @@ const PaginationLink = ({
 }: PaginationLinkProps) => (
   <Link
     aria-current={isActive ? "page" : undefined}
-    scroll={true}
-    prefetch={false}
     className={cn(
       buttonVariants({
         variant: isActive ? "outline" : "ghost",
