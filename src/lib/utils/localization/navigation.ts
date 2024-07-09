@@ -26,10 +26,24 @@ export async function pushRouteWithTransition(
   body?.classList.remove("page-transition");
 }
 
-export function getCurrentQueryString(searchParams: URLSearchParams) {
+export function getCurrentQueryString(
+  searchParams?: URLSearchParams | Record<string, string>
+) {
+  if (!searchParams) {
+    return "";
+  }
+
   const queryString = new URLSearchParams();
-  for (const [key, value] of searchParams.entries()) {
-    queryString.append(key, value);
+  if (searchParams instanceof URLSearchParams) {
+    for (const [key, value] of searchParams.entries()) {
+      queryString.append(key, value);
+    }
+  } else {
+    Object.keys(searchParams).forEach((key) => {
+      if (searchParams[key]) {
+        queryString.append(key, searchParams[key] ?? "");
+      }
+    });
   }
   return queryString.toString();
 }
@@ -41,5 +55,11 @@ export function createQueryStringFromObject(data: Record<string, string>) {
       queryString.append(key, data[key] ?? "");
     }
   });
+  return queryString.toString();
+}
+
+export function buildPaginatedQuery(currentQueryString: string, page: number) {
+  const queryString = new URLSearchParams(currentQueryString);
+  queryString.set("page", page.toString());
   return queryString.toString();
 }

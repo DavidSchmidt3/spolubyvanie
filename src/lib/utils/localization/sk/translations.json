@@ -150,6 +150,9 @@
         "clear": {
           "button": "Zrušiť filtre"
         }
+      },
+      "no_results": {
+        "title": "Neboli nájdené žiadne výsledky"
       }
     }
   }
