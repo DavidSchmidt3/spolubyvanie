@@ -12,7 +12,14 @@ export const getAdvertisements = actionClient
     handleValidationErrorsShape: formatZodErrors,
   })
   .action(async ({ parsedInput }) => {
-    if (!parsedInput || Object.keys(parsedInput).length === 0) {
+    const paramsNumber = Object.keys(parsedInput ?? {}).length;
+    console.log(paramsNumber, parsedInput?.page);
+    if (
+      !parsedInput ||
+      paramsNumber === 0 ||
+      // If the page is 1 and there is only one parameter, it means that the user wants to get the cached data on first page
+      (parsedInput.page === "1" && paramsNumber === 1)
+    ) {
       return getAdvertisementsCached();
     }
 
