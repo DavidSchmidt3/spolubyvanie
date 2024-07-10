@@ -8,7 +8,6 @@ import {
 import { cn } from "@/lib/utils";
 import { Link } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
-import { revalidatePath } from "next/cache";
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
   <nav
@@ -74,8 +73,6 @@ const PaginationPrevious = ({
     <PaginationLink
       aria-label="Go to previous page"
       size="default"
-      // @ts-expect-error just a test TODO: fix this
-      onClick={revalidatePath("/", "page")}
       className={cn("gap-1 pl-2.5", className)}
       {...props}
     >
