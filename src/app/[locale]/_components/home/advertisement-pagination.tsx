@@ -24,7 +24,8 @@ export default function AdvertisementPagination({
   safelyParsedSearchParams,
   page,
 }: Props) {
-  const { isFirstPage, isLastPage, currentPage, pageCount } = paginationData;
+  // component is either way rendered only if paginationData is present
+  const { isFirstPage, isLastPage, currentPage, pageCount } = paginationData!;
   const currentQueryString = safelyParsedSearchParams.data;
 
   return (
