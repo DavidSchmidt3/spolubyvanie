@@ -1,12 +1,7 @@
 import AdvertisementList from "@/app/[locale]/_components/home/advertisement-list";
-import AdvertisementFilterDialogTrigger from "@/app/[locale]/_components/home/filter/advertisement-filter-dialog-trigger";
+import AdvertisementFilterDataFetcher from "@/app/[locale]/_components/home/filter/adverisement-filter-data-fetcher";
 import Loading from "@/app/[locale]/loading-page";
 import { ADVERTISEMENTS_FULL_SCHEMA } from "@/lib/data/actions/advertisements/schema";
-import {
-  getDistricts,
-  getMunicipalities,
-  getRegions,
-} from "@/lib/data/administrative-divisions";
 import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
 import { createQueryStringFromObject } from "@/lib/utils/localization/navigation";
 import { NextIntlClientProvider } from "next-intl";
@@ -23,18 +18,12 @@ export default async function Home({ searchParams }: Props) {
     ADVERTISEMENTS_FULL_SCHEMA.safeParse(searchParams);
 
   console.time("fetching data");
-  const [regions, districts, municipalities, messages] = await Promise.all([
-    getRegions(),
-    getDistricts(),
-    getMunicipalities(),
-    getMessages(),
-  ]);
+  const messages = await getMessages();
 
   const queryString = createQueryStringFromObject(
     safelyParsedSearchParams?.data ?? {}
   );
   const keyString = `search=${queryString}`;
-  console.log(keyString);
   console.timeEnd("fetching data");
 
   return (
@@ -49,11 +38,7 @@ export default async function Home({ searchParams }: Props) {
       */}
       <div className="flex flex-col justify-start h-full overflow-auto">
         <Suspense fallback={<Loading />} key={keyString}>
-          <AdvertisementFilterDialogTrigger
-            regions={regions}
-            districts={districts}
-            municipalities={municipalities}
-          />
+          <AdvertisementFilterDataFetcher />
           <AdvertisementList
             safelyParsedSearchParams={safelyParsedSearchParams}
           />
