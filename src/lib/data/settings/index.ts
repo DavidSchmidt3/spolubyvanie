@@ -12,9 +12,14 @@ export const getSettings = cache(async () => {
     return null;
   }
 
-  return db.user_settings.findFirst({
-    where: {
-      id: user.id,
-    },
-  }) as unknown as UserSettings;
+  try {
+    return (await db.user_settings.findFirst({
+      where: {
+        id: user.id,
+      },
+    })) as unknown as UserSettings;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 });

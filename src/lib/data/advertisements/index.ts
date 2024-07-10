@@ -33,28 +33,33 @@ async function fetchAdvertisements(
   filter?: Prisma.advertisementsFindManyArgs,
   page?: string
 ) {
-  return db.advertisements
-    .paginate({
-      orderBy: {
-        created_at: "desc",
-      },
-      ...filter,
-      include: {
-        municipalities: {
-          include: {
-            districts: {
-              include: {
-                regions: true,
+  try {
+    return await db.advertisements
+      .paginate({
+        orderBy: {
+          created_at: "desc",
+        },
+        ...filter,
+        include: {
+          municipalities: {
+            include: {
+              districts: {
+                include: {
+                  regions: true,
+                },
               },
             },
           },
         },
-      },
-    })
-    .withPages({
-      page: page ? parseInt(page) : 1,
-      limit: 10,
-    });
+      })
+      .withPages({
+        page: page ? parseInt(page) : 1,
+        limit: 10,
+      });
+  } catch (error) {
+    console.error("Error fetching advertisements", error);
+    return [[], null] as const;
+  }
 }
 
 export const getAdvertisementsCached = next_cache(async () => {
