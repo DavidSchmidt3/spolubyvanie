@@ -28,7 +28,7 @@ export const TransitionLink = <Pathname extends keyof typeof pathnames>({
   ) {
     e.preventDefault();
     if (href === pathname) return;
-    await pushRouteWithTransition<Pathname>(href, router);
+    await pushRouteWithTransition(href, router);
   }
 
   return (
