@@ -17,14 +17,12 @@ export default async function Home({ searchParams }: Props) {
   const safelyParsedSearchParams =
     ADVERTISEMENTS_FULL_SCHEMA.safeParse(searchParams);
 
-  console.time("fetching data");
   const messages = await getMessages();
 
   const queryString = createQueryStringFromObject(
     safelyParsedSearchParams?.data ?? {}
   );
   const keyString = `search=${queryString}`;
-  console.timeEnd("fetching data");
 
   return (
     <NextIntlClientProvider
