@@ -68,7 +68,7 @@ export default function AdvertisementPagination({
             <PaginationNext
               href={{
                 pathname: "/[page]",
-                params: { page },
+                params: { page: (parseInt(page) + 1).toString() },
                 query: currentQueryString,
               }}
             />
