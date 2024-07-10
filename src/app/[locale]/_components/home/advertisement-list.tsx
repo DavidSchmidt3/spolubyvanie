@@ -15,11 +15,9 @@ type Props = {
 export default async function AdvertisementList({
   safelyParsedSearchParams,
 }: Props) {
-  console.time("fetching advertisements");
   const advertisementsActionFetchResult = await getAdvertisements(
     safelyParsedSearchParams.success ? safelyParsedSearchParams.data : null
   );
-  console.timeEnd("fetching advertisements");
 
   const paginationData = advertisementsActionFetchResult?.data?.paginationData;
   const advertisements = advertisementsActionFetchResult?.data?.advertisements;

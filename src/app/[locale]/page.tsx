@@ -1,6 +1,6 @@
 import AdvertisementList from "@/app/[locale]/_components/home/advertisement-list";
 import AdvertisementFilterDataFetcher from "@/app/[locale]/_components/home/filter/adverisement-filter-data-fetcher";
-import Loading from "@/app/[locale]/loading-page";
+import Loading from "@/app/[locale]/loading";
 import { ADVERTISEMENTS_FULL_SCHEMA } from "@/lib/data/actions/advertisements/schema";
 import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
 import { createQueryStringFromObject } from "@/lib/utils/localization/navigation";
@@ -31,7 +31,7 @@ export default async function Home({ searchParams }: Props) {
         "alerts.advertisement",
       ])}
     >
-      {/* We need to suspense when search params change, therefore pass a key to suspense, so we need to explicitly use this with suspense and not use loading.tsx
+      {/* We need to suspense when search params change, therefore pass a key to suspense, so we need to explicitly use this with suspense both with loading.tsx
         https://github.com/vercel/next.js/issues/53543#issuecomment-1664793532
       */}
       <div className="flex flex-col justify-start h-full overflow-auto">

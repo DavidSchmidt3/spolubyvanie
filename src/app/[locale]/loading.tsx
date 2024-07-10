@@ -6,8 +6,6 @@ import {
 } from "@/app/[locale]/_components/ui/card";
 import { Skeleton } from "@/app/[locale]/_components/ui/skeleton";
 
-// This file is intentionally not named "loading.tsx" to not wrap whole page in suspense
-// We need to suspense when search params change, therefore pass a key to suspense, so we need to explicitly use this with suspense
 export default function Loading() {
   return (
     <div className="flex flex-col justify-between h-full overflow-auto">
