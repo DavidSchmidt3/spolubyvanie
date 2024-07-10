@@ -1,6 +1,6 @@
-import Loading from "@/app/[locale]/[page]/loading";
 import AdvertisementList from "@/app/[locale]/_components/home/advertisement-list";
 import AdvertisementFilterDataFetcher from "@/app/[locale]/_components/home/filter/adverisement-filter-data-fetcher";
+import Loading from "@/app/[locale]/loading";
 import { ADVERTISEMENTS_FILTER_SCHEMA } from "@/lib/data/actions/advertisements/schema";
 import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
 import { createQueryStringFromObject } from "@/lib/utils/localization/navigation";

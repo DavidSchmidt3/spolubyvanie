@@ -48,6 +48,7 @@ export default function AdvertisementPagination({
               return (
                 <PaginationItem key={page}>
                   <PaginationLink
+                    prefetch
                     href={{
                       pathname: "/[page]",
                       params: { page },
