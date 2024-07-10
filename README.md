@@ -20,3 +20,12 @@ I wanted to create a project showcasing my skills using latest technologies in r
 
 ## Other
 All the pages are fully responsive up to 320 px width following the WCAG spec. 
+
+### Author notes
+Why dynamic segment for paging and not query params like for filtering?
+
+Well, next.js has "interesting" behavior, ([Github discussion](https://github.com/vercel/next.js/issues/53543)), where updating the search params does not trigger suspense loading or loading.tsx page. You can force it to show suspense loading by explicitly defining suspense and providing key composed of search params. 
+
+However, then the next problem occurs. Navigation between routes is still really bad experience, because the page can't be prefetched and you have to wait for the page to load every time you navigate to it. This creates the impression of "nothing is happening" when navigating between pages especially on slow connections. When done via dynamic segment route - next will now prefetch pages content until it finds a loading.tsx which will be prefetched also. Therefore, until on a really slow connection, the route with the loading skeleton will be prefetched and shown to the user.
+
+After the filter change, the same problem occurs, however this is "fixed" by showing the loading indicator to user on filter button and not closing the filter dialog until the new route is fetched and rendered. I could show the same loading indicator for paging, however having the page prefetched is much better.

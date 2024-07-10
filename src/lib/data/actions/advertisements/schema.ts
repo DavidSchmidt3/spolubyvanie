@@ -33,13 +33,9 @@ const ADVERTISEMENT_FILTER_BASE_SCHEMA = z.object({
 });
 
 const ADVERTISEMENT_PAGINATION_SCHEMA = z.object({
-  page: z
-    .string()
-    .regex(/^\d*$/, {
-      message: "alerts.pagination.page.invalid",
-    })
-    .or(z.literal(""))
-    .or(z.undefined()),
+  page: z.string().regex(/^\d*$/, {
+    message: "alerts.pagination.page.invalid",
+  }),
 });
 
 function attachPriceRefinements<

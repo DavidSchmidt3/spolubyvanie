@@ -35,7 +35,12 @@ export async function googleLogin() {
     redirectLocal("/error");
   }
 
-  redirectLocal("/");
+  redirectLocal({
+    pathname: "/[page]",
+    params: {
+      page: "1",
+    },
+  });
 }
 
 export async function logout() {
@@ -43,7 +48,12 @@ export async function logout() {
 
   await supabase.auth.signOut();
 
-  redirectLocal("/");
+  redirectLocal({
+    pathname: "/[page]",
+    params: {
+      page: "1",
+    },
+  });
 }
 
 export const signInWithEmail = actionClient
@@ -70,5 +80,10 @@ export const signInWithEmail = actionClient
     }
 
     // revalidatePath("/", "layout");
-    redirectLocal("/");
+    redirectLocal({
+      pathname: "/[page]",
+      params: {
+        page: "1",
+      },
+    });
   });

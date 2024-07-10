@@ -16,8 +16,8 @@ import {
   type getMunicipalities,
   type getRegions,
 } from "@/lib/data/administrative-divisions";
-import { type pathnames } from "@/lib/utils/localization/i18n";
 import {
+  createQueryParamsFromObject,
   createQueryStringFromObject,
   getCurrentQueryString,
   usePathname,
@@ -78,9 +78,12 @@ export default function AdvertisementFilterDialog({
       return;
     }
     setIsFetching(true);
-    const newPathnameWithQuery =
-      `${pathname}?${newQueryString}` as (typeof pathnames)["/"];
-    router.push(newPathnameWithQuery);
+    const queryParams = createQueryParamsFromObject(data);
+    router.push({
+      pathname: "/[page]",
+      params: { page: "1" },
+      query: queryParams,
+    });
   }
 
   useEffect(() => {

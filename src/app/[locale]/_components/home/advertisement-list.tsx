@@ -2,21 +2,25 @@ import Advertisement from "@/app/[locale]/_components/home/advertisement";
 import AdvertisementListNoResults from "@/app/[locale]/_components/home/advertisement-list-no-results";
 import AdvertisementPagination from "@/app/[locale]/_components/home/advertisement-pagination";
 import { getAdvertisements } from "@/lib/data/actions/advertisements";
-import { type AdvertisementFullSchemaValues } from "@/lib/data/actions/advertisements/schema";
+import { type AdvertisementFilterFormValues } from "@/lib/data/actions/advertisements/schema";
 import { type SafeParseReturnType } from "zod";
 
 type Props = {
   safelyParsedSearchParams: SafeParseReturnType<
-    AdvertisementFullSchemaValues,
-    AdvertisementFullSchemaValues
+    AdvertisementFilterFormValues,
+    AdvertisementFilterFormValues
   >;
+  page: string;
 };
 
 export default async function AdvertisementList({
   safelyParsedSearchParams,
+  page,
 }: Props) {
   const advertisementsActionFetchResult = await getAdvertisements(
-    safelyParsedSearchParams.success ? safelyParsedSearchParams.data : null
+    safelyParsedSearchParams.success
+      ? { ...safelyParsedSearchParams.data, page }
+      : { page }
   );
 
   const paginationData = advertisementsActionFetchResult?.data?.paginationData;
@@ -34,6 +38,7 @@ export default async function AdvertisementList({
         <AdvertisementPagination
           paginationData={paginationData}
           safelyParsedSearchParams={safelyParsedSearchParams}
+          page={page}
         />
       )}
     </div>
