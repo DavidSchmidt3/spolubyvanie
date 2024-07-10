@@ -38,7 +38,10 @@ export default getRequestConfig(async ({ locale }) => {
 });
 
 export const pathnames = {
-  "/": "/",
+  "/[page]": {
+    en: "/[page]",
+    sk: "/[page]",
+  },
 
   // If locales use different paths, you can
   // specify each external path per locale.

@@ -6,30 +6,26 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/app/[locale]/_components/ui/pagination";
-import { type AdvertisementFullSchemaValues } from "@/lib/data/actions/advertisements/schema";
+import { type AdvertisementFilterFormValues } from "@/lib/data/actions/advertisements/schema";
 import { type AdvertisementMeta } from "@/lib/data/advertisements";
-import {
-  buildPaginatedQuery,
-  getCurrentQueryString,
-} from "@/lib/utils/localization/navigation";
 import { type SafeParseReturnType } from "zod";
 
 type Props = {
   paginationData: AdvertisementMeta;
   safelyParsedSearchParams: SafeParseReturnType<
-    AdvertisementFullSchemaValues,
-    AdvertisementFullSchemaValues
+    AdvertisementFilterFormValues,
+    AdvertisementFilterFormValues
   >;
+  page: string;
 };
 
 export default function AdvertisementPagination({
   paginationData,
   safelyParsedSearchParams,
+  page,
 }: Props) {
   const { isFirstPage, isLastPage, currentPage, pageCount } = paginationData;
-  const currentQueryString = getCurrentQueryString(
-    safelyParsedSearchParams.data as Record<string, string>
-  );
+  const currentQueryString = safelyParsedSearchParams.data;
 
   return (
     <Pagination>
@@ -38,8 +34,9 @@ export default function AdvertisementPagination({
           <PaginationItem>
             <PaginationPrevious
               href={{
-                pathname: "/",
-                query: buildPaginatedQuery(currentQueryString, currentPage - 1),
+                pathname: "/[page]",
+                params: { page: (parseInt(page) - 1).toString() },
+                query: currentQueryString,
               }}
             />
           </PaginationItem>
@@ -52,8 +49,9 @@ export default function AdvertisementPagination({
                 <PaginationItem key={page}>
                   <PaginationLink
                     href={{
-                      pathname: "/",
-                      query: buildPaginatedQuery(currentQueryString, page),
+                      pathname: "/[page]",
+                      params: { page },
+                      query: currentQueryString,
                     }}
                     isActive={page === currentPage}
                   >
@@ -69,8 +67,9 @@ export default function AdvertisementPagination({
           <PaginationItem>
             <PaginationNext
               href={{
-                pathname: "/",
-                query: buildPaginatedQuery(currentQueryString, currentPage + 1),
+                pathname: "/[page]",
+                params: { page },
+                query: currentQueryString,
               }}
             />
           </PaginationItem>

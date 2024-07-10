@@ -82,7 +82,12 @@ export default function AdvertisementFilterDialogContent({
                     type="button"
                     variant="destructive"
                     className="text-base h-auto"
-                    onClick={() => router.push("/")}
+                    onClick={() =>
+                      router.push({
+                        pathname: "/[page]",
+                        params: { page: "1" },
+                      })
+                    }
                     disabled={isFetching}
                   >
                     <Icons.cross className="w-6 h-6" />

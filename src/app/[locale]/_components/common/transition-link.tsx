@@ -1,28 +1,25 @@
 "use client";
-import { type Locale, type pathnames } from "@/lib/utils/localization/i18n";
+import { type pathnames } from "@/lib/utils/localization/i18n";
 import {
   Link,
   pushRouteWithTransition,
   usePathname,
   useRouter,
 } from "@/lib/utils/localization/navigation";
-import { type LinkProps } from "next/link";
 import React from "react";
 
-interface TransitionLinkProps extends LinkProps {
+type TransitionLinkProps<Pathname extends keyof typeof pathnames> = {
   children: React.ReactNode;
-  href: keyof typeof pathnames;
   className?: string;
   locale?: string | false;
-}
+} & React.ComponentProps<typeof Link<Pathname>>;
 
-export const TransitionLink = ({
+export const TransitionLink = <Pathname extends keyof typeof pathnames>({
   children,
   href,
   className,
-  locale,
   ...props
-}: TransitionLinkProps) => {
+}: TransitionLinkProps<Pathname>) => {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -31,13 +28,12 @@ export const TransitionLink = ({
   ) {
     e.preventDefault();
     if (href === pathname) return;
-    await pushRouteWithTransition(href, router);
+    await pushRouteWithTransition<Pathname>(href, router);
   }
 
   return (
     <Link
       {...props}
-      locale={locale as Locale | undefined}
       className={className}
       href={href}
       onClick={handleTransition}
