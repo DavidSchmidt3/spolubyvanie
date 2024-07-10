@@ -34,6 +34,7 @@ export const TransitionLink = <Pathname extends keyof typeof pathnames>({
   return (
     <Link
       {...props}
+      prefetch
       className={className}
       href={href}
       onClick={handleTransition}
