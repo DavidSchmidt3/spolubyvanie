@@ -43,8 +43,6 @@ export const pathnames = {
     sk: "/[page]",
   },
 
-  // If locales use different paths, you can
-  // specify each external path per locale.
   "/settings": {
     en: "/settings",
     sk: "/nastavenia",
@@ -80,12 +78,10 @@ export const pathnames = {
     sk: "/kontakt",
   },
 
-  // Dynamic params are supported via square brackets
-  // "/news/[articleSlug]-[articleId]": {
-  //   en: "/news/[articleSlug]-[articleId]",
-  //   sk: "/neuigkeiten/[articleSlug]-[articleId]",
-  // },
-
+  "/add-advertisement": {
+    en: "/add-advertisement",
+    sk: "/pridat-inzerat",
+  },
   // Also (optional) catch-all segments are supported
   // "/categories/[...slug]": {
   //   en: "/categories/[...slug]",

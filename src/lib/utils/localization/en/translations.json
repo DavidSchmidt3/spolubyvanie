@@ -13,6 +13,9 @@
       "guest": {
         "label": "Guest"
       },
+      "add_advertisement": {
+        "label": "Add Advertisement"
+      },
       "contact": {
         "label": "Contact"
       }

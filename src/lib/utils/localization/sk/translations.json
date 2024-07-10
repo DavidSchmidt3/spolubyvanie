@@ -13,6 +13,9 @@
       "guest": {
         "label": "Neprihlásený"
       },
+      "add_advertisement": {
+        "label": "Pridať inzerát"
+      },
       "contact": {
         "label": "Kontakt"
       }

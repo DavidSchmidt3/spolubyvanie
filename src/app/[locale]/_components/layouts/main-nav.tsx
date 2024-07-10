@@ -21,11 +21,17 @@ export function MainNav({
           pathname: "/[page]",
           params: { page: "1" },
         }}
-        className="text-lg"
+        className="text-base sm:text-lg"
       >
         {t("navigation.home.label")}
       </TransitionLink>
-      <TransitionLink href="/contact" className="text-lg">
+      <TransitionLink
+        href="/add-advertisement"
+        className="text-base sm:text-lg"
+      >
+        {t("navigation.add_advertisement.label")}
+      </TransitionLink>
+      <TransitionLink href="/contact" className="hidden sm:block text-lg">
         {t("navigation.contact.label")}
       </TransitionLink>
     </nav>
