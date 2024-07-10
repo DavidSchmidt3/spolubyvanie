@@ -8,6 +8,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Link } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
+import { revalidatePath } from "next/cache";
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
   <nav
@@ -52,6 +53,7 @@ const PaginationLink = ({
 }: PaginationLinkProps) => (
   <Link
     aria-current={isActive ? "page" : undefined}
+    onClick={() => revalidatePath("/", "page")}
     className={cn(
       buttonVariants({
         variant: isActive ? "outline" : "ghost",
