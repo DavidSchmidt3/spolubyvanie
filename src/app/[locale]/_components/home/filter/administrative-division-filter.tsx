@@ -1,4 +1,5 @@
 import PopoverFilterField from "@/app/[locale]/_components/home/filter/popover-filter-field";
+import PopoverMultiselectFilterField from "@/app/[locale]/_components/home/filter/popover-multiselect-filter-field";
 import usePrevious from "@/hooks/previous-value";
 import { type AdvertisementFilterFormValues } from "@/lib/data/actions/advertisements/schema";
 import {
@@ -10,7 +11,6 @@ import _ from "lodash";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { type UseFormReturn } from "react-hook-form";
-import PopoverMultiselectFilterField from "./popover-multiselect-filter-field";
 
 type Props = {
   regions: Region[];
@@ -22,7 +22,7 @@ type Props = {
 export type FilterData = {
   id: string;
   name: string;
-  region_id: string;
+  region_id?: string;
   district_id?: string;
 };
 
@@ -178,9 +178,8 @@ export default function AdministrativeDivisionFilter({
         selectRowText={t("region.select_text")}
         emptyText={t("region.empty_text")}
         title={t("region.title")}
-        control={form.control}
         fieldName="region"
-        setValue={form.setValue}
+        form={form}
       />
       <PopoverMultiselectFilterField
         filterData={districts}
