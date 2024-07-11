@@ -2,8 +2,8 @@ import * as z from "zod";
 import { createAdTypeRegex } from "./types";
 
 const ADVERTISEMENT_FILTER_BASE_SCHEMA = z.object({
-  municipality: z.string().uuid().or(z.literal("")).or(z.undefined()),
-  district: z.string().uuid().or(z.literal("")).or(z.undefined()),
+  municipalities: z.array(z.string().uuid()).or(z.undefined()).or(z.string()),
+  districts: z.array(z.string().uuid()).or(z.undefined()).or(z.string()),
   region: z.string().uuid().or(z.literal("")).or(z.undefined()),
   price_min: z
     .string()
