@@ -1,4 +1,5 @@
 import PopoverFilterField from "@/app/[locale]/_components/home/filter/popover-filter-field";
+import PopoverMultiselectFilterField from "@/app/[locale]/_components/home/filter/popover-multiselect-filter-field";
 import usePrevious from "@/hooks/previous-value";
 import { type AdvertisementFilterFormValues } from "@/lib/data/actions/advertisements/schema";
 import {
@@ -6,6 +7,7 @@ import {
   type Municipality,
   type Region,
 } from "@/lib/data/administrative-divisions";
+import _ from "lodash";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { type UseFormReturn } from "react-hook-form";
@@ -30,58 +32,82 @@ export default function AdministrativeDivisionFilter({
   municipalities,
   form,
 }: Props) {
+  "use no memo";
   const t = useTranslations("translations.advertisement");
   const selectedRegion = form.watch("region");
-  const selectedDistrict = form.watch("district");
-  const selectedMunicipality = form.watch("municipality");
+  const selectedDistricts = form.watch("districts");
+  const selectedMunicipalities = form.watch("municipalities");
   const prevRegion = usePrevious(selectedRegion);
-  const prevDistrict = usePrevious(selectedDistrict);
-  const prevMunicipality = usePrevious(selectedMunicipality);
+  const prevDistricts = usePrevious(selectedDistricts);
+  const prevMunicipalities = usePrevious(selectedMunicipalities);
 
   function filterMunicipality(municipality: FilterData) {
-    if (!selectedRegion && !selectedDistrict) {
+    if (selectedMunicipalities?.includes(municipality.id)) {
+      return false;
+    }
+
+    if (!selectedRegion && !selectedDistricts?.length) {
       return true;
     }
 
-    if (selectedRegion && !selectedDistrict) {
+    if (selectedRegion && !selectedDistricts?.length) {
       return municipality.region_id === selectedRegion;
     }
 
-    if (!selectedRegion && selectedDistrict) {
-      return municipality.district_id === selectedDistrict;
+    if (!selectedRegion && selectedDistricts?.length) {
+      return selectedDistricts?.includes(municipality.district_id!) ?? false;
     }
 
     return (
-      municipality.district_id === selectedDistrict &&
-      municipality.region_id === selectedRegion
+      (selectedDistricts?.includes(municipality.district_id!) &&
+        municipality.region_id === selectedRegion) ??
+      false
     );
   }
 
   function filterDistrict(district: FilterData) {
+    if (selectedDistricts?.includes(district.id)) {
+      return false;
+    }
+
     if (!selectedRegion) {
       return true;
     }
     return district.region_id === selectedRegion;
   }
 
-  function filterRegion(_: FilterData) {
+  function filterRegion(_: Region) {
     return true;
   }
 
-  function getSelectedMunicipalityDistrictId() {
-    const selectedMunicipalityObject = municipalities.find(
-      (municipality) => municipality.id === selectedMunicipality
+  function getSelectedMunicipalitiesObjects() {
+    return municipalities.filter((municipality) => {
+      if (!selectedMunicipalities?.length) {
+        return false;
+      }
+      return selectedMunicipalities?.includes(municipality.id);
+    });
+  }
+
+  function getSelectedMunicipalitiesDistrictsId() {
+    const selectedMunicipalitiesObjects = getSelectedMunicipalitiesObjects();
+
+    // Create a Set of district IDs from the selected municipalities for fast lookup
+    const municipalityDistrictIds = new Set(
+      selectedMunicipalitiesObjects.map(
+        (municipality) => municipality.district_id
+      )
     );
-    return (
-      districts.find(
-        (district) => district.id === selectedMunicipalityObject?.district_id
-      )?.id ?? ""
-    );
+
+    // Filter districts using the Set for O(1) lookups
+    return districts
+      .filter((district) => municipalityDistrictIds.has(district.id))
+      .map((district) => district.id);
   }
 
   function getSelectedDistrictRegionId() {
     const selectedDistrictObject = districts.find(
-      (district) => district.id === selectedDistrict
+      (district) => district.id === selectedDistricts?.[0]
     );
     return (
       regions.find((region) => region.id === selectedDistrictObject?.region_id)
@@ -93,21 +119,31 @@ export default function AdministrativeDivisionFilter({
   // So we also need to set the municipality to undefined, because it will be in the wrong district
   function afterRegionChange() {
     if (getSelectedDistrictRegionId() !== selectedRegion) {
-      form.setValue("municipality", "");
-      form.setValue("district", "");
+      form.setValue("municipalities", []);
+      form.setValue("districts", []);
       return;
     }
 
-    if (getSelectedMunicipalityDistrictId() !== selectedDistrict) {
-      form.setValue("municipality", "");
+    if (!_.isEqual(getSelectedMunicipalitiesDistrictsId(), selectedDistricts)) {
+      form.setValue("municipalities", []);
     }
   }
 
   // If we change the district and there is no region selected, we need to set the region to the selected district's region
-  // Also if the selected municipality district is not the same as the selected district, we need to set the municipality to undefined
+  // Also if the selected municipality district is not the same as the selected district, we need to handle and filter out municipalities which don't belong to any of the selected districts
   function afterDistrictChange() {
-    if (getSelectedMunicipalityDistrictId() !== selectedDistrict) {
-      form.setValue("municipality", "");
+    const selectedMunicipalitiesDistrictsId =
+      getSelectedMunicipalitiesDistrictsId();
+
+    const selectedMunicipalitiesObjects = getSelectedMunicipalitiesObjects();
+    if (!_.isEqual(selectedMunicipalitiesDistrictsId, selectedDistricts)) {
+      const selectedDistrictsSet = new Set(selectedDistricts);
+      const newMunicipalities = selectedMunicipalitiesObjects
+        .filter((municipality) =>
+          selectedDistrictsSet.has(municipality.district_id)
+        )
+        .map((municipality) => municipality.id);
+      form.setValue("municipalities", newMunicipalities);
     }
     if (!selectedRegion) {
       form.setValue("region", getSelectedDistrictRegionId());
@@ -116,8 +152,8 @@ export default function AdministrativeDivisionFilter({
 
   // If we change the municipality and there is no district selected, we need to set the district to the selected municipality's district
   function afterMunicipalityChange() {
-    if (!selectedDistrict) {
-      form.setValue("district", getSelectedMunicipalityDistrictId());
+    if (!selectedDistricts?.length) {
+      form.setValue("districts", getSelectedMunicipalitiesDistrictsId());
     }
   }
 
@@ -126,15 +162,15 @@ export default function AdministrativeDivisionFilter({
       afterRegionChange();
     }
 
-    if (prevDistrict !== selectedDistrict) {
+    if (!_.isEqual(prevDistricts, selectedDistricts)) {
       afterDistrictChange();
     }
 
-    if (prevMunicipality !== selectedMunicipality) {
+    if (!_.isEqual(prevMunicipalities, selectedMunicipalities)) {
       afterMunicipalityChange();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedRegion, selectedDistrict, selectedMunicipality]);
+  }, [selectedRegion, selectedDistricts, selectedMunicipalities]);
 
   return (
     <div className="flex flex-col gap-y-2 gap-x-4 sm:gap-x-8 order-2 sm:order-1">
@@ -145,31 +181,28 @@ export default function AdministrativeDivisionFilter({
         selectRowText={t("region.select_text")}
         emptyText={t("region.empty_text")}
         title={t("region.title")}
-        control={form.control}
         fieldName="region"
-        setValue={form.setValue}
+        form={form}
       />
-      <PopoverFilterField
+      <PopoverMultiselectFilterField
         filterData={districts}
         filterFunction={filterDistrict}
         placeholderText={t("district.search_placeholder")}
         selectRowText={t("district.select_text")}
         emptyText={t("district.empty_text")}
         title={t("district.title")}
-        control={form.control}
-        fieldName="district"
-        setValue={form.setValue}
+        form={form}
+        fieldName="districts"
       />
-      <PopoverFilterField
+      <PopoverMultiselectFilterField
         filterData={municipalities}
         filterFunction={filterMunicipality}
         placeholderText={t("municipality.search_placeholder")}
         selectRowText={t("municipality.select_text")}
         emptyText={t("municipality.empty_text")}
         title={t("municipality.title")}
-        control={form.control}
-        fieldName="municipality"
-        setValue={form.setValue}
+        form={form}
+        fieldName="municipalities"
       />
     </div>
   );

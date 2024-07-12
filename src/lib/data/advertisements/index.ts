@@ -71,8 +71,8 @@ export const getAdvertisementsCached = next_cache(async () => {
 }, ["advertisements"]);
 
 export const getAdvertisementsFiltered = async ({
-  municipality,
-  district,
+  municipalities,
+  districts,
   region,
   price_min,
   price_max,
@@ -82,15 +82,23 @@ export const getAdvertisementsFiltered = async ({
   const [advertisements, paginationData] = await fetchAdvertisements(
     {
       where: {
-        // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- or is here on purpose - there has to be empty string in form as empty value
-        municipality_id: municipality || undefined,
+        municipality_id: municipalities?.length
+          ? {
+              in: Array.isArray(municipalities)
+                ? municipalities
+                : municipalities.split(","),
+            }
+          : undefined,
         price: {
           gte: price_min ? parseInt(price_min) : undefined,
           lte: price_max ? parseInt(price_max) : undefined,
         },
         municipalities: {
-          // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- same as above
-          district_id: district || undefined,
+          district_id: districts?.length
+            ? {
+                in: Array.isArray(districts) ? districts : districts.split(","),
+              }
+            : undefined,
           districts: {
             // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- same as above
             region_id: region || undefined,

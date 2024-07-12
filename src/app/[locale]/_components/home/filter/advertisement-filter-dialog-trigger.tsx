@@ -53,8 +53,8 @@ export default function AdvertisementFilterDialog({
 
   const defaultValues = useMemo<AdvertisementFilterFormValues>(() => {
     return {
-      municipality: searchParams.get("municipality") ?? "",
-      district: searchParams.get("district") ?? "",
+      municipalities: searchParams.get("municipalities")?.split(",") ?? [],
+      districts: searchParams.get("districts")?.split(",") ?? [],
       region: searchParams.get("region") ?? "",
       price_min: searchParams.get("price_min") ?? "",
       price_max: searchParams.get("price_max") ?? "",
@@ -99,7 +99,7 @@ export default function AdvertisementFilterDialog({
   }
 
   const isFilterActive = Object.keys(defaultValues).some(
-    (key) => defaultValues[key as keyof typeof defaultValues]
+    (key) => defaultValues[key as keyof typeof defaultValues]?.length
   );
 
   return (
