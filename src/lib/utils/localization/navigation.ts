@@ -30,8 +30,12 @@ export async function pushRouteWithTransition<
   body?.classList.remove("page-transition");
 }
 
+function getStringValue(value: string | string[]) {
+  return Array.isArray(value) ? value.join(",") : value ?? "";
+}
+
 export function getCurrentQueryString(
-  searchParams?: URLSearchParams | Record<string, string>
+  searchParams?: URLSearchParams | Record<string, string | string[]>
 ) {
   if (!searchParams) {
     return "";
@@ -45,28 +49,32 @@ export function getCurrentQueryString(
   } else {
     Object.keys(searchParams).forEach((key) => {
       if (searchParams[key]) {
-        queryString.append(key, searchParams[key] ?? "");
+        queryString.append(key, getStringValue(searchParams[key]));
       }
     });
   }
   return queryString.toString();
 }
 
-export function createQueryStringFromObject(data: Record<string, string>) {
+export function createQueryStringFromObject(
+  data: Record<string, string | string[]>
+) {
   const queryString = new URLSearchParams();
   Object.keys(data).forEach((key) => {
     if (data[key]) {
-      queryString.append(key, data[key] ?? "");
+      queryString.append(key, getStringValue(data[key]));
     }
   });
   return queryString.toString();
 }
 
-export function createQueryParamsFromObject(data: Record<string, string>) {
-  const queryParams = {} as Record<string, string>;
+export function createQueryParamsFromObject(
+  data: Record<string, string | string[]>
+) {
+  const queryParams = {} as Record<string, string | string[]>;
   Object.keys(data).forEach((key) => {
     if (data[key]) {
-      queryParams[key] = data[key];
+      queryParams[key] = getStringValue(data[key]);
     }
   });
   return queryParams;
