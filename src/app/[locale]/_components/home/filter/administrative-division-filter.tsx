@@ -92,15 +92,17 @@ export default function AdministrativeDivisionFilter({
   function getSelectedMunicipalitiesDistrictsId() {
     const selectedMunicipalitiesObjects = getSelectedMunicipalitiesObjects();
 
-    return (
-      districts
-        .filter((district) =>
-          selectedMunicipalitiesObjects.some(
-            (municipality) => municipality.district_id === district.id
-          )
-        )
-        .map((district) => district.id) ?? []
+    // Create a Set of district IDs from the selected municipalities for fast lookup
+    const municipalityDistrictIds = new Set(
+      selectedMunicipalitiesObjects.map(
+        (municipality) => municipality.district_id
+      )
     );
+
+    // Filter districts using the Set for O(1) lookups
+    return districts
+      .filter((district) => municipalityDistrictIds.has(district.id))
+      .map((district) => district.id);
   }
 
   function getSelectedDistrictRegionId() {
@@ -135,9 +137,10 @@ export default function AdministrativeDivisionFilter({
 
     const selectedMunicipalitiesObjects = getSelectedMunicipalitiesObjects();
     if (!_.isEqual(selectedMunicipalitiesDistrictsId, selectedDistricts)) {
+      const selectedDistrictsSet = new Set(selectedDistricts);
       const newMunicipalities = selectedMunicipalitiesObjects
         .filter((municipality) =>
-          selectedDistricts?.includes(municipality.district_id)
+          selectedDistrictsSet.has(municipality.district_id)
         )
         .map((municipality) => municipality.id);
       form.setValue("municipalities", newMunicipalities);
