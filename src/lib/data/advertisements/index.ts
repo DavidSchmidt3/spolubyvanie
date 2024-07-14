@@ -1,8 +1,12 @@
 "use server";
-import { type AdvertisementFullSchemaValues } from "@/lib/data/advertisements/schema";
+import {
+  ADVERTISEMENTS_FILTER_SCHEMA,
+  type AdvertisementFullSchemaValues,
+} from "@/lib/data/advertisements/schema";
 import { db } from "@/lib/utils/prisma";
 import { type Prisma } from "@prisma/client";
 import { unstable_cache as next_cache } from "next/cache";
+import { type ParsedUrlQuery } from "querystring";
 
 function getFormattedAdvertisement(
   advertisement: Awaited<ReturnType<typeof fetchAdvertisements>>[0][number]
@@ -114,9 +118,6 @@ export const getAdvertisementsFiltered = async ({
     paginationData,
   };
 };
-
-import { ADVERTISEMENTS_FILTER_SCHEMA } from "@/lib/data/advertisements/schema";
-import { type ParsedUrlQuery } from "querystring";
 
 export async function getAdvertisements(
   searchParams: ParsedUrlQuery,
