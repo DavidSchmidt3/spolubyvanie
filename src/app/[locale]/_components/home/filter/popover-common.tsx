@@ -19,7 +19,7 @@ import {
   PopoverTrigger,
 } from "@/app/[locale]/_components/ui/popover";
 import { useCombobox } from "@/hooks/combobox";
-import { type AdvertisementFilterFormValues } from "@/lib/data/actions/advertisements/schema";
+import { type AdvertisementFilterFormValues } from "@/lib/data/advertisements/schema";
 import {
   type ControllerRenderProps,
   type UseFormReturn,

@@ -6,27 +6,25 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/app/[locale]/_components/ui/pagination";
-import { type AdvertisementFilterFormValues } from "@/lib/data/actions/advertisements/schema";
 import { type AdvertisementMeta } from "@/lib/data/advertisements";
-import { type SafeParseReturnType } from "zod";
+import { ADVERTISEMENTS_FILTER_SCHEMA } from "@/lib/data/advertisements/schema";
+import { type ParsedUrlQuery } from "querystring";
 
 type Props = {
   paginationData: AdvertisementMeta;
-  safelyParsedSearchParams: SafeParseReturnType<
-    AdvertisementFilterFormValues,
-    AdvertisementFilterFormValues
-  >;
+  searchParams: ParsedUrlQuery;
   page: string;
 };
 
 export default function AdvertisementPagination({
   paginationData,
-  safelyParsedSearchParams,
+  searchParams,
   page,
 }: Props) {
   // component is either way rendered only if paginationData is present
   const { isFirstPage, isLastPage, currentPage, pageCount } = paginationData!;
-  const currentQueryString = safelyParsedSearchParams.data;
+  const { data: currentQueryString } =
+    ADVERTISEMENTS_FILTER_SCHEMA.safeParse(searchParams);
 
   return (
     <Pagination>
