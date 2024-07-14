@@ -1,7 +1,6 @@
 import Loading from "@/app/[locale]/[page]/loading";
 import AdvertisementList from "@/app/[locale]/_components/home/advertisement-list";
 import AdvertisementFilterDataFetcher from "@/app/[locale]/_components/home/filter/adverisement-filter-data-fetcher";
-import { ADVERTISEMENTS_FILTER_SCHEMA } from "@/lib/data/actions/advertisements/schema";
 import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
 import { createQueryStringFromObject } from "@/lib/utils/localization/navigation";
 import { NextIntlClientProvider } from "next-intl";
@@ -17,12 +16,9 @@ type Props = {
 };
 
 export default async function Home({ params, searchParams }: Props) {
-  const safelyParsedSearchParams =
-    ADVERTISEMENTS_FILTER_SCHEMA.safeParse(searchParams);
-
   const messages = await getMessages();
   const queryString = createQueryStringFromObject(
-    safelyParsedSearchParams?.data ?? {}
+    searchParams as Record<string, string | string[]>
   );
   const keyString = `search=${queryString}`;
 
@@ -39,10 +35,7 @@ export default async function Home({ params, searchParams }: Props) {
       <div className="flex flex-col justify-start h-full overflow-auto">
         <Suspense fallback={<Loading />} key={keyString}>
           <AdvertisementFilterDataFetcher />
-          <AdvertisementList
-            page={params.page}
-            safelyParsedSearchParams={safelyParsedSearchParams}
-          />
+          <AdvertisementList page={params.page} searchParams={searchParams} />
         </Suspense>
       </div>
     </NextIntlClientProvider>

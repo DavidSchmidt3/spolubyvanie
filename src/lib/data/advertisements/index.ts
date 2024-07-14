@@ -1,5 +1,5 @@
 "use server";
-import { type AdvertisementFullSchemaValues } from "@/lib/data/actions/advertisements/schema";
+import { type AdvertisementFullSchemaValues } from "@/lib/data/advertisements/schema";
 import { db } from "@/lib/utils/prisma";
 import { type Prisma } from "@prisma/client";
 import { unstable_cache as next_cache } from "next/cache";
@@ -114,3 +114,25 @@ export const getAdvertisementsFiltered = async ({
     paginationData,
   };
 };
+
+import { ADVERTISEMENTS_FILTER_SCHEMA } from "@/lib/data/advertisements/schema";
+import { type ParsedUrlQuery } from "querystring";
+
+export async function getAdvertisements(
+  searchParams: ParsedUrlQuery,
+  page: string
+) {
+  const safelyParsedSearchParams =
+    ADVERTISEMENTS_FILTER_SCHEMA.safeParse(searchParams);
+
+  const paramsNumber = Object.keys(safelyParsedSearchParams.data ?? {}).length;
+  if (
+    // If the page is 1 and there is only one parameter, it means that the user wants to get the cached data on first page
+    page === "1" &&
+    paramsNumber === 1
+  ) {
+    return getAdvertisementsCached();
+  }
+
+  return getAdvertisementsFiltered({ ...safelyParsedSearchParams.data, page });
+}

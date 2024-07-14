@@ -10,12 +10,12 @@ import {
 } from "@/app/[locale]/_components/ui/credenza";
 import { Form } from "@/app/[locale]/_components/ui/form";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
-import { type AdvertisementFilterFormValues } from "@/lib/data/actions/advertisements/schema";
 import {
   type getDistricts,
   type getMunicipalities,
   type getRegions,
 } from "@/lib/data/administrative-divisions";
+import { type AdvertisementFilterFormValues } from "@/lib/data/advertisements/schema";
 import { useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 import { type UseFormReturn } from "react-hook-form";
