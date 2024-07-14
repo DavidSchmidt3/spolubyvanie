@@ -1,12 +1,12 @@
 import PopoverFilterField from "@/app/[locale]/_components/home/filter/popover-filter-field";
 import PopoverMultiselectFilterField from "@/app/[locale]/_components/home/filter/popover-multiselect-filter-field";
 import usePrevious from "@/hooks/previous-value";
-import { type AdvertisementFilterFormValues } from "@/lib/data/actions/advertisements/schema";
 import {
   type District,
   type Municipality,
   type Region,
 } from "@/lib/data/administrative-divisions";
+import { type AdvertisementFilterFormValues } from "@/lib/data/advertisements/schema";
 import _ from "lodash";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
