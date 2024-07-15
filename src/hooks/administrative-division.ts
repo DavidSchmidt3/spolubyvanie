@@ -169,6 +169,7 @@ export const useAdministrativeDivision = ({
 
     const selectedMunicipalitiesDistrictsId =
       getSelectedMunicipalitiesDistrictsId();
+
     if (!_.isEqual(selectedMunicipalitiesDistrictsId, selectedDistrict)) {
       setValue(
         "municipality",
@@ -210,12 +211,7 @@ export const useAdministrativeDivision = ({
     if (!selectedDistrict?.length) {
       const selectedMunicipalitiesDistrictsId =
         getSelectedMunicipalitiesDistrictsId();
-      setValue(
-        "district",
-        typeof selectedDistrict === "string"
-          ? selectedMunicipalitiesDistrictsId[0] ?? ""
-          : selectedMunicipalitiesDistrictsId
-      );
+      setValue("district", selectedMunicipalitiesDistrictsId);
     }
   }
 
