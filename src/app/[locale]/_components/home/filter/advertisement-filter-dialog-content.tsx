@@ -41,7 +41,7 @@ export default function AdvertisementFilterDialogContent({
 }: Props) {
   "use no memo";
   const router = useRouter();
-  const t = useTranslations("translations.advertisement");
+  const t = useTranslations("translations.advertisement_list");
   return (
     <CredenzaContent className="max-w-3xl pb-8 bottom-0 h-fit">
       <CredenzaHeader>

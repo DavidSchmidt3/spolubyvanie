@@ -1,19 +1,13 @@
 import { TransitionLink } from "@/app/[locale]/_components/common/transition-link";
-import { cn } from "@/lib/utils";
+import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { useTranslations } from "next-intl";
 
-export function MainNav({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLElement>) {
+export function MainNav({ ...props }: React.HTMLAttributes<HTMLElement>) {
   const t = useTranslations("translations");
 
   return (
     <nav
-      className={cn(
-        "flex gap-5 items-center space-x-4 lg:space-x-6",
-        className
-      )}
+      className="flex items-center gap-2 space-x-2 sm:space-x-6 sm:gap-5 lg:space-x-6 sm:mx-6"
       {...props}
     >
       <TransitionLink
@@ -23,16 +17,25 @@ export function MainNav({
         }}
         className="text-base sm:text-lg"
       >
-        {t("navigation.home.label")}
+        <div className="flex items-center gap-x-1 sm:gap-x-2">
+          <Icons.home className="w-4 h-4" />
+          <p>{t("navigation.home.label")}</p>
+        </div>
       </TransitionLink>
       <TransitionLink
         href="/add-advertisement"
-        className="text-base sm:text-lg"
+        className="text-base text-center sm:text-lg"
       >
-        {t("navigation.add_advertisement.label")}
+        <div className="flex items-center gap-x-1 sm:gap-x-2">
+          <Icons.plus className="w-5 h-5" />
+          <p>{t("navigation.add_advertisement.label")}</p>
+        </div>
       </TransitionLink>
-      <TransitionLink href="/contact" className="hidden sm:block text-lg">
-        {t("navigation.contact.label")}
+      <TransitionLink href="/contact" className="hidden text-lg sm:block">
+        <div className="flex items-center gap-x-2">
+          <Icons.person className="w-5 h-5" />
+          <p>{t("navigation.contact.label")}</p>
+        </div>
       </TransitionLink>
     </nav>
   );

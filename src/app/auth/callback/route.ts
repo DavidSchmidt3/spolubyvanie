@@ -29,15 +29,11 @@ export async function GET(request: Request) {
       }
     );
     const { error } = await supabase.auth.exchangeCodeForSession(code);
-    console.error(error);
     if (!error) {
-      // TODO: redirect to auth error page indicating error
       return NextResponse.redirect(`${origin}${next}`);
     }
+    console.error("Error logging in:", error);
   }
 
-  console.error("Error");
-  // return the user to an error page with instructions
-  // TODO: redirect to auth error page indicating error
-  return NextResponse.redirect(`${origin}/`);
+  return NextResponse.redirect(`${origin}/error`);
 }

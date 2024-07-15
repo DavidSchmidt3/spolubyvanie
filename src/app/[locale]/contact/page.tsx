@@ -5,7 +5,7 @@ export default function Page() {
   const t = useTranslations("translations");
   return (
     <Container>
-      <h1 className="text-xl">
+      <h1 className="text-xl text-center">
         {t("contact.title")}{" "}
         <a
           href="mailto:

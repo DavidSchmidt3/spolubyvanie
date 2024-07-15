@@ -50,6 +50,7 @@ export default function AdvertisementFilterDialog({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const t = useTranslations("translations.advertisement_list");
 
   const defaultValues = useMemo<AdvertisementFilterFormValues>(() => {
     return {
@@ -66,8 +67,6 @@ export default function AdvertisementFilterDialog({
     schema: ADVERTISEMENTS_FILTER_SCHEMA,
     defaultValues,
   });
-
-  const t = useTranslations("translations");
 
   async function onSubmit(data: AdvertisementFilterFormValues) {
     const currentQueryString = getCurrentQueryString(searchParams);
@@ -106,11 +105,9 @@ export default function AdvertisementFilterDialog({
     <Card className="rounded-none">
       <CardContent className="flex flex-col items-center justify-between px-5 py-5 sm:px-10 sm:flex-row gap-y-4 gap-x-6">
         <div className="flex flex-col gap-y-4">
-          <h1 className="text-xl font-bold sm:text-3xl">
-            {t("advertisement.title")}
-          </h1>
+          <h1 className="text-xl font-bold sm:text-3xl">{t("title")}</h1>
           <h2 className="text-justify text-base sm:text-lg">
-            {t("advertisement.description")}
+            {t("description")}
           </h2>
         </div>
         <div className="flex flex-col gap-4">
@@ -121,7 +118,7 @@ export default function AdvertisementFilterDialog({
                 variant="outline"
               >
                 <Icons.filter className="w-8 h-8" />
-                {t("advertisement.filter.title")}
+                {t("filter.title")}
               </Button>
             </CredenzaTrigger>
             {initialized && (

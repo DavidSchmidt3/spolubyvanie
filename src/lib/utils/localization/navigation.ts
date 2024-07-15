@@ -48,7 +48,7 @@ export function getCurrentQueryString(
     }
   } else {
     Object.keys(searchParams).forEach((key) => {
-      if (searchParams[key]) {
+      if (searchParams[key]?.length) {
         queryString.append(key, getStringValue(searchParams[key]));
       }
     });
@@ -61,7 +61,7 @@ export function createQueryStringFromObject(
 ) {
   const queryString = new URLSearchParams();
   Object.keys(data).forEach((key) => {
-    if (data[key]) {
+    if (data[key]?.length) {
       queryString.append(key, getStringValue(data[key]));
     }
   });
@@ -73,7 +73,7 @@ export function createQueryParamsFromObject(
 ) {
   const queryParams = {} as Record<string, string | string[]>;
   Object.keys(data).forEach((key) => {
-    if (data[key]) {
+    if (data[key]?.length) {
       queryParams[key] = getStringValue(data[key]);
     }
   });

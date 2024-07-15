@@ -41,9 +41,9 @@ export default async function RootLayout({
       >
         <ThemeProvider>
           <div className="flex flex-col h-full">
-            <div className="fixed top-0 left-0 z-10 flex items-center w-full h-16 px-4 py-4 border-b bg-background">
-              <MainNav className="mx-6" />
-              <div className="flex items-center ml-auto space-x-4">
+            <div className="fixed top-0 left-0 z-10 flex items-center w-full h-16 py-4 pl-5 pr-2 border-b sm:px-4 bg-background">
+              <MainNav />
+              <div className="flex items-center ml-auto sm:space-x-4">
                 <Suspense fallback={<Loader height={32} />}>
                   <UserNav />
                   <ThemeLocaleInitializer />

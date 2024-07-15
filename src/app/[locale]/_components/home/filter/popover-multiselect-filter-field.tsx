@@ -4,26 +4,38 @@ import PopoverCommon, {
 } from "@/app/[locale]/_components/home/filter/popover-common";
 import { Badge } from "@/app/[locale]/_components/ui/badge";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
+import { type AdvertisementAddFormValues } from "@/lib/data/actions/add-advertisement/schema";
+import { type AdvertisementFilterFormValues } from "@/lib/data/advertisements/schema";
 import { ChevronDown } from "lucide-react";
-import { type ControllerRenderProps } from "react-hook-form";
+import {
+  type ControllerRenderProps,
+  type UseFormGetValues,
+  type UseFormSetValue,
+} from "react-hook-form";
 
 export default function PopoverMultiselectFilterField(
   props: CommonPopoverFieldProps
 ) {
   const { form, filterData, fieldName, selectRowText } = props;
+  const setValue = form.setValue as UseFormSetValue<
+    AdvertisementAddFormValues | AdvertisementFilterFormValues
+  >;
+  const getValues = form.getValues as UseFormGetValues<
+    AdvertisementAddFormValues | AdvertisementFilterFormValues
+  >;
 
   function handleUnselect(row: FilterData) {
-    const value = form.getValues(fieldName);
+    const value = getValues(fieldName);
     const newValue = Array.isArray(value)
       ? value?.filter((id) => id !== row.id)
       : [];
-    form.setValue(fieldName, newValue);
+    setValue(fieldName, newValue);
   }
 
   function handleAddValue(row: string) {
-    const value = form.getValues(fieldName);
+    const value = getValues(fieldName);
     const newValue = value ? [...value, row] : [row];
-    form.setValue(fieldName, newValue);
+    setValue(fieldName, newValue);
   }
 
   return (

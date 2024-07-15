@@ -1,12 +1,11 @@
 import PopoverFilterField from "@/app/[locale]/_components/home/filter/popover-filter-field";
-import PopoverMultiselectFilterField from "@/app/[locale]/_components/home/filter/popover-multiselect-filter-field";
 import { useAdministrativeDivision } from "@/hooks/administrative-division";
+import { type AdvertisementAddFormValues } from "@/lib/data/actions/add-advertisement/schema";
 import {
   type District,
   type Municipality,
   type Region,
 } from "@/lib/data/administrative-divisions";
-import { type AdvertisementFilterFormValues } from "@/lib/data/advertisements/schema";
 import { useTranslations } from "next-intl";
 import { type UseFormReturn } from "react-hook-form";
 
@@ -14,23 +13,15 @@ type Props = {
   regions: Region[];
   districts: District[];
   municipalities: Municipality[];
-  form: UseFormReturn<AdvertisementFilterFormValues>;
+  form: UseFormReturn<AdvertisementAddFormValues>;
 };
 
-export type FilterData = {
-  id: string;
-  name: string;
-  region_id?: string;
-  district_id?: string;
-};
-
-export default function AdministrativeDivisionFilter({
+export default function AdministrativeDivisionSelect({
   regions,
   districts,
   municipalities,
   form,
 }: Props) {
-  "use no memo";
   const t = useTranslations("translations.advertisement");
   const { filterMunicipality, filterDistrict, filterRegion } =
     useAdministrativeDivision({
@@ -41,7 +32,7 @@ export default function AdministrativeDivisionFilter({
     });
 
   return (
-    <div className="flex flex-col gap-y-2 gap-x-4 sm:gap-x-8 order-2 sm:order-1">
+    <div className="flex flex-col gap-y-2 gap-x-4 sm:gap-x-8 order-2 sm:order-1 sm:min-w-96">
       <PopoverFilterField
         filterData={regions}
         filterFunction={filterRegion}
@@ -52,7 +43,7 @@ export default function AdministrativeDivisionFilter({
         fieldName="region"
         form={form}
       />
-      <PopoverMultiselectFilterField
+      <PopoverFilterField
         filterData={districts}
         filterFunction={filterDistrict}
         placeholderText={t("district.search_placeholder")}
@@ -62,7 +53,7 @@ export default function AdministrativeDivisionFilter({
         form={form}
         fieldName="district"
       />
-      <PopoverMultiselectFilterField
+      <PopoverFilterField
         filterData={municipalities}
         filterFunction={filterMunicipality}
         placeholderText={t("municipality.search_placeholder")}

@@ -14,7 +14,7 @@
         "label": "Guest"
       },
       "add_advertisement": {
-        "label": "Add Advertisement"
+        "label": "Add advertisement"
       },
       "contact": {
         "label": "Contact"
@@ -118,8 +118,6 @@
       "button": "Change Password"
     },
     "advertisement": {
-      "title": "Discover Your Perfect Shared Living Space",
-      "description": "Browse our top listings for affordable and convenient co-living",
       "region": {
         "title": "Region",
         "search_placeholder": "Search region...",
@@ -149,7 +147,11 @@
         "offering_room": "Offering room",
         "searching_apartment": "Searching apartment",
         "offering_apartment": "Offering apartment"
-      },
+      }
+    },
+    "advertisement_list": {
+      "title": "Discover Your Perfect Shared Living Space",
+      "description": "Browse our top listings for affordable and convenient co-living",
       "filter": {
         "title": "Filter advertisements",
         "button": "Search advertisements",
@@ -163,6 +165,13 @@
     },
     "contact": {
       "title": "If you have any questions, please contact me at"
+    },
+    "add_advertisement": {
+      "title": "Add advertisement",
+      "login_prompt": {
+        "title": "You need to be logged in to add an advertisement",
+        "link": "Login"
+      }
     }
   }
 }

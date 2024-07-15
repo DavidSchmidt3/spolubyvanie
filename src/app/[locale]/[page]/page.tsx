@@ -26,6 +26,7 @@ export default async function Home({ params, searchParams }: Props) {
     <NextIntlClientProvider
       messages={pickLocaleMessages(messages, [
         "translations.advertisement",
+        "translations.advertisement_list",
         "alerts.advertisement",
       ])}
     >

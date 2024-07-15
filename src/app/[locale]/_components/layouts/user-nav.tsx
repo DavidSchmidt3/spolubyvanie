@@ -42,8 +42,11 @@ export default async function UserNav() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <TransitionLink href="/settings" className="w-full">
-          <DropdownMenuItem className="cursor-pointer hover:bg-accent/90 text-base">
-            {t("settings.title")}
+          <DropdownMenuItem className="text-base cursor-pointer hover:bg-accent/90">
+            <div className="flex items-center gap-x-2">
+              <Icons.settings />
+              {t("settings.title")}
+            </div>
           </DropdownMenuItem>
         </TransitionLink>
         {user ? (
@@ -52,17 +55,23 @@ export default async function UserNav() {
               <Button
                 aria-label={t("logout.button")}
                 variant="ghost"
-                className="w-full p-0 hover:bg-accent/90 text-left justify-start h-6 cursor-pointer text-base"
+                className="justify-start w-full h-6 p-0 text-base text-left cursor-pointer hover:bg-accent/90"
                 type="submit"
               >
-                {t("logout.button")}
+                <div className="flex items-center gap-x-2">
+                  <Icons.door />
+                  {t("logout.button")}
+                </div>
               </Button>
             </form>
           </DropdownMenuItem>
         ) : (
           <TransitionLink href="/login" className="w-full">
-            <DropdownMenuItem className="cursor-pointer hover:bg-accent/90 text-base">
-              {t("login.button")}
+            <DropdownMenuItem className="text-base cursor-pointer hover:bg-accent/90">
+              <div className="flex items-center gap-x-2">
+                <Icons.person />
+                {t("login.button")}
+              </div>
             </DropdownMenuItem>
           </TransitionLink>
         )}

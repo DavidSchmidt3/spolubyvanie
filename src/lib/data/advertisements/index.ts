@@ -75,8 +75,8 @@ export const getAdvertisementsCached = next_cache(async () => {
 }, ["advertisements"]);
 
 export const getAdvertisementsFiltered = async ({
-  municipalities,
-  districts,
+  municipality,
+  district,
   region,
   price_min,
   price_max,
@@ -86,11 +86,11 @@ export const getAdvertisementsFiltered = async ({
   const [advertisements, paginationData] = await fetchAdvertisements(
     {
       where: {
-        municipality_id: municipalities?.length
+        municipality_id: municipality?.length
           ? {
-              in: Array.isArray(municipalities)
-                ? municipalities
-                : municipalities.split(","),
+              in: Array.isArray(municipality)
+                ? municipality
+                : municipality.split(","),
             }
           : undefined,
         price: {
@@ -98,9 +98,9 @@ export const getAdvertisementsFiltered = async ({
           lte: price_max ? parseInt(price_max) : undefined,
         },
         municipalities: {
-          district_id: districts?.length
+          district_id: district?.length
             ? {
-                in: Array.isArray(districts) ? districts : districts.split(","),
+                in: Array.isArray(district) ? district : district.split(","),
               }
             : undefined,
           districts: {
