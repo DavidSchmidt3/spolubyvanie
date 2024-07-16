@@ -12,11 +12,11 @@ export const adTypeKeys = {
   [AdType.OfferingApartment]: "offering_apartment",
 } as const;
 
-export const createAdTypeRegex = (): RegExp => {
+export const createAdTypeRegex = (isRequired = false): RegExp => {
   const adTypeValues = Object.values(AdType).filter(
     (value) => typeof value === "number"
   );
 
   const adTypePattern = adTypeValues.join("|");
-  return new RegExp(`^(${adTypePattern})?$`);
+  return new RegExp(`^(${adTypePattern})${isRequired ? "" : "?"}$`);
 };
