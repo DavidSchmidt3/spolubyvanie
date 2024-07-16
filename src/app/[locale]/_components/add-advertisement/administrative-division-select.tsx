@@ -32,7 +32,7 @@ export default function AdministrativeDivisionSelect({
     });
 
   return (
-    <div className="flex flex-col gap-y-2 gap-x-4 sm:gap-x-8 order-2 sm:order-1 sm:min-w-96">
+    <div className="flex flex-col gap-y-2 gap-x-4 sm:gap-x-8">
       <PopoverFilterField
         filterData={regions}
         filterFunction={filterRegion}
