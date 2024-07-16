@@ -97,6 +97,44 @@
         "title": "Failed to filter advertisements"
       }
     },
+    "add_advertisement": {
+      "region": {
+        "required": "Region is required"
+      },
+      "district": {
+        "required": "District is required"
+      },
+      "municipality": {
+        "required": "Municipality is required"
+      },
+      "price": {
+        "required": "Price is required"
+      },
+      "type": {
+        "required": "Advertisement type is required"
+      },
+      "street": {
+        "required": "Street is required"
+      },
+      "description": {
+        "min_length": "Description must be at least 100 characters long",
+        "max_length": "Description must be at most 5000 characters long"
+      },
+      "title": {
+        "min_length": "Title must be at least 10 characters long"
+      },
+      "available_from": {
+        "required": "Please enter a valid date"
+      },
+      "files": {
+        "only_one_allowed": "Only one file is allowed",
+        "maximum_exceeded": "Maximum number of files exceeded",
+        "file_rejected": "File rejected",
+        "uploading": "Uploading in progress",
+        "upload_success": "File uploaded successfully",
+        "upload_error": "File upload failed"
+      }
+    },
     "global": {
       "error": {
         "description": "Unexpected error, please try again later"

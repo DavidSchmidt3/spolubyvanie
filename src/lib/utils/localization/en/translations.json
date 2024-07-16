@@ -171,6 +171,64 @@
       "login_prompt": {
         "title": "You need to be logged in to add an advertisement",
         "link": "Login"
+      },
+      "location": {
+        "title": "Location"
+      },
+      "general": {
+        "title": "General information"
+      },
+      "details": {
+        "title": "Additional details"
+      },
+      "photos": {
+        "title": "Photos",
+        "description": "Add up to 5 photos of your advertisement (max 2MB each)",
+        "dropzone": {
+          "label": "Drag and drop photos here or click to upload",
+          "remove_file": "Remove file"
+        }
+      },
+      "submit": {
+        "button": "Add advertisement"
+      },
+      "form": {
+        "available_from": {
+          "label": "Available from",
+          "pick_a_date": "Pick a date"
+        },
+        "price": {
+          "label": "Price (€)",
+          "placeholder": "Monthly price"
+        },
+        "description": {
+          "label": "Advertisement description",
+          "placeholder": "Describe your advertisement"
+        },
+        "title": {
+          "label": "Advertisement title",
+          "placeholder": "Title of your advertisement"
+        },
+        "street": {
+          "label": "Street",
+          "placeholder": "Street"
+        },
+        "room_area": {
+          "label": "Room area(m²)",
+          "placeholder": "Room area"
+        },
+        "apartment_area": {
+          "label": "Apartment area(m²)",
+          "placeholder": "Apartment area"
+        },
+        "floor": {
+          "label": "Apartment floor",
+          "placeholder": "Apartment floor"
+        },
+        "max_floor": {
+          "label": "Floor (top)",
+          "placeholder": "Floor (top)"
+        }
       }
     }
   }

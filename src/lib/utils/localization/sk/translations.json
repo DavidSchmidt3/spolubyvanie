@@ -171,6 +171,64 @@
       "login_prompt": {
         "title": "Pre pridanie inzerátu sa musíte prihlásiť",
         "link": "Prihlásiť sa"
+      },
+      "location": {
+        "title": "Lokalita"
+      },
+      "general": {
+        "title": "Základné informácie"
+      },
+      "details": {
+        "title": "Doplňujúce informácie"
+      },
+      "photos": {
+        "title": "Fotografie",
+        "description": "Pridajte fotografie vášho inzerátu (maximálne 5 fotografií vo veľkosti do 2 MB pre každú)",
+        "dropzone": {
+          "label": "Pretiahnite súbor sem alebo kliknite pre nahratie",
+          "remove_file": "Odstrániť súbor"
+        }
+      },
+      "submit": {
+        "button": "Pridať inzerát"
+      },
+      "form": {
+        "available_from": {
+          "label": "Dostupné od",
+          "pick_a_date": "Vybrať dátum"
+        },
+        "price": {
+          "label": "Cena (€)",
+          "placeholder": "Cena za mesiac"
+        },
+        "description": {
+          "label": "Popis inzerátu",
+          "placeholder": "Napíšte niečo o inzeráte"
+        },
+        "title": {
+          "label": "Názov inzerátu",
+          "placeholder": "Názov inzerátu"
+        },
+        "street": {
+          "label": "Ulica",
+          "placeholder": "Ulica"
+        },
+        "room_area": {
+          "label": "Veľkosť izby (m²)",
+          "placeholder": "Veľkosť izby"
+        },
+        "apartment_area": {
+          "label": "Veľkosť bytu (m²)",
+          "placeholder": "Veľkosť bytu"
+        },
+        "floor": {
+          "label": "Poschodie bytu",
+          "placeholder": "Poschodie bytu"
+        },
+        "max_floor": {
+          "label": "Poschodie (najvyššie)",
+          "placeholder": "Poschodie (najvyššie)"
+        }
       }
     }
   }

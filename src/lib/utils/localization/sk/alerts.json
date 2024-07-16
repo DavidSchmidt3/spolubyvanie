@@ -97,6 +97,44 @@
         "title": "Nepodarilo sa filtrovať inzeráty"
       }
     },
+    "add_advertisement": {
+      "region": {
+        "required": "Kraj je povinný"
+      },
+      "district": {
+        "required": "Okres je povinný"
+      },
+      "municipality": {
+        "required": "Obec je povinná"
+      },
+      "price": {
+        "required": "Prosím zadajte cenu"
+      },
+      "type": {
+        "required": "Prosím vyberte typ inzerátu"
+      },
+      "street": {
+        "required": "Ulica je povinná"
+      },
+      "description": {
+        "min_length": "Popis musí mať aspoň 100 znakov",
+        "max_length": "Popis musí mať najviac 5000 znakov"
+      },
+      "title": {
+        "min_length": "Názov musí mať aspoň 10 znakov"
+      },
+      "available_from": {
+        "required": "Prosím zadajte platný dátum"
+      },
+      "files": {
+        "only_one_allowed": "Povolený je iba jeden súbor",
+        "maximum_exceeded": "Prekročený maximálny počet súborov",
+        "file_rejected": "Súbor bol zamietnutý",
+        "uploading": "Prebieha nahrávanie",
+        "upload_success": "Nahrávanie bolo úspešné",
+        "upload_error": "Nahrávanie sa nepodarilo"
+      }
+    },
     "global": {
       "error": {
         "description": "Vyskytla sa neočakávaná chyba, skúste to znova neskôr"
