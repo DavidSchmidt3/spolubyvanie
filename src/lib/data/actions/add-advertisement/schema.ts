@@ -2,35 +2,42 @@ import { createAdTypeRegex } from "@/lib/data/advertisements/types";
 import * as z from "zod";
 
 export const ADVERTISEMENT_ADD_SCHEMA = z.object({
-  user_id: z.string().uuid(),
-  region: z.string().uuid(),
-  district: z.string().uuid(),
-  municipality: z.string().uuid(),
-  price: z.string().regex(/^\d+$/, {
-    message: "TODO: ",
+  region: z.string().uuid({
+    message: "alerts.add_advertisement.region.required",
   }),
-  type: z
-    .string()
-    .regex(createAdTypeRegex())
-    .or(z.literal(""))
-    .or(z.undefined()),
-  street: z.string(),
-  apartment_area: z.string().regex(/^\d+$/).or(z.undefined()),
-  room_area: z.string().regex(/^\d+$/).or(z.undefined()),
-  floor: z.string().regex(/^\d+$/).or(z.undefined()),
-  max_floor: z.string().regex(/^\d+$/).or(z.undefined()),
+  district: z.string().uuid({
+    message: "alerts.add_advertisement.district.required",
+  }),
+  municipality: z.string().uuid({
+    message: "alerts.add_advertisement.municipality.required",
+  }),
+  price: z.string().regex(/^\d+$/, {
+    message: "alerts.add_advertisement.price.required",
+  }),
+  advertisement_type: z.string().regex(createAdTypeRegex(true), {
+    message: "alerts.add_advertisement.type.required",
+  }),
+  street: z.string().min(2, {
+    message: "alerts.add_advertisement.street.required",
+  }),
+  apartment_area: z.string().regex(/^\d+$/).or(z.literal("")),
+  room_area: z.string().regex(/^\d+$/).or(z.literal("")),
+  floor: z.string().regex(/^\d+$/).or(z.literal("")),
+  max_floor: z.string().regex(/^\d+$/).or(z.literal("")),
   description: z
     .string()
     .min(100, {
-      message: "TODO: ",
+      message: "alerts.add_advertisement.description.min_length",
     })
     .max(5000, {
-      message: "TODO: ",
+      message: "alerts.add_advertisement.description.max_length",
     }),
   title: z.string().min(10, {
-    message: "TODO: ",
+    message: "alerts.add_advertisement.title.min_length",
   }),
-  available_from: z.string().date(),
+  available_from: z.date({
+    message: "alerts.add_advertisement.available_from.required",
+  }),
   primary_photo: z.string().url(),
   photos: z.array(z.string().url()).max(10),
 });
