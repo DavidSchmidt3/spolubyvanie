@@ -14,19 +14,32 @@ import {
   SelectValue,
 } from "@/app/[locale]/_components/ui/select";
 import SelectCancelButton from "@/app/[locale]/_components/ui/select-cancel-button";
+import { type AdvertisementAddFormValues } from "@/lib/data/actions/add-advertisement/schema";
 import { type AdvertisementFilterFormValues } from "@/lib/data/advertisements/schema";
 import { adTypeKeys, type AdType } from "@/lib/data/advertisements/types";
 import { type MessageKeys } from "global";
 import { useTranslations } from "next-intl";
-import { type Control, type UseFormSetValue } from "react-hook-form";
+import {
+  type Control,
+  type UseFormReturn,
+  type UseFormSetValue,
+} from "react-hook-form";
 
 type Props = {
-  control: Control<AdvertisementFilterFormValues>;
-  setValue: UseFormSetValue<AdvertisementFilterFormValues>;
+  form:
+    | UseFormReturn<AdvertisementFilterFormValues>
+    | UseFormReturn<AdvertisementAddFormValues>;
 };
 
-export function AdvertisementTypeFilter({ control, setValue }: Props) {
+export function AdvertisementTypeFilter({ form }: Props) {
   const t = useTranslations();
+
+  const control = form.control as Control<
+    AdvertisementFilterFormValues | AdvertisementAddFormValues
+  >;
+  const setValue = form.setValue as UseFormSetValue<
+    AdvertisementFilterFormValues | AdvertisementAddFormValues
+  >;
 
   return (
     <div className="relative flex flex-col justify-center w-full gap-1">

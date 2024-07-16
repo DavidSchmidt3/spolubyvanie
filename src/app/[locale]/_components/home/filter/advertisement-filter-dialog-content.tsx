@@ -59,10 +59,7 @@ export default function AdvertisementFilterDialogContent({
               />
               <div className="order-1 sm:order-2 flex flex-col gap-y-2 gap-x-4 sm:gap-x-8">
                 <PriceFilter control={form.control} />
-                <AdvertisementTypeFilter
-                  control={form.control}
-                  setValue={form.setValue}
-                />
+                <AdvertisementTypeFilter form={form} />
               </div>
               <div className="flex flex-col gap-y-4 order-3 my-2 sm:col-span-2">
                 <Button

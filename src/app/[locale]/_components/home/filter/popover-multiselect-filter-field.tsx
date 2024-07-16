@@ -52,7 +52,7 @@ export default function PopoverMultiselectFilterField(
                   <Badge
                     key={row.id}
                     variant="default"
-                    className="text-base py-0.5"
+                    className="text-base py-0.5 font-normal"
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
@@ -68,7 +68,7 @@ export default function PopoverMultiselectFilterField(
           </>
         ) : (
           <div className="flex justify-between relative w-full items-center">
-            <p className="text-base">{selectRowText}</p>
+            <p className="text-base font-normal">{selectRowText}</p>
             <ChevronDown className="h-4 w-4 opacity-50 z-10" />
           </div>
         );

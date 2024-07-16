@@ -25,13 +25,13 @@ export default function PopoverFilterField(props: CommonPopoverFieldProps) {
       popoverTriggerContent={(field: ControllerRenderProps) => {
         return filterData.find((row) => row.id === field.value) ? (
           <div className="flex items-center justify-start w-full">
-            <p className="text-wrap pr-4 text-base">
+            <p className="text-wrap pr-4 text-base font-normal">
               {filterData.find((row) => row.id === field.value)?.name}
             </p>
           </div>
         ) : (
           <div className="flex justify-between relative w-full items-center">
-            <p className="text-base">{selectRowText}</p>
+            <p className="text-base font-normal">{selectRowText}</p>
             <ChevronDown className="h-4 w-4 opacity-50 z-10" />
           </div>
         );
