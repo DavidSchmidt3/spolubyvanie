@@ -1,3 +1,4 @@
+import { enUS, sk } from "date-fns/locale";
 import { IntlErrorCode } from "next-intl";
 import { getRequestConfig } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -10,6 +11,14 @@ export const LOCALES_CODES = LOCALES.map((locale) => locale.code);
 export const DEFAULT_LOCALE = "sk";
 export const LOCALE_PREFIX = "always";
 export type Locale = (typeof LOCALES)[number]["code"];
+
+export function getLocaleForDate(locale: Locale) {
+  return locale === "en" ? enUS : sk;
+}
+
+export function getLocaleDateFormat(locale: Locale) {
+  return locale === "en" ? "MM/dd/yyyy" : "dd.MM.yyyy";
+}
 
 export default getRequestConfig(async ({ locale }) => {
   if (!LOCALES.some((l) => l.code === locale)) notFound();
