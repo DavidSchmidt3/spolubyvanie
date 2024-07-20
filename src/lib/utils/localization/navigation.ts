@@ -24,10 +24,6 @@ export async function pushRouteWithTransition<
   body?.classList.add("page-transition");
   await new Promise((resolve) => setTimeout(resolve, 200));
   router.push(href as HrefOrHrefWithParams<Pathname>);
-
-  await new Promise((resolve) => setTimeout(resolve, 200));
-
-  body?.classList.remove("page-transition");
 }
 
 function getStringValue(value: string | string[]) {

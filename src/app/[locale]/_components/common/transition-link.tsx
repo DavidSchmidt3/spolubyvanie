@@ -6,7 +6,7 @@ import {
   usePathname,
   useRouter,
 } from "@/lib/utils/localization/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 
 type TransitionLinkProps<Pathname extends keyof typeof pathnames> = {
   children: React.ReactNode;
@@ -30,6 +30,11 @@ export const TransitionLink = <Pathname extends keyof typeof pathnames>({
     if (href === pathname) return;
     await pushRouteWithTransition(href, router);
   }
+
+  useEffect(() => {
+    const body = document.querySelector("body");
+    body?.classList.remove("page-transition");
+  }, [pathname]);
 
   return (
     <Link
