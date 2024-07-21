@@ -344,7 +344,7 @@ export function FileUploader(props: FileUploaderProps) {
                 <FormControl>
                   <RadioGroup
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={field.value}
                     className="flex flex-col space-y-1"
                   >
                     <FormItem className="space-y-3">
