@@ -34,6 +34,7 @@ export const addAdvertisement = authActionClient
         ...rest
       } = data;
 
+      const asciiOnlyPrimaryPhoto = getAsciiName(primary_photo);
       const type = parseInt(advertisement_type) as AdType;
 
       await db.$transaction(async (tx) => {
@@ -60,7 +61,7 @@ export const addAdvertisement = authActionClient
           return;
         }
 
-        await uploadPhotos(photos, primary_photo, advertisementId, tx);
+        await uploadPhotos(photos, asciiOnlyPrimaryPhoto, advertisementId, tx);
         revalidateTag("advertisements");
       });
     } catch (error) {
@@ -78,7 +79,7 @@ async function uploadPhotos(
   const supabase = createClient();
 
   const uploadPromises = photos.map(async (photo) => {
-    const asciiOnlyName = photo.name.replace(/[^\x20-\x7E]/g, "");
+    const asciiOnlyName = getAsciiName(photo.name);
     const data = await supabase.storage
       .from("photos")
       .upload(`${advertisementId}/${asciiOnlyName}`, photo, {
@@ -111,4 +112,8 @@ async function uploadPhotos(
       },
     },
   });
+}
+
+function getAsciiName(name: string) {
+  return name.replace(/[^\x20-\x7E]/g, "");
 }
