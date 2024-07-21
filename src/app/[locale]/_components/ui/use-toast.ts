@@ -4,18 +4,30 @@ import type {
   ToastProps,
 } from "@/app/[locale]/_components/ui/toast";
 import { type MessageKeys } from "global";
+import { type TranslationValues } from "next-intl";
 import { useEffect, useState } from "react";
 
-const TOAST_LIMIT = 1;
+const TOAST_LIMIT = 10;
 const TOAST_REMOVE_DELAY = 10000;
 
-type ToasterToast = ToastProps & {
+export type MessageObject = {
+  message: MessageKeys<IntlMessages>;
+  param: TranslationValues;
+};
+
+export type ToastDescriptionType =
+  | MessageKeys<IntlMessages>
+  | MessageObject
+  | MessageKeys<IntlMessages>[]
+  | MessageObject[]
+  | MessageKeys<IntlMessages>[][]
+  | MessageObject[][];
+
+type ToastPropsWithOutTitle = Omit<ToastProps, "title">;
+type ToasterToast = ToastPropsWithOutTitle & {
   id: string;
-  title?: MessageKeys<IntlMessages>;
-  description?:
-    | MessageKeys<IntlMessages>
-    | MessageKeys<IntlMessages>[]
-    | MessageKeys<IntlMessages>[][];
+  title: MessageKeys<IntlMessages> | MessageObject;
+  description?: ToastDescriptionType;
   action?: ToastActionElement;
 };
 

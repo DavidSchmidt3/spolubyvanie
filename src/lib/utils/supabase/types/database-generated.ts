@@ -85,19 +85,16 @@ export type Database = {
         Row: {
           advertisement_id: string;
           id: string;
-          order: number;
           url: string;
         };
         Insert: {
           advertisement_id: string;
           id?: string;
-          order: number;
           url: string;
         };
         Update: {
           advertisement_id?: string;
           id?: string;
-          order?: number;
           url?: string;
         };
         Relationships: [

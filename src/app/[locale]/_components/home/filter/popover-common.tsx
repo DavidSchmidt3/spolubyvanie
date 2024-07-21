@@ -81,7 +81,7 @@ export default function PopoverCommonField({
         render={({ field }) => (
           <FormItem>
             <Popover open={open} onOpenChange={setOpen} modal={true}>
-              <div className="flex flex-col w-full gap-y-1 relative">
+              <div className="relative flex flex-col w-full gap-y-1">
                 <h4 className="text-base">{title}</h4>
                 <PopoverTrigger asChild>
                   <Button
@@ -90,7 +90,7 @@ export default function PopoverCommonField({
                     role="combobox"
                     aria-label={selectRowText}
                     aria-expanded={open}
-                    className="w-full min-h-12 h-auto"
+                    className="w-full h-auto min-h-12"
                   >
                     {popoverTriggerContent(field)}
                   </Button>
@@ -121,7 +121,7 @@ export default function PopoverCommonField({
                       >
                         {({ index, style }) => (
                           <CommandItem
-                            className="justify-start hover:cursor-pointer px-8 text-base"
+                            className="justify-start px-8 text-base hover:cursor-pointer"
                             key={finalData[index]?.id}
                             value={finalData[index]?.id}
                             onSelect={(value) => {

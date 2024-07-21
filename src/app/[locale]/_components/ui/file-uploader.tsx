@@ -3,17 +3,25 @@
 import { Button } from "@/app/[locale]/_components/ui/button";
 import { ScrollArea } from "@/app/[locale]/_components/ui/scroll-area";
 import { useControllableState } from "@/hooks/controllable-state";
+import { type AdvertisementAddFormValues } from "@/lib/data/actions/add-advertisement/schema";
 import { cn, formatBytes } from "@/lib/utils";
+import Compressor from "compressorjs";
+import { type MessageKeys } from "global";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import * as React from "react";
 import { useCallback, useEffect } from "react";
 import Dropzone, {
+  ErrorCode,
   type DropzoneProps,
   type FileRejection,
 } from "react-dropzone";
+import { type Control } from "react-hook-form";
+import { FormControl, FormField, FormItem } from "./form";
 import { Icons } from "./icons";
-import { useToast } from "./use-toast";
+import { Label } from "./label";
+import { RadioGroup, RadioGroupItem } from "./radio-group";
+import { useToast, type MessageObject } from "./use-toast";
 
 interface FileUploaderProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -30,15 +38,7 @@ interface FileUploaderProps extends React.HTMLAttributes<HTMLDivElement> {
    * @default undefined
    * @example onValueChange={(files) => setFiles(files)}
    */
-  onValueChange?: React.Dispatch<React.SetStateAction<File[]>>;
-
-  /**
-   * Function to be called when files are uploaded.
-   * @type (files: File[]) => Promise<void>
-   * @default undefined
-   * @example onUpload={(files) => uploadFiles(files)}
-   */
-  onUpload?: (files: File[]) => Promise<void>;
+  onValueChange?: (files: File[]) => void;
 
   /**
    * Progress of the uploaded files.
@@ -90,19 +90,24 @@ interface FileUploaderProps extends React.HTMLAttributes<HTMLDivElement> {
    * @example disabled
    */
   disabled?: boolean;
+
+  control: Control<AdvertisementAddFormValues>;
+
+  compressionQuality?: number;
 }
 
 export function FileUploader(props: FileUploaderProps) {
   const {
     value: valueProp,
     onValueChange,
-    onUpload,
     accept = { "image/*": [] },
     maxSize = 1024 * 1024 * 2,
     maxFiles = 1,
     multiple = false,
     disabled = false,
     className,
+    control,
+    compressionQuality = 1,
     ...dropzoneProps
   } = props;
   const { toast } = useToast();
@@ -112,11 +117,80 @@ export function FileUploader(props: FileUploaderProps) {
     onChange: onValueChange,
   });
 
+  function getErrorDescription(
+    error: ErrorCode,
+    fileName: string
+  ): MessageKeys<IntlMessages> | MessageObject {
+    if (error === ErrorCode.FileInvalidType) {
+      return {
+        message: "alerts.add_advertisement.photos.invalid_type",
+        param: { name: fileName },
+      };
+    }
+    if (error === ErrorCode.FileTooLarge) {
+      return {
+        message: "alerts.add_advertisement.photos.too_large",
+        param: { name: fileName },
+      };
+    }
+    if (error === ErrorCode.FileTooSmall) {
+      return {
+        message: "alerts.add_advertisement.photos.too_small",
+        param: { name: fileName },
+      };
+    }
+    if (error === ErrorCode.TooManyFiles) {
+      return "alerts.add_advertisement.photos.maximum_exceeded";
+    }
+    return {
+      message: "alerts.add_advertisement.photos.already_exists",
+      param: { name: fileName },
+    };
+  }
+
+  function compressFile(file: File): Promise<File> {
+    return new Promise<File>((resolve) => {
+      new Compressor(file, {
+        quality: compressionQuality,
+        success: (compressedFile) => {
+          if (compressedFile instanceof Blob) {
+            const convertedCompressedFile = new File(
+              [compressedFile],
+              file.name,
+              {
+                type: compressedFile.type,
+              }
+            );
+            resolve(
+              Object.assign(convertedCompressedFile, {
+                preview: URL.createObjectURL(convertedCompressedFile),
+              })
+            );
+          } else {
+            resolve(
+              Object.assign(compressedFile, {
+                preview: URL.createObjectURL(compressedFile),
+              })
+            );
+          }
+        },
+        error: (error) => {
+          console.error("Error compressing file", error);
+          resolve(
+            Object.assign(file, {
+              preview: URL.createObjectURL(file),
+            })
+          );
+        },
+      });
+    });
+  }
+
   const onDrop = useCallback(
     async (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
       if (!multiple && maxFiles === 1 && acceptedFiles.length > 1) {
         toast({
-          title: "alerts.add_advertisement.files.only_one_allowed",
+          title: "alerts.add_advertisement.photos.only_one_allowed",
           variant: "destructive",
         });
 
@@ -125,16 +199,14 @@ export function FileUploader(props: FileUploaderProps) {
 
       if ((files?.length ?? 0) + acceptedFiles.length > maxFiles) {
         toast({
-          title: "alerts.add_advertisement.files.maximum_exceeded",
+          title: "alerts.add_advertisement.photos.maximum_exceeded",
           variant: "destructive",
         });
         return;
       }
 
-      const newFiles = acceptedFiles.map((file) =>
-        Object.assign(file, {
-          preview: URL.createObjectURL(file),
-        })
+      const newFiles = await Promise.all(
+        acceptedFiles.map(async (file) => compressFile(file))
       );
 
       const updatedFiles = files ? [...files, ...newFiles] : newFiles;
@@ -142,37 +214,39 @@ export function FileUploader(props: FileUploaderProps) {
       setFiles(updatedFiles);
 
       if (rejectedFiles.length > 0) {
-        toast({
-          title: "alerts.add_advertisement.files.file_rejected",
-          variant: "destructive",
-        });
-      }
+        const allDescriptions = rejectedFiles.flatMap(({ file, errors }) =>
+          errors.map((error) =>
+            getErrorDescription(error.code as ErrorCode, file.name)
+          )
+        );
 
-      if (
-        onUpload &&
-        updatedFiles.length > 0 &&
-        updatedFiles.length <= maxFiles
-      ) {
-        toast({
-          title: "alerts.add_advertisement.files.uploading",
-          variant: "success",
-        });
-        try {
-          await onUpload(updatedFiles);
+        const uniqueDescriptions = Array.from(
+          new Set(allDescriptions.map((d) => JSON.stringify(d)))
+        ).map(
+          (d) => JSON.parse(d) as MessageObject | MessageKeys<IntlMessages>
+        );
+
+        uniqueDescriptions.forEach((description) => {
           toast({
-            title: "alerts.add_advertisement.files.upload_success",
-            variant: "success",
-          });
-        } catch (e) {
-          toast({
-            title: "alerts.add_advertisement.files.upload_error",
+            title: "alerts.add_advertisement.photos.file_rejected",
+            description,
             variant: "destructive",
           });
-        }
+        });
+
+        return;
+      }
+
+      if (updatedFiles.length > 0 && updatedFiles.length <= maxFiles) {
+        toast({
+          title: "alerts.add_advertisement.photos.upload_success",
+          variant: "success",
+        });
       }
     },
 
-    [files, maxFiles, multiple, onUpload, setFiles, toast]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [files, maxFiles, multiple, setFiles, toast]
   );
 
   function onRemove(index: number) {
@@ -202,6 +276,14 @@ export function FileUploader(props: FileUploaderProps) {
       <Dropzone
         onDrop={onDrop}
         accept={accept}
+        validator={(file) =>
+          files?.some((f) => f.name === file.name)
+            ? {
+                code: "file-already-exists",
+                message: "file-already-exists",
+              }
+            : null
+        }
         maxSize={maxSize}
         maxFiles={maxFiles}
         multiple={maxFiles > 1 || multiple}
@@ -222,19 +304,21 @@ export function FileUploader(props: FileUploaderProps) {
             <input {...getInputProps()} />
             {isDragActive ? (
               <div className="flex flex-col items-center justify-center gap-4 sm:px-5">
-                <div className="rounded-full border border-dashed p-3">
+                <div className="p-3 border border-dashed rounded-full">
                   <Icons.upload
                     className="size-7 text-muted-foreground"
                     aria-hidden="true"
                   />
                 </div>
                 <p className="font-medium text-muted-foreground">
-                  Drop the files here
+                  {t(
+                    "translations.add_advertisement.photos.dropzone.drop_active_label"
+                  )}
                 </p>
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center gap-4 sm:px-5">
-                <div className="rounded-full border border-dashed p-3">
+                <div className="p-3 border border-dashed rounded-full">
                   <Icons.upload
                     className="size-7 text-muted-foreground"
                     aria-hidden="true"
@@ -251,15 +335,31 @@ export function FileUploader(props: FileUploaderProps) {
         )}
       </Dropzone>
       {files?.length ? (
-        <ScrollArea className="h-fit w-full px-3">
-          <div className="max-h-64 space-y-4">
-            {files?.map((file, index) => (
-              <FileCard
-                key={index}
-                file={file}
-                onRemove={() => onRemove(index)}
-              />
-            ))}
+        <ScrollArea className="w-full px-3 h-fit">
+          <div className="space-y-4 max-h-96">
+            <FormField
+              control={control}
+              name="primary_photo"
+              render={({ field }) => (
+                <FormControl>
+                  <RadioGroup
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    className="flex flex-col space-y-1"
+                  >
+                    <FormItem className="space-y-3">
+                      {files?.map((file, index) => (
+                        <FileCard
+                          key={index}
+                          file={file}
+                          onRemove={() => onRemove(index)}
+                        />
+                      ))}
+                    </FormItem>
+                  </RadioGroup>
+                </FormControl>
+              )}
+            />
           </div>
         </ScrollArea>
       ) : null}
@@ -281,20 +381,26 @@ function FileCard({ file, onRemove }: FileCardProps) {
           <Image
             src={file.preview}
             alt={file.name}
-            width={48}
-            height={48}
+            width={250}
+            height={250}
             loading="lazy"
-            className="aspect-square shrink-0 rounded-md object-cover"
+            className="object-cover rounded-md aspect-square shrink-0"
           />
         ) : null}
-        <div className="flex w-full flex-col gap-2">
+        <div className="flex flex-col w-full gap-2">
           <div className="space-y-px">
-            <p className="line-clamp-1 text-sm font-medium text-foreground/80">
-              {file.name}
-            </p>
-            <p className="text-xs text-muted-foreground">
-              {formatBytes(file.size)}
-            </p>
+            <p className="text-base font-medium line-clamp-1">{file.name}</p>
+            <p className="text-xs">{formatBytes(file.size)}</p>
+            <div className="flex items-center pt-2 gap-x-3">
+              <FormControl>
+                <RadioGroupItem value={file.name} id={file.name} />
+              </FormControl>
+              <Label className="text-base" htmlFor={file.name}>
+                {t(
+                  "translations.add_advertisement.photos.dropzone.set_as_cover"
+                )}
+              </Label>
+            </div>
           </div>
         </div>
       </div>

@@ -183,10 +183,12 @@
       },
       "photos": {
         "title": "Photos",
-        "description": "Add up to 5 photos of your advertisement (max 2MB each)",
+        "description": "Add up to 10 photos of your advertisement (max 2MB each)",
         "dropzone": {
           "label": "Drag and drop photos here or click to upload",
-          "remove_file": "Remove file"
+          "drop_active_label": "Drop files here",
+          "remove_file": "Remove file",
+          "set_as_cover": "Set as cover photo"
         }
       },
       "submit": {

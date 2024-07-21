@@ -20,27 +20,31 @@ export default function PopoverFilterField(props: CommonPopoverFieldProps) {
     <PopoverCommon
       {...props}
       handleSelect={(value: string) => {
-        setValue(fieldName, value);
+        setValue(fieldName, value, { shouldValidate: true });
       }}
       popoverTriggerContent={(field: ControllerRenderProps) => {
         return filterData.find((row) => row.id === field.value) ? (
           <div className="flex items-center justify-start w-full">
-            <p className="text-wrap pr-4 text-base font-normal">
+            <p className="pr-4 text-base font-normal text-wrap">
               {filterData.find((row) => row.id === field.value)?.name}
             </p>
           </div>
         ) : (
-          <div className="flex justify-between relative w-full items-center">
+          <div className="relative flex items-center justify-between w-full">
             <p className="text-base font-normal">{selectRowText}</p>
-            <ChevronDown className="h-4 w-4 opacity-50 z-10" />
+            <ChevronDown className="z-10 w-4 h-4 opacity-50" />
           </div>
         );
       }}
       popoverAfterTriggerContent={(field: ControllerRenderProps) => {
         return (
-          <div className="z-20 items-center -ml-11 absolute right-0 bottom-0 mr-2 mb-2">
+          <div className="absolute bottom-0 right-0 z-20 items-center mb-2 mr-2 -ml-11">
             {field.value && (
-              <SelectCancelButton onCancel={() => setValue(fieldName, "")} />
+              <SelectCancelButton
+                onCancel={() =>
+                  setValue(fieldName, "", { shouldValidate: true })
+                }
+              />
             )}
           </div>
         );

@@ -161,9 +161,12 @@ export const useAdministrativeDivision = ({
     if (getSelectedDistrictRegionId() !== selectedRegion) {
       setValue(
         "municipality",
-        typeof selectedMunicipality === "string" ? "" : []
+        typeof selectedMunicipality === "string" ? "" : [],
+        { shouldValidate: true }
       );
-      setValue("district", typeof selectedDistrict === "string" ? "" : []);
+      setValue("district", typeof selectedDistrict === "string" ? "" : [], {
+        shouldValidate: true,
+      });
       return;
     }
 
@@ -202,7 +205,9 @@ export const useAdministrativeDivision = ({
       );
     }
     if (!selectedRegion) {
-      setValue("region", getSelectedDistrictRegionId());
+      setValue("region", getSelectedDistrictRegionId(), {
+        shouldValidate: true,
+      });
     }
   }
 
@@ -211,20 +216,28 @@ export const useAdministrativeDivision = ({
     if (!selectedDistrict?.length) {
       const selectedMunicipalitiesDistrictsId =
         getSelectedMunicipalitiesDistrictsId();
-      setValue("district", selectedMunicipalitiesDistrictsId);
+      setValue("district", selectedMunicipalitiesDistrictsId, {
+        shouldValidate: true,
+      });
     }
   }
 
   useEffect(() => {
-    if (prevRegion !== selectedRegion) {
+    if (prevRegion !== selectedRegion && prevRegion !== undefined) {
       afterRegionChange();
     }
 
-    if (!_.isEqual(prevDistrict, selectedDistrict)) {
+    if (
+      !_.isEqual(prevDistrict, selectedDistrict) &&
+      prevDistrict !== undefined
+    ) {
       afterDistrictChange();
     }
 
-    if (!_.isEqual(prevMunicipality, selectedMunicipality)) {
+    if (
+      !_.isEqual(prevMunicipality, selectedMunicipality) &&
+      prevMunicipality !== undefined
+    ) {
       afterMunicipalityChange();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

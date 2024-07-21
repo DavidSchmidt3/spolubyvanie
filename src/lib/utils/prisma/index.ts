@@ -29,3 +29,8 @@ const globalForPrisma = globalThis as unknown as {
 export const db = globalForPrisma.prisma ?? createPrismaClient();
 
 if (env.VERCEL_ENV !== "production") globalForPrisma.prisma = db;
+
+type ExtendedPrismaClient = typeof db;
+export type TransactionalPrismaClient = Parameters<
+  Parameters<ExtendedPrismaClient["$transaction"]>[0]
+>[0];
