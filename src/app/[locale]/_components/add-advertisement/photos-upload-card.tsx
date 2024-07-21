@@ -51,6 +51,12 @@ export default function PhotosUploadCard({ form }: Props) {
                       if (!primaryPhoto && files.length) {
                         form.setValue("primary_photo", files[0]!.name);
                       }
+                      if (
+                        primaryPhoto &&
+                        !files.some((file) => file.name === primaryPhoto)
+                      ) {
+                        form.setValue("primary_photo", files[0]?.name ?? "");
+                      }
                     }}
                   />
                 </FormControl>
