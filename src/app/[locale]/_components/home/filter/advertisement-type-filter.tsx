@@ -58,7 +58,7 @@ export function AdvertisementTypeFilter({ form }: Props) {
               <FormControl>
                 <SelectTrigger
                   value={field.value}
-                  className="justify-between w-full text-base px-4 text-center h-12 hover:bg-accent"
+                  className="justify-between w-full h-12 px-4 text-base text-center hover:bg-accent"
                   aria-label={t("translations.advertisement.types.select_text")}
                 >
                   {field.value ? (
@@ -85,7 +85,7 @@ export function AdvertisementTypeFilter({ form }: Props) {
                       <SelectItem
                         key={key}
                         value={key}
-                        className="hover:cursor-pointer text-base"
+                        className="text-base hover:cursor-pointer"
                       >
                         {t(value)}
                       </SelectItem>
@@ -98,7 +98,9 @@ export function AdvertisementTypeFilter({ form }: Props) {
               {field.value && (
                 <SelectCancelButton
                   onCancel={() => {
-                    setValue("advertisement_type", "");
+                    setValue("advertisement_type", "", {
+                      shouldValidate: true,
+                    });
                   }}
                 />
               )}

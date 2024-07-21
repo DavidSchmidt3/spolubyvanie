@@ -29,13 +29,13 @@ export default function PopoverMultiselectFilterField(
     const newValue = Array.isArray(value)
       ? value?.filter((id) => id !== row.id)
       : [];
-    setValue(fieldName, newValue);
+    setValue(fieldName, newValue, { shouldValidate: true });
   }
 
   function handleAddValue(row: string) {
     const value = getValues(fieldName);
     const newValue = value ? [...value, row] : [row];
-    setValue(fieldName, newValue);
+    setValue(fieldName, newValue, { shouldValidate: true });
   }
 
   return (
@@ -45,7 +45,7 @@ export default function PopoverMultiselectFilterField(
       popoverTriggerContent={(field: ControllerRenderProps) => {
         return field.value?.length ? (
           <>
-            <div className="flex items-center flex-wrap justify-start w-full gap-2 pr-3">
+            <div className="flex flex-wrap items-center justify-start w-full gap-2 pr-3">
               {filterData
                 .filter((row) => field.value?.includes(row.id))
                 .map((row) => (
@@ -64,12 +64,12 @@ export default function PopoverMultiselectFilterField(
                   </Badge>
                 ))}
             </div>
-            <ChevronDown className="h-4 w-4 opacity-50 z-10" />
+            <ChevronDown className="z-10 w-4 h-4 opacity-50" />
           </>
         ) : (
-          <div className="flex justify-between relative w-full items-center">
+          <div className="relative flex items-center justify-between w-full">
             <p className="text-base font-normal">{selectRowText}</p>
-            <ChevronDown className="h-4 w-4 opacity-50 z-10" />
+            <ChevronDown className="z-10 w-4 h-4 opacity-50" />
           </div>
         );
       }}
