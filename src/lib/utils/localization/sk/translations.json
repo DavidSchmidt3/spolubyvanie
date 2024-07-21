@@ -147,6 +147,11 @@
         "offering_room": "Ponúkam izbu",
         "searching_apartment": "Hľadám byt",
         "offering_apartment": "Ponúkam byt"
+      },
+      "administrative_divisions": {
+        "tip": {
+          "title": "Tip: Po vyplnení obce alebo okresu sa ostatné údaje doplnia automaticky"
+        }
       }
     },
     "advertisement_list": {

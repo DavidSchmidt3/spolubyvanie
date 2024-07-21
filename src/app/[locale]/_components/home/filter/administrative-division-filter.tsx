@@ -1,3 +1,4 @@
+import AdministrativeDivisionsTip from "@/app/[locale]/_components/home/filter/administrative-divisions-tip";
 import PopoverFilterField from "@/app/[locale]/_components/home/filter/popover-filter-field";
 import PopoverMultiselectFilterField from "@/app/[locale]/_components/home/filter/popover-multiselect-filter-field";
 import { useAdministrativeDivision } from "@/hooks/administrative-division";
@@ -72,6 +73,7 @@ export default function AdministrativeDivisionFilter({
         form={form}
         fieldName="municipality"
       />
+      <AdministrativeDivisionsTip />
     </div>
   );
 }

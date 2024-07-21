@@ -147,6 +147,11 @@
         "offering_room": "Offering room",
         "searching_apartment": "Searching apartment",
         "offering_apartment": "Offering apartment"
+      },
+      "administrative_divisions": {
+        "tip": {
+          "title": "Tip: After entering the municipality or district, the other data will be filled in automatically."
+        }
       }
     },
     "advertisement_list": {
