@@ -6,6 +6,7 @@ import {
   usePathname,
   useRouter,
 } from "@/lib/utils/localization/navigation";
+import { useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
 
 type TransitionLinkProps<Pathname extends keyof typeof pathnames> = {
@@ -22,6 +23,8 @@ export const TransitionLink = <Pathname extends keyof typeof pathnames>({
 }: TransitionLinkProps<Pathname>) => {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const searchParamsEntries = searchParams.entries();
 
   async function handleTransition(
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
@@ -34,7 +37,7 @@ export const TransitionLink = <Pathname extends keyof typeof pathnames>({
   useEffect(() => {
     const body = document.querySelector("body");
     body?.classList.remove("page-transition");
-  }, [pathname]);
+  }, [pathname, searchParamsEntries]);
 
   return (
     <Link
