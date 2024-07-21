@@ -27,6 +27,9 @@ const config = {
     ppr: true,
     esmExternals: false,
     reactCompiler: true,
+    serverActions: {
+      bodySizeLimit: "20mb",
+    },
   },
   async headers() {
     return [
