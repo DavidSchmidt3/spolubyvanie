@@ -11,6 +11,7 @@ import {
 import {
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/app/[locale]/_components/ui/form";
 import {
@@ -82,7 +83,7 @@ export default function PopoverCommonField({
           <FormItem>
             <Popover open={open} onOpenChange={setOpen} modal={true}>
               <div className="relative flex flex-col w-full gap-y-1">
-                <h4 className="text-base">{title}</h4>
+                <FormLabel className="text-base">{title}</FormLabel>
                 <PopoverTrigger asChild>
                   <Button
                     type="button"
