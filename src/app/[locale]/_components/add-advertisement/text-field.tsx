@@ -45,7 +45,7 @@ export default function TextField({
               {...inputProps}
               placeholder={placeholder}
               {...field}
-              className="text-base h-12"
+              className="text-base h-12 hover:bg-accent/90"
             />
           </FormControl>
           <FormMessage />

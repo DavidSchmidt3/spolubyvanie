@@ -29,7 +29,7 @@ export default function DescriptionField({ control }: Props) {
           <FormControl>
             <Textarea
               placeholder={t("description.placeholder")}
-              className="resize-none text-base min-h-52"
+              className="resize-none text-base min-h-52 hover:bg-accent/90"
               {...field}
             />
           </FormControl>
