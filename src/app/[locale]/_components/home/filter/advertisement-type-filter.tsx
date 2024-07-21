@@ -2,6 +2,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/app/[locale]/_components/ui/form";
 import {
@@ -43,12 +44,14 @@ export function AdvertisementTypeFilter({ form }: Props) {
 
   return (
     <div className="relative flex flex-col justify-center w-full gap-1">
-      <h4>{t("translations.advertisement.types.select_label")}</h4>
       <FormField
         control={control}
         name="advertisement_type"
         render={({ field }) => (
           <FormItem className="relative">
+            <FormLabel className="text-base">
+              {t("translations.advertisement.types.select_label")}
+            </FormLabel>
             <Select
               value={field.value}
               onValueChange={(value) => {
