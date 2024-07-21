@@ -126,13 +126,27 @@
       "available_from": {
         "required": "Please enter a valid date"
       },
-      "files": {
-        "only_one_allowed": "Only one file is allowed",
-        "maximum_exceeded": "Maximum number of files exceeded",
-        "file_rejected": "File rejected",
-        "uploading": "Uploading in progress",
-        "upload_success": "File uploaded successfully",
-        "upload_error": "File upload failed"
+      "photos": {
+        "only_one_allowed": "Only one photo is allowed",
+        "min_length": "Upload at least one photo",
+        "maximum_exceeded": "Maximum number of photos exceeded",
+        "file_rejected": "Photo rejected",
+        "invalid_type": "Invalid file type for photo {name}",
+        "too_large": "Photo {name} is too large",
+        "too_small": "Photo {name} is too small",
+        "upload_success": "Photo uploaded successfully",
+        "already_exists": "Same photo {name} has been already uploaded"
+      },
+      "floor": {
+        "higher_than_max_floor": "Floor must not be higher than top floor"
+      },
+      "save": {
+        "success": {
+          "title": "Advertisement added successfully"
+        },
+        "error": {
+          "title": "Failed to add advertisement"
+        }
       }
     },
     "global": {

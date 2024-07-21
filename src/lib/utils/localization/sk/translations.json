@@ -183,10 +183,12 @@
       },
       "photos": {
         "title": "Fotografie",
-        "description": "Pridajte fotografie vášho inzerátu (maximálne 5 fotografií vo veľkosti do 2 MB pre každú)",
+        "description": "Pridajte fotografie vášho inzerátu (maximálne 10 fotografií vo veľkosti do 2 MB pre každú)",
         "dropzone": {
           "label": "Pretiahnite súbor sem alebo kliknite pre nahratie",
-          "remove_file": "Odstrániť súbor"
+          "drop_active_label": "Položte súbory tu",
+          "remove_file": "Odstrániť súbor",
+          "set_as_cover": "Nastaviť ako náhľadovú fotografiu"
         }
       },
       "submit": {

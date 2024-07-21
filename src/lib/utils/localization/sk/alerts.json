@@ -126,13 +126,27 @@
       "available_from": {
         "required": "Prosím zadajte platný dátum"
       },
-      "files": {
-        "only_one_allowed": "Povolený je iba jeden súbor",
-        "maximum_exceeded": "Prekročený maximálny počet súborov",
-        "file_rejected": "Súbor bol zamietnutý",
-        "uploading": "Prebieha nahrávanie",
-        "upload_success": "Nahrávanie bolo úspešné",
-        "upload_error": "Nahrávanie sa nepodarilo"
+      "photos": {
+        "only_one_allowed": "Povolená je iba jedna fotografia",
+        "min_length": "Nahrajte aspoň jednu fotografiu",
+        "maximum_exceeded": "Prekročený maximálny počet fotografií",
+        "file_rejected": "Fotografia bola zamietnutý",
+        "invalid_type": "Nepodporovaný typ súboru - fotografia {name}",
+        "too_large": "Fotografia {name} je príliš veľká",
+        "too_small": "Fotografia {name} je príliš malá",
+        "upload_success": "Nahrávanie fotografie bolo úspešné",
+        "already_exists": "Rovnaká fotografia {name} už bola nahratá"
+      },
+      "floor": {
+        "higher_than_max_floor": "Poschodie nesmie byť vyššie ako maximálne poschodie"
+      },
+      "save": {
+        "success": {
+          "title": "Inzerát bol úspešne pridaný"
+        },
+        "error": {
+          "title": "Nepodarilo sa pridať inzerát"
+        }
       }
     },
     "global": {
