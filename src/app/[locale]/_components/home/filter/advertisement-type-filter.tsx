@@ -97,7 +97,7 @@ export function AdvertisementTypeFilter({ form }: Props) {
                 </SelectGroup>
               </SelectContent>
             </Select>
-            <div className="absolute top-0 right-0 z-20 flex items-center mr-2 -ml-11">
+            <div className="absolute bottom-2 right-0 z-20 flex items-center mr-2 -ml-11">
               {field.value && (
                 <SelectCancelButton
                   onCancel={() => {
