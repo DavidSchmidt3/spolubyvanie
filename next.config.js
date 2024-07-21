@@ -31,6 +31,16 @@ const config = {
       bodySizeLimit: "20mb",
     },
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "arkqgqmjbyvgzrawoqlb.supabase.co",
+        port: "",
+        pathname: "**",
+      },
+    ],
+  },
   async headers() {
     return [
       {

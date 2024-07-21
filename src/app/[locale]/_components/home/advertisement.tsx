@@ -4,6 +4,7 @@ import {
   CardHeader,
 } from "@/app/[locale]/_components/ui/card";
 import { type Advertisement as AdvertisementType } from "@/lib/data/advertisements";
+import { getImageFullUrl } from "@/lib/utils/supabase";
 import Image from "next/image";
 
 type Props = {
@@ -11,8 +12,16 @@ type Props = {
 };
 
 export default function Advertisement({ advertisement }: Props) {
-  const { price, title, description, street, municipality, district, region } =
-    advertisement;
+  const {
+    price,
+    title,
+    description,
+    street,
+    primary_photo_url,
+    municipality,
+    district,
+    region,
+  } = advertisement;
 
   return (
     <Card className="w-full h-auto p-6">
@@ -22,7 +31,11 @@ export default function Advertisement({ advertisement }: Props) {
       <CardContent className="grid p-3 pt-3 grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 w-full">
         <div className="w-full relative">
           <Image
-            src="/room.webp"
+            src={
+              primary_photo_url
+                ? getImageFullUrl(primary_photo_url)
+                : "/room.webp"
+            }
             alt="Advertisement"
             width="1440"
             height="1080"
