@@ -7,12 +7,34 @@ import {
   ToastTitle,
   ToastViewport,
 } from "@/app/[locale]/_components/ui/toast";
-import { useToast } from "@/app/[locale]/_components/ui/use-toast";
+import {
+  type ToastDescriptionType,
+  useToast,
+} from "@/app/[locale]/_components/ui/use-toast";
 import { useTranslations } from "next-intl";
 
 export function Toaster() {
   const { toasts } = useToast();
   const t = useTranslations();
+
+  function getToastMessage(description: ToastDescriptionType) {
+    if (typeof description === "string") {
+      return t(description);
+    }
+    if (Array.isArray(description)) {
+      return description
+        .flat()
+        .map((line, index) => (
+          <p key={index}>
+            {typeof line === "string" ? t(line) : t(line.message, line.param)}
+          </p>
+        ));
+    }
+    if (typeof description === "object") {
+      return t(description.message, description.param);
+    }
+    console.error("Invalid description type", description);
+  }
 
   return (
     <ToastProvider>
@@ -20,14 +42,16 @@ export function Toaster() {
         return (
           <Toast key={id} {...props}>
             <div className="grid gap-1">
-              {title && <ToastTitle>{t(title)}</ToastTitle>}
+              {title && (
+                <ToastTitle>
+                  {typeof title === "string"
+                    ? t(title)
+                    : t(title.message, title.param)}
+                </ToastTitle>
+              )}
               {description && (
                 <ToastDescription>
-                  {typeof description === "string"
-                    ? t(description)
-                    : description
-                        ?.flat()
-                        .map((line, index) => <p key={index}>{t(line)}</p>)}
+                  {getToastMessage(description)}
                 </ToastDescription>
               )}
             </div>
