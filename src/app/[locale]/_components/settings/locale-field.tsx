@@ -1,5 +1,4 @@
 "use client";
-import { type SettingsFormValues } from "@/app/[locale]/_components/settings/form";
 import {
   FormControl,
   FormField,
@@ -16,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/app/[locale]/_components/ui/select";
+import { type SettingsFormValues } from "@/lib/data/actions/settings/schema";
 import { LOCALES } from "@/lib/utils/localization/i18n";
 import { useTranslations } from "next-intl";
 import { type Control } from "react-hook-form";

@@ -7,7 +7,10 @@ import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { useToast } from "@/app/[locale]/_components/ui/use-toast";
 import { useControlledForm } from "@/hooks/form";
 import { saveSettings } from "@/lib/data/actions/settings";
-import { SETTINGS_FORM_SCHEMA } from "@/lib/data/actions/settings/schema";
+import {
+  SETTINGS_FORM_SCHEMA,
+  type SettingsFormValues,
+} from "@/lib/data/actions/settings/schema";
 import { type UserSettings } from "@/lib/data/settings";
 import { type User } from "@/lib/data/user";
 import { DEFAULT_LOCALE, type Locale } from "@/lib/utils/localization/i18n";
@@ -18,14 +21,11 @@ import { useAction } from "next-safe-action/hooks";
 import { useTheme } from "next-themes";
 import { useParams } from "next/navigation";
 import { startTransition, useEffect, useMemo } from "react";
-import type * as z from "zod";
 
 const DEFAULT: SettingsFormValues = {
   theme: DEFAULT_THEME,
   locale: DEFAULT_LOCALE,
 };
-
-export type SettingsFormValues = z.infer<typeof SETTINGS_FORM_SCHEMA>;
 
 type Props = {
   userSettings: UserSettings | null;

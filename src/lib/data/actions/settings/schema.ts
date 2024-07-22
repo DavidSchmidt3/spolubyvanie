@@ -12,3 +12,5 @@ export const SETTINGS_FORM_SCHEMA = z.object({
     message: "alerts.settings.locale.validation.required",
   }),
 });
+
+export type SettingsFormValues = z.infer<typeof SETTINGS_FORM_SCHEMA>;
