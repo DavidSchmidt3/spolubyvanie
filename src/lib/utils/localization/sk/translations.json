@@ -188,7 +188,7 @@
       },
       "photos": {
         "title": "Fotografie",
-        "description": "Pridajte fotografie vášho inzerátu (maximálne 10 fotografií vo veľkosti do 2 MB pre každú)",
+        "description": "Pridajte fotografie vášho inzerátu (maximálne 10 fotografií vo veľkosti do 2 MB pre každú).\nFotografie budú automaticky orezané na šírku v klasickom formáte 4:3",
         "dropzone": {
           "label": "Pretiahnite súbor sem alebo kliknite pre nahratie",
           "drop_active_label": "Položte súbory tu",
