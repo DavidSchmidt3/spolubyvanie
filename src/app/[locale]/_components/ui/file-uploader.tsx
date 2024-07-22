@@ -366,7 +366,10 @@ function FileCard({ file, onRemove }: FileCardProps) {
               <FormControl>
                 <RadioGroupItem value={file.name} id={file.name} />
               </FormControl>
-              <Label className="text-base" htmlFor={file.name}>
+              <Label
+                className="text-base hover:cursor-pointer"
+                htmlFor={file.name}
+              >
                 {t(
                   "translations.add_advertisement.photos.dropzone.set_as_cover"
                 )}
