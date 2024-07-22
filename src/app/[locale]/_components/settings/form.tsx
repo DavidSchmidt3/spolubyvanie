@@ -67,7 +67,6 @@ export default function SettingsForm({ userSettings, user }: Props) {
   }
 
   useEffect(() => {
-    console.log("result", result, hasSucceeded);
     if (hasErrored) {
       toast({
         title: "alerts.settings.save.error.title",
