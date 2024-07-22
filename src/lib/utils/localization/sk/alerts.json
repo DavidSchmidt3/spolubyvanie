@@ -149,6 +149,16 @@
         }
       }
     },
+    "my_advertisements": {
+      "delete": {
+        "error": {
+          "title": "Nepodarilo sa zmazať inzerát"
+        },
+        "success": {
+          "title": "Advertisement deleted successfully"
+        }
+      }
+    },
     "global": {
       "error": {
         "description": "Vyskytla sa neočakávaná chyba, skúste to znova neskôr"

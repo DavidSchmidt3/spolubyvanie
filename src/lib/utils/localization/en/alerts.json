@@ -149,6 +149,16 @@
         }
       }
     },
+    "my_advertisements": {
+      "delete": {
+        "error": {
+          "title": "Failed to delete advertisement"
+        },
+        "success": {
+          "title": "Advertisement deleted successfully"
+        }
+      }
+    },
     "global": {
       "error": {
         "description": "Unexpected error, please try again later"

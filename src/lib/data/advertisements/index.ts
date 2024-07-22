@@ -1,4 +1,5 @@
 "use server";
+import { getFormattedAdvertisement } from "@/lib/data/advertisements/format";
 import {
   ADVERTISEMENTS_FILTER_SCHEMA,
   type AdvertisementFullSchemaValues,
@@ -8,32 +9,10 @@ import { type Prisma } from "@prisma/client";
 import { unstable_cache as next_cache } from "next/cache";
 import { type ParsedUrlQuery } from "querystring";
 
-function getFormattedAdvertisement(
-  advertisement: Awaited<ReturnType<typeof fetchAdvertisements>>[0][number]
-) {
-  return {
-    id: advertisement?.id,
-    price: advertisement.price,
-    description: advertisement.description,
-    street: advertisement.street,
-    title: advertisement.title,
-    floor: advertisement.floor,
-    room_area: advertisement.room_area,
-    primary_photo_url: advertisement.primary_photo_url,
-    type: advertisement.type,
-    apartment_area: advertisement.apartment_area,
-    available_from: advertisement.available_from,
-    municipality: advertisement.municipalities.name,
-    district: advertisement.municipalities.districts.name,
-    region: advertisement.municipalities.districts.regions.name,
-  };
-}
-
-export type Advertisement = ReturnType<typeof getFormattedAdvertisement>;
 export type AdvertisementMeta = Awaited<
   ReturnType<typeof fetchAdvertisements>
 >[1];
-async function fetchAdvertisements(
+export async function fetchAdvertisements(
   filter?: Prisma.advertisementsFindManyArgs,
   page?: string
 ) {

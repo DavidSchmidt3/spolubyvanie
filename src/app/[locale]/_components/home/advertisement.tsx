@@ -1,17 +1,22 @@
+import AdvertisementActions from "@/app/[locale]/_components/home/advertisement-actions";
 import {
   Card,
   CardContent,
   CardHeader,
 } from "@/app/[locale]/_components/ui/card";
-import { type Advertisement as AdvertisementType } from "@/lib/data/advertisements";
+import { type Advertisement as AdvertisementType } from "@/lib/data/advertisements/format";
 import { getImageFullUrl } from "@/lib/utils/supabase";
 import Image from "next/image";
 
 type Props = {
   advertisement: AdvertisementType;
+  myAdvertisement?: boolean;
 };
 
-export default function Advertisement({ advertisement }: Props) {
+export default function Advertisement({
+  advertisement,
+  myAdvertisement,
+}: Props) {
   const {
     price,
     title,
@@ -25,8 +30,11 @@ export default function Advertisement({ advertisement }: Props) {
 
   return (
     <Card className="w-full h-auto p-6">
-      <CardHeader className="p-0 pb-2">
+      <CardHeader className="p-0 pb-2 flex-col gap-y-2  items-center relative justify-between">
         <h3 className="text-3xl font-bold text-center">{title}</h3>
+        {myAdvertisement && (
+          <AdvertisementActions advertisement={advertisement} />
+        )}
       </CardHeader>
       <CardContent className="p-2 xl:p-3 pt-3 flex flex-col lg:flex-row gap-4 sm:gap-6 xl:gap-8 w-full">
         <div className="relative flex flex-shrink-0 h-min justify-center w-full lg:w-80 xl:w-96">
@@ -37,7 +45,6 @@ export default function Advertisement({ advertisement }: Props) {
                 : "/room.webp"
             }
             alt="Advertisement"
-            objectFit="contain"
             width={1440}
             height={1080}
             className="rounded-sm w-full max-w-80 xl:max-w-96"

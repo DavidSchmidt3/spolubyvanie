@@ -18,6 +18,9 @@
       },
       "contact": {
         "label": "Kontakt"
+      },
+      "my_advertisements": {
+        "label": "Moje inzeráty"
       }
     },
     "common": {
@@ -152,6 +155,12 @@
         "tip": {
           "title": "Tip: Po vyplnení obce alebo okresu sa ostatné údaje doplnia automaticky"
         }
+      },
+      "delete": {
+        "button": "Vymazať inzerát"
+      },
+      "edit": {
+        "button": "Upraviť inzerát"
       }
     },
     "advertisement_list": {
@@ -235,6 +244,20 @@
         "max_floor": {
           "label": "Poschodie (najvyššie)",
           "placeholder": "Poschodie (najvyššie)"
+        }
+      }
+    },
+    "my_advertisements": {
+      "title": "Moje inzeráty",
+      "no_results": {
+        "title": "Nemáte žiadne inzeráty"
+      },
+      "delete": {
+        "confirm_dialog": {
+          "title": "Vymazať inzerát?",
+          "content": "Ste si istý, že chcete vymazať tento inzerát?",
+          "confirm": "Vymazať",
+          "cancel": "Zrušiť"
         }
       }
     }

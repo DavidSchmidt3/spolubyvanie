@@ -1,7 +1,6 @@
+import { TransitionLink } from "@/app/[locale]/_components/common/transition-link";
 import { Avatar } from "@/app/[locale]/_components/ui/avatar";
 import { Button } from "@/app/[locale]/_components/ui/button";
-
-import { TransitionLink } from "@/app/[locale]/_components/common/transition-link";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -50,21 +49,39 @@ export default async function UserNav() {
           </DropdownMenuItem>
         </TransitionLink>
         {user ? (
-          <DropdownMenuItem>
-            <form action={logout} className="w-full">
-              <Button
-                aria-label={t("logout.button")}
-                variant="ghost"
-                className="justify-start w-full h-6 p-0 text-base text-left cursor-pointer hover:bg-accent/90"
-                type="submit"
-              >
+          <>
+            <TransitionLink href="/my-advertisements" className="w-full">
+              <DropdownMenuItem className="text-base cursor-pointer hover:bg-accent/90">
                 <div className="flex items-center gap-x-2">
-                  <Icons.door />
-                  {t("logout.button")}
+                  <Icons.building className="w-4 h-4" />
+                  {t("navigation.my_advertisements.label")}
                 </div>
-              </Button>
-            </form>
-          </DropdownMenuItem>
+              </DropdownMenuItem>
+            </TransitionLink>
+            <TransitionLink href="/add-advertisement" className="w-full">
+              <DropdownMenuItem className="text-base cursor-pointer hover:bg-accent/90">
+                <div className="flex items-center gap-x-2">
+                  <Icons.plus className="w-4 h-4" />
+                  {t("navigation.add_advertisement.label")}
+                </div>
+              </DropdownMenuItem>
+            </TransitionLink>
+            <DropdownMenuItem>
+              <form action={logout} className="w-full">
+                <Button
+                  aria-label={t("logout.button")}
+                  variant="ghost"
+                  className="justify-start w-full h-6 p-0 text-base text-left cursor-pointer hover:bg-accent/90"
+                  type="submit"
+                >
+                  <div className="flex items-center gap-x-2">
+                    <Icons.door />
+                    {t("logout.button")}
+                  </div>
+                </Button>
+              </form>
+            </DropdownMenuItem>
+          </>
         ) : (
           <TransitionLink href="/login" className="w-full">
             <DropdownMenuItem className="text-base cursor-pointer hover:bg-accent/90">

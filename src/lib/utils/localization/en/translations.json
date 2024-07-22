@@ -18,6 +18,9 @@
       },
       "contact": {
         "label": "Contact"
+      },
+      "my_advertisements": {
+        "label": "My advertisements"
       }
     },
     "common": {
@@ -152,6 +155,12 @@
         "tip": {
           "title": "Tip: After entering the municipality or district, the other data will be filled in automatically."
         }
+      },
+      "delete": {
+        "button": "Delete advertisement"
+      },
+      "edit": {
+        "button": "Edit advertisement"
       }
     },
     "advertisement_list": {
@@ -235,6 +244,20 @@
         "max_floor": {
           "label": "Floor (top)",
           "placeholder": "Floor (top)"
+        }
+      }
+    },
+    "my_advertisements": {
+      "title": "My advertisements",
+      "no_results": {
+        "title": "No advertisements found"
+      },
+      "delete": {
+        "confirm_dialog": {
+          "title": "Delete advertisement",
+          "content": "Are you sure you want to delete this advertisement?",
+          "confirm": "Delete",
+          "cancel": "Cancel"
         }
       }
     }
