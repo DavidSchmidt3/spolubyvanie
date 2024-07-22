@@ -67,6 +67,7 @@ export default function SettingsForm({ userSettings, user }: Props) {
   }
 
   useEffect(() => {
+    console.log("result", result, hasSucceeded);
     if (hasErrored) {
       toast({
         title: "alerts.settings.save.error.title",
@@ -76,10 +77,6 @@ export default function SettingsForm({ userSettings, user }: Props) {
     }
 
     if (hasSucceeded) {
-      toast({
-        title: "alerts.settings.save.success.title",
-        variant: "success",
-      });
       updateSettings(result.data?.theme, result.data?.locale);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
