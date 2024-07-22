@@ -106,7 +106,7 @@ export default function AdvertisementFilterDialog({
       <CardContent className="flex flex-col items-center justify-between px-5 py-5 sm:px-10 sm:flex-row gap-y-4 gap-x-6">
         <div className="flex flex-col gap-y-4">
           <h1 className="text-xl font-bold sm:text-3xl">{t("title")}</h1>
-          <h2 className="text-justify text-base sm:text-lg">
+          <h2 className="text-base text-center sm:text-lg">
             {t("description")}
           </h2>
         </div>

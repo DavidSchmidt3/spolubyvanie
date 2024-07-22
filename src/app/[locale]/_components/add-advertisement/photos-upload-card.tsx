@@ -14,7 +14,10 @@ import {
 } from "@/app/[locale]/_components/ui/form";
 import { type AdvertisementAddFormValues } from "@/lib/data/actions/add-advertisement/schema";
 import { useTranslations } from "next-intl";
-import { type UseFormReturn } from "react-hook-form";
+import {
+  type ControllerRenderProps,
+  type UseFormReturn,
+} from "react-hook-form";
 
 type Props = {
   form: UseFormReturn<AdvertisementAddFormValues>;
@@ -23,11 +26,25 @@ type Props = {
 export default function PhotosUploadCard({ form }: Props) {
   const t = useTranslations("translations.add_advertisement");
 
+  function onFilesUpload(
+    files: File[],
+    field: ControllerRenderProps<AdvertisementAddFormValues, "photos">
+  ) {
+    field.onChange(files);
+    const primaryPhoto = form.getValues("primary_photo");
+    if (!primaryPhoto && files.length) {
+      form.setValue("primary_photo", files[0]!.name);
+    }
+    if (primaryPhoto && !files.some((file) => file.name === primaryPhoto)) {
+      form.setValue("primary_photo", files[0]?.name ?? "");
+    }
+  }
+
   return (
     <Card className="col-span-1 md:col-span-2 xl:col-span-3">
       <CardHeader>
         <CardTitle>{t("photos.title")}</CardTitle>
-        <CardDescription className="text-base">
+        <CardDescription className="text-base whitespace-pre">
           {t("photos.description")}
         </CardDescription>
       </CardHeader>
@@ -45,19 +62,9 @@ export default function PhotosUploadCard({ form }: Props) {
                     control={form.control}
                     compressionQuality={0.3}
                     value={field.value}
-                    onValueChange={(files: File[]) => {
-                      field.onChange(files);
-                      const primaryPhoto = form.getValues("primary_photo");
-                      if (!primaryPhoto && files.length) {
-                        form.setValue("primary_photo", files[0]!.name);
-                      }
-                      if (
-                        primaryPhoto &&
-                        !files.some((file) => file.name === primaryPhoto)
-                      ) {
-                        form.setValue("primary_photo", files[0]?.name ?? "");
-                      }
-                    }}
+                    onValueChange={(files: File[]) =>
+                      onFilesUpload(files, field)
+                    }
                   />
                 </FormControl>
                 <FormMessage />

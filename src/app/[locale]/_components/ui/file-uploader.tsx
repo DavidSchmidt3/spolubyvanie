@@ -4,8 +4,7 @@ import { Button } from "@/app/[locale]/_components/ui/button";
 import { ScrollArea } from "@/app/[locale]/_components/ui/scroll-area";
 import { useControllableState } from "@/hooks/controllable-state";
 import { type AdvertisementAddFormValues } from "@/lib/data/actions/add-advertisement/schema";
-import { cn, formatBytes } from "@/lib/utils";
-import Compressor from "compressorjs";
+import { cn, compressFile, crop } from "@/lib/utils";
 import { type MessageKeys } from "global";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
@@ -148,44 +147,6 @@ export function FileUploader(props: FileUploaderProps) {
     };
   }
 
-  function compressFile(file: File): Promise<File> {
-    return new Promise<File>((resolve) => {
-      new Compressor(file, {
-        quality: compressionQuality,
-        success: (compressedFile) => {
-          if (compressedFile instanceof Blob) {
-            const convertedCompressedFile = new File(
-              [compressedFile],
-              file.name,
-              {
-                type: compressedFile.type,
-              }
-            );
-            resolve(
-              Object.assign(convertedCompressedFile, {
-                preview: URL.createObjectURL(convertedCompressedFile),
-              })
-            );
-          } else {
-            resolve(
-              Object.assign(compressedFile, {
-                preview: URL.createObjectURL(compressedFile),
-              })
-            );
-          }
-        },
-        error: (error) => {
-          console.error("Error compressing file", error);
-          resolve(
-            Object.assign(file, {
-              preview: URL.createObjectURL(file),
-            })
-          );
-        },
-      });
-    });
-  }
-
   const onDrop = useCallback(
     async (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
       if (!multiple && maxFiles === 1 && acceptedFiles.length > 1) {
@@ -205,11 +166,22 @@ export function FileUploader(props: FileUploaderProps) {
         return;
       }
 
-      const newFiles = await Promise.all(
-        acceptedFiles.map(async (file) => compressFile(file))
+      const compressedCroppedFiles = await Promise.all(
+        acceptedFiles.map(async (file) => {
+          const croppedFile = await crop(file, 4 / 3);
+          const compressedFile = await compressFile(
+            croppedFile,
+            compressionQuality
+          );
+          return Object.assign(compressedFile, {
+            preview: URL.createObjectURL(compressedFile),
+          });
+        })
       );
 
-      const updatedFiles = files ? [...files, ...newFiles] : newFiles;
+      const updatedFiles = files
+        ? [...files, ...compressedCroppedFiles]
+        : compressedCroppedFiles;
 
       setFiles(updatedFiles);
 
@@ -384,13 +356,12 @@ function FileCard({ file, onRemove }: FileCardProps) {
             width={250}
             height={250}
             loading="lazy"
-            className="object-cover rounded-md aspect-square shrink-0"
+            className="object-cover rounded-sm aspect-square shrink-0"
           />
         ) : null}
         <div className="flex flex-col w-full gap-2">
           <div className="space-y-px">
             <p className="text-base font-medium line-clamp-1">{file.name}</p>
-            <p className="text-xs">{formatBytes(file.size)}</p>
             <div className="flex items-center pt-2 gap-x-3">
               <FormControl>
                 <RadioGroupItem value={file.name} id={file.name} />
