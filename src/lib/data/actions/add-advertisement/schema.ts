@@ -105,6 +105,15 @@ export const ADVERTISEMENT_ADD_SCHEMA = z
           message: "alerts.add_advertisement.floor.higher_than_max_floor",
         });
       }
+
+      if (parseInt(data.room_area) > parseInt(data.apartment_area)) {
+        ctx.addIssue({
+          path: ["room_area"],
+          code: "custom",
+          message:
+            "alerts.add_advertisement.room_area.larger_than_apartment_area",
+        });
+      }
     }
   });
 

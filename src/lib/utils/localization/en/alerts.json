@@ -140,6 +140,9 @@
       "floor": {
         "higher_than_max_floor": "Floor must not be higher than top floor"
       },
+      "room_area": {
+        "larger_than_apartment_area": "Room area must not be larger than apartment area"
+      },
       "save": {
         "success": {
           "title": "Advertisement added successfully"

@@ -140,6 +140,9 @@
       "floor": {
         "higher_than_max_floor": "Poschodie nesmie byť vyššie ako maximálne poschodie"
       },
+      "room_area": {
+        "larger_than_apartment_area": "Veľkosť miestnosti nesmie byť väčšia ako veľkosť bytu"
+      },
       "save": {
         "success": {
           "title": "Inzerát bol úspešne pridaný"
