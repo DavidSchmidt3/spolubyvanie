@@ -1,6 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-import { useForm, type DefaultValues, type FieldValues } from "react-hook-form";
+import {
+  useForm,
+  type DefaultValues,
+  type FieldValues,
+  type Path,
+  type UseFormReturn,
+} from "react-hook-form";
 import useFormPersist from "react-hook-form-persist";
 import { type z } from "zod";
 
@@ -45,4 +51,26 @@ export const usePersistedControlledForm = <T extends FieldValues>({
   });
 
   return form;
+};
+
+interface ConditionalTriggerParams<T extends FieldValues> {
+  form: UseFormReturn<T>;
+  watchField: Path<T>;
+  triggerField: Path<T>;
+}
+
+export const useConditionalTrigger = <T extends FieldValues>({
+  form,
+  watchField,
+  triggerField,
+}: ConditionalTriggerParams<T>) => {
+  const watchedValue = form.watch(watchField);
+
+  useEffect(() => {
+    if (!form.formState.isSubmitted) return;
+    if (watchedValue && form.getValues(triggerField)) {
+      void form.trigger(triggerField);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watchedValue]);
 };

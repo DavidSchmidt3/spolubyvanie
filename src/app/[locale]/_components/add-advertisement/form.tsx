@@ -8,7 +8,10 @@ import { Button } from "@/app/[locale]/_components/ui/button";
 import { Form } from "@/app/[locale]/_components/ui/form";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { useToast } from "@/app/[locale]/_components/ui/use-toast";
-import { usePersistedControlledForm } from "@/hooks/form";
+import {
+  useConditionalTrigger,
+  usePersistedControlledForm,
+} from "@/hooks/form";
 import { addAdvertisement } from "@/lib/data/actions/add-advertisement";
 import {
   ADVERTISEMENT_ADD_SCHEMA,
@@ -111,6 +114,17 @@ export default function AddAdvertisementForm({
     parsedAdvertisementType === AdType.OfferingRoom ||
     parsedAdvertisementType === AdType.OfferingApartment;
   const isPending = form.formState.isSubmitting || isExecuting;
+
+  useConditionalTrigger({
+    form,
+    watchField: "max_floor",
+    triggerField: "floor",
+  });
+  useConditionalTrigger({
+    form,
+    watchField: "apartment_area",
+    triggerField: "room_area",
+  });
 
   return (
     <Container className="p-1 sm:py-3" fullWidth>
