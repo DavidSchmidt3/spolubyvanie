@@ -8,7 +8,7 @@ import { Button } from "@/app/[locale]/_components/ui/button";
 import { Form } from "@/app/[locale]/_components/ui/form";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { useToast } from "@/app/[locale]/_components/ui/use-toast";
-import { useControlledForm } from "@/hooks/form";
+import { usePersistedControlledForm } from "@/hooks/form";
 import { addAdvertisement } from "@/lib/data/actions/add-advertisement";
 import {
   ADVERTISEMENT_ADD_SCHEMA,
@@ -72,9 +72,11 @@ export default function AddAdvertisementForm({
     };
   }, []);
 
-  const form = useControlledForm<AdvertisementAddFormValues>({
+  const form = usePersistedControlledForm<AdvertisementAddFormValues>({
     schema: ADVERTISEMENT_ADD_SCHEMA,
     defaultValues,
+    name: "add-advertisement",
+    excludedFields: ["primary_photo", "photos", "available_from"],
   });
 
   function onSubmit(data: AdvertisementAddFormValues) {
