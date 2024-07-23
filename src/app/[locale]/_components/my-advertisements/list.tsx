@@ -13,7 +13,7 @@ export default async function MyAdvertisementsList() {
   return (
     <Container className="text-center">
       <h1 className="text-xl font-bold sm:text-3xl">{t("title")}</h1>
-      <div className="mt-5">
+      <div className="flex flex-col justify-center w-full items-center gap-y-4 px-4 sm:px-16 py-4 sm:py-8">
         {myAdvertisements?.length ? (
           myAdvertisements.map((advertisement) => (
             <Advertisement
