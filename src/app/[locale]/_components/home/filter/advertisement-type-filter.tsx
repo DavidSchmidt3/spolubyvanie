@@ -30,9 +30,10 @@ type Props = {
   form:
     | UseFormReturn<AdvertisementFilterFormValues>
     | UseFormReturn<AdvertisementAddFormValues>;
+  clearable?: boolean;
 };
 
-export function AdvertisementTypeFilter({ form }: Props) {
+export function AdvertisementTypeFilter({ form, clearable = true }: Props) {
   const t = useTranslations();
 
   const control = form.control as Control<
@@ -54,12 +55,16 @@ export function AdvertisementTypeFilter({ form }: Props) {
             </FormLabel>
             <Select
               value={field.value}
-              onValueChange={(value) => {
-                field.onChange(value);
+              onValueChange={async (value) => {
+                if (value) {
+                  field.onChange(value);
+                  await form.trigger("advertisement_type");
+                }
               }}
             >
               <FormControl>
                 <SelectTrigger
+                  alwaysShowChevron
                   value={field.value}
                   className="justify-between w-full h-12 px-4 text-base text-center hover:bg-accent"
                   aria-label={t("translations.advertisement.types.select_text")}
@@ -98,7 +103,7 @@ export function AdvertisementTypeFilter({ form }: Props) {
               </SelectContent>
             </Select>
             <div className="absolute right-0 z-20 flex items-center mr-2 top-8 -ml-11">
-              {field.value && (
+              {field.value && clearable && (
                 <SelectCancelButton
                   onCancel={() => {
                     setValue("advertisement_type", "", {

@@ -28,7 +28,7 @@ export default function GeneralCard({ form, getNumericProps }: Props) {
         <CardTitle>{t("general.title")}</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-y-2">
-        <AdvertisementTypeFilter form={form} />
+        <AdvertisementTypeFilter form={form} clearable={false} />
         <AvailableFromField control={form.control} />
         <TextField
           control={form.control}
