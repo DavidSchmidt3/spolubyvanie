@@ -235,6 +235,10 @@
           "label": "Veľkosť bytu (m²)",
           "placeholder": "Veľkosť bytu"
         },
+        "apartment_rooms": {
+          "label": "Počet izieb bytu",
+          "placeholder": "Počet izieb bytu"
+        },
         "floor": {
           "label": "Poschodie bytu",
           "placeholder": "Poschodie bytu"

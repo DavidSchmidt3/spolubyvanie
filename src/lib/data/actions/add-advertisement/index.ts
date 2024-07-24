@@ -30,6 +30,7 @@ export const addAdvertisement = authActionClient
         room_area,
         advertisement_type,
         primary_photo,
+        apartment_rooms,
         photos,
         ...rest
       } = data;
@@ -46,6 +47,7 @@ export const addAdvertisement = authActionClient
             max_floor: parseInt(max_floor),
             room_area: parseInt(room_area),
             apartment_area: parseInt(apartment_area),
+            apartment_rooms: parseInt(apartment_rooms),
             municipality_id: municipality,
             price: parseInt(price),
             id: randomUUID(),

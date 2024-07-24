@@ -9,20 +9,14 @@ import {
 } from "@/app/[locale]/_components/ui/form";
 import { Input } from "@/app/[locale]/_components/ui/input";
 import { type AdvertisementAddFormValues } from "@/lib/data/actions/add-advertisement/schema";
+import { type ExtractKeysOfValueType } from "global";
 import { type Control } from "react-hook-form";
 
 type Props = {
   control: Control<AdvertisementAddFormValues>;
   label: string;
   placeholder: string;
-  name:
-    | "price"
-    | "street"
-    | "title"
-    | "room_area"
-    | "floor"
-    | "max_floor"
-    | "apartment_area";
+  name: ExtractKeysOfValueType<AdvertisementAddFormValues, string>;
   inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
 };
 

@@ -64,6 +64,7 @@ export default function AddAdvertisementForm({
       advertisement_type: "",
       street: "",
       apartment_area: "",
+      apartment_rooms: "",
       room_area: "",
       floor: "",
       max_floor: "",
