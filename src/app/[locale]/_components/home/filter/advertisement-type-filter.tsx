@@ -64,7 +64,7 @@ export function AdvertisementTypeFilter({ form, clearable = true }: Props) {
             >
               <FormControl>
                 <SelectTrigger
-                  alwaysShowChevron
+                  alwaysShowChevron={!clearable}
                   value={field.value}
                   className="justify-between w-full h-12 px-4 text-base text-center hover:bg-accent"
                   aria-label={t("translations.advertisement.types.select_text")}
