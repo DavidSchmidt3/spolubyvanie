@@ -147,9 +147,7 @@
         "select_label": "Types of advertisement",
         "select_text": "Select advertisement type",
         "searching_room": "Searching room",
-        "offering_room": "Offering room",
-        "searching_apartment": "Searching apartment",
-        "offering_apartment": "Offering apartment"
+        "offering_room": "Offering room"
       },
       "administrative_divisions": {
         "tip": {

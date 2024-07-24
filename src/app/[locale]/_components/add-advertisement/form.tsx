@@ -110,9 +110,7 @@ export default function AddAdvertisementForm({
 
   const advertisementType = form.watch("advertisement_type");
   const parsedAdvertisementType = parseInt(advertisementType) as AdType;
-  const isOffering =
-    parsedAdvertisementType === AdType.OfferingRoom ||
-    parsedAdvertisementType === AdType.OfferingApartment;
+  const isOffering = parsedAdvertisementType === AdType.OfferingRoom;
   const isPending = form.formState.isSubmitting || isExecuting;
 
   useConditionalTrigger({

@@ -147,9 +147,7 @@
         "select_label": "Typ inzerátu",
         "select_text": "Vybrať typ inzerátu",
         "searching_room": "Hľadám izbu",
-        "offering_room": "Ponúkam izbu",
-        "searching_apartment": "Hľadám byt",
-        "offering_apartment": "Ponúkam byt"
+        "offering_room": "Ponúkam izbu"
       },
       "administrative_divisions": {
         "tip": {

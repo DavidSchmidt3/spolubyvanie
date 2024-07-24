@@ -54,10 +54,7 @@ export const ADVERTISEMENT_ADD_SCHEMA = z
   .superRefine((data, ctx) => {
     const advertisement_type = parseInt(data.advertisement_type) as AdType;
 
-    if (
-      advertisement_type === AdType.OfferingRoom ||
-      advertisement_type === AdType.OfferingApartment
-    ) {
+    if (advertisement_type === AdType.OfferingRoom) {
       if (!data.photos.length) {
         ctx.addIssue({
           path: ["photos"],

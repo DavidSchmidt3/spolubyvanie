@@ -53,10 +53,7 @@ export const addAdvertisement = authActionClient
           },
         });
 
-        if (
-          type === AdType.SearchingApartment ||
-          type === AdType.SearchingRoom
-        ) {
+        if (type === AdType.SearchingRoom) {
           revalidateTag("advertisements");
           return;
         }
