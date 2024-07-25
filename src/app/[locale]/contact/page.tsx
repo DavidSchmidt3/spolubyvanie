@@ -1,7 +1,7 @@
 import Container from "@/app/[locale]/_components/common/container";
 import { useTranslations } from "next-intl";
 
-export default function Page() {
+export default function Contact() {
   const t = useTranslations("translations");
   return (
     <Container>

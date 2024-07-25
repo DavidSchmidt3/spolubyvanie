@@ -2,6 +2,9 @@ import { enUS, sk } from "date-fns/locale";
 import { IntlErrorCode } from "next-intl";
 import { getRequestConfig } from "next-intl/server";
 import { notFound } from "next/navigation";
+import enAlerts from "./en/alerts.json";
+import enMetadata from "./en/metadata.json";
+import enTranslations from "./en/translations.json";
 
 export const LOCALES = [
   { code: "sk", name: "Slovenčina" },
@@ -19,6 +22,12 @@ export function getLocaleForDate(locale: Locale) {
 export function getLocaleDateFormat(locale: Locale) {
   return locale === "en" ? "MM/dd/yyyy" : "dd.MM.yyyy";
 }
+
+export const allMessages = {
+  ...enMetadata,
+  ...enAlerts,
+  ...enTranslations,
+};
 
 export default getRequestConfig(async ({ locale }) => {
   if (!LOCALES.some((l) => l.code === locale)) notFound();
