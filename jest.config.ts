@@ -14,9 +14,20 @@ const config: Config = {
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
   },
+  transform: {
+    "^.+\\.(ts|tsx)?$": "ts-jest",
+    "^.+\\.(js|jsx)$": "babel-jest",
+  },
   // Add more setup options before each test is run
   // setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 };
 
-// createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
-export default createJestConfig(config);
+const jestConfig = async () => {
+  const baseConfig = await createJestConfig(config)();
+  return {
+    ...baseConfig,
+    transformIgnorePatterns: ["/node_modules/(?!(next-safe-action))"],
+  };
+};
+
+export default jestConfig;

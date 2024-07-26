@@ -71,6 +71,8 @@
     "zod": "3.23.8"
   },
   "devDependencies": {
+    "@babel/core": "^7.24.9",
+    "@babel/preset-typescript": "^7.24.7",
     "@extropysk/eslint-config-react": "^0.1.4",
     "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^16.0.0",
@@ -84,6 +86,7 @@
     "@types/react-dom": "18.3.0",
     "@typescript-eslint/eslint-plugin": "7.15.0",
     "@typescript-eslint/parser": "7.15.0",
+    "babel-jest": "^29.7.0",
     "eslint": "^8.57.0",
     "eslint-config-next": "rc",
     "eslint-plugin-jest-dom": "^5.4.0",
