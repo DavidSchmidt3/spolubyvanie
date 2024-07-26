@@ -1,6 +1,6 @@
-import Advertisement from "@/app/[locale]/_components/home/advertisement";
 import AdvertisementListNoResults from "@/app/[locale]/_components/home/advertisement-list-no-results";
 import AdvertisementPagination from "@/app/[locale]/_components/home/advertisement-pagination";
+import AdvertisementPreview from "@/app/[locale]/_components/home/advertisement-preview";
 import { getAdvertisements } from "@/lib/data/advertisements";
 import { getTranslations } from "next-intl/server";
 import { type ParsedUrlQuery } from "querystring";
@@ -19,7 +19,10 @@ export default async function AdvertisementList({ searchParams, page }: Props) {
     <div className="flex flex-col justify-center w-full items-center gap-y-4 px-4 sm:px-16 py-4 sm:py-8">
       {advertisements?.length ? (
         advertisements.map((advertisement) => (
-          <Advertisement key={advertisement.id} advertisement={advertisement} />
+          <AdvertisementPreview
+            key={advertisement.id}
+            advertisement={advertisement}
+          />
         ))
       ) : (
         <AdvertisementListNoResults title={t("no_results.title")} />

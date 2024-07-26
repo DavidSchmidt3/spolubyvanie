@@ -140,8 +140,12 @@
         "empty_text": "No municipality found."
       },
       "price": {
+        "label": "Price",
         "min_label": "Price from (€)",
         "max_label": "Price to (€)"
+      },
+      "street": {
+        "label": "Street"
       },
       "types": {
         "select_label": "Types of advertisement",

@@ -1,6 +1,6 @@
 import Container from "@/app/[locale]/_components/common/container";
-import Advertisement from "@/app/[locale]/_components/home/advertisement";
 import AdvertisementListNoResults from "@/app/[locale]/_components/home/advertisement-list-no-results";
+import AdvertisementPreview from "@/app/[locale]/_components/home/advertisement-preview";
 import { getMyAdvertisements } from "@/lib/data/my-advertisements";
 import { getUser } from "@/lib/data/user";
 import { getTranslations } from "next-intl/server";
@@ -16,7 +16,7 @@ export default async function MyAdvertisementsList() {
       <div className="flex flex-col justify-center w-full items-center gap-y-4 px-4 sm:px-16 py-4 sm:py-8">
         {myAdvertisements?.length ? (
           myAdvertisements.map((advertisement) => (
-            <Advertisement
+            <AdvertisementPreview
               myAdvertisement
               key={advertisement.id}
               advertisement={advertisement}

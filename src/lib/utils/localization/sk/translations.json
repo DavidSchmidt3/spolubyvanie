@@ -140,8 +140,12 @@
         "empty_text": "Neboli nájdené žiadne obce"
       },
       "price": {
+        "label": "Cena",
         "min_label": "Cena od (€)",
         "max_label": "Cena do (€)"
+      },
+      "street": {
+        "label": "Ulica"
       },
       "types": {
         "select_label": "Typ inzerátu",
