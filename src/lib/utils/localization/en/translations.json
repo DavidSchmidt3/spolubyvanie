@@ -147,6 +147,9 @@
       "street": {
         "label": "Street"
       },
+      "type": {
+        "label": "Type"
+      },
       "types": {
         "select_label": "Types of advertisement",
         "select_text": "Select advertisement type",

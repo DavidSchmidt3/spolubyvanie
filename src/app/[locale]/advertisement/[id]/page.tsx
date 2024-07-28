@@ -60,8 +60,9 @@ export default async function Advertisement({ params }: Props) {
             {description}
           </p>
           <div className="flex flex-col gap-y-3 w-full md:w-auto md:max-w-96 flex-shrink-0">
-            <div className="flex justify-center text-base md:text-lg gap-x-8">
-              <span className="font-bold text-right text-2xl">
+            <div className="flex justify-between text-base md:text-lg gap-x-8">
+              <p>{t("type.label")}</p>
+              <span className="font-bold text-right">
                 {t(`types.${adTypeKeys[type as keyof typeof adTypeKeys]}`)}
               </span>
             </div>

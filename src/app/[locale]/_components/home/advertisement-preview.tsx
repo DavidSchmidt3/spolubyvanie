@@ -63,12 +63,13 @@ export default function AdvertisementPreview({
             />
           </div>
           <div className="flex flex-col md:flex-row gap-6 relative">
-            <p className="text-wrap break-words text-center xl:px-8 md:flex-grow">
+            <p className="text-wrap break-words text-justify lg:px-2 xl:px-8 md:flex-grow">
               {description}
             </p>
-            <div className="flex flex-col gap-y-3 w-full md:w-auto md:max-w-96 flex-shrink-0">
-              <div className="flex justify-center text-base md:text-lg gap-x-8">
-                <span className="font-bold text-right text-2xl">
+            <div className="flex flex-col gap-y-3 w-full md:w-72 lg:w-60 xl:w-72 flex-shrink-0">
+              <div className="flex justify-between text-base md:text-lg gap-x-8">
+                <p>{t("type.label")}</p>
+                <span className="font-bold text-right">
                   {t(`types.${adTypeKeys[type as keyof typeof adTypeKeys]}`)}
                 </span>
               </div>

@@ -147,6 +147,9 @@
       "street": {
         "label": "Ulica"
       },
+      "type": {
+        "label": "Typ"
+      },
       "types": {
         "select_label": "Typ inzerátu",
         "select_text": "Vybrať typ inzerátu",
