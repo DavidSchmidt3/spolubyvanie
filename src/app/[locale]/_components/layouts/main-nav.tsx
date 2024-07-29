@@ -37,7 +37,7 @@ export async function MainNav({ ...props }: React.HTMLAttributes<HTMLElement>) {
           </TransitionLink>
           <TransitionLink
             href="/add-advertisement"
-            className="text-base text-center sm:text-lg hidden sm:block"
+            className="text-base text-center sm:text-lg hidden md:block"
           >
             <div className="flex items-center gap-x-1 sm:gap-x-2">
               <Icons.plus className="w-5 h-5" />
