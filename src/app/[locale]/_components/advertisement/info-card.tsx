@@ -48,11 +48,11 @@ export default function InfoCard({ advertisement, locale }: Props) {
       <div className="flex flex-col gap-y-4">
         <InfoRow
           label={t("advertisement.room_area.label")}
-          value={`${room_area} m²`}
+          value={room_area ? `${room_area} m²` : null}
         />
         <InfoRow
           label={t("advertisement.apartment_area.label")}
-          value={`${apartment_area} m²`}
+          value={apartment_area ? `${apartment_area} m²` : null}
         />
         <InfoRow
           label={t("advertisement.apartment_rooms.label")}
