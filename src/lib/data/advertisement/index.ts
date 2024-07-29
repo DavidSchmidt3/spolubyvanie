@@ -2,7 +2,16 @@ import { getFormattedAdvertisement } from "@/lib/data/advertisements/format";
 import { db } from "@/lib/utils/prisma";
 
 export async function getAdvertisement(id: string) {
-  const advertisement = await db.advertisements.findUnique({
+  const advertisement = await fetchAdvertisement(id);
+  if (advertisement) {
+    return getFormattedAdvertisement(advertisement);
+  }
+
+  return null;
+}
+
+export async function fetchAdvertisement(id: string) {
+  return await db.advertisements.findUniqueOrThrow({
     where: {
       id,
     },
@@ -16,12 +25,11 @@ export async function getAdvertisement(id: string) {
           },
         },
       },
+      advertisements_photos: {
+        select: {
+          url: true,
+        },
+      },
     },
   });
-
-  if (advertisement) {
-    return getFormattedAdvertisement(advertisement);
-  }
-
-  return null;
 }

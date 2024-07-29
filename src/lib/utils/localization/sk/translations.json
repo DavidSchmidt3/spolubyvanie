@@ -150,6 +150,24 @@
       "type": {
         "label": "Typ"
       },
+      "room_area": {
+        "label": "Veľkosť izby (m²)"
+      },
+      "floor": {
+        "label": "Poschodie bytu"
+      },
+      "max_floor": {
+        "label": "Poschodie (najvyššie)"
+      },
+      "apartment_area": {
+        "label": "Veľkosť bytu (m²)"
+      },
+      "available_from": {
+        "label": "Dostupné od"
+      },
+      "apartment_rooms": {
+        "label": "Počet izieb bytu"
+      },
       "types": {
         "select_label": "Typ inzerátu",
         "select_text": "Vybrať typ inzerátu",

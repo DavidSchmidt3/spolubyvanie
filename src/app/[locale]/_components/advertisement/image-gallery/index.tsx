@@ -17,7 +17,7 @@ export default function ImageGallery({ photoUrls }: Props) {
       items={photoUrls.map((photo) => {
         const imageFullUrl = getImageFullUrl(photo.url);
         return {
-          loading: "lazy",
+          loading: "eager",
           original: imageFullUrl,
           thumbnail: imageFullUrl,
         };

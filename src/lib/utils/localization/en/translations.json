@@ -150,6 +150,24 @@
       "type": {
         "label": "Type"
       },
+      "room_area": {
+        "label": "Room area(m²)"
+      },
+      "floor": {
+        "label": "Apartment floor"
+      },
+      "max_floor": {
+        "label": "Floor (top)"
+      },
+      "apartment_area": {
+        "label": "Flat area(m²)"
+      },
+      "available_from": {
+        "label": "Available from"
+      },
+      "apartment_rooms": {
+        "label": "Number of rooms in apartment"
+      },
       "types": {
         "select_label": "Types of advertisement",
         "select_text": "Select advertisement type",
