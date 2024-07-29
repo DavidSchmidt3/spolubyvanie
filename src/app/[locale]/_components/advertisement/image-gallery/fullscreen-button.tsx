@@ -15,7 +15,7 @@ export const FullscreenButton = memo(
         onClick={onClick}
         aria-label={isFullscreen ? "Exit Fullscreen" : "Open Fullscreen"}
       >
-        <Icons.fullScreen className="w-14 h-14" />
+        <Icons.fullScreen className="w-10 h-10" />
       </button>
     );
   }

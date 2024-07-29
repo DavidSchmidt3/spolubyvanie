@@ -72,3 +72,7 @@ body {
   transform: translateY(40px);
   filter: blur(12px);
 }
+
+.image-gallery { 
+  width: 100%;
+}

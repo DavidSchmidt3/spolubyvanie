@@ -24,8 +24,12 @@ export default function Advertisement({ advertisement, locale }: Props) {
       <CardContent className="p-4 sm:p-8 flex flex-col gap-4 sm:gap-6 xl:gap-8 w-full">
         <p className="text-wrap break-words text-justify">{description}</p>
         <InfoCard advertisement={advertisement} locale={locale} />
-        <div className="flex justify-center w-full">
-          <ImageGallery photoUrls={advertisement_photos} />
+        <div className="flex justify-center w-full mt-8">
+          <div className="w-full max-w-4xl">
+            {advertisement_photos.length ? (
+              <ImageGallery photoUrls={advertisement_photos} />
+            ) : null}
+          </div>
         </div>
       </CardContent>
     </Card>
