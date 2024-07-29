@@ -49,7 +49,7 @@ export default function AdvertisementActions({ advertisement }: Props) {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hasErrored]);
+  }, [hasErrored, hasSucceeded]);
 
   function preventGoingToAdvertisementDetail(e: React.MouseEvent) {
     e.preventDefault();
