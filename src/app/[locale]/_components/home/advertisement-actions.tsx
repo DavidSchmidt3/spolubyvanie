@@ -15,6 +15,7 @@ import { useToast } from "@/app/[locale]/_components/ui/use-toast";
 import { deleteAdvertisement } from "@/lib/data/actions/my-advertisements";
 import { type Advertisement } from "@/lib/data/advertisements/format";
 import { cn } from "@/lib/utils";
+import { useRouter } from "@/lib/utils/localization/navigation";
 import { AlertDialogDescription } from "@radix-ui/react-alert-dialog";
 import { useTranslations } from "next-intl";
 import { useAction } from "next-safe-action/hooks";
@@ -28,6 +29,7 @@ export default function AdvertisementActions({ advertisement }: Props) {
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const t = useTranslations("translations");
   const { toast } = useToast();
+  const router = useRouter();
   const { execute, isExecuting, hasErrored, hasSucceeded } =
     useAction(deleteAdvertisement);
 
@@ -40,6 +42,7 @@ export default function AdvertisementActions({ advertisement }: Props) {
     }
 
     if (hasSucceeded) {
+      router.refresh();
       toast({
         title: "alerts.my_advertisements.delete.success.title",
         variant: "success",
@@ -48,6 +51,11 @@ export default function AdvertisementActions({ advertisement }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasErrored]);
 
+  function preventGoingToAdvertisementDetail(e: React.MouseEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
   return (
     <div className="flex gap-2">
       <Button className="flex gap-2 h-min" disabled>
@@ -55,9 +63,12 @@ export default function AdvertisementActions({ advertisement }: Props) {
         {t("advertisement.edit.button")}
       </Button>
       <Button
-        onClick={() => setConfirmDialogOpen(true)}
+        onClick={(e) => {
+          preventGoingToAdvertisementDetail(e);
+          setConfirmDialogOpen(true);
+        }}
         variant="destructive"
-        className="flex gap-2 h-min"
+        className="flex gap-2 h-min z-10"
         disabled={isExecuting}
       >
         {isExecuting && (
@@ -77,11 +88,20 @@ export default function AdvertisementActions({ advertisement }: Props) {
             {t("my_advertisements.delete.confirm_dialog.content")}
           </AlertDialogDescription>
           <AlertDialogFooter>
-            <AlertDialogCancel>
+            <AlertDialogCancel
+              onClick={(e) => {
+                preventGoingToAdvertisementDetail(e);
+                setConfirmDialogOpen(false);
+              }}
+            >
               {t("my_advertisements.delete.confirm_dialog.cancel")}
             </AlertDialogCancel>
             <AlertDialogAction
-              onClick={() => execute({ advertisement_id: advertisement.id })}
+              onClick={(e) => {
+                preventGoingToAdvertisementDetail(e);
+                setConfirmDialogOpen(false);
+                execute({ advertisement_id: advertisement.id });
+              }}
               className={`${cn(buttonVariants({ variant: "destructive" }))}`}
             >
               {t("my_advertisements.delete.confirm_dialog.confirm")}
