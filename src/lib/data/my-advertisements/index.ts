@@ -25,6 +25,6 @@ export async function getMyAdvertisements(userId: string) {
     );
   } catch (error) {
     console.error("Error fetching my advertisements", error);
-    return [] as const;
+    return [];
   }
 }
