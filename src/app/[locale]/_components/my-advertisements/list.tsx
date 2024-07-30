@@ -16,7 +16,7 @@ export default async function MyAdvertisementsList() {
   const myAdvertisements = await getMyAdvertisements(user!.id);
 
   return (
-    <Container className="text-center">
+    <Container className="text-center" fullWidth>
       <MyAdvertisementsHeader />
       <div className="flex flex-col justify-center w-full items-center gap-y-4 px-4 sm:px-8 py-4 sm:py-8">
         {myAdvertisements?.length ? (
