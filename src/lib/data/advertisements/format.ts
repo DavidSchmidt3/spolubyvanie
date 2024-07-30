@@ -1,5 +1,6 @@
 import { type fetchAdvertisement } from "@/lib/data/advertisement";
 import { type fetchAdvertisements } from "@/lib/data/advertisements";
+import { type AdType } from "@/lib/data/advertisements/types";
 
 export type Advertisement = ReturnType<typeof getFormattedAdvertisement>;
 export function getFormattedAdvertisement(
@@ -16,7 +17,7 @@ export function getFormattedAdvertisement(
     floor: advertisement.floor,
     room_area: advertisement.room_area,
     primary_photo_url: advertisement.primary_photo_url,
-    type: advertisement.type,
+    type: advertisement.type as AdType,
     apartment_area: advertisement.apartment_area,
     apartment_rooms: advertisement.apartment_rooms,
     max_floor: advertisement.max_floor,

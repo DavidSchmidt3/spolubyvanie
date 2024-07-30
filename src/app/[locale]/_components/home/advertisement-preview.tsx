@@ -1,4 +1,5 @@
 import AdvertisementActions from "@/app/[locale]/_components/home/advertisement-actions";
+import AdvertisementImage from "@/app/[locale]/_components/home/advertisement-image";
 import { Button } from "@/app/[locale]/_components/ui/button";
 import {
   Card,
@@ -9,9 +10,7 @@ import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { type Advertisement as AdvertisementType } from "@/lib/data/advertisements/format";
 import { adTypeKeys } from "@/lib/data/advertisements/types";
 import { Link } from "@/lib/utils/localization/navigation";
-import { getImageFullUrl } from "@/lib/utils/supabase";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
 
 type Props = {
   advertisement: AdvertisementType;
@@ -57,16 +56,9 @@ export default function AdvertisementPreview({
       </CardHeader>
       <CardContent className="p-2 xl:p-3 pt-3 flex flex-col lg:flex-row gap-4 sm:gap-6 xl:gap-8 w-full">
         <div className="relative flex flex-shrink-0 h-min justify-center w-full lg:w-80 xl:w-96">
-          <Image
-            src={
-              primary_photo_url
-                ? getImageFullUrl(primary_photo_url)
-                : "/room.webp"
-            }
-            alt="Advertisement"
-            width={1440}
-            height={1080}
-            className="rounded-sm w-full max-w-80 xl:max-w-96"
+          <AdvertisementImage
+            primary_photo_url={primary_photo_url}
+            type={type}
           />
         </div>
         <div className="flex flex-col md:flex-row gap-6 relative">
