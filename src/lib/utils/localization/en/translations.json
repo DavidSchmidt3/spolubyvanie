@@ -153,6 +153,9 @@
       "room_area": {
         "label": "Room area(m²)"
       },
+      "detail": {
+        "link": "Advertisement details"
+      },
       "floor": {
         "label": "Apartment floor"
       },

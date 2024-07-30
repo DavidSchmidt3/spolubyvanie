@@ -10,6 +10,7 @@ export default function AdvertisementLoading() {
     <Card className="w-full h-auto p-6">
       <CardHeader className="p-0 pb-2 flex-col gap-y-2 items-center relative justify-between">
         <Skeleton className="w-1/2 h-9" />
+        <Skeleton className="w-48 h-9" />
       </CardHeader>
       <CardContent className="p-2 xl:p-3 pt-3 flex flex-col lg:flex-row gap-4 sm:gap-6 xl:gap-8 w-full">
         <div className="w- flex justify-center lg:justify-start">

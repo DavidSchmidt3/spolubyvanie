@@ -153,6 +153,9 @@
       "room_area": {
         "label": "Veľkosť izby (m²)"
       },
+      "detail": {
+        "link": "Podrobnosti inzerátu"
+      },
       "floor": {
         "label": "Poschodie bytu"
       },
