@@ -1,4 +1,5 @@
 import { type ReactNode, useEffect, useRef } from "react";
+import { GUTTER_SIZE } from "./virtualized-list";
 
 type Props = {
   children: ReactNode;
@@ -14,7 +15,7 @@ export default function MeasuredItem({ children, onResize }: Props) {
         for (const entry of entries) {
           if (entry.contentBoxSize) {
             const height = entry.contentBoxSize[0]?.blockSize ?? 0;
-            onResize(height);
+            onResize(height + GUTTER_SIZE);
           }
         }
       });

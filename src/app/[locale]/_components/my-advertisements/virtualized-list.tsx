@@ -10,6 +10,7 @@ type Props = {
   myAdvertisements: Advertisement[];
 };
 
+export const GUTTER_SIZE = 25;
 export default function VirtualizedAdvertisementsList({
   myAdvertisements,
 }: Props) {
@@ -18,6 +19,7 @@ export default function VirtualizedAdvertisementsList({
   const rowHeights = useRef<Record<number, number>>({});
 
   const getRowHeight = (index: number) => {
+    console.log(rowHeights.current[index]);
     return rowHeights.current[index] ?? 400;
   };
 
@@ -37,19 +39,19 @@ export default function VirtualizedAdvertisementsList({
     index: number;
     style: React.CSSProperties;
   }) => (
-    <div style={style} className="">
+    <div
+      style={{
+        ...style,
+        top: (style.top as number) + GUTTER_SIZE,
+        height: (style.height as number) - GUTTER_SIZE,
+      }}
+    >
       <MeasuredItem onResize={(height) => setRowHeight(index, height)}>
-        <div
-          className={`${
-            index !== myAdvertisements.length - 1 ? "pb-8" : ""
-          } px-4`}
-        >
-          <AdvertisementPreview
-            myAdvertisement
-            key={myAdvertisements[index]?.id}
-            advertisement={myAdvertisements[index]!}
-          />
-        </div>
+        <AdvertisementPreview
+          myAdvertisement
+          key={myAdvertisements[index]?.id}
+          advertisement={myAdvertisements[index]!}
+        />
       </MeasuredItem>
     </div>
   );
