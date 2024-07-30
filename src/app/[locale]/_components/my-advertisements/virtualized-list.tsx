@@ -19,7 +19,6 @@ export default function VirtualizedAdvertisementsList({
   const rowHeights = useRef<Record<number, number>>({});
 
   const getRowHeight = (index: number) => {
-    console.log(rowHeights.current[index]);
     return rowHeights.current[index] ?? 400;
   };
 
