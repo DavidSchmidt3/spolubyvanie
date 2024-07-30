@@ -22,14 +22,17 @@ export const deleteAdvertisement = authActionClient
       });
 
       const urls = advertisementPhotos.map((photo) => photo.url);
-      await supabase.storage.from("photos").remove(urls);
-
+      // first delete the entry from the database
       await db.advertisements.delete({
         where: {
           id: data.advertisement_id,
           user_id: userId,
         },
       });
+
+      // then delete the photos from the storage
+      // if this was done vice versa and the db deletion failed, we wouldn't have the images, only entry in the db
+      await supabase.storage.from("photos").remove(urls);
     } catch (error) {
       console.error("Error deleting advertisement", error);
       throw new ActionError("alerts.my_advertisements.delete.error.title");
