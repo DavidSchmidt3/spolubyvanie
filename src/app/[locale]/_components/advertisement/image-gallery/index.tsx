@@ -14,11 +14,16 @@ export default function ImageGallery({ photoUrls }: Props) {
     <ImageGalleryPrimitive
       autoPlay={false}
       showPlayButton={false}
-      items={photoUrls.map((photo) => {
+      slideDuration={200}
+      items={photoUrls.map((photo, idx) => {
         const imageFullUrl = getImageFullUrl(photo.url);
         return {
-          loading: "eager",
+          loading: idx === 0 ? ("eager" as const) : ("lazy" as const),
           original: imageFullUrl,
+          originalWidth: 140,
+          thumbnailHeight: 60,
+          thumbnailWidth: 80,
+          originalHeight: 108,
           thumbnail: imageFullUrl,
         };
       })}
