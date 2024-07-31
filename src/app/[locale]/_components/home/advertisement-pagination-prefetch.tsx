@@ -19,12 +19,16 @@ export default function AdvertisementPaginationPrefetch({
   const router = useRouter();
 
   useEffect(() => {
-    router.prefetch({
-      pathname: "/[page]",
-      params: { page: nextPage },
-      query: currentQueryString,
-    });
-  }, [nextPage, currentQueryString, router]);
+    for (let i = 0; i <= 1; i++) {
+      const page = parseInt(nextPage) + i;
+      router.prefetch({
+        pathname: "/[page]",
+        params: { page: page.toString() },
+        query: currentQueryString,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nextPage, currentQueryString]);
 
   return null; // This component doesn't render anything
 }

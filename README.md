@@ -26,6 +26,8 @@ All the pages are fully responsive up to 320 px width following the WCAG spec.
 ### Design
 The main focus certainly wasn’t on the design of the page. I am not a designer by any means and didn’t even spend time drawing the layouts in Figma beforehand. I did just enough to make it look good and be usable by my standards :)
 
+### Advertisements prefetch behavior
+I have opted in for client side router prefetching of next 2 pages after loading the page - prefetching via link after entering the viewport of the page is often too late, the route won't be prefetched in time. I have used this prefetch for previous pages - usually they will be prefetched anyways, when navigating from the previous page, but this way I can ensure that the pages are prefetched even when the user enters the page directly. This is in my opinion the best compromise between performance and user experience.
 
 ### Dynamic segment and query params
 Why dynamic segment for paging and not query params like for filtering?

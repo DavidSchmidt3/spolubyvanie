@@ -38,7 +38,7 @@ export default function AdvertisementPagination({
           {!isFirstPage && (
             <PaginationItem>
               <PaginationPrevious
-                prefetch={false}
+                prefetch={true}
                 href={{
                   pathname: "/[page]",
                   params: { page: (parseInt(page) - 1).toString() },
@@ -54,7 +54,7 @@ export default function AdvertisementPagination({
                 return (
                   <PaginationItem key={page}>
                     <PaginationLink
-                      prefetch={false}
+                      prefetch={page < currentPage}
                       href={{
                         pathname: "/[page]",
                         params: { page },
