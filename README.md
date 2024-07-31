@@ -21,7 +21,13 @@ I wanted to create a project showcasing my skills using latest technologies in r
 ## Other
 All the pages are fully responsive up to 320 px width following the WCAG spec. 
 
-### Author notes
+## Author notes
+
+### Design
+The main focus certainly wasn’t on the design of the page. I am not a designer by any means and didn’t even spend time drawing the layouts in Figma beforehand. I did just enough to make it look good and be usable by my standards :)
+
+
+### Dynamic segment and query params
 Why dynamic segment for paging and not query params like for filtering?
 
 Well, next.js has "interesting" behavior, ([Github discussion](https://github.com/vercel/next.js/issues/53543)), where updating the search params does not trigger suspense loading or loading.tsx page. You can force it to show suspense loading by explicitly defining suspense and providing key composed of search params. 
