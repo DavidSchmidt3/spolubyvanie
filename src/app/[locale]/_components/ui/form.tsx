@@ -1,3 +1,4 @@
+import FormPersist from "@/app/[locale]/_components/react-hook-form/form-persist";
 import type * as LabelPrimitive from "@radix-ui/react-label";
 import { Slot } from "@radix-ui/react-slot";
 import * as React from "react";
@@ -8,6 +9,7 @@ import {
   type ControllerProps,
   type FieldPath,
   type FieldValues,
+  type UseFormReturn,
 } from "react-hook-form";
 
 import { Label } from "@/app/[locale]/_components/ui/label";
@@ -16,6 +18,33 @@ import { type MessageKeys } from "global";
 import { useTranslations } from "next-intl";
 
 const Form = FormProvider;
+
+interface PersistedFormProps<T extends FieldValues> {
+  form: UseFormReturn<T>;
+  name: string;
+  children: React.ReactNode;
+  onSubmit: (data: T) => void;
+  exclude?: (keyof T)[];
+}
+
+function PersistedForm<T extends FieldValues>({
+  form,
+  name,
+  children,
+  onSubmit,
+  exclude = ["photos", "primary_photo", "available_from"],
+}: PersistedFormProps<T>) {
+  return (
+    <FormProvider {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <FormPersist form={form} name={name} exclude={exclude} />
+        {children}
+      </form>
+    </FormProvider>
+  );
+}
+
+export default PersistedForm;
 
 type FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
@@ -176,5 +205,6 @@ export {
   FormItem,
   FormLabel,
   FormMessage,
+  PersistedForm,
   useFormField,
 };
