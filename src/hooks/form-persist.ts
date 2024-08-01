@@ -91,11 +91,11 @@ export default function useFormPersist<T extends FieldValues>(
   };
 }
 
-function getPersistedValues<T extends FieldValues>(
-  name: string,
-  defaultValues: T,
-  exclude: (keyof T)[] = []
-): T {
+function getPersistedValues<T extends FieldValues>({
+  name,
+  defaultValues,
+  exclude = [],
+}: UsePersistedValuesProps<T>): T {
   try {
     const storage =
       typeof window !== "undefined" ? window.sessionStorage : undefined;
@@ -123,11 +123,17 @@ function getPersistedValues<T extends FieldValues>(
   }
 }
 
-export function usePersistedValues<T extends FieldValues>(
-  name: string,
-  defaultValues: T,
-  exclude: (keyof T)[] = []
-): {
+type UsePersistedValuesProps<T extends FieldValues> = {
+  name: string;
+  defaultValues: T;
+  exclude: (keyof T)[];
+};
+
+export function usePersistedValues<T extends FieldValues>({
+  name,
+  defaultValues,
+  exclude = [],
+}: UsePersistedValuesProps<T>): {
   formValues: T;
   isLoading: boolean;
 } {
@@ -135,7 +141,11 @@ export function usePersistedValues<T extends FieldValues>(
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const persistedValues = getPersistedValues(name, defaultValues, exclude);
+    const persistedValues = getPersistedValues({
+      name,
+      defaultValues,
+      exclude,
+    });
     setFormValues(persistedValues);
     setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps

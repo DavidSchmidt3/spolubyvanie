@@ -75,11 +75,11 @@ export default function AddAdvertisementForm({
     };
   }, []);
 
-  const { isLoading, formValues } = usePersistedValues(
-    "add_advertisement",
+  const { isLoading, formValues } = usePersistedValues({
+    name: "add_advertisement",
     defaultValues,
-    ["photos", "primary_photo", "available_from"]
-  );
+    exclude: ["photos", "primary_photo", "available_from"],
+  });
 
   const form = useControlledForm<AdvertisementAddFormValues>({
     schema: ADVERTISEMENT_ADD_SCHEMA,
