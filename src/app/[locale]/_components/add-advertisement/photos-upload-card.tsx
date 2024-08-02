@@ -44,7 +44,7 @@ export default function PhotosUploadCard({ form }: Props) {
     <Card className="col-span-1 md:col-span-2 xl:col-span-3">
       <CardHeader>
         <CardTitle>{t("photos.title")}</CardTitle>
-        <CardDescription className="text-base whitespace-pre">
+        <CardDescription className="text-base whitespace-pre text-wrap">
           {t("photos.description")}
         </CardDescription>
       </CardHeader>

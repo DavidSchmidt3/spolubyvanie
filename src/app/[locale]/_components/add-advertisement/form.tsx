@@ -134,8 +134,8 @@ export default function AddAdvertisementForm({
       </h1>
       <PersistedForm persistConfig={persistConfig} onSubmit={onSubmit}>
         <div
-          className={`grid grid-cols-1 gap-2 mx-4 mt-4 gap-y-4 sm:gap-4 md:grid-cols-2 xl:${
-            isOffering ? "grid-cols-3" : "grid-cols-2"
+          className={`grid grid-cols-1 gap-2 mx-4 mt-4 gap-y-4 sm:gap-4 md:grid-cols-2 ${
+            isOffering ? "xl:grid-cols-3" : "xl:grid-cols-2"
           }`}
         >
           <GeneralCard form={form} getNumericProps={getNumericProps} />
