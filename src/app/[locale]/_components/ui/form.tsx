@@ -20,20 +20,22 @@ import { useTranslations } from "next-intl";
 const Form = FormProvider;
 
 interface PersistedFormProps<T extends FieldValues> {
-  form: UseFormReturn<T>;
-  name: string;
   children: React.ReactNode;
   onSubmit: (data: T) => void;
-  exclude?: (keyof T)[];
+  persistConfig: {
+    form: UseFormReturn<T>;
+    name: string;
+    exclude?: (keyof T)[];
+  };
 }
 
 function PersistedForm<T extends FieldValues>({
-  form,
-  name,
-  children,
+  persistConfig,
   onSubmit,
-  exclude = ["photos", "primary_photo", "available_from"],
+  children,
 }: PersistedFormProps<T>) {
+  const { form, name, exclude = [] } = persistConfig;
+
   return (
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -206,5 +208,6 @@ export {
   FormLabel,
   FormMessage,
   PersistedForm,
-  useFormField,
+  useFormField
 };
+

@@ -9,8 +9,7 @@ import { Button } from "@/app/[locale]/_components/ui/button";
 import PersistedForm from "@/app/[locale]/_components/ui/form";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { useToast } from "@/app/[locale]/_components/ui/use-toast";
-import { useConditionalTrigger, useControlledForm } from "@/hooks/form";
-import { usePersistedValues } from "@/hooks/form-persist";
+import { useConditionalTrigger, usePersistedForm } from "@/hooks/form";
 import { addAdvertisement } from "@/lib/data/actions/add-advertisement";
 import {
   ADVERTISEMENT_ADD_SCHEMA,
@@ -75,15 +74,11 @@ export default function AddAdvertisementForm({
     };
   }, []);
 
-  const { isLoading, formValues } = usePersistedValues({
+  const { isLoading, form, persistConfig } = usePersistedForm({
     name: "add_advertisement",
-    defaultValues,
     exclude: ["photos", "primary_photo", "available_from"],
-  });
-
-  const form = useControlledForm<AdvertisementAddFormValues>({
+    defaultValues,
     schema: ADVERTISEMENT_ADD_SCHEMA,
-    defaultValues: formValues,
   });
 
   function onSubmit(data: AdvertisementAddFormValues) {
@@ -137,12 +132,7 @@ export default function AddAdvertisementForm({
       <h1 className="text-2xl font-bold text-center sm:text-3xl">
         {t("title")}
       </h1>
-      <PersistedForm
-        form={form}
-        name="add_advertisement"
-        onSubmit={onSubmit}
-        exclude={["photos", "primary_photo", "available_from"]}
-      >
+      <PersistedForm persistConfig={persistConfig} onSubmit={onSubmit}>
         <div
           className={`grid grid-cols-1 gap-2 mx-4 mt-4 gap-y-4 sm:gap-4 md:grid-cols-2 xl:${
             isOffering ? "grid-cols-3" : "grid-cols-2"

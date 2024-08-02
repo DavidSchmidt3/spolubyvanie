@@ -95,7 +95,7 @@ function getPersistedValues<T extends FieldValues>({
   name,
   defaultValues,
   exclude = [],
-}: UsePersistedValuesProps<T>): T {
+}: UsePersistedValuesProps<T>): DefaultValues<T> {
   try {
     const storage =
       typeof window !== "undefined" ? window.sessionStorage : undefined;
@@ -107,17 +107,16 @@ function getPersistedValues<T extends FieldValues>({
     const str = storage.getItem(name);
     if (!str) return defaultValues;
 
-    const persistedValues = JSON.parse(str) as Partial<T>;
+    const persistedValues = JSON.parse(str) as Partial<DefaultValues<T>>;
 
     return Object.keys(defaultValues).reduce((acc, key) => {
-      const typedKey = key as keyof T;
-      if (!exclude.includes(typedKey) && persistedValues.hasOwnProperty(key)) {
-        acc[typedKey] = persistedValues[typedKey] as T[keyof T];
+      if (!exclude.includes(key) && persistedValues.hasOwnProperty(key)) {
+        acc[key] = persistedValues[key];
       } else {
-        acc[typedKey] = defaultValues[typedKey];
+        acc[key] = defaultValues[key];
       }
       return acc;
-    }, {} as T);
+    }, {} as DefaultValues<T>);
   } catch (error) {
     return defaultValues;
   }
@@ -125,8 +124,8 @@ function getPersistedValues<T extends FieldValues>({
 
 type UsePersistedValuesProps<T extends FieldValues> = {
   name: string;
-  defaultValues: T;
-  exclude: (keyof T)[];
+  defaultValues: DefaultValues<T>;
+  exclude: (keyof DefaultValues<T>)[];
 };
 
 export function usePersistedValues<T extends FieldValues>({
@@ -134,7 +133,7 @@ export function usePersistedValues<T extends FieldValues>({
   defaultValues,
   exclude = [],
 }: UsePersistedValuesProps<T>): {
-  formValues: T;
+  formValues: DefaultValues<T>;
   isLoading: boolean;
 } {
   const [formValues, setFormValues] = useState(defaultValues);

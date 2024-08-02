@@ -1,5 +1,6 @@
+import { usePersistedValues } from "@/hooks/form-persist";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import {
   useForm,
   type DefaultValues,
@@ -29,6 +30,49 @@ export const useControlledForm = <T extends FieldValues>({
   }, [defaultValues]);
 
   return form;
+};
+
+interface PersistedProps<T extends FieldValues> {
+  name: string;
+  schema: z.Schema;
+  exclude: (keyof DefaultValues<T>)[];
+  defaultValues: DefaultValues<T>;
+}
+
+export const usePersistedForm = <T extends FieldValues>({
+  name,
+  defaultValues,
+  exclude,
+  schema,
+}: PersistedProps<T>) => {
+  const { isLoading, formValues } = usePersistedValues({
+    name,
+    defaultValues,
+    exclude,
+  });
+
+  const form = useControlledForm<T>({
+    schema,
+    defaultValues: formValues,
+  });
+
+  const persistConfig = useMemo(
+    () => {
+      return {
+        name,
+        exclude,
+        form,
+      };
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
+  return {
+    isLoading,
+    form,
+    persistConfig,
+  };
 };
 
 interface ConditionalTriggerParams<T extends FieldValues> {
