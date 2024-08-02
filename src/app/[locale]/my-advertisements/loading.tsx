@@ -1,5 +1,5 @@
-import AdvertisementListLoading from "@/app/[locale]/_components/home/advertisement-list-loading";
+import MyAdvertisementsListLoading from "@/app/[locale]/_components/my-advertisements/list-loading";
 
 export default function Loading() {
-  return <AdvertisementListLoading />;
+  return <MyAdvertisementsListLoading />;
 }
