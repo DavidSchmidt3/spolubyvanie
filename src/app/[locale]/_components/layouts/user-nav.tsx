@@ -58,14 +58,6 @@ export default async function UserNav() {
                 </div>
               </DropdownMenuItem>
             </TransitionLink>
-            <TransitionLink href="/add-advertisement" className="w-full">
-              <DropdownMenuItem className="text-base cursor-pointer hover:bg-accent/90">
-                <div className="flex items-center gap-x-2">
-                  <Icons.plus className="w-4 h-4" />
-                  {t("navigation.add_advertisement.label")}
-                </div>
-              </DropdownMenuItem>
-            </TransitionLink>
             <DropdownMenuItem>
               <form action={logout} className="w-full">
                 <Button
@@ -83,14 +75,24 @@ export default async function UserNav() {
             </DropdownMenuItem>
           </>
         ) : (
-          <TransitionLink href="/login" className="w-full">
-            <DropdownMenuItem className="text-base cursor-pointer hover:bg-accent/90">
-              <div className="flex items-center gap-x-2">
-                <Icons.person />
-                {t("login.button")}
-              </div>
-            </DropdownMenuItem>
-          </TransitionLink>
+          <>
+            <TransitionLink href="/add-advertisement" className="w-full">
+              <DropdownMenuItem className="text-base cursor-pointer hover:bg-accent/90">
+                <div className="flex items-center gap-x-2">
+                  <Icons.plus className="w-4 h-4" />
+                  {t("navigation.add_advertisement.label")}
+                </div>
+              </DropdownMenuItem>
+            </TransitionLink>
+            <TransitionLink href="/login" className="w-full">
+              <DropdownMenuItem className="text-base cursor-pointer hover:bg-accent/90">
+                <div className="flex items-center gap-x-2">
+                  <Icons.person />
+                  {t("login.button")}
+                </div>
+              </DropdownMenuItem>
+            </TransitionLink>
+          </>
         )}
       </DropdownMenuContent>
     </DropdownMenu>
