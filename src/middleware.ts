@@ -5,7 +5,7 @@ import {
   pathnames,
 } from "@/lib/utils/localization/i18n";
 import { type Database } from "@/lib/utils/supabase/types/database";
-import { createServerClient, type CookieOptions } from "@supabase/ssr";
+import { createServerClient } from "@supabase/ssr";
 import createMiddleware from "next-intl/middleware";
 import { NextResponse, type NextRequest } from "next/server";
 
@@ -17,27 +17,27 @@ const localizationMiddleWare = createMiddleware({
 });
 
 export async function middleware(request: NextRequest) {
-  const response = localizationMiddleWare(request);
+  let response = localizationMiddleWare(request);
 
   const supabase = createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        get(name: string) {
-          return request.cookies.get(name)?.value;
+        getAll() {
+          return request.cookies.getAll();
         },
-        set(name: string, value: string, options: CookieOptions) {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-          request.cookies.set({ name, value, ...options });
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-          response.cookies.set({ name, value, ...options });
-        },
-        remove(name: string, options: CookieOptions) {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-          request.cookies.set({ name, value: "", ...options });
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-          response.cookies.set({ name, value: "", ...options });
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value }) =>
+            request.cookies.set(name, value)
+          );
+          response = NextResponse.next({
+            request,
+          });
+          cookiesToSet.forEach(({ name, value, options }) =>
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+            response.cookies.set(name, value, options)
+          );
         },
       },
     }
