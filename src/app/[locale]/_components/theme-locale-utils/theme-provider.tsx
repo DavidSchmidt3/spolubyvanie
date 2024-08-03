@@ -14,7 +14,7 @@ export function ThemeProvider({ children }: Props) {
       enableSystem
       disableTransitionOnChange
       defaultTheme={DEFAULT_THEME}
-      // storageKey="" TODO: after known domain, add theme.domain as storage key
+      storageKey={`theme.${process.env.NEXT_PUBLIC_VERCEL_URL}`}
     >
       {children}
     </NextThemesProvider>
