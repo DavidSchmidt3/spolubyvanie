@@ -12,6 +12,9 @@ import { type ParsedUrlQuery } from "querystring";
 export type AdvertisementMeta = Awaited<
   ReturnType<typeof fetchAdvertisements>
 >[1];
+export type AdvertisementsFetchResult = Awaited<
+  ReturnType<typeof fetchAdvertisements>
+>[0][number];
 export async function fetchAdvertisements(
   filter?: Prisma.advertisementsFindManyArgs,
   page?: string

@@ -10,26 +10,34 @@ export async function getAdvertisement(id: string) {
   return null;
 }
 
+export type AdvertisementFetchResult = Exclude<
+  Awaited<ReturnType<typeof fetchAdvertisement>>,
+  undefined
+>;
 export async function fetchAdvertisement(id: string) {
-  return await db.advertisements.findUniqueOrThrow({
-    where: {
-      id,
-    },
-    include: {
-      municipalities: {
-        include: {
-          districts: {
-            include: {
-              regions: true,
+  try {
+    return await db.advertisements.findUniqueOrThrow({
+      where: {
+        id,
+      },
+      include: {
+        municipalities: {
+          include: {
+            districts: {
+              include: {
+                regions: true,
+              },
             },
           },
         },
-      },
-      advertisements_photos: {
-        select: {
-          url: true,
+        advertisements_photos: {
+          select: {
+            url: true,
+          },
         },
       },
-    },
-  });
+    });
+  } catch (error) {
+    console.error(error);
+  }
 }

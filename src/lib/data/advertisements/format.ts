@@ -1,15 +1,13 @@
-import { type fetchAdvertisement } from "@/lib/data/advertisement";
-import { type fetchAdvertisements } from "@/lib/data/advertisements";
+import { type AdvertisementFetchResult } from "@/lib/data/advertisement";
+import { type AdvertisementsFetchResult } from "@/lib/data/advertisements";
 import { type AdType } from "@/lib/data/advertisements/types";
 
 export type Advertisement = ReturnType<typeof getFormattedAdvertisement>;
 export function getFormattedAdvertisement(
-  advertisement:
-    | Awaited<ReturnType<typeof fetchAdvertisements>>[0][number]
-    | Awaited<ReturnType<typeof fetchAdvertisement>>
+  advertisement: AdvertisementsFetchResult | AdvertisementFetchResult
 ) {
   return {
-    id: advertisement?.id,
+    id: advertisement.id,
     price: advertisement.price,
     description: advertisement.description,
     street: advertisement.street,
