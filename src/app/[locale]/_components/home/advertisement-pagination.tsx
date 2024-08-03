@@ -36,7 +36,7 @@ export default function AdvertisementPagination({
       <Pagination>
         <PaginationContent className="pb-4 justify-center flex-wrap">
           {!isFirstPage && (
-            <PaginationItem>
+            <PaginationItem className="w-full text-center sm:w-auto">
               <PaginationPrevious
                 prefetch={true}
                 href={{
@@ -47,31 +47,29 @@ export default function AdvertisementPagination({
               />
             </PaginationItem>
           )}
-          <div className="flex flex-row gap-1">
-            {Array.from({ length: 5 }, (_, index) => {
-              const page = currentPage - 2 + index;
-              if (page > 0 && page <= pageCount) {
-                return (
-                  <PaginationItem key={page}>
-                    <PaginationLink
-                      prefetch={page < currentPage}
-                      href={{
-                        pathname: "/[page]",
-                        params: { page },
-                        query: currentQueryString,
-                      }}
-                      isActive={page === currentPage}
-                    >
-                      {page}
-                    </PaginationLink>
-                  </PaginationItem>
-                );
-              }
-              return null;
-            })}
-          </div>
+          {Array.from({ length: 5 }, (_, index) => {
+            const page = currentPage - 2 + index;
+            if (page > 0 && page <= pageCount) {
+              return (
+                <PaginationItem key={page}>
+                  <PaginationLink
+                    prefetch={page < currentPage}
+                    href={{
+                      pathname: "/[page]",
+                      params: { page },
+                      query: currentQueryString,
+                    }}
+                    isActive={page === currentPage}
+                  >
+                    {page}
+                  </PaginationLink>
+                </PaginationItem>
+              );
+            }
+            return null;
+          })}
           {!isLastPage && (
-            <PaginationItem>
+            <PaginationItem className="w-full text-center sm:w-auto">
               <PaginationNext
                 prefetch={false}
                 href={{
