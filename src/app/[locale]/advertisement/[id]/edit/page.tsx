@@ -50,8 +50,8 @@ export default async function AdvertisementEdit({ params: { id } }: Props) {
         regions={regions}
         districts={districts}
         municipalities={municipalities}
-        isEdit
-        defaultValues={advertisement}
+        // isEdit
+        // defaultValues={advertisement}
       />
     </NextIntlClientProvider>
   );
