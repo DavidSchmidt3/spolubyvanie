@@ -187,6 +187,10 @@
       },
       "edit": {
         "button": "Upraviť inzerát"
+      },
+      "not_found": {
+        "title": "Inzerát nebol nájdený",
+        "link": "Domov"
       }
     },
     "advertisement_list": {

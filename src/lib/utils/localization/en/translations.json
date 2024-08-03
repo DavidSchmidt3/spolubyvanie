@@ -187,6 +187,10 @@
       },
       "edit": {
         "button": "Edit advertisement"
+      },
+      "not_found": {
+        "title": "Advertisement not found",
+        "link": "Home"
       }
     },
     "advertisement_list": {
