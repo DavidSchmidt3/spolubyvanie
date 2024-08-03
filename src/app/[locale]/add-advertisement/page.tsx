@@ -1,5 +1,5 @@
-import AddAdvertisementForm from "@/app/[locale]/_components/add-advertisement/form";
 import LoginPrompt from "@/app/[locale]/_components/add-advertisement/login-prompt";
+import AdvertisementForm from "@/app/[locale]/_components/advertisement/form";
 import {
   getDistricts,
   getMunicipalities,
@@ -32,7 +32,7 @@ export default async function Page() {
         "alerts.add_advertisement",
       ])}
     >
-      <AddAdvertisementForm
+      <AdvertisementForm
         regions={regions}
         districts={districts}
         municipalities={municipalities}

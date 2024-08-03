@@ -1,6 +1,6 @@
-import AvailableFromField from "@/app/[locale]/_components/add-advertisement/available-from-field";
-import DescriptionField from "@/app/[locale]/_components/add-advertisement/description-field";
-import TextField from "@/app/[locale]/_components/add-advertisement/text-field";
+import AvailableFromField from "@/app/[locale]/_components/advertisement/form/available-from-field";
+import DescriptionField from "@/app/[locale]/_components/advertisement/form/description-field";
+import TextField from "@/app/[locale]/_components/advertisement/form/text-field";
 import { AdvertisementTypeFilter } from "@/app/[locale]/_components/home/filter/advertisement-type-filter";
 import {
   Card,

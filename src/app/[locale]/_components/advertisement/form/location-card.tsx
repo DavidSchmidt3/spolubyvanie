@@ -1,5 +1,5 @@
-import AdministrativeDivisionSelect from "@/app/[locale]/_components/add-advertisement/administrative-division-select";
-import TextField from "@/app/[locale]/_components/add-advertisement/text-field";
+import AdministrativeDivisionSelect from "@/app/[locale]/_components/advertisement/form/administrative-division-select";
+import TextField from "@/app/[locale]/_components/advertisement/form/text-field";
 import {
   Card,
   CardContent,

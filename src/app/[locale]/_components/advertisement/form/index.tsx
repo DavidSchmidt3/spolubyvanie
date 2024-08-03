@@ -1,9 +1,9 @@
 "use client";
-import DetailsCard from "@/app/[locale]/_components/add-advertisement/details-card";
-import AddAdvertisementLoading from "@/app/[locale]/_components/add-advertisement/form-loading";
-import GeneralCard from "@/app/[locale]/_components/add-advertisement/general-card";
-import LocationCard from "@/app/[locale]/_components/add-advertisement/location-card";
-import PhotosUploadCard from "@/app/[locale]/_components/add-advertisement/photos-upload-card";
+import DetailsCard from "@/app/[locale]/_components/advertisement/form/details-card";
+import GeneralCard from "@/app/[locale]/_components/advertisement/form/general-card";
+import AddAdvertisementLoading from "@/app/[locale]/_components/advertisement/form/loading";
+import LocationCard from "@/app/[locale]/_components/advertisement/form/location-card";
+import PhotosUploadCard from "@/app/[locale]/_components/advertisement/form/photos-upload-card";
 import Container from "@/app/[locale]/_components/common/container";
 import { Button } from "@/app/[locale]/_components/ui/button";
 import PersistedForm from "@/app/[locale]/_components/ui/form";
@@ -26,19 +26,29 @@ import { useTranslations } from "next-intl";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect, useMemo } from "react";
 
-type Props = {
+type PropsBase = {
   regions: Region[];
   districts: District[];
   municipalities: Municipality[];
 };
 
-export default function AddAdvertisementForm({
+type EditProps = PropsBase & {
+  isEdit: true;
+  defaultValues: AdvertisementAddFormValues;
+};
+
+type CreateProps = PropsBase & {
+  isEdit?: false;
+};
+
+export default function AdvertisementForm({
   regions,
   districts,
   municipalities,
-}: Props) {
+  isEdit = false,
+}: EditProps | CreateProps) {
   "use no memo";
-  const t = useTranslations("translations.add_advertisement");
+  const t = useTranslations("translations");
   const { execute, isExecuting, result, hasErrored, hasSucceeded } =
     useAction(addAdvertisement);
   const { toast } = useToast();
@@ -130,7 +140,7 @@ export default function AddAdvertisementForm({
   return (
     <Container className="p-1 sm:py-3" fullWidth>
       <h1 className="text-2xl font-bold text-center sm:text-3xl">
-        {t("title")}
+        {isEdit ? t("edit_advertisement.title") : t("add_advertisement.title")}
       </h1>
       <PersistedForm persistConfig={persistConfig} onSubmit={onSubmit}>
         <div
@@ -158,7 +168,9 @@ export default function AddAdvertisementForm({
             {isPending && (
               <Icons.spinner className="w-4 h-4 mr-2 animate-spin p" />
             )}
-            {t("submit.button")}
+            {isEdit
+              ? t("edit_advertisement.submit.button")
+              : t("add_advertisement.submit.button")}
           </Button>
         </div>
       </PersistedForm>

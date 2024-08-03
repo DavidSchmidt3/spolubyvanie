@@ -1,4 +1,4 @@
-import TextField from "@/app/[locale]/_components/add-advertisement/text-field";
+import TextField from "@/app/[locale]/_components/advertisement/form/text-field";
 import {
   Card,
   CardContent,
