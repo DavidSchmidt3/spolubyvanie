@@ -281,6 +281,16 @@
         }
       }
     },
+    "edit_advertisement": {
+      "title": "Edit advertisement",
+      "login_prompt": {
+        "title": "You need to be logged in to edit an advertisement",
+        "link": "Login"
+      },
+      "submit": {
+        "button": "Edit advertisement"
+      }
+    },
     "my_advertisements": {
       "title": "My advertisements",
       "no_results": {

@@ -281,6 +281,16 @@
         }
       }
     },
+    "edit_advertisement": {
+      "title": "Upraviť inzerát",
+      "login_prompt": {
+        "title": "Pre úpravu inzerátu sa musíte prihlásiť",
+        "link": "Prihlásiť sa"
+      },
+      "submit": {
+        "button": "Upraviť inzerát"
+      }
+    },
     "my_advertisements": {
       "title": "Moje inzeráty",
       "no_results": {

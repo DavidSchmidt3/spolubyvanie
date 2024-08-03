@@ -111,6 +111,11 @@ export const pathnames = {
     sk: "/inzerat/[id]",
   },
 
+  "/advertisement/[id]/edit": {
+    en: "/advertisement/[id]/edit",
+    sk: "/inzerat/[id]/upravit",
+  },
+
   // Also (optional) catch-all segments are supported
   // "/categories/[...slug]": {
   //   en: "/categories/[...slug]",
