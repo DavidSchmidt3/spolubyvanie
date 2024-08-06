@@ -7,6 +7,7 @@ import {
   ADVERTISEMENT_UPSERT_SCHEMA,
   type AdvertisementUpsertFormValues,
 } from "@/lib/data/actions/upsert-advertisement/schema";
+import { type AdType } from "@/lib/data/advertisements/types";
 import { db, type TransactionalPrismaClient } from "@/lib/utils/prisma";
 import {
   getFileNameFromFullPath,
@@ -17,7 +18,6 @@ import { createClient } from "@/lib/utils/supabase/server";
 import { formatZodErrors } from "@/lib/utils/zod";
 import { randomUUID } from "crypto";
 import { revalidateTag } from "next/cache";
-import { type AdType } from "../../advertisements/types";
 
 const fileService = {
   uploadPhotos: async (advertisementId: string, photos: File[]) => {
