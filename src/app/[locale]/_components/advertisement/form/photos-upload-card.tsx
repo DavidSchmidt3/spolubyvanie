@@ -12,7 +12,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/app/[locale]/_components/ui/form";
-import { type AdvertisementAddFormValues } from "@/lib/data/actions/add-advertisement/schema";
+import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
 import { useTranslations } from "next-intl";
 import {
   type ControllerRenderProps,
@@ -20,7 +20,7 @@ import {
 } from "react-hook-form";
 
 type Props = {
-  form: UseFormReturn<AdvertisementAddFormValues>;
+  form: UseFormReturn<AdvertisementUpsertFormValues>;
 };
 
 export default function PhotosUploadCard({ form }: Props) {
@@ -28,7 +28,7 @@ export default function PhotosUploadCard({ form }: Props) {
 
   function onFilesUpload(
     files: File[],
-    field: ControllerRenderProps<AdvertisementAddFormValues, "photos">
+    field: ControllerRenderProps<AdvertisementUpsertFormValues, "photos">
   ) {
     field.onChange(files);
     const primaryPhoto = form.getValues("primary_photo");

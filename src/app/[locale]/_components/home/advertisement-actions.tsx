@@ -58,7 +58,15 @@ export default function AdvertisementActions({ advertisement }: Props) {
 
   return (
     <div className="flex gap-2 flex-col sm:flex-row">
-      <Button className="flex gap-2 h-min" disabled>
+      <Button
+        className="flex gap-2 h-min"
+        onClick={() =>
+          router.push({
+            pathname: "/advertisement/[id]/edit",
+            params: { id: advertisement.id },
+          })
+        }
+      >
         <Icons.edit className="h-4 w-4" />
         {t("advertisement.edit.button")}
       </Button>

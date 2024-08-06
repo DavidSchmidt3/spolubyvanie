@@ -1,6 +1,6 @@
 import { type FilterData } from "@/app/[locale]/_components/home/filter/administrative-division-filter";
 import usePrevious from "@/hooks/previous-value";
-import { type AdvertisementAddFormValues } from "@/lib/data/actions/add-advertisement/schema";
+import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
 import {
   type District,
   type Municipality,
@@ -18,7 +18,7 @@ import {
 
 type HookParams = {
   form:
-    | UseFormReturn<AdvertisementAddFormValues>
+    | UseFormReturn<AdvertisementUpsertFormValues>
     | UseFormReturn<AdvertisementFilterFormValues>;
   regions: Region[];
   districts: District[];
@@ -32,10 +32,10 @@ export const useAdministrativeDivision = ({
   regions,
 }: HookParams) => {
   const control = form.control as Control<
-    AdvertisementAddFormValues | AdvertisementFilterFormValues
+    AdvertisementUpsertFormValues | AdvertisementFilterFormValues
   >;
   const setValue = form.setValue as UseFormSetValue<
-    AdvertisementAddFormValues | AdvertisementFilterFormValues
+    AdvertisementUpsertFormValues | AdvertisementFilterFormValues
   >;
 
   const selectedRegion = useWatch({

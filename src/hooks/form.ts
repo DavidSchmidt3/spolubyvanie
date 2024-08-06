@@ -37,6 +37,7 @@ interface PersistedProps<T extends FieldValues> {
   schema: z.Schema;
   exclude: (keyof DefaultValues<T>)[];
   defaultValues: DefaultValues<T>;
+  skipPersist?: boolean;
 }
 
 export const usePersistedForm = <T extends FieldValues>({
@@ -44,8 +45,9 @@ export const usePersistedForm = <T extends FieldValues>({
   defaultValues,
   exclude,
   schema,
+  skipPersist,
 }: PersistedProps<T>) => {
-  const { isLoading, formValues } = usePersistedValues({
+  const { isLoading, formValues, resetPersistedValues } = usePersistedValues({
     name,
     defaultValues,
     exclude,
@@ -53,7 +55,7 @@ export const usePersistedForm = <T extends FieldValues>({
 
   const form = useControlledForm<T>({
     schema,
-    defaultValues: formValues,
+    defaultValues: skipPersist ? defaultValues : formValues,
   });
 
   const persistConfig = useMemo(
@@ -72,6 +74,7 @@ export const usePersistedForm = <T extends FieldValues>({
     isLoading,
     form,
     persistConfig,
+    resetPersistedValues,
   };
 };
 

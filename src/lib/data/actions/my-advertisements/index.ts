@@ -5,6 +5,7 @@ import {
   authActionClient,
 } from "@/lib/data/actions/safe-action-client";
 import { db } from "@/lib/utils/prisma";
+import { PHOTO_BUCKET, trimBucketName } from "@/lib/utils/supabase";
 import { createClient } from "@/lib/utils/supabase/server";
 import { formatZodErrors } from "@/lib/utils/zod";
 
@@ -21,7 +22,9 @@ export const deleteAdvertisement = authActionClient
         },
       });
 
-      const urls = advertisementPhotos.map((photo) => photo.url);
+      const urls = advertisementPhotos.map((photo) =>
+        trimBucketName(photo.url)
+      );
       // first delete the entry from the database
       await db.advertisements.delete({
         where: {
@@ -32,7 +35,7 @@ export const deleteAdvertisement = authActionClient
 
       // then delete the photos from the storage
       // if this was done vice versa and the db deletion failed, we wouldn't have the images, only entry in the db
-      await supabase.storage.from("photos").remove(urls);
+      await supabase.storage.from(PHOTO_BUCKET).remove(urls);
     } catch (error) {
       console.error("Error deleting advertisement", error);
       throw new ActionError("alerts.my_advertisements.delete.error.title");

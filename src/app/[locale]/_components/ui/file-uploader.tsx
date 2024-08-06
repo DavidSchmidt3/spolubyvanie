@@ -3,7 +3,7 @@
 import { Button } from "@/app/[locale]/_components/ui/button";
 import { ScrollArea } from "@/app/[locale]/_components/ui/scroll-area";
 import { useControllableState } from "@/hooks/controllable-state";
-import { type AdvertisementAddFormValues } from "@/lib/data/actions/add-advertisement/schema";
+import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
 import { cn, compressFile, crop } from "@/lib/utils";
 import { type MessageKeys } from "global";
 import { useTranslations } from "next-intl";
@@ -90,7 +90,7 @@ interface FileUploaderProps extends React.HTMLAttributes<HTMLDivElement> {
    */
   disabled?: boolean;
 
-  control: Control<AdvertisementAddFormValues>;
+  control: Control<AdvertisementUpsertFormValues>;
 
   compressionQuality?: number;
 }

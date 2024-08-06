@@ -2,7 +2,7 @@ import PopoverCommon, {
   type CommonPopoverFieldProps,
 } from "@/app/[locale]/_components/home/filter/popover-common";
 import SelectCancelButton from "@/app/[locale]/_components/ui/select-cancel-button";
-import { type AdvertisementAddFormValues } from "@/lib/data/actions/add-advertisement/schema";
+import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
 import { type AdvertisementFilterFormValues } from "@/lib/data/advertisements/schema";
 import { ChevronDown } from "lucide-react";
 import {
@@ -13,7 +13,7 @@ import {
 export default function PopoverFilterField(props: CommonPopoverFieldProps) {
   const { form, filterData, fieldName, selectRowText } = props;
   const setValue = form.setValue as UseFormSetValue<
-    AdvertisementAddFormValues | AdvertisementFilterFormValues
+    AdvertisementUpsertFormValues | AdvertisementFilterFormValues
   >;
 
   return (

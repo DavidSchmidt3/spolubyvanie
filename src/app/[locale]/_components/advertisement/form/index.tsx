@@ -10,17 +10,19 @@ import PersistedForm from "@/app/[locale]/_components/ui/form";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { useToast } from "@/app/[locale]/_components/ui/use-toast";
 import { useConditionalTrigger, usePersistedForm } from "@/hooks/form";
-import { addAdvertisement } from "@/lib/data/actions/add-advertisement";
+import { upsertAdvertisement } from "@/lib/data/actions/upsert-advertisement";
 import {
-  ADVERTISEMENT_ADD_SCHEMA,
-  type AdvertisementAddFormValues,
-} from "@/lib/data/actions/add-advertisement/schema";
+  ADVERTISEMENT_UPSERT_SCHEMA,
+  type AdvertisementUpsertFormValues,
+} from "@/lib/data/actions/upsert-advertisement/schema";
 import {
   type District,
   type Municipality,
   type Region,
 } from "@/lib/data/administrative-divisions";
+import { getFormDefaultValues } from "@/lib/data/advertisement/format";
 import { AdType } from "@/lib/data/advertisements/types";
+import { dataUrlToFile, type Photo } from "@/lib/utils";
 import { useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 import { useAction } from "next-safe-action/hooks";
@@ -34,7 +36,8 @@ type PropsBase = {
 
 type EditProps = PropsBase & {
   isEdit: true;
-  defaultValues: AdvertisementAddFormValues;
+  initialDefaultValues: AdvertisementUpsertFormValues;
+  photos?: Photo[];
 };
 
 type CreateProps = PropsBase & {
@@ -46,11 +49,12 @@ export default function AdvertisementForm({
   districts,
   municipalities,
   isEdit = false,
+  ...props
 }: EditProps | CreateProps) {
   "use no memo";
   const t = useTranslations("translations");
   const { execute, isExecuting, result, hasErrored, hasSucceeded } =
-    useAction(addAdvertisement);
+    useAction(upsertAdvertisement);
   const { toast } = useToast();
   const router = useRouter();
 
@@ -63,42 +67,52 @@ export default function AdvertisementForm({
     } as React.InputHTMLAttributes<HTMLInputElement>;
   }
 
-  const defaultValues = useMemo<AdvertisementAddFormValues>(() => {
-    return {
-      municipality: "",
-      region: "",
-      district: "",
-      price: "",
-      advertisement_type: "",
-      street: "",
-      apartment_area: "",
-      apartment_rooms: "",
-      room_area: "",
-      floor: "",
-      max_floor: "",
-      description: "",
-      available_from: new Date(),
-      primary_photo: "",
-      photos: [],
-      title: "",
-    };
+  async function initializePhotos() {
+    if (isEdit) {
+      const photosBase64String = (props as EditProps).photos;
+      if (!photosBase64String) {
+        return;
+      }
+
+      const photos = photosBase64String
+        ?.map((photo) => dataUrlToFile(photo))
+        .filter((photo) => !!photo);
+      form.setValue("photos", photos);
+    }
+  }
+
+  const defaultValues = useMemo<AdvertisementUpsertFormValues>(() => {
+    if (isEdit) {
+      return (props as EditProps).initialDefaultValues;
+    }
+    return getFormDefaultValues();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const { isLoading, form, persistConfig } = usePersistedForm({
-    name: "add_advertisement",
-    exclude: ["photos", "primary_photo", "available_from"],
-    defaultValues,
-    schema: ADVERTISEMENT_ADD_SCHEMA,
-  });
+  const { isLoading, form, persistConfig, resetPersistedValues } =
+    usePersistedForm({
+      name: "add_advertisement",
+      exclude: ["photos", "primary_photo", "available_from"],
+      defaultValues,
+      schema: ADVERTISEMENT_UPSERT_SCHEMA,
+      skipPersist: isEdit,
+    });
 
-  function onSubmit(data: AdvertisementAddFormValues) {
+  useEffect(() => {
+    void initializePhotos();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form]);
+
+  function onSubmit(data: AdvertisementUpsertFormValues) {
     execute(data);
   }
 
   useEffect(() => {
     if (hasErrored) {
       toast({
-        title: "alerts.add_advertisement.save.error.title",
+        title: isEdit
+          ? "alerts.add_advertisement.save.add.error.title"
+          : "alerts.add_advertisement.save.edit.error.title",
         description: result.validationErrors ?? result.serverError,
         variant: "destructive",
       });
@@ -106,13 +120,16 @@ export default function AdvertisementForm({
 
     if (hasSucceeded) {
       toast({
-        title: "alerts.add_advertisement.save.success.title",
+        title: isEdit
+          ? "alerts.add_advertisement.save.edit.success.title"
+          : "alerts.add_advertisement.save.add.success.title",
         variant: "success",
       });
       router.push({
         pathname: "/[page]",
         params: { page: "1" },
       });
+      resetPersistedValues();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result, hasErrored, hasSucceeded]);

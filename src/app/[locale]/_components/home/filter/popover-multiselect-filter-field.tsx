@@ -4,7 +4,7 @@ import PopoverCommon, {
 } from "@/app/[locale]/_components/home/filter/popover-common";
 import { Badge } from "@/app/[locale]/_components/ui/badge";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
-import { type AdvertisementAddFormValues } from "@/lib/data/actions/add-advertisement/schema";
+import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
 import { type AdvertisementFilterFormValues } from "@/lib/data/advertisements/schema";
 import { ChevronDown } from "lucide-react";
 import {
@@ -18,10 +18,10 @@ export default function PopoverMultiselectFilterField(
 ) {
   const { form, filterData, fieldName, selectRowText } = props;
   const setValue = form.setValue as UseFormSetValue<
-    AdvertisementAddFormValues | AdvertisementFilterFormValues
+    AdvertisementUpsertFormValues | AdvertisementFilterFormValues
   >;
   const getValues = form.getValues as UseFormGetValues<
-    AdvertisementAddFormValues | AdvertisementFilterFormValues
+    AdvertisementUpsertFormValues | AdvertisementFilterFormValues
   >;
 
   function handleUnselect(row: FilterData) {

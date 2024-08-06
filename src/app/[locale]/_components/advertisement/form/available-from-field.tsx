@@ -15,7 +15,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/app/[locale]/_components/ui/popover";
-import { type AdvertisementAddFormValues } from "@/lib/data/actions/add-advertisement/schema";
+import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
 import { cn } from "@/lib/utils";
 import {
   getLocaleDateFormat,
@@ -27,7 +27,7 @@ import { useState } from "react";
 import { type Control } from "react-hook-form";
 
 type Props = {
-  control: Control<AdvertisementAddFormValues>;
+  control: Control<AdvertisementUpsertFormValues>;
 };
 
 export default function AvailableFromField({ control }: Props) {

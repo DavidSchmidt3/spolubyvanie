@@ -8,12 +8,12 @@ import {
   FormMessage,
 } from "@/app/[locale]/_components/ui/form";
 import { Textarea } from "@/app/[locale]/_components/ui/textarea";
-import { type AdvertisementAddFormValues } from "@/lib/data/actions/add-advertisement/schema";
+import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
 import { useTranslations } from "next-intl";
 import { type Control } from "react-hook-form";
 
 type Props = {
-  control: Control<AdvertisementAddFormValues>;
+  control: Control<AdvertisementUpsertFormValues>;
 };
 
 export default function DescriptionField({ control }: Props) {

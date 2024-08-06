@@ -135,9 +135,20 @@ export function usePersistedValues<T extends FieldValues>({
 }: UsePersistedValuesProps<T>): {
   formValues: DefaultValues<T>;
   isLoading: boolean;
+  resetPersistedValues: () => void;
 } {
   const [formValues, setFormValues] = useState(defaultValues);
   const [isLoading, setIsLoading] = useState(true);
+
+  function resetPersistedValues() {
+    const storage =
+      typeof window !== "undefined" ? window.sessionStorage : undefined;
+
+    if (storage) {
+      storage.removeItem(name);
+    }
+    setFormValues(defaultValues);
+  }
 
   useEffect(() => {
     const persistedValues = getPersistedValues({
@@ -153,5 +164,6 @@ export function usePersistedValues<T extends FieldValues>({
   return {
     isLoading,
     formValues,
+    resetPersistedValues,
   };
 }

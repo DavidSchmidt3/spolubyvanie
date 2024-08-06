@@ -8,12 +8,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/app/[locale]/_components/ui/card";
-import { type AdvertisementAddFormValues } from "@/lib/data/actions/add-advertisement/schema";
+import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
 import { useTranslations } from "next-intl";
 import { type UseFormReturn } from "react-hook-form";
 
 type Props = {
-  form: UseFormReturn<AdvertisementAddFormValues>;
+  form: UseFormReturn<AdvertisementUpsertFormValues>;
   getNumericProps: (
     min?: string
   ) => React.InputHTMLAttributes<HTMLInputElement>;

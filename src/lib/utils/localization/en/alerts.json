@@ -144,11 +144,21 @@
         "larger_than_apartment_area": "Room area must not be larger than apartment area"
       },
       "save": {
-        "success": {
-          "title": "Advertisement added successfully"
+        "add": {
+          "success": {
+            "title": "Advertisement added successfully"
+          },
+          "error": {
+            "title": "Failed to add advertisement"
+          }
         },
-        "error": {
-          "title": "Failed to add advertisement"
+        "edit": {
+          "success": {
+            "title": "Advertisement edited successfully"
+          },
+          "error": {
+            "title": "Failed to edit advertisement"
+          }
         }
       }
     },

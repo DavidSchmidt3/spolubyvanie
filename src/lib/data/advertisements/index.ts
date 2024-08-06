@@ -51,7 +51,9 @@ export async function fetchAdvertisements(
 export const getAdvertisementsCached = next_cache(async () => {
   const [advertisements, paginationData] = await fetchAdvertisements();
   return {
-    advertisements: advertisements.map(getFormattedAdvertisement),
+    advertisements: advertisements.map((advertisement) =>
+      getFormattedAdvertisement(advertisement)
+    ),
     paginationData,
   };
 }, ["advertisements"]);
@@ -96,7 +98,9 @@ export const getAdvertisementsFiltered = async ({
     page
   );
   return {
-    advertisements: advertisements.map(getFormattedAdvertisement),
+    advertisements: advertisements.map((advertisement) =>
+      getFormattedAdvertisement(advertisement)
+    ),
     paginationData,
   };
 };

@@ -20,7 +20,7 @@ import {
   PopoverTrigger,
 } from "@/app/[locale]/_components/ui/popover";
 import { useCombobox } from "@/hooks/combobox";
-import { type AdvertisementAddFormValues } from "@/lib/data/actions/add-advertisement/schema";
+import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
 import { type AdvertisementFilterFormValues } from "@/lib/data/advertisements/schema";
 import {
   type Control,
@@ -39,7 +39,7 @@ export type CommonPopoverFieldProps = {
   fieldName: keyof AdvertisementFilterFormValues;
   form:
     | UseFormReturn<AdvertisementFilterFormValues>
-    | UseFormReturn<AdvertisementAddFormValues>;
+    | UseFormReturn<AdvertisementUpsertFormValues>;
 };
 
 type Props = CommonPopoverFieldProps & {
@@ -71,7 +71,7 @@ export default function PopoverCommonField({
   });
 
   const control = form.control as Control<
-    AdvertisementAddFormValues | AdvertisementFilterFormValues
+    AdvertisementUpsertFormValues | AdvertisementFilterFormValues
   >;
 
   return (

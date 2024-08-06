@@ -15,7 +15,7 @@ import {
   SelectValue,
 } from "@/app/[locale]/_components/ui/select";
 import SelectCancelButton from "@/app/[locale]/_components/ui/select-cancel-button";
-import { type AdvertisementAddFormValues } from "@/lib/data/actions/add-advertisement/schema";
+import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
 import { type AdvertisementFilterFormValues } from "@/lib/data/advertisements/schema";
 import { adTypeKeys, type AdType } from "@/lib/data/advertisements/types";
 import { type MessageKeys } from "global";
@@ -29,7 +29,7 @@ import {
 type Props = {
   form:
     | UseFormReturn<AdvertisementFilterFormValues>
-    | UseFormReturn<AdvertisementAddFormValues>;
+    | UseFormReturn<AdvertisementUpsertFormValues>;
   clearable?: boolean;
 };
 
@@ -37,10 +37,10 @@ export function AdvertisementTypeFilter({ form, clearable = true }: Props) {
   const t = useTranslations();
 
   const control = form.control as Control<
-    AdvertisementFilterFormValues | AdvertisementAddFormValues
+    AdvertisementFilterFormValues | AdvertisementUpsertFormValues
   >;
   const setValue = form.setValue as UseFormSetValue<
-    AdvertisementFilterFormValues | AdvertisementAddFormValues
+    AdvertisementFilterFormValues | AdvertisementUpsertFormValues
   >;
 
   return (

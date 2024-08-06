@@ -1,8 +1,9 @@
 import { AdType, createAdTypeRegex } from "@/lib/data/advertisements/types";
 import * as z from "zod";
 
-export const ADVERTISEMENT_ADD_SCHEMA = z
+export const ADVERTISEMENT_UPSERT_SCHEMA = z
   .object({
+    id: z.string().uuid().or(z.undefined()),
     region: z
       .string()
       .uuid({
@@ -115,6 +116,6 @@ export const ADVERTISEMENT_ADD_SCHEMA = z
     }
   });
 
-export type AdvertisementAddFormValues = z.infer<
-  typeof ADVERTISEMENT_ADD_SCHEMA
+export type AdvertisementUpsertFormValues = z.infer<
+  typeof ADVERTISEMENT_UPSERT_SCHEMA
 >;

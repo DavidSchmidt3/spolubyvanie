@@ -8,15 +8,18 @@ import {
   FormMessage,
 } from "@/app/[locale]/_components/ui/form";
 import { Input } from "@/app/[locale]/_components/ui/input";
-import { type AdvertisementAddFormValues } from "@/lib/data/actions/add-advertisement/schema";
-import { type ExtractKeysOfValueType } from "global";
+import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
 import { type Control } from "react-hook-form";
 
 type Props = {
-  control: Control<AdvertisementAddFormValues>;
+  control: Control<AdvertisementUpsertFormValues>;
   label: string;
   placeholder: string;
-  name: ExtractKeysOfValueType<AdvertisementAddFormValues, string>;
+  name: keyof {
+    [K in keyof AdvertisementUpsertFormValues as AdvertisementUpsertFormValues[K] extends string
+      ? K
+      : never]: AdvertisementUpsertFormValues[K];
+  };
   inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
 };
 

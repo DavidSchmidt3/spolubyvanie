@@ -6,9 +6,14 @@ import {
   getMunicipalities,
   getRegions,
 } from "@/lib/data/administrative-divisions";
-import { getAdvertisement } from "@/lib/data/advertisement";
+import {
+  getAdvertisement,
+  getAdvertisementPhotosFiles,
+} from "@/lib/data/advertisement";
+import { getFormDefaultValues } from "@/lib/data/advertisement/format";
 import { getUser } from "@/lib/data/user";
 import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
+import { redirect } from "@/lib/utils/localization/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 
@@ -26,7 +31,7 @@ export default async function AdvertisementEdit({ params: { id } }: Props) {
       getDistricts(),
       getMunicipalities(),
       getMessages(),
-      getAdvertisement(id),
+      getAdvertisement(id, true),
     ]);
 
   if (!user) {
@@ -36,6 +41,15 @@ export default async function AdvertisementEdit({ params: { id } }: Props) {
   if (!advertisement) {
     return <NotFound />;
   }
+
+  if (user.id !== advertisement.user_id) {
+    return redirect("/my-advertisements");
+  }
+
+  const defaultValues = getFormDefaultValues(advertisement);
+  const photos = await getAdvertisementPhotosFiles(
+    advertisement.advertisement_photos?.map((photo) => photo.url) ?? []
+  );
 
   return (
     <NextIntlClientProvider
@@ -50,8 +64,9 @@ export default async function AdvertisementEdit({ params: { id } }: Props) {
         regions={regions}
         districts={districts}
         municipalities={municipalities}
-        // isEdit
-        // defaultValues={advertisement}
+        isEdit
+        photos={photos}
+        initialDefaultValues={defaultValues}
       />
     </NextIntlClientProvider>
   );
