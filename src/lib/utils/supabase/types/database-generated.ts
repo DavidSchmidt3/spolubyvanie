@@ -12,7 +12,8 @@ export type Database = {
       advertisements: {
         Row: {
           apartment_area: number | null;
-          available_from: string | null;
+          apartment_rooms: number | null;
+          available_from: string;
           created_at: string;
           deleted_at: string | null;
           description: string;
@@ -30,7 +31,8 @@ export type Database = {
         };
         Insert: {
           apartment_area?: number | null;
-          available_from?: string | null;
+          apartment_rooms?: number | null;
+          available_from: string;
           created_at?: string;
           deleted_at?: string | null;
           description: string;
@@ -48,7 +50,8 @@ export type Database = {
         };
         Update: {
           apartment_area?: number | null;
-          available_from?: string | null;
+          apartment_rooms?: number | null;
+          available_from?: string;
           created_at?: string;
           deleted_at?: string | null;
           description?: string;

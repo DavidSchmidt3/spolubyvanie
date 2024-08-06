@@ -301,7 +301,7 @@ model advertisements {
   floor                 Int?                    @db.SmallInt
   max_floor             Int?                    @db.SmallInt
   description           String
-  available_from        DateTime?               @db.Date
+  available_from        DateTime                @db.Date
   primary_photo_url     String?                 @db.VarChar
   created_at            DateTime                @default(now()) @db.Timestamptz(6)
   deleted_at            DateTime?               @db.Timestamptz(6)
