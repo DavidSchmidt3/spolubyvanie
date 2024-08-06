@@ -89,3 +89,25 @@ export function crop(file: File, aspectRatio: number): Promise<File> {
     inputImage.src = URL.createObjectURL(file);
   });
 }
+
+export type Photo = {
+  fileName: string;
+  bytes: string;
+};
+
+export function dataUrlToFile(photo: Photo): File | undefined {
+  const arr = photo.bytes.split(",");
+  if (!arr[0] || !arr[1]) {
+    return undefined;
+  }
+  const mimeArr = arr[0].match(/:(.*?);/);
+  if (!mimeArr || mimeArr.length < 2) {
+    return undefined;
+  }
+  const mime = mimeArr[1];
+  const buff = Buffer.from(arr[1], "base64");
+  const file = new File([buff], photo.fileName, { type: mime });
+  return Object.assign(file, {
+    preview: URL.createObjectURL(file),
+  });
+}
