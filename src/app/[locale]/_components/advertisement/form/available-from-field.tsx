@@ -73,7 +73,9 @@ export default function AvailableFromField({ control, isOffering }: Props) {
                 mode="single"
                 selected={field.value}
                 onSelect={(date) => {
-                  field.onChange(date);
+                  if (date) {
+                    field.onChange(date);
+                  }
                   setOpen(false);
                 }}
                 disabled={(date) =>
