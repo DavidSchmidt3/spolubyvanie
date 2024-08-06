@@ -111,8 +111,8 @@ export default function AdvertisementForm({
     if (hasErrored) {
       toast({
         title: isEdit
-          ? "alerts.add_advertisement.save.add.error.title"
-          : "alerts.add_advertisement.save.edit.error.title",
+          ? "alerts.add_advertisement.save.edit.error.title"
+          : "alerts.add_advertisement.save.add.error.title",
         description: result.validationErrors ?? result.serverError,
         variant: "destructive",
       });
