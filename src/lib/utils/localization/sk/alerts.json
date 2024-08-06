@@ -143,20 +143,22 @@
       "room_area": {
         "larger_than_apartment_area": "Veľkosť miestnosti nesmie byť väčšia ako veľkosť bytu"
       },
-      "add": {
-        "success": {
-          "title": "Inzerát bol úspešne pridaný"
+      "save": {
+        "add": {
+          "success": {
+            "title": "Inzerát bol úspešne pridaný"
+          },
+          "error": {
+            "title": "Nepodarilo sa pridať inzerát"
+          }
         },
-        "error": {
-          "title": "Nepodarilo sa pridať inzerát"
-        }
-      },
-      "edit": {
-        "success": {
-          "title": "Inzerát bol úspešne upravený"
-        },
-        "error": {
-          "title": "Nepodarilo sa upraviť inzerát"
+        "edit": {
+          "success": {
+            "title": "Inzerát bol úspešne upravený"
+          },
+          "error": {
+            "title": "Nepodarilo sa upraviť inzerát"
+          }
         }
       }
     }
