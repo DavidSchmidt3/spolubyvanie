@@ -28,9 +28,10 @@ import { type Control } from "react-hook-form";
 
 type Props = {
   control: Control<AdvertisementUpsertFormValues>;
+  isOffering: boolean;
 };
 
-export default function AvailableFromField({ control }: Props) {
+export default function AvailableFromField({ control, isOffering }: Props) {
   const [open, setOpen] = useState(false);
   const t = useTranslations("translations.add_advertisement.form");
   const params = useParams();
@@ -43,7 +44,7 @@ export default function AvailableFromField({ control }: Props) {
       render={({ field }) => (
         <FormItem className="flex flex-col">
           <FormLabel className="text-base">
-            {t("available_from.label")}
+            {isOffering ? t("available_from.label") : t("searching_from.label")}
           </FormLabel>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>

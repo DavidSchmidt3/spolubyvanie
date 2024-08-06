@@ -243,6 +243,9 @@
           "label": "Dostupné od",
           "pick_a_date": "Vybrať dátum"
         },
+        "searching_from": {
+          "label": "Hľadám od"
+        },
         "price": {
           "label": "Cena (€)",
           "placeholder": "Cena za mesiac"

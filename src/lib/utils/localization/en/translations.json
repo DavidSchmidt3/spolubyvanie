@@ -243,6 +243,9 @@
           "label": "Available from",
           "pick_a_date": "Pick a date"
         },
+        "searching_from": {
+          "label": "Searching from"
+        },
         "price": {
           "label": "Price (€)",
           "placeholder": "Monthly price"

@@ -165,7 +165,11 @@ export default function AdvertisementForm({
             isOffering ? "xl:grid-cols-3" : "xl:grid-cols-2"
           }`}
         >
-          <GeneralCard form={form} getNumericProps={getNumericProps} />
+          <GeneralCard
+            form={form}
+            getNumericProps={getNumericProps}
+            isOffering={isOffering}
+          />
           <LocationCard
             form={form}
             municipalities={municipalities}

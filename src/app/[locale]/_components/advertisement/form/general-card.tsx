@@ -17,9 +17,14 @@ type Props = {
   getNumericProps: (
     min?: string
   ) => React.InputHTMLAttributes<HTMLInputElement>;
+  isOffering: boolean;
 };
 
-export default function GeneralCard({ form, getNumericProps }: Props) {
+export default function GeneralCard({
+  form,
+  getNumericProps,
+  isOffering,
+}: Props) {
   const t = useTranslations("translations.add_advertisement");
 
   return (
@@ -29,7 +34,7 @@ export default function GeneralCard({ form, getNumericProps }: Props) {
       </CardHeader>
       <CardContent className="flex flex-col gap-y-2">
         <AdvertisementTypeFilter form={form} clearable={false} />
-        <AvailableFromField control={form.control} />
+        <AvailableFromField control={form.control} isOffering={isOffering} />
         <TextField
           control={form.control}
           name="price"
