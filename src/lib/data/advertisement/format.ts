@@ -6,7 +6,7 @@ export function getFormDefaultValues(
   advertisement?: Advertisement
 ): AdvertisementUpsertFormValues {
   return {
-    id: advertisement?.id ?? "",
+    id: advertisement?.id,
     municipality: advertisement?.municipality ?? "",
     region: advertisement?.region ?? "",
     district: advertisement?.district ?? "",
