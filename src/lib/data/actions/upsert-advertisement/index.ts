@@ -16,7 +16,6 @@ import {
 } from "@/lib/utils/supabase";
 import { createClient } from "@/lib/utils/supabase/server";
 import { formatZodErrors } from "@/lib/utils/zod";
-import { randomUUID } from "crypto";
 import { revalidateTag } from "next/cache";
 
 const fileService = {
@@ -77,7 +76,6 @@ export const upsertAdvertisement = authActionClient
           update: upsertData,
           create: {
             ...upsertData,
-            id: randomUUID(),
             user_id: userId,
           },
         });
@@ -108,6 +106,9 @@ function parseAdvertisementData(data: AdvertisementUpsertFormValues) {
     price,
     apartment_area,
     floor,
+    primary_photo,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    photos,
     max_floor,
     room_area,
     advertisement_type,
@@ -118,11 +119,12 @@ function parseAdvertisementData(data: AdvertisementUpsertFormValues) {
   const type = parseInt(advertisement_type) as AdType;
   const upsertData = {
     type,
-    floor: parseInt(floor),
-    max_floor: parseInt(max_floor),
-    room_area: parseInt(room_area),
-    apartment_area: parseInt(apartment_area),
-    apartment_rooms: parseInt(apartment_rooms),
+    floor: floor ? parseInt(floor) : undefined,
+    max_floor: max_floor ? parseInt(max_floor) : undefined,
+    room_area: room_area ? parseInt(room_area) : undefined,
+    apartment_area: apartment_area ? parseInt(apartment_area) : undefined,
+    apartment_rooms: apartment_rooms ? parseInt(apartment_rooms) : undefined,
+    primary_photo_url: primary_photo,
     municipality_id: municipality,
     price: parseInt(price),
     ...rest,

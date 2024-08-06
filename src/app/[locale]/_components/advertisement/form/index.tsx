@@ -159,7 +159,11 @@ export default function AdvertisementForm({
       <h1 className="text-2xl font-bold text-center sm:text-3xl">
         {isEdit ? t("edit_advertisement.title") : t("add_advertisement.title")}
       </h1>
-      <PersistedForm persistConfig={persistConfig} onSubmit={onSubmit}>
+      <PersistedForm
+        persistConfig={persistConfig}
+        onSubmit={onSubmit}
+        skipPersist={isEdit}
+      >
         <div
           className={`grid grid-cols-1 gap-2 mx-4 mt-4 gap-y-4 sm:gap-4 md:grid-cols-2 ${
             isOffering ? "xl:grid-cols-3" : "xl:grid-cols-2"

@@ -27,19 +27,26 @@ interface PersistedFormProps<T extends FieldValues> {
     name: string;
     exclude?: (keyof T)[];
   };
+  skipPersist?: boolean;
 }
 
 function PersistedForm<T extends FieldValues>({
   persistConfig,
   onSubmit,
   children,
+  skipPersist,
 }: PersistedFormProps<T>) {
   const { form, name, exclude = [] } = persistConfig;
 
   return (
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <FormPersist form={form} name={name} exclude={exclude} />
+        <FormPersist
+          form={form}
+          name={name}
+          exclude={exclude}
+          skipPersist={skipPersist}
+        />
         {children}
       </form>
     </FormProvider>

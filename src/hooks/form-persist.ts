@@ -18,6 +18,7 @@ interface FormPersistConfig<T extends FieldValues> {
   validate?: boolean;
   dirty?: boolean;
   touch?: boolean;
+  skipPersist?: boolean;
 }
 
 interface UseFormPersistResult {
@@ -32,6 +33,7 @@ export default function useFormPersist<T extends FieldValues>(
     setValue,
     exclude = [] as (keyof T)[],
     onDataRestored,
+    skipPersist = false,
     validate = false,
     dirty = false,
     touch = false,
@@ -44,6 +46,9 @@ export default function useFormPersist<T extends FieldValues>(
   const getStorage = () => storage ?? window.sessionStorage;
 
   useEffect(() => {
+    if (skipPersist) {
+      return;
+    }
     const str = getStorage().getItem(name);
     if (str) {
       const values = JSON.parse(str) as Partial<T>;
@@ -71,6 +76,9 @@ export default function useFormPersist<T extends FieldValues>(
   }, [storage, name, onDataRestored]);
 
   useEffect(() => {
+    if (skipPersist) {
+      return;
+    }
     const values: Partial<T> = exclude.length
       ? (Object.entries(watchedValues)
           .filter(([key]) => !exclude.includes(key))
