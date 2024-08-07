@@ -274,8 +274,7 @@
           "placeholder": "Veľkosť bytu"
         },
         "apartment_rooms": {
-          "label": "Počet izieb bytu",
-          "placeholder": "Počet izieb bytu"
+          "label": "Počet izieb bytu"
         },
         "floor": {
           "label": "Poschodie bytu",

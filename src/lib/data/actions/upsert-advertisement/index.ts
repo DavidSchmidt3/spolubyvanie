@@ -129,7 +129,7 @@ function parseAdvertisementData(data: AdvertisementUpsertFormValues) {
     max_floor: max_floor ? parseInt(max_floor) : undefined,
     room_area: room_area ? parseInt(room_area) : undefined,
     apartment_area: apartment_area ? parseInt(apartment_area) : undefined,
-    apartment_rooms: apartment_rooms ? parseInt(apartment_rooms) : undefined,
+    apartment_rooms,
     primary_photo_url: primary_photo,
     municipality_id: municipality,
     price: parseInt(price),

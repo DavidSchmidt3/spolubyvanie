@@ -274,8 +274,7 @@
           "placeholder": "Apartment area"
         },
         "apartment_rooms": {
-          "label": "Number of rooms in apartment",
-          "placeholder": "Number of rooms in apartment"
+          "label": "Number of rooms in apartment"
         },
         "floor": {
           "label": "Apartment floor",

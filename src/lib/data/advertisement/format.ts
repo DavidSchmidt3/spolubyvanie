@@ -14,7 +14,7 @@ export function getFormDefaultValues(
     advertisement_type: advertisement?.type?.toString() ?? "",
     street: advertisement?.street ?? "",
     apartment_area: advertisement?.apartment_area?.toString() ?? "",
-    apartment_rooms: advertisement?.apartment_rooms?.toString() ?? "",
+    apartment_rooms: advertisement?.apartment_rooms ?? 1,
     room_area: advertisement?.room_area?.toString() ?? "",
     floor: advertisement?.floor?.toString() ?? "",
     max_floor: advertisement?.max_floor?.toString() ?? "",

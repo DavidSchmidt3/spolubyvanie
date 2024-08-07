@@ -21,7 +21,7 @@ export const ADVERTISEMENT_UPSERT_SCHEMA = z
     }),
     street: z.string(),
     apartment_area: z.string().regex(/^\d+$/).or(z.literal("")),
-    apartment_rooms: z.string().regex(/^\d+$/).or(z.literal("")),
+    apartment_rooms: z.number().int().min(1).max(5),
     room_area: z.string().regex(/^\d+$/).or(z.literal("")),
     floor: z.string().regex(/^\d+$/).or(z.literal("")),
     max_floor: z.string().regex(/^\d+$/).or(z.literal("")),
