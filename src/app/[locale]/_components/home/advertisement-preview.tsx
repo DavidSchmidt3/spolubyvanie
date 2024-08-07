@@ -32,6 +32,7 @@ export default function AdvertisementPreview({
     municipality,
     district,
     region,
+    views,
   } = advertisement;
 
   return (
@@ -93,6 +94,10 @@ export default function AdvertisementPreview({
               <div className="font-bold text-right break-words overflow-hidden">
                 {region}
               </div>
+            </div>
+            <div className="flex justify-end text-base md:text-lg items-center gap-x-2">
+              {views}
+              <Icons.eye className="w-6 h-6" />
             </div>
           </div>
         </div>

@@ -25,6 +25,7 @@ export default function InfoCard({ advertisement, locale }: Props) {
     municipality,
     district,
     region,
+    views,
   } = advertisement;
 
   return (
@@ -46,6 +47,7 @@ export default function InfoCard({ advertisement, locale }: Props) {
         />
         <InfoRow label={t("advertisement.district.title")} value={district} />
         <InfoRow label={t("advertisement.region.title")} value={region} />
+        <InfoRow label={t("advertisement.views.title")} value={views} />
       </div>
       <div className="flex flex-col gap-y-4">
         <InfoRow

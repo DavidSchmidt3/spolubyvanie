@@ -127,6 +127,9 @@
         "select_text": "Vybrať kraj",
         "empty_text": "Neboli nájdené žiadne kraje"
       },
+      "views": {
+        "title": "Počet zobrazení"
+      },
       "district": {
         "title": "Okres",
         "search_placeholder": "Vyhľadať okres...",

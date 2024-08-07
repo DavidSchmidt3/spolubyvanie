@@ -127,6 +127,9 @@
         "select_text": "Select a region",
         "empty_text": "No region found."
       },
+      "views": {
+        "title": "Number of views"
+      },
       "district": {
         "title": "District",
         "search_placeholder": "Search district...",

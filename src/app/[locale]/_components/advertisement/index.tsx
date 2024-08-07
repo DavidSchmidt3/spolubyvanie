@@ -5,6 +5,7 @@ import {
   CardContent,
   CardHeader,
 } from "@/app/[locale]/_components/ui/card";
+import { addAdvertisementView } from "@/lib/data/actions/upsert-advertisement/view";
 import { type Advertisement } from "@/lib/data/advertisements/format";
 import { type Locale } from "@/lib/utils/localization/i18n";
 
@@ -15,6 +16,7 @@ type Props = {
 
 export default function Advertisement({ advertisement, locale }: Props) {
   const { title, description, advertisement_photos } = advertisement;
+  void addAdvertisementView(advertisement.id);
 
   return (
     <Card className="w-full h-auto p-6 rounded-none">

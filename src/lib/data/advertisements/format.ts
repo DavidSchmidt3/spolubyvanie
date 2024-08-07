@@ -22,6 +22,7 @@ export function getFormattedAdvertisement(
     apartment_rooms: advertisement.apartment_rooms,
     max_floor: advertisement.max_floor,
     available_from: advertisement.available_from,
+    views: advertisement.views,
     municipality: getIdsInsteadOfNames
       ? advertisement.municipalities.id
       : advertisement.municipalities.name,

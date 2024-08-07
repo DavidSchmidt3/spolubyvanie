@@ -28,6 +28,7 @@ export type Database = {
           title: string;
           type: number;
           user_id: string;
+          views: number;
         };
         Insert: {
           apartment_area?: number | null;
@@ -47,6 +48,7 @@ export type Database = {
           title: string;
           type: number;
           user_id: string;
+          views?: number;
         };
         Update: {
           apartment_area?: number | null;
@@ -66,6 +68,7 @@ export type Database = {
           title?: string;
           type?: number;
           user_id?: string;
+          views?: number;
         };
         Relationships: [
           {
