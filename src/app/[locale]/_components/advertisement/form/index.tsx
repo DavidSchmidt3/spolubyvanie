@@ -125,10 +125,7 @@ export default function AdvertisementForm({
           : "alerts.add_advertisement.save.add.success.title",
         variant: "success",
       });
-      router.push({
-        pathname: "/[page]",
-        params: { page: "1" },
-      });
+      router.push("/my-advertisements");
       resetPersistedValues();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
