@@ -23,6 +23,7 @@ type Props = {
   };
 };
 
+export const dynamic = "force-dynamic";
 export default async function AdvertisementEdit({ params: { id } }: Props) {
   const [user, regions, districts, municipalities, messages, advertisement] =
     await Promise.all([
