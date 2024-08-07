@@ -58,7 +58,7 @@ export default function DetailsCard({ form, getNumericProps }: Props) {
             label={t("form.max_floor.label")}
           />
         </div>
-        <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2">
+        <div className="w-full col-span-2">
           <RoomsSlider
             control={form.control}
             label={t("form.apartment_rooms.label")}
