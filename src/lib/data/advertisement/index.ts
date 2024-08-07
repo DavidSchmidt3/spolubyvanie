@@ -97,6 +97,7 @@ export async function getAdvertisementPhotosFiles(photosUrls: string[]) {
         return null;
       })
     );
+    console.log("photos", photos);
     return photos.filter((photo) => photo !== null);
   } catch (error) {
     console.error(error);
