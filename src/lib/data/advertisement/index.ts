@@ -58,16 +58,10 @@ export async function getAdvertisementPhotosFiles(photosUrls: string[]) {
       photosUrls.map(async (photoUrl, idx) => {
         const fileName = getFileNameFromFullPath(photoUrl) ?? `photo-${idx}`;
         const fileType = fileName.split(".").pop();
-        console.log(trimBucketName(photoUrl));
         const fetchedPhoto = await supabase.storage
           .from(PHOTO_BUCKET)
-          .download(trimBucketName(photoUrl), {
-            // transform: {
-            //   format: "origin",
-            // },
-          });
+          .download(trimBucketName(photoUrl));
 
-        console.log("fetchedPhoto", fetchedPhoto);
         if (fetchedPhoto.data instanceof Blob) {
           const convertedFile = Buffer.from(
             await fetchedPhoto.data.arrayBuffer()
@@ -99,7 +93,6 @@ export async function getAdvertisementPhotosFiles(photosUrls: string[]) {
         return null;
       })
     );
-    console.log("photos", photos);
     return photos.filter((photo) => photo !== null);
   } catch (error) {
     console.error(error);
