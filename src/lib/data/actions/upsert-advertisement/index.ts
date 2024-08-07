@@ -7,7 +7,7 @@ import {
   ADVERTISEMENT_UPSERT_SCHEMA,
   type AdvertisementUpsertFormValues,
 } from "@/lib/data/actions/upsert-advertisement/schema";
-import { type AdType } from "@/lib/data/advertisements/types";
+import { AdType } from "@/lib/data/advertisements/types";
 import { db, type TransactionalPrismaClient } from "@/lib/utils/prisma";
 import {
   getFileNameFromFullPath,
@@ -68,12 +68,13 @@ export const upsertAdvertisement = authActionClient
     try {
       await db.$transaction(async (tx) => {
         const upsertData = parseAdvertisementData(data);
-        const { id, photos, primary_photo } = data;
+        const photos = AdType.OfferingRoom ? data.photos : [];
+        const primary_photo = AdType.OfferingRoom ? data.primary_photo : "";
 
         if (isEditing) {
           const { id: advertisementId } = await tx.advertisements.update({
             where: {
-              id,
+              id: data.id,
             },
             data: {
               ...upsertData,
@@ -119,24 +120,33 @@ function parseAdvertisementData(data: AdvertisementUpsertFormValues) {
     room_area,
     advertisement_type,
     apartment_rooms,
+    street,
     ...rest
   } = data;
 
   const type = parseInt(advertisement_type) as AdType;
-  const upsertData = {
-    type,
-    floor: floor ? parseInt(floor) : undefined,
-    max_floor: max_floor ? parseInt(max_floor) : undefined,
-    room_area: room_area ? parseInt(room_area) : undefined,
-    apartment_area: apartment_area ? parseInt(apartment_area) : undefined,
-    apartment_rooms,
-    primary_photo_url: primary_photo,
-    municipality_id: municipality,
-    price: parseInt(price),
-    ...rest,
-  };
-
-  return upsertData;
+  if (type === AdType.OfferingRoom) {
+    return {
+      type,
+      floor: floor ? parseInt(floor) : undefined,
+      max_floor: max_floor ? parseInt(max_floor) : undefined,
+      room_area: room_area ? parseInt(room_area) : undefined,
+      apartment_area: apartment_area ? parseInt(apartment_area) : undefined,
+      apartment_rooms,
+      street,
+      primary_photo_url: primary_photo,
+      municipality_id: municipality,
+      price: parseInt(price),
+      ...rest,
+    };
+  } else {
+    return {
+      type,
+      municipality_id: municipality,
+      price: parseInt(price),
+      ...rest,
+    };
+  }
 }
 
 async function validateIsMine(advertisementId: string, userId: string) {
