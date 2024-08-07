@@ -52,8 +52,8 @@ export async function fetchAdvertisement(id: string) {
 }
 
 export async function getAdvertisementPhotosFiles(photosUrls: string[]) {
-  const supabase = createClient();
   try {
+    const supabase = createClient();
     const photos = await Promise.all(
       photosUrls.map(async (photoUrl, idx) => {
         const fileName = getFileNameFromFullPath(photoUrl) ?? `photo-${idx}`;
@@ -66,11 +66,7 @@ export async function getAdvertisementPhotosFiles(photosUrls: string[]) {
             },
           });
 
-        console.log("fetchedPhoto", fetchedPhoto, fileName, fileType);
-        console.log(supabase);
-        console.log(fetchedPhoto.data);
-        console.log(fetchedPhoto.data instanceof Blob);
-
+        console.log("fetchedPhoto", fetchedPhoto);
         if (fetchedPhoto.data instanceof Blob) {
           const convertedFile = Buffer.from(
             await fetchedPhoto.data.arrayBuffer()
