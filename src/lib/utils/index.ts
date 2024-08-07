@@ -96,11 +96,14 @@ export type Photo = {
 };
 
 export function dataUrlToFile(photo: Photo): File | undefined {
+  console.log(photo);
   const arr = photo.bytes.split(",");
+  console.log(arr);
   if (!arr[0] || !arr[1]) {
     return undefined;
   }
   const mimeArr = arr[0].match(/:(.*?);/);
+  console.log(mimeArr);
   if (!mimeArr || mimeArr.length < 2) {
     return undefined;
   }
