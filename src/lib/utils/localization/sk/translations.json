@@ -168,6 +168,9 @@
       "available_from": {
         "label": "Dostupné od"
       },
+      "searching_from": {
+        "label": "Hľadám od"
+      },
       "apartment_rooms": {
         "label": "Počet izieb bytu"
       },

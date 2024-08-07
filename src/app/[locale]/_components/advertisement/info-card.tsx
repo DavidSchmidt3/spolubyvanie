@@ -1,6 +1,6 @@
 import InfoRow from "@/app/[locale]/_components/advertisement/info-row";
 import { type Advertisement } from "@/lib/data/advertisements/format";
-import { adTypeKeys } from "@/lib/data/advertisements/types";
+import { AdType, adTypeKeys } from "@/lib/data/advertisements/types";
 import { type Locale } from "@/lib/utils/localization/i18n";
 import { useTranslations } from "next-intl";
 
@@ -37,7 +37,9 @@ export default function InfoCard({ advertisement, locale }: Props) {
           )}
         />
         <InfoRow label={t("advertisement.price.label")} value={`${price} €`} />
-        <InfoRow label={t("advertisement.street.label")} value={street} />
+        {type === AdType.OfferingRoom && (
+          <InfoRow label={t("advertisement.street.label")} value={street} />
+        )}
         <InfoRow
           label={t("advertisement.municipality.title")}
           value={municipality}
@@ -61,7 +63,11 @@ export default function InfoCard({ advertisement, locale }: Props) {
         <InfoRow label={t("advertisement.floor.label")} value={floor} />
         <InfoRow label={t("advertisement.max_floor.label")} value={max_floor} />
         <InfoRow
-          label={t("advertisement.available_from.label")}
+          label={
+            type === AdType.OfferingRoom
+              ? t("advertisement.available_from.label")
+              : t("advertisement.searching_from.label")
+          }
           value={available_from?.toLocaleDateString(locale)}
         />
       </div>

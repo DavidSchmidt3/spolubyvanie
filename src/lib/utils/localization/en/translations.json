@@ -168,6 +168,9 @@
       "available_from": {
         "label": "Available from"
       },
+      "searching_from": {
+        "label": "Searching from"
+      },
       "apartment_rooms": {
         "label": "Number of rooms in apartment"
       },
