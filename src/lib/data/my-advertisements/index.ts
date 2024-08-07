@@ -7,6 +7,9 @@ export async function getMyAdvertisements(userId: string) {
       where: {
         user_id: userId,
       },
+      orderBy: {
+        created_at: "desc",
+      },
       include: {
         municipalities: {
           include: {

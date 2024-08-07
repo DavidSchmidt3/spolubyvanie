@@ -170,6 +170,7 @@ export default function AdvertisementForm({
           }`}
         >
           <GeneralCard
+            adTypeSelectDisabled={isEdit}
             form={form}
             getNumericProps={getNumericProps}
             isOffering={isOffering}

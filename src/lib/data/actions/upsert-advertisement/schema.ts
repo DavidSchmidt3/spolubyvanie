@@ -4,24 +4,15 @@ import * as z from "zod";
 export const ADVERTISEMENT_UPSERT_SCHEMA = z
   .object({
     id: z.string().uuid().or(z.undefined()),
-    region: z
-      .string()
-      .uuid({
-        message: "alerts.add_advertisement.region.required",
-      })
-      .or(z.literal("")),
-    district: z
-      .string()
-      .uuid({
-        message: "alerts.add_advertisement.district.required",
-      })
-      .or(z.literal("")),
-    municipality: z
-      .string()
-      .uuid({
-        message: "alerts.add_advertisement.municipality.required",
-      })
-      .or(z.literal("")),
+    region: z.string().uuid({
+      message: "alerts.add_advertisement.region.required",
+    }),
+    district: z.string().uuid({
+      message: "alerts.add_advertisement.district.required",
+    }),
+    municipality: z.string().uuid({
+      message: "alerts.add_advertisement.municipality.required",
+    }),
     price: z.string().regex(/^\d+$/, {
       message: "alerts.add_advertisement.price.required",
     }),

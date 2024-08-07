@@ -69,25 +69,31 @@ export const upsertAdvertisement = authActionClient
       await db.$transaction(async (tx) => {
         const upsertData = parseAdvertisementData(data);
         const { id, photos, primary_photo } = data;
-        const { id: advertisementId } = await tx.advertisements.upsert({
-          where: {
-            id: id ?? "",
-          },
-          update: upsertData,
-          create: {
-            ...upsertData,
-            user_id: userId,
-          },
-        });
+
         if (isEditing) {
+          const { id: advertisementId } = await tx.advertisements.update({
+            where: {
+              id,
+            },
+            data: {
+              ...upsertData,
+            },
+          });
           await handleEditPhotos(photos, primary_photo, advertisementId, tx);
         } else {
+          const { id: advertisementId } = await tx.advertisements.create({
+            data: {
+              user_id: userId,
+              ...upsertData,
+            },
+          });
           await handleAddPhotos(photos, primary_photo, advertisementId, tx);
         }
 
         revalidateTag("advertisements");
       });
     } catch (error) {
+      console.error("Error upserting advertisement", error);
       throw new ActionError(
         isEditing
           ? "alerts.add_advertisement.save.edit.error.title"
@@ -168,28 +174,33 @@ async function handleEditPhotos(
     return toDelete;
   }, [] as (typeof advertisementPhotos)[number][]);
 
-  await fileService.deletePhotos(photosToDelete.map((photo) => photo.url));
-  await tx.advertisements_photos.deleteMany({
-    where: {
-      id: {
-        in: photosToDelete.map((photo) => photo.id),
+  if (photosToDelete.length > 0) {
+    await fileService.deletePhotos(photosToDelete.map((photo) => photo.url));
+    await tx.advertisements_photos.deleteMany({
+      where: {
+        id: {
+          in: photosToDelete.map((photo) => photo.id),
+        },
       },
-    },
-  });
+    });
+  }
 
   const photosToUpload = photos.filter(
     (photo) => !advertisementPhotos.some((p) => p.url.includes(photo.name))
   );
 
-  const result = await fileService.uploadPhotos(
-    advertisementId,
-    photosToUpload
-  );
-
+  let primaryPhotoUrl = "";
   const asciiPrimaryPhoto = getAsciiName(primary_photo);
-  let primaryPhotoUrl =
-    result.find((item) => item.data!.fullPath.includes(asciiPrimaryPhoto))
-      ?.data!.fullPath ?? "";
+  if (photosToUpload.length > 0) {
+    const result = await fileService.uploadPhotos(
+      advertisementId,
+      photosToUpload
+    );
+
+    primaryPhotoUrl =
+      result.find((item) => item.data!.fullPath.includes(asciiPrimaryPhoto))
+        ?.data!.fullPath ?? "";
+  }
 
   // if the primary photo was not not form the new photos, but it was in the existing photos
   if (!primaryPhotoUrl) {

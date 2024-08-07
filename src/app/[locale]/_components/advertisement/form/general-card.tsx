@@ -18,12 +18,14 @@ type Props = {
     min?: string
   ) => React.InputHTMLAttributes<HTMLInputElement>;
   isOffering: boolean;
+  adTypeSelectDisabled: boolean;
 };
 
 export default function GeneralCard({
   form,
   getNumericProps,
   isOffering,
+  adTypeSelectDisabled,
 }: Props) {
   const t = useTranslations("translations.add_advertisement");
 
@@ -33,7 +35,11 @@ export default function GeneralCard({
         <CardTitle>{t("general.title")}</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-y-2">
-        <AdvertisementTypeFilter form={form} clearable={false} />
+        <AdvertisementTypeFilter
+          form={form}
+          clearable={false}
+          disabled={adTypeSelectDisabled}
+        />
         <AvailableFromField control={form.control} isOffering={isOffering} />
         <TextField
           control={form.control}

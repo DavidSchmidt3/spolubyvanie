@@ -31,9 +31,14 @@ type Props = {
     | UseFormReturn<AdvertisementFilterFormValues>
     | UseFormReturn<AdvertisementUpsertFormValues>;
   clearable?: boolean;
+  disabled: boolean;
 };
 
-export function AdvertisementTypeFilter({ form, clearable = true }: Props) {
+export function AdvertisementTypeFilter({
+  form,
+  clearable = true,
+  disabled,
+}: Props) {
   const t = useTranslations();
 
   const control = form.control as Control<
@@ -55,6 +60,7 @@ export function AdvertisementTypeFilter({ form, clearable = true }: Props) {
             </FormLabel>
             <Select
               value={field.value}
+              disabled={disabled}
               onValueChange={async (value) => {
                 if (value) {
                   field.onChange(value);
