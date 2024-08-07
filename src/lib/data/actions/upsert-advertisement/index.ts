@@ -190,12 +190,10 @@ async function handleEditPhotos(
   );
 
   let primaryPhotoUrl = "";
+  let result;
   const asciiPrimaryPhoto = getAsciiName(primary_photo);
   if (photosToUpload.length > 0) {
-    const result = await fileService.uploadPhotos(
-      advertisementId,
-      photosToUpload
-    );
+    result = await fileService.uploadPhotos(advertisementId, photosToUpload);
 
     primaryPhotoUrl =
       result.find((item) => item.data!.fullPath.includes(asciiPrimaryPhoto))
@@ -219,7 +217,7 @@ async function handleEditPhotos(
     data: {
       primary_photo_url: primaryPhotoUrl,
       advertisements_photos: {
-        create: result.map((item) => ({
+        create: result?.map((item) => ({
           url: item.data!.fullPath,
         })),
       },

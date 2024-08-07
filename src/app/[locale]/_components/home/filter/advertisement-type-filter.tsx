@@ -31,13 +31,13 @@ type Props = {
     | UseFormReturn<AdvertisementFilterFormValues>
     | UseFormReturn<AdvertisementUpsertFormValues>;
   clearable?: boolean;
-  disabled: boolean;
+  disabled?: boolean;
 };
 
 export function AdvertisementTypeFilter({
   form,
   clearable = true,
-  disabled,
+  disabled = false,
 }: Props) {
   const t = useTranslations();
 
