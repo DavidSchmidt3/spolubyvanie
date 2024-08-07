@@ -77,6 +77,8 @@ export default function AdvertisementForm({
       const photos = photosBase64String
         ?.map((photo) => dataUrlToFile(photo))
         .filter((photo) => !!photo);
+
+      console.log(photos);
       form.setValue("photos", photos);
     }
   }

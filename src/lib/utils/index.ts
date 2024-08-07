@@ -105,9 +105,16 @@ export function dataUrlToFile(photo: Photo): File | undefined {
     return undefined;
   }
   const mime = mimeArr[1];
-  const buff = Buffer.from(arr[1], "base64");
-  const file = new File([buff], photo.fileName, { type: mime });
-  return Object.assign(file, {
-    preview: URL.createObjectURL(file),
-  });
+
+  const ui8Array = new Uint8Array(
+    atob(arr[1])
+      .split("")
+      .map((char) => char.charCodeAt(0))
+  );
+
+  const blob = new Blob([ui8Array], { type: mime });
+  const file = new File([blob], photo.fileName, { type: mime });
+  const preview = URL.createObjectURL(blob);
+
+  return Object.assign(file, { preview });
 }
