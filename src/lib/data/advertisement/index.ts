@@ -58,12 +58,13 @@ export async function getAdvertisementPhotosFiles(photosUrls: string[]) {
       photosUrls.map(async (photoUrl, idx) => {
         const fileName = getFileNameFromFullPath(photoUrl) ?? `photo-${idx}`;
         const fileType = fileName.split(".").pop();
+        console.log(trimBucketName(photoUrl));
         const fetchedPhoto = await supabase.storage
           .from(PHOTO_BUCKET)
           .download(trimBucketName(photoUrl), {
-            transform: {
-              format: "origin",
-            },
+            // transform: {
+            //   format: "origin",
+            // },
           });
 
         console.log("fetchedPhoto", fetchedPhoto);
