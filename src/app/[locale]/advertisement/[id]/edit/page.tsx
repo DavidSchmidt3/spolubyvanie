@@ -47,7 +47,6 @@ export default async function AdvertisementEdit({ params: { id } }: Props) {
   }
 
   const defaultValues = getFormDefaultValues(advertisement);
-  console.log(advertisement.advertisement_photos);
   const photos = await getAdvertisementPhotosFiles(
     advertisement.advertisement_photos?.map((photo) => photo.url) ?? []
   );

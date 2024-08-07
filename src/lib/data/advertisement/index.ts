@@ -66,6 +66,11 @@ export async function getAdvertisementPhotosFiles(photosUrls: string[]) {
             },
           });
 
+        console.log("fetchedPhoto", fetchedPhoto, fileName, fileType);
+        console.log(supabase);
+        console.log(fetchedPhoto.data);
+        console.log(fetchedPhoto.data instanceof Blob);
+
         if (fetchedPhoto.data instanceof Blob) {
           const convertedFile = Buffer.from(
             await fetchedPhoto.data.arrayBuffer()

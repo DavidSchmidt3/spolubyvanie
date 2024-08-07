@@ -70,7 +70,6 @@ export default function AdvertisementForm({
   async function initializePhotos() {
     if (isEdit) {
       const photosBase64String = (props as EditProps).photos;
-      console.log("initializing photos", photosBase64String);
       if (!photosBase64String) {
         return;
       }
