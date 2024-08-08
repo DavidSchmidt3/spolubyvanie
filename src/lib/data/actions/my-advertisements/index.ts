@@ -35,7 +35,12 @@ export const deleteAdvertisement = authActionClient
 
       // then delete the photos from the storage
       // if this was done vice versa and the db deletion failed, we wouldn't have the images, only entry in the db
-      await supabase.storage.from(PHOTO_BUCKET).remove(urls);
+      const deleteResult = await supabase.storage
+        .from(PHOTO_BUCKET)
+        .remove(urls);
+      if (deleteResult.error) {
+        console.error("Error deleting photos", deleteResult.error);
+      }
     } catch (error) {
       console.error("Error deleting advertisement", error);
       throw new ActionError("alerts.my_advertisements.delete.error.title");

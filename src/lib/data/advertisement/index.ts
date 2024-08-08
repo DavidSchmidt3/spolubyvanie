@@ -90,6 +90,10 @@ export async function getAdvertisementPhotosFiles(photosUrls: string[]) {
             bytes: dataUrl,
           };
         }
+        console.error(
+          "Error fetching photo or wrong photo type",
+          fetchedPhoto.error
+        );
         return null;
       })
     );

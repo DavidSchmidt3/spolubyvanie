@@ -19,13 +19,17 @@ import { formatZodErrors } from "@/lib/utils/zod";
 import { revalidateTag } from "next/cache";
 
 const fileService = {
-  uploadPhotos: async (advertisementId: string, photos: File[]) => {
+  uploadPhotos: async (
+    advertisementId: string,
+    photos: File[],
+    userId: string
+  ) => {
     const supabase = createClient();
     const uploadPromises = photos.map(async (photo) => {
       const asciiOnlyName = getAsciiName(photo.name);
       const data = await supabase.storage
         .from(PHOTO_BUCKET)
-        .upload(`${advertisementId}/${asciiOnlyName}`, photo, {
+        .upload(`${userId}/${advertisementId}/${asciiOnlyName}`, photo, {
           upsert: true,
         });
       return data;
@@ -80,7 +84,13 @@ export const upsertAdvertisement = authActionClient
               ...upsertData,
             },
           });
-          await handleEditPhotos(photos, primary_photo, advertisementId, tx);
+          await handleEditPhotos(
+            photos,
+            primary_photo,
+            advertisementId,
+            userId,
+            tx
+          );
         } else {
           const { id: advertisementId } = await tx.advertisements.create({
             data: {
@@ -88,7 +98,13 @@ export const upsertAdvertisement = authActionClient
               ...upsertData,
             },
           });
-          await handleAddPhotos(photos, primary_photo, advertisementId, tx);
+          await handleAddPhotos(
+            photos,
+            primary_photo,
+            advertisementId,
+            userId,
+            tx
+          );
         }
 
         revalidateTag("advertisements");
@@ -165,6 +181,7 @@ async function handleEditPhotos(
   photos: File[],
   primary_photo: string,
   advertisementId: string,
+  userId: string,
   tx: TransactionalPrismaClient
 ) {
   const advertisementPhotos = await tx.advertisements_photos.findMany({
@@ -203,7 +220,11 @@ async function handleEditPhotos(
   let result;
   const asciiPrimaryPhoto = getAsciiName(primary_photo);
   if (photosToUpload.length > 0) {
-    result = await fileService.uploadPhotos(advertisementId, photosToUpload);
+    result = await fileService.uploadPhotos(
+      advertisementId,
+      photosToUpload,
+      userId
+    );
 
     primaryPhotoUrl =
       result.find((item) => item.data!.fullPath.includes(asciiPrimaryPhoto))
@@ -239,10 +260,15 @@ async function handleAddPhotos(
   photos: File[],
   primary_photo: string,
   advertisementId: string,
+  userId: string,
   tx: TransactionalPrismaClient
 ) {
   const asciiPrimaryPhoto = getAsciiName(primary_photo);
-  const result = await fileService.uploadPhotos(advertisementId, photos);
+  const result = await fileService.uploadPhotos(
+    advertisementId,
+    photos,
+    userId
+  );
   const primaryPhotoUrl =
     result.find((item) => item.data!.fullPath.includes(asciiPrimaryPhoto))
       ?.data!.fullPath ?? "";
