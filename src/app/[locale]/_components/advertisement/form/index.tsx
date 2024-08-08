@@ -23,7 +23,10 @@ import {
 import { getFormDefaultValues } from "@/lib/data/advertisement/format";
 import { AdType } from "@/lib/data/advertisements/types";
 import { dataUrlToFile, type Photo } from "@/lib/utils";
-import { useRouter } from "@/lib/utils/localization/navigation";
+import {
+  pushRouteWithTransition,
+  useRouter,
+} from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect, useMemo } from "react";
@@ -126,8 +129,8 @@ export default function AdvertisementForm({
           : "alerts.add_advertisement.save.add.success.title",
         variant: "success",
       });
-      router.push("/my-advertisements");
       resetPersistedValues();
+      void pushRouteWithTransition("/my-advertisements", router);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result, hasErrored, hasSucceeded]);
