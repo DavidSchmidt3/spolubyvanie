@@ -168,7 +168,7 @@
           "title": "Nepodarilo sa zmazať inzerát"
         },
         "success": {
-          "title": "Advertisement deleted successfully"
+          "title": "Inzerát bol úspešne zmazaný"
         }
       }
     },
