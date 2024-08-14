@@ -138,7 +138,7 @@ export default function SortByField({ form }: Props) {
                   <FormControl>
                     <RadioGroupItem value="asc" />
                   </FormControl>
-                  <FormLabel className="font-normal flex gap-x-2">
+                  <FormLabel className="font-normal flex gap-x-2 hover:cursor-pointer">
                     {t("translations.advertisement.sort_order.asc")}
                     <Icons.arrowUp />
                   </FormLabel>
@@ -147,7 +147,7 @@ export default function SortByField({ form }: Props) {
                   <FormControl>
                     <RadioGroupItem value="desc" />
                   </FormControl>
-                  <FormLabel className="font-normal flex gap-x-2">
+                  <FormLabel className="font-normal flex gap-x-2 hover:cursor-pointer">
                     {t("translations.advertisement.sort_order.desc")}
                     <Icons.arrowDown />
                   </FormLabel>
