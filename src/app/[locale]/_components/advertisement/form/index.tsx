@@ -9,6 +9,7 @@ import { Button } from "@/app/[locale]/_components/ui/button";
 import PersistedForm from "@/app/[locale]/_components/ui/form";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { useToast } from "@/app/[locale]/_components/ui/use-toast";
+import { useAdvertisementType } from "@/hooks/advertisement-type";
 import { useConditionalTrigger, usePersistedForm } from "@/hooks/form";
 import { upsertAdvertisement } from "@/lib/data/actions/upsert-advertisement";
 import {
@@ -21,7 +22,6 @@ import {
   type Region,
 } from "@/lib/data/administrative-divisions";
 import { getFormDefaultValues } from "@/lib/data/advertisement/format";
-import { AdType } from "@/lib/data/advertisements/types";
 import { dataUrlToFile, type Photo } from "@/lib/utils";
 import {
   pushRouteWithTransition,
@@ -136,8 +136,7 @@ export default function AdvertisementForm({
   }, [result, hasErrored, hasSucceeded]);
 
   const advertisementType = form.watch("advertisement_type");
-  const parsedAdvertisementType = parseInt(advertisementType) as AdType;
-  const isOffering = parsedAdvertisementType === AdType.OfferingRoom;
+  const isOffering = useAdvertisementType(advertisementType);
   const isPending = form.formState.isSubmitting || isExecuting;
 
   useConditionalTrigger({

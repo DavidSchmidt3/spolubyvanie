@@ -183,6 +183,19 @@
         "searching_room": "Hľadám izbu",
         "offering_room": "Ponúkam izbu"
       },
+      "sort_by": {
+        "select_label": "Zoradiť podľa",
+        "select_text": "Vybrať spôsob zoradenia",
+        "created_at": "Dátumu pridania",
+        "price": "Ceny",
+        "room_area": "Veľkosti izby",
+        "apartment_rooms": "Počtu izieb bytu"
+      },
+      "sort_order": {
+        "label": "Zoradiť vzostupne/zostupne",
+        "asc": "Vzostupne",
+        "desc": "Zostupne"
+      },
       "administrative_divisions": {
         "tip": {
           "title": "Tip: Po vyplnení obce alebo okresu sa ostatné údaje doplnia automaticky"

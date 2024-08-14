@@ -183,6 +183,19 @@
         "searching_room": "Searching room",
         "offering_room": "Offering room"
       },
+      "sort_by": {
+        "select_label": "Sort by",
+        "select_text": "Select sorting",
+        "created_at": "Date added",
+        "price": "Price",
+        "room_area": "Room area",
+        "apartment_rooms": "Number of rooms in apartment"
+      },
+      "sort_order": {
+        "label": "Sort order",
+        "asc": "Ascending",
+        "desc": "Descending"
+      },
       "administrative_divisions": {
         "tip": {
           "title": "Tip: After entering the municipality or district, the other data will be filled in automatically."

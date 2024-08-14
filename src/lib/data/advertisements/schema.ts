@@ -30,7 +30,21 @@ const ADVERTISEMENT_FILTER_BASE_SCHEMA = z.object({
     .regex(createAdTypeRegex())
     .or(z.literal(""))
     .or(z.undefined()),
+  sort_by: z
+    .literal("price")
+    .or(z.literal("created_at"))
+    .or(z.literal("apartment_rooms"))
+    .or(z.literal("room_area"))
+    .or(z.undefined()),
+  sort_order: z.literal("asc").or(z.literal("desc")).or(z.undefined()),
 });
+
+export type SortByOptions = z.infer<
+  typeof ADVERTISEMENT_FILTER_BASE_SCHEMA
+>["sort_by"];
+export type SortOrder = z.infer<
+  typeof ADVERTISEMENT_FILTER_BASE_SCHEMA
+>["sort_order"];
 
 const ADVERTISEMENT_PAGINATION_SCHEMA = z.object({
   page: z.string().regex(/^\d*$/, {

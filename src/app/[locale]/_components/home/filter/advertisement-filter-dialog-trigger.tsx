@@ -15,6 +15,8 @@ import {
 import {
   ADVERTISEMENTS_FILTER_SCHEMA,
   type AdvertisementFilterFormValues,
+  type SortByOptions,
+  type SortOrder,
 } from "@/lib/data/advertisements/schema";
 import {
   createQueryParamsFromObject,
@@ -60,6 +62,8 @@ export default function AdvertisementFilterDialog({
       price_min: searchParams.get("price_min") ?? "",
       price_max: searchParams.get("price_max") ?? "",
       advertisement_type: searchParams.get("advertisement_type") ?? "",
+      sort_by: (searchParams.get("sort_by") as SortByOptions) ?? "price",
+      sort_order: (searchParams.get("sort_order") as SortOrder) ?? "desc",
     };
   }, [searchParams]);
 

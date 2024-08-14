@@ -1,6 +1,7 @@
 import AdministrativeDivisionFilter from "@/app/[locale]/_components/home/filter/administrative-division-filter";
 import { AdvertisementTypeFilter } from "@/app/[locale]/_components/home/filter/advertisement-type-filter";
 import PriceFilter from "@/app/[locale]/_components/home/filter/price-filter";
+import SortByField from "@/app/[locale]/_components/home/filter/sort-by-field";
 import { Button } from "@/app/[locale]/_components/ui/button";
 import {
   CredenzaBody,
@@ -61,7 +62,10 @@ export default function AdvertisementFilterDialogContent({
                 <PriceFilter control={form.control} />
                 <AdvertisementTypeFilter form={form} />
               </div>
-              <div className="flex flex-col gap-y-4 order-3 my-2 sm:col-span-2">
+              <div className="flex flex-col gap-y-4 order-3 sm:col-span-2">
+                <SortByField form={form} />
+              </div>
+              <div className="flex flex-col gap-y-4 order-4 my-2 sm:col-span-2">
                 <Button
                   type="submit"
                   variant="ringHover"
