@@ -23,6 +23,7 @@ export function getFormattedAdvertisement(
     max_floor: advertisement.max_floor,
     available_from: advertisement.available_from,
     views: advertisement.views,
+    created_at: advertisement.created_at,
     municipality: getIdsInsteadOfNames
       ? advertisement.municipalities.id
       : advertisement.municipalities.name,

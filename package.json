@@ -33,6 +33,7 @@
     "@radix-ui/react-select": "next",
     "@radix-ui/react-slider": "^1.2.0",
     "@radix-ui/react-slot": "next",
+    "@radix-ui/react-switch": "^1.1.0",
     "@radix-ui/react-toast": "next",
     "@supabase/ssr": "0.4.0",
     "@supabase/supabase-js": "^2.42.0",

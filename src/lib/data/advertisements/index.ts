@@ -22,9 +22,6 @@ export async function fetchAdvertisements(
   try {
     return await db.advertisements
       .paginate({
-        orderBy: {
-          created_at: "desc",
-        },
         ...filter,
         include: {
           municipalities: {
@@ -64,11 +61,16 @@ export const getAdvertisementsFiltered = async ({
   region,
   price_min,
   price_max,
+  sort_by,
+  sort_order,
   advertisement_type,
   page,
 }: AdvertisementFullSchemaValues) => {
   const [advertisements, paginationData] = await fetchAdvertisements(
     {
+      orderBy: {
+        [sort_by ? sort_by : "created_at"]: sort_order ?? "desc",
+      },
       where: {
         municipality_id: municipality?.length
           ? {

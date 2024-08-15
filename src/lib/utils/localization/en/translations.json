@@ -127,6 +127,9 @@
         "select_text": "Select a region",
         "empty_text": "No region found."
       },
+      "date_added": {
+        "title": "Date added"
+      },
       "views": {
         "title": "Number of views"
       },
@@ -154,7 +157,7 @@
         "label": "Type"
       },
       "room_area": {
-        "label": "Room area(m²)"
+        "label": "Room area (m²)"
       },
       "detail": {
         "link": "Advertisement details"
@@ -183,6 +186,19 @@
         "searching_room": "Searching room",
         "offering_room": "Offering room"
       },
+      "sort_by": {
+        "select_label": "Sort by",
+        "select_text": "Select sorting",
+        "created_at": "Date added",
+        "price": "Price",
+        "room_area": "Room area",
+        "apartment_rooms": "Number of rooms in apartment"
+      },
+      "sort_order": {
+        "label": "Sort order",
+        "asc": "Ascending",
+        "desc": "Descending"
+      },
       "administrative_divisions": {
         "tip": {
           "title": "Tip: After entering the municipality or district, the other data will be filled in automatically."
@@ -205,8 +221,8 @@
       "filter": {
         "title": "Filter advertisements",
         "button": "Search advertisements",
-        "clear": {
-          "button": "Clear filters"
+        "reset": {
+          "button": "Clear filters and sort"
         }
       },
       "no_results": {

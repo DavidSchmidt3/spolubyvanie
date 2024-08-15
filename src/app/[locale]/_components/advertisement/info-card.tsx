@@ -60,7 +60,7 @@ export default function InfoCard({ advertisement, locale }: Props) {
         />
         <InfoRow
           label={t("advertisement.apartment_rooms.label")}
-          value={apartment_rooms}
+          value={apartment_rooms ?? "-"}
         />
         <InfoRow label={t("advertisement.floor.label")} value={floor} />
         <InfoRow label={t("advertisement.max_floor.label")} value={max_floor} />

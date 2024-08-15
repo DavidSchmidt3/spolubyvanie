@@ -30,7 +30,26 @@ const ADVERTISEMENT_FILTER_BASE_SCHEMA = z.object({
     .regex(createAdTypeRegex())
     .or(z.literal(""))
     .or(z.undefined()),
+  sort_by: z
+    .literal("price")
+    .or(z.literal("created_at"))
+    .or(z.literal("apartment_rooms"))
+    .or(z.literal("room_area"))
+    .or(z.undefined()),
+  sort_order: z.literal("asc").or(z.literal("desc")).or(z.undefined()),
 });
+
+export const OFFERING_ROOM_ONLY_SORT_BY_VALUES = [
+  "room_area",
+  "apartment_rooms",
+] as const;
+
+export type SortByOptions = z.infer<
+  typeof ADVERTISEMENT_FILTER_BASE_SCHEMA
+>["sort_by"];
+export type SortOrder = z.infer<
+  typeof ADVERTISEMENT_FILTER_BASE_SCHEMA
+>["sort_order"];
 
 const ADVERTISEMENT_PAGINATION_SCHEMA = z.object({
   page: z.string().regex(/^\d*$/, {
@@ -72,3 +91,15 @@ export type AdvertisementFilterFormValues = z.infer<
 export type AdvertisementFullSchemaValues = z.infer<
   typeof ADVERTISEMENTS_FULL_SCHEMA
 >;
+
+export const ADVERTISEMENT_FILTER_DEFAULT_VALUES: AdvertisementFilterFormValues =
+  {
+    municipality: [],
+    district: [],
+    region: "",
+    price_min: "",
+    price_max: "",
+    advertisement_type: "",
+    sort_by: "price",
+    sort_order: "asc",
+  };
