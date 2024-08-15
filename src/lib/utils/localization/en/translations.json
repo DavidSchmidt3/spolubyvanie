@@ -127,6 +127,9 @@
         "select_text": "Select a region",
         "empty_text": "No region found."
       },
+      "date_added": {
+        "title": "Date added"
+      },
       "views": {
         "title": "Number of views"
       },

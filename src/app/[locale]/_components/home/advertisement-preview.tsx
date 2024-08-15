@@ -8,7 +8,7 @@ import {
 } from "@/app/[locale]/_components/ui/card";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { type Advertisement as AdvertisementType } from "@/lib/data/advertisements/format";
-import { adTypeKeys } from "@/lib/data/advertisements/types";
+import { AdType, adTypeKeys } from "@/lib/data/advertisements/types";
 import { Link } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 
@@ -28,10 +28,13 @@ export default function AdvertisementPreview({
     type,
     description,
     street,
+    room_area,
+    apartment_rooms,
     primary_photo_url,
     municipality,
     district,
     region,
+    created_at,
     views,
   } = advertisement;
 
@@ -95,6 +98,28 @@ export default function AdvertisementPreview({
                 {region}
               </div>
             </div>
+            <div className="flex justify-between text-base md:text-lg gap-x-8">
+              <p>{t("date_added.title")}</p>
+              <div className="font-bold text-right break-words overflow-hidden">
+                {created_at.toLocaleDateString()}
+              </div>
+            </div>
+            {type === AdType.OfferingRoom && (
+              <>
+                <div className="flex justify-between text-base md:text-lg gap-x-8">
+                  <p>{t("room_area.label")}</p>
+                  <div className="font-bold text-right break-words overflow-hidden">
+                    {room_area ?? "-"} m²
+                  </div>
+                </div>
+                <div className="flex justify-between text-base md:text-lg gap-x-8">
+                  <p>{t("apartment_rooms.label")}</p>
+                  <div className="font-bold text-right break-words overflow-hidden">
+                    {apartment_rooms ?? "-"}
+                  </div>
+                </div>
+              </>
+            )}
             <div className="flex justify-end text-base md:text-lg items-center gap-x-2">
               {views}
               <Icons.eye className="w-6 h-6" />

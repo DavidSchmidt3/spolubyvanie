@@ -127,6 +127,9 @@
         "select_text": "Vybrať kraj",
         "empty_text": "Neboli nájdené žiadne kraje"
       },
+      "date_added": {
+        "title": "Dátum pridania"
+      },
       "views": {
         "title": "Počet zobrazení"
       },
