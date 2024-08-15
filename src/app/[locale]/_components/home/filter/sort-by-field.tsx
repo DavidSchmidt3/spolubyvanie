@@ -21,6 +21,7 @@ import {
 } from "@/app/[locale]/_components/ui/select";
 import { useAdvertisementType } from "@/hooks/advertisement-type";
 import {
+  ADVERTISEMENT_FILTER_DEFAULT_VALUES,
   OFFERING_ROOM_ONLY_SORT_BY_VALUES,
   type AdvertisementFilterFormValues,
 } from "@/lib/data/advertisements/schema";
@@ -50,7 +51,7 @@ export default function SortByField({ form }: Props) {
           value as (typeof OFFERING_ROOM_ONLY_SORT_BY_VALUES)[number]
         )
       ) {
-        form.setValue("sort_by", "price");
+        form.setValue("sort_by", ADVERTISEMENT_FILTER_DEFAULT_VALUES.sort_by);
       }
     }
   }, [form, isOffering]);
