@@ -13,6 +13,7 @@ import {
   type getRegions,
 } from "@/lib/data/administrative-divisions";
 import {
+  ADVERTISEMENT_FILTER_DEFAULT_VALUES,
   ADVERTISEMENTS_FILTER_SCHEMA,
   type AdvertisementFilterFormValues,
   type SortByOptions,
@@ -56,14 +57,30 @@ export default function AdvertisementFilterDialog({
 
   const defaultValues = useMemo<AdvertisementFilterFormValues>(() => {
     return {
-      municipalities: searchParams.get("municipalities")?.split(",") ?? [],
-      districts: searchParams.get("districts")?.split(",") ?? [],
-      region: searchParams.get("region") ?? "",
-      price_min: searchParams.get("price_min") ?? "",
-      price_max: searchParams.get("price_max") ?? "",
-      advertisement_type: searchParams.get("advertisement_type") ?? "",
-      sort_by: (searchParams.get("sort_by") as SortByOptions) ?? "price",
-      sort_order: (searchParams.get("sort_order") as SortOrder) ?? "desc",
+      municipality:
+        searchParams.get("municipality")?.split(",") ??
+        ADVERTISEMENT_FILTER_DEFAULT_VALUES.municipality,
+      district:
+        searchParams.get("district")?.split(",") ??
+        ADVERTISEMENT_FILTER_DEFAULT_VALUES.district,
+      region:
+        searchParams.get("region") ??
+        ADVERTISEMENT_FILTER_DEFAULT_VALUES.region,
+      price_min:
+        searchParams.get("price_min") ??
+        ADVERTISEMENT_FILTER_DEFAULT_VALUES.price_min,
+      price_max:
+        searchParams.get("price_max") ??
+        ADVERTISEMENT_FILTER_DEFAULT_VALUES.price_max,
+      advertisement_type:
+        searchParams.get("advertisement_type") ??
+        ADVERTISEMENT_FILTER_DEFAULT_VALUES.advertisement_type,
+      sort_by:
+        (searchParams.get("sort_by") as SortByOptions) ??
+        ADVERTISEMENT_FILTER_DEFAULT_VALUES.sort_by,
+      sort_order:
+        (searchParams.get("sort_order") as SortOrder) ??
+        ADVERTISEMENT_FILTER_DEFAULT_VALUES.sort_order,
     };
   }, [searchParams]);
 
@@ -75,7 +92,6 @@ export default function AdvertisementFilterDialog({
   async function onSubmit(data: AdvertisementFilterFormValues) {
     const currentQueryString = getCurrentQueryString(searchParams);
     const newQueryString = createQueryStringFromObject(data);
-
     if (currentQueryString === newQueryString) {
       setOpen(false);
       return;
@@ -101,10 +117,6 @@ export default function AdvertisementFilterDialog({
     }
   }
 
-  const isFilterActive = Object.keys(defaultValues).some(
-    (key) => defaultValues[key as keyof typeof defaultValues]?.length
-  );
-
   return (
     <Card className="rounded-none">
       <CardContent className="flex flex-col items-center justify-between px-5 py-5 sm:px-10 sm:flex-row gap-y-4 gap-x-6">
@@ -126,7 +138,6 @@ export default function AdvertisementFilterDialog({
             {initialized && (
               <AdvertisementFilterDialogContent
                 regions={regions}
-                isFilterActive={isFilterActive}
                 districts={districts}
                 municipalities={municipalities}
                 form={form}

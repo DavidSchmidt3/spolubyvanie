@@ -20,7 +20,10 @@ import {
   SelectValue,
 } from "@/app/[locale]/_components/ui/select";
 import { useAdvertisementType } from "@/hooks/advertisement-type";
-import { type AdvertisementFilterFormValues } from "@/lib/data/advertisements/schema";
+import {
+  OFFERING_ROOM_ONLY_SORT_BY_VALUES,
+  type AdvertisementFilterFormValues,
+} from "@/lib/data/advertisements/schema";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { useWatch, type UseFormReturn } from "react-hook-form";
@@ -40,7 +43,15 @@ export default function SortByField({ form }: Props) {
 
   useEffect(() => {
     if (!isOffering) {
-      form.setValue("sort_by", "price");
+      const value = form.getValues("sort_by");
+      if (
+        value &&
+        OFFERING_ROOM_ONLY_SORT_BY_VALUES.includes(
+          value as (typeof OFFERING_ROOM_ONLY_SORT_BY_VALUES)[number]
+        )
+      ) {
+        form.setValue("sort_by", "price");
+      }
     }
   }, [form, isOffering]);
 
@@ -65,7 +76,6 @@ export default function SortByField({ form }: Props) {
               <FormControl>
                 <SelectTrigger
                   alwaysShowChevron={true}
-                  value={field.value}
                   className="justify-between w-full h-12 px-4 text-base text-center hover:bg-accent"
                   aria-label={t(
                     "translations.advertisement.sort_by.select_text"
@@ -131,7 +141,7 @@ export default function SortByField({ form }: Props) {
             <FormControl>
               <RadioGroup
                 onValueChange={field.onChange}
-                defaultValue={field.value}
+                value={field.value}
                 className="flex flex-row sm:flex-col items-start gap-y-2"
               >
                 <FormItem className="flex items-center space-x-3 space-y-0">

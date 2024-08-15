@@ -38,6 +38,7 @@ const ADVERTISEMENT_FILTER_BASE_SCHEMA = z.object({
     .or(z.undefined()),
   sort_order: z.literal("asc").or(z.literal("desc")).or(z.undefined()),
 });
+export const sortFields = ["sort_by", "sort_order"] as const;
 
 export type SortByOptions = z.infer<
   typeof ADVERTISEMENT_FILTER_BASE_SCHEMA
@@ -86,3 +87,15 @@ export type AdvertisementFilterFormValues = z.infer<
 export type AdvertisementFullSchemaValues = z.infer<
   typeof ADVERTISEMENTS_FULL_SCHEMA
 >;
+
+export const ADVERTISEMENT_FILTER_DEFAULT_VALUES: AdvertisementFilterFormValues =
+  {
+    municipality: [],
+    district: [],
+    region: "",
+    price_min: "",
+    price_max: "",
+    advertisement_type: "",
+    sort_by: "price",
+    sort_order: "asc",
+  };

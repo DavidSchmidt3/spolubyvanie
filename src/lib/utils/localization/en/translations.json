@@ -157,7 +157,7 @@
         "label": "Type"
       },
       "room_area": {
-        "label": "Room area(m²)"
+        "label": "Room area (m²)"
       },
       "detail": {
         "link": "Advertisement details"
@@ -221,8 +221,8 @@
       "filter": {
         "title": "Filter advertisements",
         "button": "Search advertisements",
-        "clear": {
-          "button": "Clear filters"
+        "reset": {
+          "button": "Clear filters and sort"
         }
       },
       "no_results": {
