@@ -1,5 +1,5 @@
 "use client";
-import AdvertisementPreview from "@/app/[locale]/_components/home/advertisement-preview";
+import AdvertisementPreview from "@/app/[locale]/_components/home/advertisement/preview";
 import MeasuredItem from "@/app/[locale]/_components/my-advertisements/measured-item";
 import { useWindowHeight } from "@/hooks/window-dimensions";
 import { type Advertisement } from "@/lib/data/advertisements/format";

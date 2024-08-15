@@ -1,4 +1,4 @@
-import AdvertisementLoading from "@/app/[locale]/_components/home/advertisement-loading";
+import AdvertisementLoading from "@/app/[locale]/_components/home/advertisement/loading";
 import { Card, CardContent } from "@/app/[locale]/_components/ui/card";
 import { Skeleton } from "@/app/[locale]/_components/ui/skeleton";
 

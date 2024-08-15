@@ -1,5 +1,5 @@
 import Container from "@/app/[locale]/_components/common/container";
-import AdvertisementListNoResults from "@/app/[locale]/_components/home/advertisement-list-no-results";
+import AdvertisementListNoResults from "@/app/[locale]/_components/home/advertisement/list-no-results";
 import MyAdvertisementsHeader from "@/app/[locale]/_components/my-advertisements/header";
 import { getMyAdvertisements } from "@/lib/data/my-advertisements";
 import { getUser } from "@/lib/data/user";

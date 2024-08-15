@@ -1,6 +1,6 @@
-import AdvertisementListNoResults from "@/app/[locale]/_components/home/advertisement-list-no-results";
-import AdvertisementPagination from "@/app/[locale]/_components/home/advertisement-pagination";
-import AdvertisementPreview from "@/app/[locale]/_components/home/advertisement-preview";
+import AdvertisementListNoResults from "@/app/[locale]/_components/home/advertisement/list-no-results";
+import AdvertisementPagination from "@/app/[locale]/_components/home/advertisement/pagination";
+import AdvertisementPreview from "@/app/[locale]/_components/home/advertisement/preview";
 import { getAdvertisements } from "@/lib/data/advertisements";
 import { getTranslations } from "next-intl/server";
 import { type ParsedUrlQuery } from "querystring";

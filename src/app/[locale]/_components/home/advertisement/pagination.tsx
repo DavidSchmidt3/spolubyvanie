@@ -1,4 +1,4 @@
-import AdvertisementPaginationPrefetch from "@/app/[locale]/_components/home/advertisement-pagination-prefetch";
+import AdvertisementPaginationPrefetch from "@/app/[locale]/_components/home/advertisement/pagination-prefetch";
 import {
   Pagination,
   PaginationContent,

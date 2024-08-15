@@ -1,5 +1,5 @@
-import AdvertisementActions from "@/app/[locale]/_components/home/advertisement-actions";
-import AdvertisementImage from "@/app/[locale]/_components/home/advertisement-image";
+import AdvertisementActions from "@/app/[locale]/_components/home/advertisement/actions";
+import AdvertisementImage from "@/app/[locale]/_components/home/advertisement/image";
 import { Button } from "@/app/[locale]/_components/ui/button";
 import {
   Card,
@@ -96,11 +96,11 @@ export default function AdvertisementPreview({
               <>
                 <InfoRow
                   label={t("room_area.label")}
-                  value={`${room_area} m²`}
+                  value={`${room_area ?? "-"} m²`}
                 />
                 <InfoRow
                   label={t("apartment_rooms.label")}
-                  value={apartment_rooms?.toString()}
+                  value={apartment_rooms?.toString() ?? "-"}
                 />
               </>
             )}
