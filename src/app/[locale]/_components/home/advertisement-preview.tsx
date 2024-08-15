@@ -17,6 +17,15 @@ type Props = {
   myAdvertisement?: boolean;
 };
 
+function InfoRow({ label, value }: { label: string; value?: string | null }) {
+  return (
+    <div className="flex justify-between text-base md:text-lg gap-x-8">
+      <p>{label}</p>
+      <span className="font-bold text-right">{value}</span>
+    </div>
+  );
+}
+
 export default function AdvertisementPreview({
   advertisement,
   myAdvertisement,
@@ -70,54 +79,29 @@ export default function AdvertisementPreview({
             {description}
           </p>
           <div className="flex flex-col gap-y-3 w-full md:w-72 lg:w-60 xl:w-72 flex-shrink-0">
-            <div className="flex justify-between text-base md:text-lg gap-x-8">
-              <p>{t("type.label")}</p>
-              <span className="font-bold text-right">
-                {t(`types.${adTypeKeys[type as keyof typeof adTypeKeys]}`)}
-              </span>
-            </div>
-            <div className="flex justify-between text-base md:text-lg gap-x-8">
-              <p>{t("price.label")}</p>
-              <span className="font-bold text-right">{price} €</span>
-            </div>
-            <div className="flex justify-between text-base md:text-lg gap-x-8">
-              <p>{t("street.label")}</p>
-              <span className="font-bold text-right">{street}</span>
-            </div>
-            <div className="flex justify-between text-base md:text-lg gap-x-8">
-              <p>{t("municipality.title")}</p>
-              <span className="font-bold text-right">{municipality}</span>
-            </div>
-            <div className="flex justify-between text-base md:text-lg gap-x-8">
-              <p>{t("district.title")}</p>
-              <span className="font-bold text-right">{district}</span>
-            </div>
-            <div className="flex justify-between text-base md:text-lg gap-x-8">
-              <p>{t("region.title")}</p>
-              <div className="font-bold text-right break-words overflow-hidden">
-                {region}
-              </div>
-            </div>
-            <div className="flex justify-between text-base md:text-lg gap-x-8">
-              <p>{t("date_added.title")}</p>
-              <div className="font-bold text-right break-words overflow-hidden">
-                {created_at.toLocaleDateString()}
-              </div>
-            </div>
+            <InfoRow
+              label={t("type.label")}
+              value={t(`types.${adTypeKeys[type as keyof typeof adTypeKeys]}`)}
+            />
+            <InfoRow label={t("price.label")} value={`${price} €`} />
+            <InfoRow label={t("street.label")} value={street} />
+            <InfoRow label={t("municipality.title")} value={municipality} />
+            <InfoRow label={t("district.title")} value={district} />
+            <InfoRow label={t("region.title")} value={region} />
+            <InfoRow
+              label={t("date_added.title")}
+              value={created_at.toLocaleDateString()}
+            />
             {type === AdType.OfferingRoom && (
               <>
-                <div className="flex justify-between text-base md:text-lg gap-x-8">
-                  <p>{t("room_area.label")}</p>
-                  <div className="font-bold text-right break-words overflow-hidden">
-                    {room_area ?? "-"} m²
-                  </div>
-                </div>
-                <div className="flex justify-between text-base md:text-lg gap-x-8">
-                  <p>{t("apartment_rooms.label")}</p>
-                  <div className="font-bold text-right break-words overflow-hidden">
-                    {apartment_rooms ?? "-"}
-                  </div>
-                </div>
+                <InfoRow
+                  label={t("room_area.label")}
+                  value={`${room_area} m²`}
+                />
+                <InfoRow
+                  label={t("apartment_rooms.label")}
+                  value={apartment_rooms?.toString()}
+                />
               </>
             )}
             <div className="flex justify-end text-base md:text-lg items-center gap-x-2">
