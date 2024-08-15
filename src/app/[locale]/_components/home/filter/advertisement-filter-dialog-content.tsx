@@ -1,7 +1,7 @@
 import AdministrativeDivisionFilter from "@/app/[locale]/_components/home/filter/administrative-division-filter";
 import { AdvertisementTypeFilter } from "@/app/[locale]/_components/home/filter/advertisement-type-filter";
 import PriceFilter from "@/app/[locale]/_components/home/filter/price-filter";
-import SortByField from "@/app/[locale]/_components/home/filter/sort-by-field";
+import SortByField from "@/app/[locale]/_components/home/filter/sort";
 import { Button } from "@/app/[locale]/_components/ui/button";
 import {
   CredenzaBody,
