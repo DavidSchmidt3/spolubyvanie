@@ -3,6 +3,7 @@ import { getFormattedAdvertisement } from "@/lib/data/advertisements/format";
 import {
   ADVERTISEMENTS_FILTER_SCHEMA,
   DEFAULT_SORT_BY,
+  DEFAULT_SORT_ORDER,
   NULLABLE_SORT_BY_VALUES,
   type AdvertisementFullSchemaValues,
 } from "@/lib/data/advertisements/schema";
@@ -76,12 +77,12 @@ export const getAdvertisementsFiltered = async ({
     {
       orderBy: {
         // cant apply nulls on non-nullable fields
-        [sort_by ?? "created_at"]: isSortOnNullableField
+        [sort_by ?? DEFAULT_SORT_BY]: isSortOnNullableField
           ? {
               nulls: "last",
               sort: sort_order,
             }
-          : sort_order ?? DEFAULT_SORT_BY,
+          : sort_order ?? DEFAULT_SORT_ORDER,
       },
       where: {
         municipality_id: municipality?.length
