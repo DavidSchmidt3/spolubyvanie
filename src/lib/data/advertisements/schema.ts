@@ -40,6 +40,7 @@ const ADVERTISEMENT_FILTER_BASE_SCHEMA = z.object({
 });
 
 export const DEFAULT_SORT_BY = "created_at";
+export const DEFAULT_SORT_ORDER = "asc";
 export const OFFERING_ROOM_ONLY_SORT_BY_VALUES = [
   "room_area",
   "apartment_rooms",
