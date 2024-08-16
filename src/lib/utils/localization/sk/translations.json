@@ -195,7 +195,7 @@
         "apartment_rooms": "Počtu izieb bytu"
       },
       "sort_order": {
-        "label": "Zoradiť vzostupne/zostupne",
+        "label": "Zoradiť",
         "asc": "Vzostupne",
         "desc": "Zostupne"
       },
