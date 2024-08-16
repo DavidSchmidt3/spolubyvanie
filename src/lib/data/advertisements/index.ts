@@ -2,6 +2,8 @@
 import { getFormattedAdvertisement } from "@/lib/data/advertisements/format";
 import {
   ADVERTISEMENTS_FILTER_SCHEMA,
+  DEFAULT_SORT_BY,
+  NULLABLE_SORT_BY_VALUES,
   type AdvertisementFullSchemaValues,
 } from "@/lib/data/advertisements/schema";
 import { db } from "@/lib/utils/prisma";
@@ -66,10 +68,20 @@ export const getAdvertisementsFiltered = async ({
   advertisement_type,
   page,
 }: AdvertisementFullSchemaValues) => {
+  const isSortOnNullableField = NULLABLE_SORT_BY_VALUES.includes(
+    (sort_by as (typeof NULLABLE_SORT_BY_VALUES)[number]) ?? DEFAULT_SORT_BY
+  );
+
   const [advertisements, paginationData] = await fetchAdvertisements(
     {
       orderBy: {
-        [sort_by ? sort_by : "created_at"]: sort_order ?? "desc",
+        // cant apply nulls on non-nullable fields
+        [sort_by ?? "created_at"]: isSortOnNullableField
+          ? {
+              nulls: "last",
+              sort: sort_order,
+            }
+          : sort_order ?? DEFAULT_SORT_BY,
       },
       where: {
         municipality_id: municipality?.length
