@@ -84,18 +84,19 @@ export default function AdvertisementFilterDialogContent({
                   type="submit"
                   variant="ringHover"
                   aria-label={t("filter.button")}
-                  className="text-base mt-5 sm:mt-0"
+                  className="text-base mt-5 sm:mt-0 flex gap-x-1"
                   disabled={isFetching}
                 >
                   {isFetching && (
-                    <Icons.spinner className="w-4 h-4 mr-2 animate-spin p" />
+                    <Icons.spinner className="w-4 h-4 animate-spin" />
                   )}
+                  <Icons.magnifier className="w-6 h-6" />
                   {t("filter.button")}
                 </Button>
                 <Button
                   type="button"
                   variant="destructive"
-                  className="text-base h-auto"
+                  className="text-base h-auto flex gap-x-1"
                   disabled={!isFilterActive || isFetching}
                   onClick={() =>
                     form.reset(ADVERTISEMENT_FILTER_DEFAULT_VALUES)
