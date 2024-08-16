@@ -39,9 +39,14 @@ const ADVERTISEMENT_FILTER_BASE_SCHEMA = z.object({
   sort_order: z.literal("asc").or(z.literal("desc")).or(z.undefined()),
 });
 
+export const DEFAULT_SORT_BY = "created_at";
 export const OFFERING_ROOM_ONLY_SORT_BY_VALUES = [
   "room_area",
   "apartment_rooms",
+] as const;
+export const NULLABLE_SORT_BY_VALUES = [
+  "apartment_rooms",
+  "room_area",
 ] as const;
 
 export type SortByOptions = z.infer<
