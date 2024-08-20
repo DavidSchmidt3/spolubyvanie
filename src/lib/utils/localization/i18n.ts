@@ -7,8 +7,8 @@ import enMetadata from "./en/metadata.json";
 import enTranslations from "./en/translations.json";
 
 export const LOCALES = [
-  { code: "sk", name: "Slovenčina" },
-  { code: "en", name: "English" },
+  { code: "sk", name: "Slovenčina", flagPath: "/flags/slovak.svg" },
+  { code: "en", name: "English", flagPath: "/flags/english.svg" },
 ] as const;
 export const LOCALES_CODES = LOCALES.map((locale) => locale.code);
 export const DEFAULT_LOCALE = "sk";
