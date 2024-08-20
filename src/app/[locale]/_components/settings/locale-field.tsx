@@ -18,6 +18,7 @@ import {
 import { type SettingsFormValues } from "@/lib/data/actions/settings/schema";
 import { LOCALES } from "@/lib/utils/localization/i18n";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { type Control } from "react-hook-form";
 
 type Props = {
@@ -53,7 +54,15 @@ export default function LocaleField({ control }: Props) {
                     key={locale.code}
                     value={locale.code}
                   >
-                    {locale.name}
+                    <div className="flex gap-x-3">
+                      <Image
+                        src={locale.flagPath}
+                        alt={locale.name}
+                        width={20}
+                        height={20}
+                      />
+                      {locale.name}
+                    </div>
                   </SelectItem>
                 ))}
               </SelectGroup>
