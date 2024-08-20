@@ -53,28 +53,29 @@ export default function AdvertisementPreview({
         <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-center px-6 sm:px-8">
           {title}
         </h3>
-        <Link
-          href={{
-            pathname: "/advertisement/[id]",
-            params: { id: advertisement.id },
-          }}
-          prefetch={false}
-        >
-          <Button className="flex items-center gap-x-2" variant="ringHover">
-            <Icons.magnifier className="w-8 sm:w-10 h-8 sm:h-10" />
-            <p className="font-bold">{t("detail.link")}</p>
-          </Button>
-        </Link>
         {myAdvertisement && (
           <AdvertisementActions advertisement={advertisement} />
         )}
       </CardHeader>
-      <CardContent className="p-2 xl:p-3 pt-3 flex flex-col lg:flex-row gap-4 sm:gap-6 xl:gap-8 w-full">
-        <div className="relative flex flex-shrink-0 h-min justify-center w-full lg:w-80 xl:w-96">
+      <CardContent className="p-1 xl:p-3 pt-3 flex flex-col lg:flex-row gap-4 sm:gap-6 xl:gap-8 w-full">
+        <div className="relative flex flex-shrink-0 flex-col items-center gap-y-4 h-min justify-center w-full lg:w-80 xl:w-96">
           <AdvertisementImage
             primary_photo_url={primary_photo_url}
             type={type}
           />
+          <Link
+            href={{
+              pathname: "/advertisement/[id]",
+              params: { id: advertisement.id },
+            }}
+            className=""
+            prefetch={false}
+          >
+            <Button className="flex items-center gap-x-2" variant="ringHover">
+              <Icons.magnifier className="w-8 sm:w-10 h-8 sm:h-10" />
+              <p className="font-bold">{t("detail.link")}</p>
+            </Button>
+          </Link>
         </div>
         <div className="flex flex-col md:flex-row gap-6 relative">
           <p className="text-wrap break-words text-justify lg:px-2 xl:px-8 md:flex-grow">
