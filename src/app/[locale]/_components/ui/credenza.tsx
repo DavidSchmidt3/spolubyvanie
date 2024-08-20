@@ -80,7 +80,7 @@ const CredenzaContent = ({ className, children, ...props }: CredenzaProps) => {
 
   return (
     <CredenzaContent
-      className={className}
+      className={cn(className, "max-h-dvh")}
       {...props}
       aria-describedby={undefined}
     >
@@ -154,5 +154,6 @@ export {
   CredenzaFooter,
   CredenzaHeader,
   CredenzaTitle,
-  CredenzaTrigger,
+  CredenzaTrigger
 };
+
