@@ -37,14 +37,14 @@ export async function MainNav({ ...props }: React.HTMLAttributes<HTMLElement>) {
       )}
       <TransitionLink
         href="/add-advertisement"
-        className="text-base text-center sm:text-lg"
+        className="text-base text-center sm:text-lg hidden sm:block"
       >
         <div className="flex items-center gap-x-1 sm:gap-x-2">
           <Icons.plus className="w-5 h-5" />
           <p>{t("navigation.add_advertisement.label")}</p>
         </div>
       </TransitionLink>
-      <TransitionLink href="/contact" className={`hidden text-lg sm:block`}>
+      <TransitionLink href="/contact" className="hidden text-lg sm:block">
         <div className="flex items-center gap-x-2">
           <Icons.person className="w-5 h-5" />
           <p>{t("navigation.contact.label")}</p>
