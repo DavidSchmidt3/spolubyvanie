@@ -50,7 +50,9 @@ export default function AdvertisementPreview({
   return (
     <Card className="w-full h-auto p-6">
       <CardHeader className="p-0 pb-2 flex-col gap-y-2 items-center relative justify-between">
-        <h3 className="text-3xl font-bold text-center px-6 sm:px-8">{title}</h3>
+        <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-center px-6 sm:px-8">
+          {title}
+        </h3>
         <Link
           href={{
             pathname: "/advertisement/[id]",
