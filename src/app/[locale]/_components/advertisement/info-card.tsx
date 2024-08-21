@@ -1,6 +1,7 @@
 import InfoRow from "@/app/[locale]/_components/advertisement/info-row";
 import { type Advertisement } from "@/lib/data/advertisements/format";
 import { AdType, adTypeKeys } from "@/lib/data/advertisements/types";
+import { formatDate } from "@/lib/utils/date";
 import { type Locale } from "@/lib/utils/localization/i18n";
 import { useTranslations } from "next-intl";
 
@@ -70,7 +71,7 @@ export default function InfoCard({ advertisement, locale }: Props) {
               ? t("advertisement.available_from.label")
               : t("advertisement.searching_from.label")
           }
-          value={available_from?.toLocaleDateString(locale)}
+          value={formatDate(available_from, locale)}
         />
       </div>
     </div>

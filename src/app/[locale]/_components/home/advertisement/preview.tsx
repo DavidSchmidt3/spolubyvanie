@@ -8,12 +8,15 @@ import {
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { type Advertisement as AdvertisementType } from "@/lib/data/advertisements/format";
 import { AdType, adTypeKeys } from "@/lib/data/advertisements/types";
+import { formatDate } from "@/lib/utils/date";
+import { type Locale } from "@/lib/utils/localization/i18n";
 import { useTranslations } from "next-intl";
 import DetailButton from "./detail-button";
 
 type Props = {
   advertisement: AdvertisementType;
   myAdvertisement?: boolean;
+  locale: Locale;
 };
 
 function InfoRow({ label, value }: { label: string; value?: string | null }) {
@@ -28,6 +31,7 @@ function InfoRow({ label, value }: { label: string; value?: string | null }) {
 export default function AdvertisementPreview({
   advertisement,
   myAdvertisement,
+  locale,
 }: Props) {
   const t = useTranslations("translations.advertisement");
   const {
@@ -76,7 +80,7 @@ export default function AdvertisementPreview({
             <InfoRow label={t("region.title")} value={region} />
             <InfoRow
               label={t("date_added.title")}
-              value={created_at.toLocaleDateString()}
+              value={formatDate(created_at, locale)}
             />
             {type === AdType.OfferingRoom && (
               <>

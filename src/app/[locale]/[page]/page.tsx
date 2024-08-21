@@ -2,6 +2,7 @@ import Loading from "@/app/[locale]/[page]/loading";
 import AdvertisementList from "@/app/[locale]/_components/home/advertisement/list";
 import AdvertisementFilterDataFetcher from "@/app/[locale]/_components/home/filter/adverisement-filter-data-fetcher";
 import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
+import { type Locale } from "@/lib/utils/localization/i18n";
 import { createQueryStringFromObject } from "@/lib/utils/localization/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
@@ -12,6 +13,7 @@ type Props = {
   searchParams: ParsedUrlQuery;
   params: {
     page: string;
+    locale: Locale;
   };
 };
 
@@ -36,7 +38,11 @@ export default async function Home({ params, searchParams }: Props) {
       <div className="flex flex-col justify-start h-full overflow-auto">
         <Suspense fallback={<Loading />} key={keyString}>
           <AdvertisementFilterDataFetcher />
-          <AdvertisementList page={params.page} searchParams={searchParams} />
+          <AdvertisementList
+            page={params.page}
+            searchParams={searchParams}
+            locale={params.locale}
+          />
         </Suspense>
       </div>
     </NextIntlClientProvider>

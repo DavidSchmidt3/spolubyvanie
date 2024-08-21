@@ -3,6 +3,8 @@ import AdvertisementPreview from "@/app/[locale]/_components/home/advertisement/
 import MeasuredItem from "@/app/[locale]/_components/my-advertisements/measured-item";
 import { useWindowHeight } from "@/hooks/window-dimensions";
 import { type Advertisement } from "@/lib/data/advertisements/format";
+import { type Locale } from "@/lib/utils/localization/i18n";
+import { useParams } from "next/navigation";
 import { useCallback, useRef } from "react";
 import { VariableSizeList } from "react-window";
 
@@ -16,6 +18,8 @@ export default function VirtualizedAdvertisementsList({
 }: Props) {
   const height = useWindowHeight();
   const listRef = useRef<VariableSizeList>(null);
+  const params = useParams();
+  const locale = params.locale as Locale;
   const rowHeights = useRef<Record<number, number>>({});
 
   const getRowHeight = (index: number) => {
@@ -48,6 +52,7 @@ export default function VirtualizedAdvertisementsList({
       <MeasuredItem onResize={(height) => setRowHeight(index, height)}>
         <AdvertisementPreview
           myAdvertisement
+          locale={locale}
           key={myAdvertisements[index]?.id}
           advertisement={myAdvertisements[index]!}
         />

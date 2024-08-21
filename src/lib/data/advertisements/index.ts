@@ -136,7 +136,7 @@ export async function getAdvertisements(
   if (
     // If the page is 1 and there is only one parameter, it means that the user wants to get the cached data on first page
     page === "1" &&
-    paramsNumber === 1
+    paramsNumber === 0
   ) {
     return getAdvertisementsCached();
   }
