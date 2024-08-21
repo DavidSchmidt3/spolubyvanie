@@ -48,16 +48,16 @@ export default function AdvertisementPreview({
   } = advertisement;
 
   return (
-    <Card className="w-full h-auto p-6">
+    <Card className="w-full h-auto p-6 px-6 sm:px-8">
       <CardHeader className="p-0 pb-2 flex-col gap-y-2 items-center relative justify-between">
-        <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-center px-6 sm:px-8">
+        <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-left w-full">
           {title}
         </h3>
         {myAdvertisement && (
           <AdvertisementActions advertisement={advertisement} />
         )}
       </CardHeader>
-      <CardContent className="p-1 xl:p-3 pt-3 flex flex-col lg:flex-row gap-4 sm:gap-6 xl:gap-8 w-full">
+      <CardContent className="p-0 pt-3 flex flex-col lg:flex-row gap-4 sm:gap-6 xl:gap-8 w-full">
         <div className="relative flex flex-shrink-0 flex-col items-center gap-y-4 h-min justify-center w-full lg:w-80 xl:w-96">
           <AdvertisementImage
             primary_photo_url={primary_photo_url}
