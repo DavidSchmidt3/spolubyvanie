@@ -347,8 +347,8 @@ interface FileCardProps {
 function FileCard({ file, onRemove }: FileCardProps) {
   const t = useTranslations();
   return (
-    <div className="relative flex items-center space-x-4">
-      <div className="flex flex-1 space-x-4">
+    <div className="relative flex items-center space-x-1 sm:space-x-4">
+      <div className="flex flex-col sm:flex-row flex-1 space-x-0 sm:space-x-4 space-y-2">
         {isFileWithPreview(file) ? (
           <Image
             src={file.preview}
@@ -356,18 +356,18 @@ function FileCard({ file, onRemove }: FileCardProps) {
             width={250}
             height={250}
             loading="lazy"
-            className="object-cover rounded-sm aspect-square shrink-0"
+            className="object-cover rounded-sm aspect-square shrink-0 order-2 sm:order-1"
           />
         ) : null}
-        <div className="flex flex-col w-full gap-2">
+        <div className="flex flex-col w-full gap-2 order-1 sm:order-2">
           <div className="space-y-px">
             <p className="text-base font-medium line-clamp-1">{file.name}</p>
-            <div className="flex items-center pt-2 gap-x-3">
+            <div className="flex items-center py-3 sm:py-1 gap-x-3">
               <FormControl>
                 <RadioGroupItem value={file.name} id={file.name} />
               </FormControl>
               <Label
-                className="text-base hover:cursor-pointer"
+                className="text-base hover:cursor-pointer text-wrap"
                 htmlFor={file.name}
               >
                 {t(
@@ -378,7 +378,7 @@ function FileCard({ file, onRemove }: FileCardProps) {
           </div>
         </div>
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-0">
         <Button
           type="button"
           variant="outline"
