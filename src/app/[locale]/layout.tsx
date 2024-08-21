@@ -6,6 +6,7 @@ import { Toaster } from "@/app/[locale]/_components/ui/toaster";
 import { cn } from "@/lib/utils";
 import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
 import "@/styles/globals.css";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Loader } from "lucide-react";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
@@ -55,6 +56,7 @@ export default async function RootLayout({
                 </NextIntlClientProvider>
               </div>
             </div>
+            <SpeedInsights />
             <div className="flex-1 mt-16 overflow-y-auto">{children}</div>
           </div>
         </ThemeProvider>
