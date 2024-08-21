@@ -8,9 +8,14 @@ import ImageGalleryPrimitive from "react-image-gallery";
 type Props = {
   photoUrls: { url: string }[];
   primaryPhotoUrl: string | null;
+  showFullscreenButton?: boolean;
 };
 
-export default function ImageGallery({ photoUrls, primaryPhotoUrl }: Props) {
+export default function ImageGallery({
+  photoUrls,
+  primaryPhotoUrl,
+  showFullscreenButton = true,
+}: Props) {
   return (
     <ImageGalleryPrimitive
       autoPlay={false}
@@ -60,6 +65,7 @@ export default function ImageGallery({ photoUrls, primaryPhotoUrl }: Props) {
           <Icons.arrowRight className="w-14 h-14" />
         </Button>
       )}
+      showFullscreenButton={showFullscreenButton}
       renderFullscreenButton={(onClick, isFullScreen) => (
         <FullscreenButton onClick={onClick} isFullscreen={isFullScreen} />
       )}

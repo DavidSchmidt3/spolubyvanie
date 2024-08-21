@@ -7,6 +7,7 @@ import {
   CredenzaHeader,
   CredenzaTitle,
 } from "@/app/[locale]/_components/ui/credenza";
+import { useMediaQuery } from "@/hooks/media-query";
 import { type Advertisement } from "@/lib/data/advertisements/format";
 import { useTranslations } from "next-intl";
 
@@ -22,6 +23,8 @@ export default function ImageModalGallery({
   setOpen,
 }: Props) {
   const t = useTranslations("translations.advertisement");
+  const isBiggerThanSm = useMediaQuery("sm");
+
   return (
     <Credenza open={open} onOpenChange={setOpen}>
       <CredenzaContent className="max-w-3xl rounded-md px-4">
@@ -33,6 +36,7 @@ export default function ImageModalGallery({
         <ImageGallery
           photoUrls={advertisement.advertisement_photos}
           primaryPhotoUrl={advertisement.primary_photo_url}
+          showFullscreenButton={isBiggerThanSm}
         />
         <CredenzaFooter className="justify-center sm:justify-center flex-row w-full">
           <DetailButton

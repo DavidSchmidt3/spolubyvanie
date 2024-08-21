@@ -39,7 +39,7 @@ interface CredenzaProps extends BaseProps {
   asChild?: true;
 }
 
-const desktop = "(min-width: 768px)";
+const desktop = "md";
 
 const Credenza = ({ children, ...props }: RootCredenzaProps) => {
   const isDesktop = useMediaQuery(desktop);
