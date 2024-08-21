@@ -56,8 +56,10 @@ export default async function RootLayout({
                 </NextIntlClientProvider>
               </div>
             </div>
-            <SpeedInsights />
-            <div className="flex-1 mt-16 overflow-y-auto">{children}</div>
+            <div className="flex-1 mt-16 overflow-y-auto">
+              {children}
+              <SpeedInsights />
+            </div>
           </div>
         </ThemeProvider>
       </body>
