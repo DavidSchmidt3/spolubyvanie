@@ -20,6 +20,11 @@ export async function getMyAdvertisements(userId: string) {
             },
           },
         },
+        advertisements_photos: {
+          select: {
+            url: true,
+          },
+        },
       },
     });
 
