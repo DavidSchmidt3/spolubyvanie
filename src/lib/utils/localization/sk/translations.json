@@ -162,6 +162,9 @@
       "detail": {
         "link": "Podrobnosti inzerátu"
       },
+      "show_full_advertisement": {
+        "link": "Zobraziť celý inzerát"
+      },
       "floor": {
         "label": "Poschodie bytu"
       },

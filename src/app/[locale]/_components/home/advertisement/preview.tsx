@@ -1,6 +1,5 @@
 import AdvertisementActions from "@/app/[locale]/_components/home/advertisement/actions";
-import AdvertisementImage from "@/app/[locale]/_components/home/advertisement/image";
-import { Button } from "@/app/[locale]/_components/ui/button";
+import AdvertisementImages from "@/app/[locale]/_components/home/advertisement/images";
 import {
   Card,
   CardContent,
@@ -9,8 +8,8 @@ import {
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { type Advertisement as AdvertisementType } from "@/lib/data/advertisements/format";
 import { AdType, adTypeKeys } from "@/lib/data/advertisements/types";
-import { Link } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
+import DetailButton from "./detail-button";
 
 type Props = {
   advertisement: AdvertisementType;
@@ -39,7 +38,6 @@ export default function AdvertisementPreview({
     street,
     room_area,
     apartment_rooms,
-    primary_photo_url,
     municipality,
     district,
     region,
@@ -59,23 +57,8 @@ export default function AdvertisementPreview({
       </CardHeader>
       <CardContent className="p-0 pt-3 flex flex-col lg:flex-row gap-4 sm:gap-6 xl:gap-8 w-full">
         <div className="relative flex flex-shrink-0 flex-col items-center gap-y-4 h-min justify-center w-full lg:w-80 xl:w-96">
-          <AdvertisementImage
-            primary_photo_url={primary_photo_url}
-            type={type}
-          />
-          <Link
-            href={{
-              pathname: "/advertisement/[id]",
-              params: { id: advertisement.id },
-            }}
-            className=""
-            prefetch={false}
-          >
-            <Button className="flex items-center gap-x-2" variant="ringHover">
-              <Icons.magnifier className="w-8 sm:w-10 h-8 sm:h-10" />
-              <p className="font-bold">{t("detail.link")}</p>
-            </Button>
-          </Link>
+          <AdvertisementImages advertisement={advertisement} />
+          <DetailButton id={advertisement.id} text={t("detail.link")} />
         </div>
         <div className="flex flex-col md:flex-row gap-6 relative">
           <p className="text-wrap break-words text-justify lg:px-2 xl:px-8 md:flex-grow">

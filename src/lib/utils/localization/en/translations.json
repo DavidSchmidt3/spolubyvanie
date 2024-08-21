@@ -159,6 +159,9 @@
       "room_area": {
         "label": "Room area (m²)"
       },
+      "show_full_advertisement": {
+        "link": "Show full advertisement"
+      },
       "detail": {
         "link": "Advertisement details"
       },

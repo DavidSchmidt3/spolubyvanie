@@ -7,26 +7,37 @@ import ImageGalleryPrimitive from "react-image-gallery";
 
 type Props = {
   photoUrls: { url: string }[];
+  primaryPhotoUrl: string | null;
 };
 
-export default function ImageGallery({ photoUrls }: Props) {
+export default function ImageGallery({ photoUrls, primaryPhotoUrl }: Props) {
   return (
     <ImageGalleryPrimitive
       autoPlay={false}
       showPlayButton={false}
       slideDuration={200}
-      items={photoUrls.map((photo, idx) => {
-        const imageFullUrl = getImageFullUrl(photo.url);
-        return {
-          loading: idx === 0 ? ("eager" as const) : ("lazy" as const),
-          original: imageFullUrl,
-          originalWidth: 140,
-          thumbnailHeight: 60,
-          thumbnailWidth: 80,
-          originalHeight: 108,
-          thumbnail: imageFullUrl,
-        };
-      })}
+      items={photoUrls
+        .toSorted((a, b) => {
+          if (a.url === primaryPhotoUrl) {
+            return -1;
+          }
+          if (b.url === primaryPhotoUrl) {
+            return 1;
+          }
+          return 0;
+        })
+        .map((photo, idx) => {
+          const imageFullUrl = getImageFullUrl(photo.url);
+          return {
+            loading: idx === 0 ? ("eager" as const) : ("lazy" as const),
+            original: imageFullUrl,
+            originalWidth: 140,
+            thumbnailHeight: 60,
+            thumbnailWidth: 80,
+            originalHeight: 108,
+            thumbnail: imageFullUrl,
+          };
+        })}
       renderLeftNav={(onClick, disabled) => (
         <Button
           type="button"

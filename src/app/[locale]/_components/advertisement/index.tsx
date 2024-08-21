@@ -29,7 +29,10 @@ export default function Advertisement({ advertisement, locale }: Props) {
         <div className="flex justify-center w-full mt-8">
           <div className="w-full max-w-4xl">
             {advertisement_photos.length ? (
-              <ImageGallery photoUrls={advertisement_photos} />
+              <ImageGallery
+                photoUrls={advertisement_photos}
+                primaryPhotoUrl={advertisement.primary_photo_url}
+              />
             ) : null}
           </div>
         </div>

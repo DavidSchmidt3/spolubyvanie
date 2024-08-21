@@ -36,6 +36,11 @@ export async function fetchAdvertisements(
               },
             },
           },
+          advertisements_photos: {
+            select: {
+              url: true,
+            },
+          },
         },
       })
       .withPages({
