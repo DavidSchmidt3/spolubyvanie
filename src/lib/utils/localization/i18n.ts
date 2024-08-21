@@ -101,9 +101,9 @@ export const pathnames = {
     sk: "/pridat-inzerat",
   },
 
-  "/my-advertisements": {
-    en: "/my-advertisements",
-    sk: "/moje-inzeraty",
+  "/my-advertisements/[page]": {
+    en: "/my-advertisements/[page]",
+    sk: "/moje-inzeraty/[page]",
   },
 
   "/advertisement/[id]": {

@@ -50,7 +50,13 @@ export default async function UserNav() {
         </TransitionLink>
         {user ? (
           <>
-            <TransitionLink href="/my-advertisements" className="w-full">
+            <TransitionLink
+              href={{
+                pathname: "/my-advertisements/[page]",
+                params: { page: "1" },
+              }}
+              className="w-full"
+            >
               <DropdownMenuItem className="text-base cursor-pointer hover:bg-accent/90">
                 <div className="flex items-center gap-x-2">
                   <Icons.building className="w-4 h-4" />

@@ -43,7 +43,10 @@ export default async function AdvertisementEdit({ params: { id } }: Props) {
   }
 
   if (user.id !== advertisement.user_id) {
-    return redirect("/my-advertisements");
+    return redirect({
+      pathname: "/my-advertisements/[page]",
+      params: { page: "1" },
+    });
   }
 
   const defaultValues = getFormDefaultValues(advertisement);

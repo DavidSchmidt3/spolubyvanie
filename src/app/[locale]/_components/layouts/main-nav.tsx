@@ -26,7 +26,10 @@ export async function MainNav({ ...props }: React.HTMLAttributes<HTMLElement>) {
       </TransitionLink>
       {user && (
         <TransitionLink
-          href="/my-advertisements"
+          href={{
+            pathname: "/my-advertisements/[page]",
+            params: { page: "1" },
+          }}
           className="text-base text-center sm:text-lg"
         >
           <div className="flex items-center gap-x-1 sm:gap-x-2">

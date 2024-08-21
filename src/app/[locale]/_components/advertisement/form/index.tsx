@@ -130,7 +130,13 @@ export default function AdvertisementForm({
         variant: "success",
       });
       resetPersistedValues();
-      void pushRouteWithTransition("/my-advertisements", router);
+      void pushRouteWithTransition(
+        {
+          pathname: "/my-advertisements/[page]",
+          params: { page: "1" },
+        },
+        router
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result, hasErrored, hasSucceeded]);

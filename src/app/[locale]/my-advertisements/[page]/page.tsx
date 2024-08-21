@@ -1,11 +1,19 @@
 import MyAdvertisementsList from "@/app/[locale]/_components/my-advertisements/list";
 import { getUser } from "@/lib/data/user";
 import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
+import { type Locale } from "@/lib/utils/localization/i18n";
 import { redirect } from "@/lib/utils/localization/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 
-export default async function Page() {
+type Props = {
+  params: {
+    page: string;
+    locale: Locale;
+  };
+};
+
+export default async function Page({ params }: Props) {
   const messages = await getMessages();
   const user = await getUser();
 
@@ -25,7 +33,7 @@ export default async function Page() {
       ])}
     >
       <div className="flex flex-col justify-start h-full overflow-auto">
-        <MyAdvertisementsList />
+        <MyAdvertisementsList page={params.page} locale={params.locale} />
       </div>
     </NextIntlClientProvider>
   );
