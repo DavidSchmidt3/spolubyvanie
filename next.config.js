@@ -28,7 +28,7 @@ const config = {
     esmExternals: false,
     reactCompiler: true,
     serverActions: {
-      bodySizeLimit: "20mb",
+      bodySizeLimit: "21mb",
     },
   },
   images: {
