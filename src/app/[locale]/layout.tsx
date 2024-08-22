@@ -1,4 +1,5 @@
 import { MainNav } from "@/app/[locale]/_components/layouts/main-nav";
+import MainNavLoader from "@/app/[locale]/_components/layouts/main-nav-loader";
 import UserNav from "@/app/[locale]/_components/layouts/user-nav";
 import ThemeLocaleInitializer from "@/app/[locale]/_components/theme-locale-utils/fetcher";
 import { ThemeProvider } from "@/app/[locale]/_components/theme-locale-utils/theme-provider";
@@ -44,7 +45,9 @@ export default async function RootLayout({
         <ThemeProvider>
           <div className="flex flex-col h-full">
             <div className="fixed top-0 left-0 z-10 flex items-center w-full h-16 py-4 pl-5 pr-2 border-b sm:px-4 bg-background">
-              <MainNav />
+              <Suspense fallback={<MainNavLoader />}>
+                <MainNav />
+              </Suspense>
               <div className="flex items-center ml-auto sm:space-x-4">
                 <Suspense fallback={<Loader height={32} />}>
                   <UserNav />
