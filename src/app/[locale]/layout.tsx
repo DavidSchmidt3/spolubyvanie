@@ -6,6 +6,7 @@ import { Toaster } from "@/app/[locale]/_components/ui/toaster";
 import { cn } from "@/lib/utils";
 import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
 import "@/styles/globals.css";
+import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Loader } from "lucide-react";
 import { NextIntlClientProvider } from "next-intl";
@@ -59,6 +60,7 @@ export default async function RootLayout({
             <div className="flex-1 mt-16 overflow-y-auto">
               {children}
               <SpeedInsights />
+              <Analytics />
             </div>
           </div>
         </ThemeProvider>
