@@ -95,6 +95,20 @@
       },
       "error": {
         "title": "Nepodarilo sa filtrovať inzeráty"
+      },
+      "contact": {
+        "error": {
+          "title": "Nepodarilo sa kontaktovať inzerenta, prosím skúste to neskôr"
+        },
+        "message": {
+          "required": "Prosím zadajte správu"
+        },
+        "unauthenticated": "Pre kontaktovanie inzerenta sa najprv prihláste",
+        "not_delivered": "Nepodarilo sa kontaktovať inzerenta, prosím skúste to neskôr",
+        "self": "Nemôžete kontaktovať sami seba",
+        "success": {
+          "title": "Email bol úspešne odoslaný"
+        }
       }
     },
     "add_advertisement": {

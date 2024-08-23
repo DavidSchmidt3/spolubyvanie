@@ -13,6 +13,10 @@ export const env = createEnv({
       .default("development"),
     VERCEL_URL: z.string().url(),
     VERCEL_ENV: z.enum(["development", "preview", "production"]),
+    SMTP_HOST: z.string(),
+    SMTP_EMAIL: z.string(),
+    SMTP_USER: z.string(),
+    SMTP_PASSWORD: z.string(),
   },
 
   /**
@@ -39,6 +43,10 @@ export const env = createEnv({
     VERCEL_URL: process.env.VERCEL_URL,
     VERCEL_ENV: process.env.VERCEL_ENV,
     NEXT_PUBLIC_VERCEL_URL: process.env.NEXT_PUBLIC_VERCEL_URL,
+    SMTP_HOST: process.env.SMTP_HOST,
+    SMTP_EMAIL: process.env.SMTP_EMAIL,
+    SMTP_USER: process.env.SMTP_USER,
+    SMTP_PASSWORD: process.env.SMTP_PASS,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

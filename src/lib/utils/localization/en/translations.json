@@ -216,6 +216,15 @@
       "not_found": {
         "title": "Advertisement not found",
         "link": "Home"
+      },
+      "contact": {
+        "email_sender": "Co-living",
+        "email_subject": "Co-living - response to advertisement",
+        "title": "Contact advertisement owner",
+        "message": {
+          "placeholder": "Write your message here"
+        },
+        "button": "Send email"
       }
     },
     "advertisement_list": {

@@ -216,6 +216,15 @@
       "not_found": {
         "title": "Inzerát nebol nájdený",
         "link": "Domov"
+      },
+      "contact": {
+        "email_sender": "Spolubývanie",
+        "email_subject": "Spolubývanie - reakcia na inzerát",
+        "title": "Kontaktovať inzerenta",
+        "message": {
+          "placeholder": "Tu napíšte svoju správu"
+        },
+        "button": "Poslať email"
       }
     },
     "advertisement_list": {
