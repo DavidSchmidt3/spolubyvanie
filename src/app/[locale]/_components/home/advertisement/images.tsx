@@ -1,7 +1,6 @@
 "use client";
 
 import { type Advertisement } from "@/lib/data/advertisements/format";
-import { AdType } from "@/lib/data/advertisements/types";
 import { getImageFullUrl } from "@/lib/utils/supabase";
 import { useTheme } from "next-themes";
 import Image from "next/image";
@@ -13,7 +12,7 @@ type Props = {
 };
 
 export default function AdvertisementImage({ advertisement }: Props) {
-  const { advertisement_photos, primary_photo_url, type } = advertisement;
+  const { advertisement_photos, primary_photo_url } = advertisement;
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -24,16 +23,13 @@ export default function AdvertisementImage({ advertisement }: Props) {
   }, []);
 
   function getImageUrl() {
-    if (type === AdType.SearchingRoom) {
-      // Use 'light' as default theme for server-side rendering
-      const currentTheme = mounted ? theme : "light";
-      return currentTheme === "dark"
-        ? "/placeholder_dark.webp"
-        : "/placeholder_light.webp";
-    }
-
     if (primary_photo_url) return getImageFullUrl(primary_photo_url);
-    return "/room.webp";
+
+    // Use 'light' as default theme for server-side rendering
+    const currentTheme = mounted ? theme : "light";
+    return currentTheme === "dark"
+      ? "/placeholder_dark.webp"
+      : "/placeholder_light.webp";
   }
 
   function handleModalGalleryOpen() {

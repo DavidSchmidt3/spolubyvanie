@@ -189,11 +189,9 @@ export default function AdvertisementForm({
             regions={regions}
           />
           {isOffering && (
-            <>
-              <DetailsCard form={form} getNumericProps={getNumericProps} />
-              <PhotosUploadCard form={form} />
-            </>
+            <DetailsCard form={form} getNumericProps={getNumericProps} />
           )}
+          <PhotosUploadCard form={form} />
         </div>
         <div className="flex flex-col mx-4 mt-8">
           <Button type="submit" className="w-full" variant="ringHover">

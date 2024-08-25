@@ -72,7 +72,6 @@ export const upsertAdvertisement = authActionClient
     try {
       await db.$transaction(async (tx) => {
         const upsertData = parseAdvertisementData(data);
-        const photos = AdType.OfferingRoom ? data.photos : [];
         const primary_photo = AdType.OfferingRoom ? data.primary_photo : "";
 
         if (isEditing) {
@@ -85,7 +84,7 @@ export const upsertAdvertisement = authActionClient
             },
           });
           await handleEditPhotos(
-            photos,
+            data.photos,
             primary_photo,
             advertisementId,
             userId,
@@ -99,7 +98,7 @@ export const upsertAdvertisement = authActionClient
             },
           });
           await handleAddPhotos(
-            photos,
+            data.photos,
             primary_photo,
             advertisementId,
             userId,
@@ -157,6 +156,7 @@ function parseAdvertisementData(data: AdvertisementUpsertFormValues) {
     return {
       type,
       municipality_id: municipality,
+      primary_photo_url: primary_photo,
       price: parseInt(price),
       ...rest,
     };
