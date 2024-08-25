@@ -15,6 +15,9 @@
         "success": {
           "title": "Nastavenia boli úspešne uložené"
         },
+        "database_error": {
+          "title": "Nastala databázová chyba, skúste to znova neskôr"
+        },
         "error": {
           "title": "Nastavenia sa nepodarilo uložiť"
         }
@@ -104,7 +107,7 @@
           "required": "Prosím zadajte správu"
         },
         "unauthenticated": "Pre kontaktovanie inzerenta sa najprv prihláste",
-        "not_delivered": "Nepodarilo sa kontaktovať inzerenta, prosím skúste to neskôr",
+        "not_delivered": "Email nebol doručený",
         "self": "Nemôžete kontaktovať sami seba",
         "success": {
           "title": "Email bol úspešne odoslaný"
@@ -173,6 +176,9 @@
           "error": {
             "title": "Nepodarilo sa upraviť inzerát"
           }
+        },
+        "database_error": {
+          "title": "Nastala databázová chyba, skúste to znova neskôr"
         }
       }
     },
@@ -180,6 +186,9 @@
       "delete": {
         "error": {
           "title": "Nepodarilo sa zmazať inzerát"
+        },
+        "database_error": {
+          "title": "Nastala databázová chyba, skúste to znova neskôr"
         },
         "success": {
           "title": "Inzerát bol úspešne zmazaný"

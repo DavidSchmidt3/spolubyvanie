@@ -26,6 +26,6 @@ export const saveSettings = authActionClient
       })) as unknown as UserSettings;
     } catch (error) {
       console.error("Error saving settings", error);
-      throw new ActionError("alerts.settings.save.error.title");
+      throw new ActionError("alerts.settings.save.database_error.title");
     }
   });

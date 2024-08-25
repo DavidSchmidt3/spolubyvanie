@@ -43,6 +43,8 @@ export const deleteAdvertisement = authActionClient
       }
     } catch (error) {
       console.error("Error deleting advertisement", error);
-      throw new ActionError("alerts.my_advertisements.delete.error.title");
+      throw new ActionError(
+        "alerts.my_advertisements.delete.database_error.title"
+      );
     }
   });

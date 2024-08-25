@@ -112,9 +112,7 @@ export const upsertAdvertisement = authActionClient
     } catch (error) {
       console.error("Error upserting advertisement", error);
       throw new ActionError(
-        isEditing
-          ? "alerts.add_advertisement.save.edit.error.title"
-          : "alerts.add_advertisement.save.add.error.title"
+        "alerts.add_advertisement.save.database_error.title"
       );
     }
   });

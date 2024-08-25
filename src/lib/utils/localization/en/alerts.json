@@ -15,6 +15,9 @@
         "success": {
           "title": "Settings saved successfully"
         },
+        "database_error": {
+          "title": "An database error occurred, please try again later"
+        },
         "error": {
           "title": "Failed to save settings"
         }
@@ -104,7 +107,7 @@
           "required": "Message is required"
         },
         "unauthenticated": "Please login to continue",
-        "not_delivered": "There was an error contacting advertisement owner, please try again later",
+        "not_delivered": "Email was not delivered",
         "self": "You cannot contact yourself",
         "success": {
           "title": "Email was sent successfully"
@@ -173,6 +176,9 @@
           "error": {
             "title": "Failed to edit advertisement"
           }
+        },
+        "database_error": {
+          "title": "An database error occurred, please try again later"
         }
       }
     },
@@ -180,6 +186,9 @@
       "delete": {
         "error": {
           "title": "Failed to delete advertisement"
+        },
+        "database_error": {
+          "title": "An database error occurred, please try again later"
         },
         "success": {
           "title": "Advertisement deleted successfully"
