@@ -23,7 +23,6 @@ const inter = Inter({
 export const metadata = {
   title: "Spolubývanie",
   description: "Nájdi si spolubývajúcich",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
 export default async function RootLayout({
