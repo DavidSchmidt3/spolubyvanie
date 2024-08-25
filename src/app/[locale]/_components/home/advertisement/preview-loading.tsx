@@ -9,7 +9,7 @@ type Props = {
   showActions?: boolean;
 };
 
-export default function AdvertisementLoading({ showActions }: Props) {
+export default function AdvertisementPreviewLoading({ showActions }: Props) {
   return (
     <Card className="w-full h-auto p-6">
       <CardHeader className="p-0 pb-2 flex-col gap-y-2 items-center relative justify-between">

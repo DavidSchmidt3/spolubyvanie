@@ -1,4 +1,4 @@
-import AdvertisementLoading from "@/app/[locale]/_components/home/advertisement/loading";
+import AdvertisementLoading from "@/app/[locale]/_components/home/advertisement/preview-loading";
 import { Skeleton } from "@/app/[locale]/_components/ui/skeleton";
 
 export default function MyAdvertisementsListLoading() {

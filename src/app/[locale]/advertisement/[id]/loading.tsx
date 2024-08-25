@@ -1,5 +1,5 @@
-import AdvertisementLoading from "@/app/[locale]/_components/home/advertisement/loading";
+import AdvertisementDetailLoading from "@/app/[locale]/_components/home/advertisement/detail-loading";
 
 export default function Loading() {
-  return <AdvertisementLoading />;
+  return <AdvertisementDetailLoading />;
 }
