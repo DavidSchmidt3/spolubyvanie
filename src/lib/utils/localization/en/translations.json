@@ -261,7 +261,7 @@
       },
       "photos": {
         "title": "Photos",
-        "description": "Add up to 10 photos of your advertisement (max 2MB each)\nPhotos will be automatically resized to classic 4:3 aspect ratio",
+        "description": "Add up to 10 photos of your advertisement (max 2MB each)\n",
         "dropzone": {
           "label": "Drag and drop photos here or click to upload",
           "drop_active_label": "Drop files here",

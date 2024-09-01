@@ -21,7 +21,7 @@ type Props = {
 
 function InfoRow({ label, value }: { label: string; value?: string | null }) {
   return (
-    <div className="flex justify-between text-base md:text-lg gap-x-8">
+    <div className="flex justify-between text-left text-base md:text-lg gap-x-8">
       <p>{label}</p>
       <span className="font-bold text-right">{value}</span>
     </div>

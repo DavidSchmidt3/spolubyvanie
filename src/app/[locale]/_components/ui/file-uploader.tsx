@@ -4,7 +4,7 @@ import { Button } from "@/app/[locale]/_components/ui/button";
 import { ScrollArea } from "@/app/[locale]/_components/ui/scroll-area";
 import { useControllableState } from "@/hooks/controllable-state";
 import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
-import { cn, compressFile, crop } from "@/lib/utils";
+import { cn, compressFile } from "@/lib/utils";
 import { type MessageKeys } from "global";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
@@ -166,13 +166,9 @@ export function FileUploader(props: FileUploaderProps) {
         return;
       }
 
-      const compressedCroppedFiles = await Promise.all(
+      const compressedFiles = await Promise.all(
         acceptedFiles.map(async (file) => {
-          const croppedFile = await crop(file, 4 / 3);
-          const compressedFile = await compressFile(
-            croppedFile,
-            compressionQuality
-          );
+          const compressedFile = await compressFile(file, compressionQuality);
           return Object.assign(compressedFile, {
             preview: URL.createObjectURL(compressedFile),
           });
@@ -180,8 +176,8 @@ export function FileUploader(props: FileUploaderProps) {
       );
 
       const updatedFiles = files
-        ? [...files, ...compressedCroppedFiles]
-        : compressedCroppedFiles;
+        ? [...files, ...compressedFiles]
+        : compressedFiles;
 
       setFiles(updatedFiles);
 

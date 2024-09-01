@@ -52,7 +52,7 @@ export default function AdvertisementImage({ advertisement }: Props) {
         onClick={handleModalGalleryOpen}
         width={1440}
         height={1080}
-        className={`rounded-sm w-full max-w-80 xl:max-w-96 ${
+        className={`rounded-sm w-full max-w-80 object-cover aspect-4/3 max-h-60 xl:max-w-96 xl:max-h-72 ${
           advertisement_photos?.length ? "hover:cursor-pointer" : ""
         }`}
       />
