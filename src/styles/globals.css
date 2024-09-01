@@ -73,6 +73,6 @@ body {
   filter: blur(12px);
 }
 
-.image-gallery { 
-  width: 100%;
+.image-gallery .image-gallery-image {
+  height: calc(100dvh - 18rem) !important;
 }
