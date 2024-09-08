@@ -20,7 +20,7 @@ const config = {
   prefix: "",
   theme: {
     transitionDuration: {
-      DEFAULT: "`${TRANSITION_DURATION}ms`",
+      DEFAULT: `${TRANSITION_DURATION}ms`,
     },
     container: {
       center: true,
