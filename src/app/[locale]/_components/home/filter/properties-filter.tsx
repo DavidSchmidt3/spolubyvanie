@@ -69,6 +69,11 @@ export default function PropertiesFilter({ properties, form }: Props) {
                                 control={form.control}
                                 name="properties"
                                 render={({ field }) => {
+                                  const value = field.value as Record<
+                                    string,
+                                    boolean
+                                  >;
+
                                   return (
                                     <FormItem
                                       key={item.id}
@@ -76,12 +81,12 @@ export default function PropertiesFilter({ properties, form }: Props) {
                                     >
                                       <FormControl>
                                         <Checkbox
-                                          checked={field.value?.[item.id]}
+                                          checked={value[item.id]}
                                           onCheckedChange={(
                                             checked: boolean
                                           ) => {
                                             form.setValue("properties", {
-                                              ...field.value,
+                                              ...value,
                                               [item.id]: checked,
                                             });
                                           }}

@@ -115,9 +115,11 @@ export function constructPropertiesObject(
   const properties = advertisementProperties.split(",");
 
   return properties.reduce((acc, property) => {
-    acc![property] = true;
+    if (acc) {
+      acc[property] = true;
+    }
     return acc;
-  }, {} as AdvertisementProperties);
+  }, {} as Record<string, boolean>);
 }
 
 export function buildPaginatedQuery(currentQueryString: string, page: number) {
