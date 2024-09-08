@@ -231,11 +231,21 @@
       "title": "Discover Your Perfect Shared Living Space",
       "description": "Browse top listings for affordable and convenient co-living",
       "filter": {
+        "advanced": {
+          "label": "Advanced filters"
+        },
         "title": "Filter advertisements",
         "button": "Search advertisements",
         "reset": {
           "button": "Clear filters and sort"
         }
+      },
+      "properties": {
+        "room": "Room",
+        "roommate": "Roommate",
+        "apartment": "Apartment",
+        "special_apartment": "Extra apartment equipment",
+        "room_orientation": "Room orientation"
       },
       "no_results": {
         "title": "No results found"

@@ -231,11 +231,21 @@
       "title": "Objavte svoje ideálne spolubývanie",
       "description": "Prezrite si najlepšie ponuky cenovo dostupného a pohodlného spolubývania",
       "filter": {
+        "advanced": {
+          "label": "Pokročilé filtrovanie"
+        },
         "title": "Filtrovanie inzerátov",
         "button": "Hľadaj inzeráty",
         "reset": {
           "button": "Vyčistiť filter a zoradenie"
         }
+      },
+      "properties": {
+        "room": "Izba",
+        "roommate": "Spolubyvajúci",
+        "apartment": "Byt",
+        "special_apartment": "Extra vybavenie bytu",
+        "room_orientation": "Orientácia izby"
       },
       "no_results": {
         "title": "Neboli nájdené žiadne výsledky"

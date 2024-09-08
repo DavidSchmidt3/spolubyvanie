@@ -80,7 +80,7 @@ const CredenzaContent = ({ className, children, ...props }: CredenzaProps) => {
 
   return (
     <CredenzaContent
-      className={cn(className, "max-h-dvh")}
+      className={cn(className, "max-h-[95dvh]")}
       {...props}
       aria-describedby={undefined}
     >

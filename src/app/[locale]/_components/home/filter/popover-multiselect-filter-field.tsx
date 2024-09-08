@@ -34,6 +34,7 @@ export default function PopoverMultiselectFilterField(
 
   function handleAddValue(row: string) {
     const value = getValues(fieldName);
+    if (typeof value === "object") return;
     const newValue = value ? [...value, row] : [row];
     setValue(fieldName, newValue, { shouldValidate: true });
   }

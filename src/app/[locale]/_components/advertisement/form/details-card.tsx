@@ -7,6 +7,7 @@ import {
   CardTitle,
 } from "@/app/[locale]/_components/ui/card";
 import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
+import { type Property } from "@/lib/data/advertisements-properties";
 import { useTranslations } from "next-intl";
 import { type UseFormReturn } from "react-hook-form";
 
@@ -15,6 +16,7 @@ type Props = {
   getNumericProps: (
     min?: string
   ) => React.InputHTMLAttributes<HTMLInputElement>;
+  properties: Property[];
 };
 
 export default function DetailsCard({ form, getNumericProps }: Props) {

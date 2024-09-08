@@ -22,6 +22,7 @@ import {
   type Region,
 } from "@/lib/data/administrative-divisions";
 import { getFormDefaultValues } from "@/lib/data/advertisement/format";
+import { type Property } from "@/lib/data/advertisements-properties";
 import { dataUrlToFile, type Photo } from "@/lib/utils";
 import {
   pushRouteWithTransition,
@@ -35,6 +36,7 @@ type PropsBase = {
   regions: Region[];
   districts: District[];
   municipalities: Municipality[];
+  properties: Property[];
 };
 
 type EditProps = PropsBase & {
@@ -51,6 +53,7 @@ export default function AdvertisementForm({
   regions,
   districts,
   municipalities,
+  properties,
   isEdit = false,
   ...props
 }: EditProps | CreateProps) {
@@ -189,7 +192,11 @@ export default function AdvertisementForm({
             regions={regions}
           />
           {isOffering && (
-            <DetailsCard form={form} getNumericProps={getNumericProps} />
+            <DetailsCard
+              form={form}
+              getNumericProps={getNumericProps}
+              properties={properties}
+            />
           )}
           <PhotosUploadCard form={form} />
         </div>

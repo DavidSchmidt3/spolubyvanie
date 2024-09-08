@@ -8,10 +8,11 @@ import {
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { useControlledForm } from "@/hooks/form";
 import {
-  type getDistricts,
-  type getMunicipalities,
-  type getRegions,
+  type District,
+  type Municipality,
+  type Region,
 } from "@/lib/data/administrative-divisions";
+import { type Property } from "@/lib/data/advertisements-properties";
 import {
   ADVERTISEMENT_FILTER_DEFAULT_VALUES,
   ADVERTISEMENTS_FILTER_SCHEMA,
@@ -20,6 +21,7 @@ import {
   type SortOrder,
 } from "@/lib/data/advertisements/schema";
 import {
+  constructPropertiesObject,
   createQueryParamsFromObject,
   createQueryStringFromObject,
   getCurrentQueryString,
@@ -36,15 +38,17 @@ const AdvertisementFilterDialogContent = dynamic(
 );
 
 type Props = {
-  regions: Awaited<ReturnType<typeof getRegions>>;
-  districts: Awaited<ReturnType<typeof getDistricts>>;
-  municipalities: Awaited<ReturnType<typeof getMunicipalities>>;
+  regions: Region[];
+  districts: District[];
+  municipalities: Municipality[];
+  properties: Property[];
 };
 
 export default function AdvertisementFilterDialog({
   regions,
   districts,
   municipalities,
+  properties,
 }: Props) {
   "use no memo";
   const [initialized, setInitialized] = useState(false);
@@ -81,6 +85,8 @@ export default function AdvertisementFilterDialog({
       sort_order:
         (searchParams.get("sort_order") as SortOrder) ??
         ADVERTISEMENT_FILTER_DEFAULT_VALUES.sort_order,
+      properties:
+        constructPropertiesObject(searchParams.get("properties")) ?? {},
     };
   }, [searchParams]);
 
@@ -140,6 +146,7 @@ export default function AdvertisementFilterDialog({
                 regions={regions}
                 districts={districts}
                 municipalities={municipalities}
+                properties={properties}
                 form={form}
                 onSubmit={onSubmit}
                 isFetching={isFetching}

@@ -15,14 +15,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/app/[locale]/_components/ui/popover";
+import { useLocale } from "@/hooks/locale";
 import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
 import { cn } from "@/lib/utils";
-import {
-  getLocaleDateFormat,
-  type Locale,
-} from "@/lib/utils/localization/i18n";
+import { getLocaleDateFormat } from "@/lib/utils/localization/i18n";
 import { useTranslations } from "next-intl";
-import { useParams } from "next/navigation";
 import { useState } from "react";
 import { type Control } from "react-hook-form";
 
@@ -34,8 +31,7 @@ type Props = {
 export default function AvailableFromField({ control, isOffering }: Props) {
   const [open, setOpen] = useState(false);
   const t = useTranslations("translations.add_advertisement.form");
-  const params = useParams();
-  const locale = params.locale as Locale;
+  const locale = useLocale();
 
   return (
     <FormField

@@ -11,6 +11,7 @@ import {
   getAdvertisementPhotosFiles,
 } from "@/lib/data/advertisement";
 import { getFormDefaultValues } from "@/lib/data/advertisement/format";
+import { getAdvertisementProperties } from "@/lib/data/advertisements-properties";
 import { getUser } from "@/lib/data/user";
 import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
 import { redirect } from "@/lib/utils/localization/navigation";
@@ -24,15 +25,23 @@ type Props = {
 };
 
 export default async function AdvertisementEdit({ params: { id } }: Props) {
-  const [user, regions, districts, municipalities, messages, advertisement] =
-    await Promise.all([
-      getUser(),
-      getRegions(),
-      getDistricts(),
-      getMunicipalities(),
-      getMessages(),
-      getAdvertisement(id, true),
-    ]);
+  const [
+    user,
+    regions,
+    districts,
+    municipalities,
+    messages,
+    advertisement,
+    properties,
+  ] = await Promise.all([
+    getUser(),
+    getRegions(),
+    getDistricts(),
+    getMunicipalities(),
+    getMessages(),
+    getAdvertisement(id, true),
+    getAdvertisementProperties(),
+  ]);
 
   if (!user) {
     return <LoginPrompt />;
@@ -67,6 +76,7 @@ export default async function AdvertisementEdit({ params: { id } }: Props) {
         regions={regions}
         districts={districts}
         municipalities={municipalities}
+        properties={properties}
         isEdit
         photos={photos}
         initialDefaultValues={defaultValues}

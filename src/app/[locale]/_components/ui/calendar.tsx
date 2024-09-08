@@ -5,9 +5,9 @@ import * as React from "react";
 import { DayPicker } from "react-day-picker";
 
 import { buttonVariants } from "@/app/[locale]/_components/ui/button";
+import { useLocale } from "@/hooks/locale";
 import { cn } from "@/lib/utils";
-import { getLocaleForDate, type Locale } from "@/lib/utils/localization/i18n";
-import { useParams } from "next/navigation";
+import { getLocaleForDate } from "@/lib/utils/localization/i18n";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
@@ -17,8 +17,7 @@ function Calendar({
   showOutsideDays = true,
   ...props
 }: CalendarProps) {
-  const params = useParams();
-  const locale = params.locale as Locale;
+  const locale = useLocale();
 
   return (
     <DayPicker

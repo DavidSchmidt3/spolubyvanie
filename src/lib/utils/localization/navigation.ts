@@ -1,3 +1,4 @@
+import { type AdvertisementProperties } from "@/lib/data/advertisements/schema";
 import {
   LOCALE_PREFIX,
   LOCALES_CODES,
@@ -30,50 +31,93 @@ function getStringValue(value: string | string[]) {
   return Array.isArray(value) ? value.join(",") : value ?? "";
 }
 
+function processObject(
+  data:
+    | Record<string, string | string[] | Record<string, boolean> | undefined>
+    | undefined,
+  appendFunc: (key: string, value: string) => void
+) {
+  if (!data) {
+    return;
+  }
+
+  Object.keys(data).forEach((key) => {
+    const value = data[key];
+    if (typeof value === "object" && !Array.isArray(value)) {
+      const propertiesQueryString = Object.keys(value).reduce((acc, subKey) => {
+        if (value[subKey]) {
+          acc += `${subKey},`;
+        }
+        return acc;
+      }, "");
+      if (propertiesQueryString) {
+        appendFunc(key, propertiesQueryString);
+      }
+    } else if (typeof value === "boolean") {
+      if (value) {
+        appendFunc(key, "true");
+      }
+    } else if (value?.length) {
+      appendFunc(key, getStringValue(value));
+    }
+  });
+}
+
 export function getCurrentQueryString(
-  searchParams?: URLSearchParams | Record<string, string | string[]>
+  searchParams?:
+    | URLSearchParams
+    | Record<string, string | string[] | Record<string, boolean>>
 ) {
   if (!searchParams) {
     return "";
   }
 
   const queryString = new URLSearchParams();
+
   if (searchParams instanceof URLSearchParams) {
     for (const [key, value] of searchParams.entries()) {
       queryString.append(key, value);
     }
   } else {
-    Object.keys(searchParams).forEach((key) => {
-      if (searchParams[key]?.length) {
-        queryString.append(key, getStringValue(searchParams[key]));
-      }
-    });
+    processObject(searchParams, (key, value) => queryString.append(key, value));
   }
+
   return queryString.toString();
 }
 
 export function createQueryStringFromObject(
-  data: Record<string, string | string[]>
+  data: Record<string, string | string[] | Record<string, boolean>>
 ) {
   const queryString = new URLSearchParams();
-  Object.keys(data).forEach((key) => {
-    if (data[key]?.length) {
-      queryString.append(key, getStringValue(data[key]));
-    }
-  });
+  processObject(data, (key, value) => queryString.append(key, value));
   return queryString.toString();
 }
 
 export function createQueryParamsFromObject(
-  data: Record<string, string | string[]>
+  data:
+    | Record<string, string | string[] | Record<string, boolean> | undefined>
+    | undefined
 ) {
   const queryParams = {} as Record<string, string | string[]>;
-  Object.keys(data).forEach((key) => {
-    if (data[key]?.length) {
-      queryParams[key] = getStringValue(data[key]);
-    }
+  processObject(data, (key, value) => {
+    queryParams[key] = value;
   });
   return queryParams;
+}
+
+export function constructPropertiesObject(
+  advertisementProperties: string | null
+): AdvertisementProperties {
+  if (!advertisementProperties) {
+    return {};
+  }
+
+  const properties = advertisementProperties.split(",");
+
+  return properties.reduce((acc, property) => {
+    acc![property] = true;
+    return acc;
+  }, {} as AdvertisementProperties);
 }
 
 export function buildPaginatedQuery(currentQueryString: string, page: number) {

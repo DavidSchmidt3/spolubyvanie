@@ -113,6 +113,39 @@ export type Database = {
           }
         ];
       };
+      advertisements_properties: {
+        Row: {
+          advertisement_id: string;
+          id: string;
+          property_id: string;
+        };
+        Insert: {
+          advertisement_id: string;
+          id?: string;
+          property_id: string;
+        };
+        Update: {
+          advertisement_id?: string;
+          id?: string;
+          property_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "advertisements_apartment_equipments_advertisement_id_fkey";
+            columns: ["advertisement_id"];
+            isOneToOne: false;
+            referencedRelation: "advertisements";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "advertisements_apartment_equipments_apartment_equipment_id_fkey";
+            columns: ["property_id"];
+            isOneToOne: false;
+            referencedRelation: "properties";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
       districts: {
         Row: {
           id: string;
@@ -175,6 +208,30 @@ export type Database = {
           }
         ];
       };
+      properties: {
+        Row: {
+          en_translation: string;
+          id: string;
+          order: number | null;
+          sk_translation: string;
+          type: Database["public"]["Enums"]["advertisement_property"];
+        };
+        Insert: {
+          en_translation: string;
+          id?: string;
+          order?: number | null;
+          sk_translation: string;
+          type?: Database["public"]["Enums"]["advertisement_property"];
+        };
+        Update: {
+          en_translation?: string;
+          id?: string;
+          order?: number | null;
+          sk_translation?: string;
+          type?: Database["public"]["Enums"]["advertisement_property"];
+        };
+        Relationships: [];
+      };
       regions: {
         Row: {
           id: string;
@@ -227,7 +284,12 @@ export type Database = {
       [_ in never]: never;
     };
     Enums: {
-      [_ in never]: never;
+      advertisement_property:
+        | "roommate"
+        | "apartment"
+        | "special_apartment"
+        | "room"
+        | "room_orientation";
     };
     CompositeTypes: {
       [_ in never]: never;

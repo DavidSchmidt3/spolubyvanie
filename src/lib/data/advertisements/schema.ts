@@ -37,6 +37,7 @@ const ADVERTISEMENT_FILTER_BASE_SCHEMA = z.object({
     .or(z.literal("room_area"))
     .or(z.undefined()),
   sort_order: z.literal("asc").or(z.literal("desc")).or(z.undefined()),
+  properties: z.record(z.boolean()).or(z.undefined()).or(z.string()),
 });
 
 export const DEFAULT_SORT_BY = "created_at";
@@ -56,6 +57,9 @@ export type SortByOptions = z.infer<
 export type SortOrder = z.infer<
   typeof ADVERTISEMENT_FILTER_BASE_SCHEMA
 >["sort_order"];
+export type AdvertisementProperties = z.infer<
+  typeof ADVERTISEMENT_FILTER_BASE_SCHEMA
+>["properties"];
 
 const ADVERTISEMENT_PAGINATION_SCHEMA = z.object({
   page: z.string().regex(/^\d*$/, {
@@ -108,4 +112,5 @@ export const ADVERTISEMENT_FILTER_DEFAULT_VALUES: AdvertisementFilterFormValues 
     advertisement_type: "",
     sort_by: "price",
     sort_order: "asc",
+    properties: {},
   };

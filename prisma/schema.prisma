@@ -94,6 +94,7 @@ model mfa_challenges {
   created_at  DateTime    @db.Timestamptz(6)
   verified_at DateTime?   @db.Timestamptz(6)
   ip_address  String      @db.Inet
+  otp_code    String?
   mfa_factors mfa_factors @relation(fields: [factor_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "mfa_challenges_auth_factor_id_fkey")
 
   @@index([created_at(sort: Desc)], map: "mfa_challenge_created_at_idx")
@@ -102,17 +103,20 @@ model mfa_challenges {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model mfa_factors {
-  id             String           @id @db.Uuid
-  user_id        String           @db.Uuid
-  friendly_name  String?
-  factor_type    factor_type
-  status         factor_status
-  created_at     DateTime         @db.Timestamptz(6)
-  updated_at     DateTime         @db.Timestamptz(6)
-  secret         String?
-  mfa_challenges mfa_challenges[]
-  users          users            @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  id                 String           @id @db.Uuid
+  user_id            String           @db.Uuid
+  friendly_name      String?
+  factor_type        factor_type
+  status             factor_status
+  created_at         DateTime         @db.Timestamptz(6)
+  updated_at         DateTime         @db.Timestamptz(6)
+  secret             String?
+  phone              String?          @unique
+  last_challenged_at DateTime?        @unique @db.Timestamptz(6)
+  mfa_challenges     mfa_challenges[]
+  users              users            @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
+  @@unique([user_id, phone], map: "unique_verified_phone_factor")
   @@index([user_id, created_at], map: "factor_id_created_at_idx")
   @@index([user_id])
   @@schema("auth")
@@ -290,27 +294,28 @@ model users {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model advertisements {
-  id                    String                  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  user_id               String                  @db.Uuid
-  municipality_id       String                  @db.Uuid
-  price                 Int
-  type                  Int                     @db.SmallInt
-  street                String?                 @db.VarChar
-  apartment_area        Int?
-  room_area             Int?                    @db.SmallInt
-  floor                 Int?                    @db.SmallInt
-  max_floor             Int?                    @db.SmallInt
-  description           String
-  available_from        DateTime                @db.Date
-  primary_photo_url     String?                 @db.VarChar
-  created_at            DateTime                @default(now()) @db.Timestamptz(6)
-  deleted_at            DateTime?               @db.Timestamptz(6)
-  title                 String                  @db.VarChar
-  apartment_rooms       Int?                    @db.SmallInt
-  views                 Int                     @default(0) @db.SmallInt
-  municipalities        municipalities          @relation(fields: [municipality_id], references: [id], onDelete: NoAction, map: "public_advertisements_municipality_id_fkey")
-  users                 users                   @relation(fields: [user_id], references: [id], onDelete: NoAction, map: "public_advertisements_user_id_fkey")
-  advertisements_photos advertisements_photos[]
+  id                        String                      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id                   String                      @db.Uuid
+  municipality_id           String                      @db.Uuid
+  price                     Int
+  type                      Int                         @db.SmallInt
+  street                    String?                     @db.VarChar
+  apartment_area            Int?
+  room_area                 Int?                        @db.SmallInt
+  floor                     Int?                        @db.SmallInt
+  max_floor                 Int?                        @db.SmallInt
+  description               String
+  available_from            DateTime                    @db.Date
+  primary_photo_url         String?                     @db.VarChar
+  created_at                DateTime                    @default(now()) @db.Timestamptz(6)
+  deleted_at                DateTime?                   @db.Timestamptz(6)
+  title                     String                      @db.VarChar
+  apartment_rooms           Int?                        @db.SmallInt
+  views                     Int                         @default(0) @db.SmallInt
+  municipalities            municipalities              @relation(fields: [municipality_id], references: [id], onDelete: NoAction, map: "public_advertisements_municipality_id_fkey")
+  users                     users                       @relation(fields: [user_id], references: [id], onDelete: NoAction, map: "public_advertisements_user_id_fkey")
+  advertisements_photos     advertisements_photos[]
+  advertisements_properties advertisements_properties[]
 
   @@schema("public")
 }
@@ -387,6 +392,29 @@ model one_time_tokens {
   @@schema("auth")
 }
 
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model advertisements_properties {
+  id               String         @id(map: "advertisements_apartment_equipments_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  advertisement_id String         @db.Uuid
+  property_id      String         @db.Uuid
+  advertisements   advertisements @relation(fields: [advertisement_id], references: [id], onDelete: Cascade, map: "advertisements_apartment_equipments_advertisement_id_fkey")
+  properties       properties     @relation(fields: [property_id], references: [id], map: "advertisements_apartment_equipments_apartment_equipment_id_fkey")
+
+  @@schema("public")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model properties {
+  id                        String                      @id(map: "apartment_equipments_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  order                     Int?                        @db.SmallInt
+  sk_translation            String                      @db.VarChar
+  en_translation            String                      @db.VarChar
+  type                      advertisement_property      @default(roommate)
+  advertisements_properties advertisements_properties[]
+
+  @@schema("public")
+}
+
 enum aal_level {
   aal1
   aal2
@@ -412,6 +440,7 @@ enum factor_status {
 enum factor_type {
   totp
   webauthn
+  phone
 
   @@schema("auth")
 }
@@ -425,4 +454,14 @@ enum one_time_token_type {
   phone_change_token
 
   @@schema("auth")
+}
+
+enum advertisement_property {
+  roommate
+  apartment
+  special_apartment
+  room
+  room_orientation
+
+  @@schema("public")
 }

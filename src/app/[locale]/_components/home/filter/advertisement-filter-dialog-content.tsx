@@ -1,6 +1,7 @@
 import AdministrativeDivisionFilter from "@/app/[locale]/_components/home/filter/administrative-division-filter";
 import { AdvertisementTypeFilter } from "@/app/[locale]/_components/home/filter/advertisement-type-filter";
 import PriceFilter from "@/app/[locale]/_components/home/filter/price-filter";
+import PropertiesFilter from "@/app/[locale]/_components/home/filter/properties-filter";
 import SortByField from "@/app/[locale]/_components/home/filter/sort";
 import { Button } from "@/app/[locale]/_components/ui/button";
 import {
@@ -11,11 +12,13 @@ import {
 } from "@/app/[locale]/_components/ui/credenza";
 import { Form } from "@/app/[locale]/_components/ui/form";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
+import { useAdvertisementType } from "@/hooks/advertisement-type";
 import {
   type getDistricts,
   type getMunicipalities,
   type getRegions,
 } from "@/lib/data/administrative-divisions";
+import { type Property } from "@/lib/data/advertisements-properties";
 import {
   ADVERTISEMENT_FILTER_DEFAULT_VALUES,
   type AdvertisementFilterFormValues,
@@ -29,6 +32,7 @@ type Props = {
   districts: Awaited<ReturnType<typeof getDistricts>>;
   municipalities: Awaited<ReturnType<typeof getMunicipalities>>;
   form: UseFormReturn<AdvertisementFilterFormValues>;
+  properties: Property[];
   onSubmit: (data: AdvertisementFilterFormValues) => void;
   isFetching: boolean;
 };
@@ -40,6 +44,7 @@ export default function AdvertisementFilterDialogContent({
   form,
   onSubmit,
   isFetching,
+  properties,
 }: Props) {
   const values = useWatch({
     control: form.control,
@@ -56,9 +61,15 @@ export default function AdvertisementFilterDialogContent({
       )
   );
 
+  const advertisementType = useWatch({
+    control: form.control,
+    name: "advertisement_type",
+  });
+  const isOffering = useAdvertisementType(advertisementType);
+
   const t = useTranslations("translations.advertisement_list");
   return (
-    <CredenzaContent className="max-w-3xl pb-8 bottom-0 h-fit">
+    <CredenzaContent className="max-w-3xl pb-8 bottom-0 h-auto md:min-h-min md:overflow-y-auto">
       <CredenzaHeader>
         <CredenzaTitle className="text-2xl">{t("filter.title")}</CredenzaTitle>
       </CredenzaHeader>
@@ -76,10 +87,15 @@ export default function AdvertisementFilterDialogContent({
                 <PriceFilter control={form.control} />
                 <AdvertisementTypeFilter form={form} />
               </div>
-              <div className="flex flex-col gap-y-4 order-3 sm:col-span-2">
+              {isOffering && (
+                <div className="flex flex-col gap-y-4 order-3 sm:col-span-2">
+                  <PropertiesFilter form={form} properties={properties} />
+                </div>
+              )}
+              <div className="flex flex-col gap-y-4 order-4 sm:col-span-2">
                 <SortByField form={form} />
               </div>
-              <div className="flex flex-col gap-y-4 order-4 my-2 sm:col-span-2">
+              <div className="flex flex-col gap-y-4 order-5 my-2 sm:col-span-2">
                 <Button
                   type="submit"
                   variant="ringHover"

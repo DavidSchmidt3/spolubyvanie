@@ -70,6 +70,7 @@ export const getAdvertisementsFiltered = async ({
   price_min,
   price_max,
   sort_by,
+  properties,
   sort_order,
   advertisement_type,
   page,

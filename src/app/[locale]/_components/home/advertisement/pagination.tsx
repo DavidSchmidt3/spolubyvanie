@@ -9,6 +9,7 @@ import {
 } from "@/app/[locale]/_components/ui/pagination";
 import { type AdvertisementMeta } from "@/lib/data/advertisements";
 import { ADVERTISEMENTS_FILTER_SCHEMA } from "@/lib/data/advertisements/schema";
+import { createQueryParamsFromObject } from "@/lib/utils/localization/navigation";
 import { type ParsedUrlQuery } from "querystring";
 
 type Props = {
@@ -27,6 +28,8 @@ export default function AdvertisementPagination({
   const { data: currentQueryString } =
     ADVERTISEMENTS_FILTER_SCHEMA.safeParse(searchParams);
 
+  const parsedQueryString = createQueryParamsFromObject(currentQueryString);
+
   return (
     <>
       <AdvertisementPaginationPrefetch
@@ -42,7 +45,7 @@ export default function AdvertisementPagination({
                 href={{
                   pathname: "/[page]",
                   params: { page: (parseInt(page) - 1).toString() },
-                  query: currentQueryString,
+                  query: parsedQueryString,
                 }}
               />
             </PaginationItem>
@@ -57,7 +60,7 @@ export default function AdvertisementPagination({
                     href={{
                       pathname: "/[page]",
                       params: { page },
-                      query: currentQueryString,
+                      query: parsedQueryString,
                     }}
                     isActive={page === currentPage}
                   >
@@ -75,7 +78,7 @@ export default function AdvertisementPagination({
                 href={{
                   pathname: "/[page]",
                   params: { page: (parseInt(page) + 1).toString() },
-                  query: currentQueryString,
+                  query: parsedQueryString,
                 }}
               />
             </PaginationItem>

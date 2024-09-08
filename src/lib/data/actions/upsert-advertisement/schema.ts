@@ -43,6 +43,7 @@ export const ADVERTISEMENT_UPSERT_SCHEMA = z
     photos: z.array(z.instanceof(File)).max(10, {
       message: "alerts.add_advertisement.photos.max_length",
     }),
+    properties: z.record(z.boolean()).or(z.undefined()),
   })
   .superRefine((data, ctx) => {
     const advertisement_type = parseInt(data.advertisement_type) as AdType;
