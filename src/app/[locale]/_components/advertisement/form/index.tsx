@@ -11,7 +11,7 @@ import PersistedForm from "@/app/[locale]/_components/ui/form";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { useToast } from "@/app/[locale]/_components/ui/use-toast";
 import { useAdvertisementType } from "@/hooks/advertisement-type";
-import { useConditionalTrigger, usePersistedForm } from "@/hooks/form";
+import { usePersistedForm } from "@/hooks/form";
 import { upsertAdvertisement } from "@/lib/data/actions/upsert-advertisement";
 import {
   ADVERTISEMENT_UPSERT_SCHEMA,
@@ -148,17 +148,6 @@ export default function AdvertisementForm({
   const advertisementType = form.watch("advertisement_type");
   const isOffering = useAdvertisementType(advertisementType);
   const isPending = form.formState.isSubmitting || isExecuting;
-
-  useConditionalTrigger({
-    form,
-    watchField: "max_floor",
-    triggerField: "floor",
-  });
-  useConditionalTrigger({
-    form,
-    watchField: "apartment_area",
-    triggerField: "room_area",
-  });
 
   if (isLoading) {
     return <AddAdvertisementLoading />;

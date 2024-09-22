@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useMemo } from "react";
 import {
   useForm,
+  useWatch,
   type DefaultValues,
   type FieldValues,
   type Path,
@@ -89,7 +90,10 @@ export const useConditionalTrigger = <T extends FieldValues>({
   watchField,
   triggerField,
 }: ConditionalTriggerParams<T>) => {
-  const watchedValue = form.watch(watchField);
+  const watchedValue = useWatch({
+    control: form.control,
+    name: watchField,
+  });
 
   useEffect(() => {
     if (!form.formState.isSubmitted) return;

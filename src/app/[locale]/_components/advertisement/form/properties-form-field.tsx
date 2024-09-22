@@ -13,7 +13,6 @@ import { useTranslations } from "next-intl";
 import {
   type FieldValues,
   type Path,
-  type PathValue,
   type UseFormReturn,
 } from "react-hook-form";
 
@@ -53,6 +52,17 @@ export default function PropertiesFormField<T extends FieldValues>({
                       render={({ field }) => {
                         const value = field.value as Record<string, boolean>;
 
+                        const handleCheckboxChange = (checked: boolean) => {
+                          // Create a new object with updated checkbox state
+                          const updatedValue = {
+                            ...value,
+                            [item.id]: checked,
+                          };
+
+                          // Trigger the onChange event with the updated object
+                          field.onChange(updatedValue);
+                        };
+
                         return (
                           <FormItem
                             key={item.id}
@@ -61,12 +71,7 @@ export default function PropertiesFormField<T extends FieldValues>({
                             <FormControl>
                               <Checkbox
                                 checked={value[item.id]}
-                                onCheckedChange={(checked: boolean) => {
-                                  form.setValue(fieldName, {
-                                    ...value,
-                                    [item.id]: checked,
-                                  } as PathValue<T, Path<T>>);
-                                }}
+                                onCheckedChange={handleCheckboxChange}
                               />
                             </FormControl>
                             <FormLabel className="font-normal hover:cursor-pointer">
