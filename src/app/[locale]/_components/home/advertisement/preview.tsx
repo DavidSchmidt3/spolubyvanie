@@ -64,8 +64,8 @@ export default function AdvertisementPreview({
           <AdvertisementImages advertisement={advertisement} />
           <DetailButton id={advertisement.id} text={t("detail.link")} />
         </div>
-        <div className="flex flex-col md:flex-row gap-6 relative">
-          <p className="text-wrap break-words text-justify lg:px-2 xl:px-8 md:flex-grow">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 relative">
+          <p className="text-wrap break-words text-justify lg:px-2 xl:px-8 md:flex-grow overflow-auto">
             {description}
           </p>
           <div className="flex flex-col gap-y-3 w-full md:w-72 lg:w-60 xl:w-72 flex-shrink-0">
