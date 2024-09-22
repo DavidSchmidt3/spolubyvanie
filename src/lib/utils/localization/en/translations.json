@@ -261,13 +261,20 @@
         "link": "Login"
       },
       "location": {
-        "title": "Location"
+        "title": "Location",
+        "description": "Where are you offering/looking for your dream co-living?"
       },
       "general": {
-        "title": "General information"
+        "title": "General information",
+        "description": "Core information about your advertisement. Overview of the most important information"
       },
-      "details": {
-        "title": "Additional details"
+      "flat_details": {
+        "title": "Details about flat",
+        "description": "Tell us more about your flat and the room you are offering"
+      },
+      "additional_details": {
+        "title": "Additional details",
+        "description": "Tells us more about your offering and your preferences. Pay close attention to this section, so people can find exactly your advertisement based on their preferences"
       },
       "photos": {
         "title": "Photos",

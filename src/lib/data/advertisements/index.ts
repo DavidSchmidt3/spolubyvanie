@@ -82,7 +82,6 @@ export const getAdvertisementsFiltered = async ({
   const [advertisements, paginationData] = await fetchAdvertisements(
     {
       orderBy: {
-        // cant apply nulls on non-nullable fields
         [sort_by ?? DEFAULT_SORT_BY]: isSortOnNullableField
           ? {
               nulls: "last",
@@ -109,7 +108,7 @@ export const getAdvertisementsFiltered = async ({
               }
             : undefined,
           districts: {
-            // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- same as above
+            // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- cant apply nulls on non-nullable fields
             region_id: region || undefined,
           },
         },

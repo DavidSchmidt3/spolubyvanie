@@ -89,7 +89,11 @@ export default function AdvertisementFilterDialogContent({
               </div>
               {isOffering && (
                 <div className="flex flex-col gap-y-4 order-3 sm:col-span-2">
-                  <PropertiesFilter form={form} properties={properties} />
+                  <PropertiesFilter
+                    form={form}
+                    properties={properties}
+                    fieldName="properties"
+                  />
                 </div>
               )}
               <div className="flex flex-col gap-y-4 order-4 sm:col-span-2">

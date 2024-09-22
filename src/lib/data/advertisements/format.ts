@@ -37,5 +37,9 @@ export function getFormattedAdvertisement(
     region: getIdsInsteadOfNames
       ? advertisement.municipalities.districts.regions.id
       : advertisement.municipalities.districts.regions.name,
+    advertisements_properties:
+      "advertisements_properties" in advertisement
+        ? advertisement.advertisements_properties
+        : [],
   };
 }

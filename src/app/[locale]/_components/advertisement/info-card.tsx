@@ -1,4 +1,7 @@
 import InfoRow from "@/app/[locale]/_components/advertisement/info-row";
+import { Icons } from "@/app/[locale]/_components/ui/icons";
+import { useGroupedProperties } from "@/hooks/grouped-properties";
+import { type Property } from "@/lib/data/advertisements-properties";
 import { type Advertisement } from "@/lib/data/advertisements/format";
 import { AdType, adTypeKeys } from "@/lib/data/advertisements/types";
 import { formatDate } from "@/lib/utils/date";
@@ -8,10 +11,12 @@ import { useTranslations } from "next-intl";
 type Props = {
   advertisement: Advertisement;
   locale: Locale;
+  properties: Property[];
 };
 
-export default function InfoCard({ advertisement, locale }: Props) {
+export default function InfoCard({ advertisement, locale, properties }: Props) {
   const t = useTranslations("translations");
+  const groupedProperties = useGroupedProperties(properties);
 
   const {
     price,
@@ -73,6 +78,31 @@ export default function InfoCard({ advertisement, locale }: Props) {
           }
           value={formatDate(available_from, locale)}
         />
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        {groupedProperties.map(([key, value]) => {
+          return (
+            <div className="flex flex-col gap-y-2" key={key}>
+              <h4 className="font-bold text-lg">
+                {t(`advertisement_list.properties.${key}`)}
+              </h4>
+              {value.map((item) => {
+                return (
+                  <>
+                    <p>{item[`${locale}_translation`]}</p>
+                    {advertisement.advertisements_properties.find(
+                      (property) => property.id === item.id
+                    ) ? (
+                      <Icons.tick />
+                    ) : (
+                      <Icons.cross />
+                    )}
+                  </>
+                );
+              })}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

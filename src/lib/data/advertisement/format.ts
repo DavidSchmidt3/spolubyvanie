@@ -25,5 +25,6 @@ export function getFormDefaultValues(
       : "",
     photos: [],
     title: advertisement?.title ?? "",
+    properties: {},
   };
 }

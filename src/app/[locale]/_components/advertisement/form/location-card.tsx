@@ -3,6 +3,7 @@ import TextField from "@/app/[locale]/_components/advertisement/form/text-field"
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/app/[locale]/_components/ui/card";
@@ -36,6 +37,7 @@ export default function LocationCard({
     <Card className="w-full">
       <CardHeader>
         <CardTitle>{t("location.title")}</CardTitle>
+        <CardDescription>{t("location.description")}</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-y-2">
         <AdministrativeDivisionSelect

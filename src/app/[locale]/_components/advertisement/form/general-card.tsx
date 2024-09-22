@@ -5,6 +5,7 @@ import { AdvertisementTypeFilter } from "@/app/[locale]/_components/home/filter/
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/app/[locale]/_components/ui/card";
@@ -33,6 +34,7 @@ export default function GeneralCard({
     <Card>
       <CardHeader>
         <CardTitle>{t("general.title")}</CardTitle>
+        <CardDescription>{t("general.description")}</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-y-2">
         <AdvertisementTypeFilter

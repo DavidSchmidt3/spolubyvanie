@@ -1,5 +1,6 @@
 "use client";
-import DetailsCard from "@/app/[locale]/_components/advertisement/form/details-card";
+import AdditionalDetailsCard from "@/app/[locale]/_components/advertisement/form/additional-details-card";
+import FlatDetailsCard from "@/app/[locale]/_components/advertisement/form/details-card";
 import GeneralCard from "@/app/[locale]/_components/advertisement/form/general-card";
 import AddAdvertisementLoading from "@/app/[locale]/_components/advertisement/form/loading";
 import LocationCard from "@/app/[locale]/_components/advertisement/form/location-card";
@@ -192,11 +193,10 @@ export default function AdvertisementForm({
             regions={regions}
           />
           {isOffering && (
-            <DetailsCard
-              form={form}
-              getNumericProps={getNumericProps}
-              properties={properties}
-            />
+            <>
+              <FlatDetailsCard form={form} getNumericProps={getNumericProps} />
+              <AdditionalDetailsCard form={form} properties={properties} />
+            </>
           )}
           <PhotosUploadCard form={form} />
         </div>

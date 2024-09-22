@@ -261,19 +261,26 @@
         "link": "Prihlásiť sa"
       },
       "location": {
-        "title": "Lokalita"
+        "title": "Lokalita",
+        "description": "Kde ponúkate/hľadáte svoje vysnívané spolubývanie?"
       },
       "general": {
-        "title": "Základné informácie"
+        "title": "Základné informácie",
+        "description": "Základ celého inzerátu. Prehľad najdôležitejších informácií"
       },
-      "details": {
-        "title": "Doplňujúce informácie"
+      "flat_details": {
+        "title": "Informácie o byte",
+        "description": "Povedzte nám viac o vašom byte a ponúkanej izbe"
+      },
+      "additional_details": {
+        "title": "Doplňujúce informácie",
+        "description": "Povedzte nám viac o vašej ponuke a vašich preferenciách. Na túto sekciu sa zamerajte obzvlásť pozorne, aby záujemcovia vedeli vašu ponuku presne nájsť podľa ich preferencií."
       },
       "photos": {
         "title": "Fotografie",
         "description": "Pridajte fotografie vášho inzerátu (maximálne 10 fotografií vo veľkosti do 2 MB pre každú)",
         "dropzone": {
-          "label": "Pretiahnite súbor sem alebo kliknite pre nahratie",
+          "label": "Pretiahnite súbory sem alebo kliknite pre nahratie",
           "drop_active_label": "Položte súbory tu",
           "remove_file": "Odstrániť súbor",
           "set_as_cover": "Nastaviť ako náhľadovú fotografiu"

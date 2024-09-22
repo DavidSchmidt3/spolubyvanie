@@ -16,6 +16,7 @@ import {
 } from "@/lib/utils/supabase";
 import { createClient } from "@/lib/utils/supabase/server";
 import { formatZodErrors } from "@/lib/utils/zod";
+import { type Prisma } from "@prisma/client";
 import { revalidateTag } from "next/cache";
 
 const fileService = {
@@ -93,8 +94,8 @@ export const upsertAdvertisement = authActionClient
         } else {
           const { id: advertisementId } = await tx.advertisements.create({
             data: {
+              ...(upsertData as AdvertisementCreate),
               user_id: userId,
-              ...upsertData,
             },
           });
           await handleAddPhotos(
@@ -116,7 +117,12 @@ export const upsertAdvertisement = authActionClient
     }
   });
 
-function parseAdvertisementData(data: AdvertisementUpsertFormValues) {
+type AdvertisementCreate = Prisma.advertisementsUncheckedCreateInput;
+type AdvertisementUpdate = Prisma.advertisementsUncheckedUpdateInput;
+
+function parseAdvertisementData(
+  data: AdvertisementUpsertFormValues
+): AdvertisementCreate | AdvertisementUpdate {
   const {
     municipality,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -134,6 +140,7 @@ function parseAdvertisementData(data: AdvertisementUpsertFormValues) {
     advertisement_type,
     apartment_rooms,
     street,
+    properties,
     ...rest
   } = data;
 
@@ -148,6 +155,17 @@ function parseAdvertisementData(data: AdvertisementUpsertFormValues) {
       apartment_rooms,
       street,
       primary_photo_url: primary_photo,
+      advertisements_properties: properties
+        ? {
+            create: Object.keys(properties)
+              .filter((propertyId) => properties[propertyId])
+              .map((propertyId) => ({
+                properties: {
+                  connect: { id: propertyId },
+                },
+              })),
+          }
+        : undefined,
       municipality_id: municipality,
       price: parseInt(price),
       ...rest,
@@ -155,8 +173,8 @@ function parseAdvertisementData(data: AdvertisementUpsertFormValues) {
   } else {
     return {
       type,
-      municipality_id: municipality,
       primary_photo_url: primary_photo,
+      municipality_id: municipality,
       price: parseInt(price),
       ...rest,
     };

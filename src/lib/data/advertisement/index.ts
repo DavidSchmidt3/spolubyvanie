@@ -39,6 +39,11 @@ export async function fetchAdvertisement(id: string) {
             },
           },
         },
+        advertisements_properties: {
+          include: {
+            properties: true,
+          },
+        },
         advertisements_photos: {
           select: {
             url: true,

@@ -31,6 +31,7 @@ export default async function Page() {
       messages={pickLocaleMessages(messages, [
         "translations.advertisement",
         "translations.add_advertisement",
+        "translations.advertisement_list",
         "alerts.add_advertisement",
       ])}
     >

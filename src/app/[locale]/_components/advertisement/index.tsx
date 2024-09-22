@@ -7,6 +7,7 @@ import {
   CardHeader,
 } from "@/app/[locale]/_components/ui/card";
 import { addAdvertisementView } from "@/lib/data/actions/upsert-advertisement/view";
+import { type Property } from "@/lib/data/advertisements-properties";
 import { type Advertisement } from "@/lib/data/advertisements/format";
 import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
 import { type Locale } from "@/lib/utils/localization/i18n";
@@ -16,9 +17,14 @@ import { getMessages } from "next-intl/server";
 type Props = {
   advertisement: Advertisement;
   locale: Locale;
+  properties: Property[];
 };
 
-export default async function Advertisement({ advertisement, locale }: Props) {
+export default async function Advertisement({
+  advertisement,
+  locale,
+  properties,
+}: Props) {
   const { title, description, advertisement_photos } = advertisement;
   void addAdvertisementView(advertisement.id);
   const messages = await getMessages();
@@ -30,7 +36,11 @@ export default async function Advertisement({ advertisement, locale }: Props) {
       </CardHeader>
       <CardContent className="flex flex-col w-full gap-4 p-4 sm:p-8 sm:gap-6 xl:gap-8">
         <p className="text-justify break-words text-wrap">{description}</p>
-        <InfoCard advertisement={advertisement} locale={locale} />
+        <InfoCard
+          advertisement={advertisement}
+          locale={locale}
+          properties={properties}
+        />
         <div className="flex justify-center w-full mt-8">
           <div className="w-full max-w-4xl">
             {advertisement_photos.length ? (

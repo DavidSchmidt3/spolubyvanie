@@ -3,11 +3,11 @@ import TextField from "@/app/[locale]/_components/advertisement/form/text-field"
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/app/[locale]/_components/ui/card";
 import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
-import { type Property } from "@/lib/data/advertisements-properties";
 import { useTranslations } from "next-intl";
 import { type UseFormReturn } from "react-hook-form";
 
@@ -16,16 +16,16 @@ type Props = {
   getNumericProps: (
     min?: string
   ) => React.InputHTMLAttributes<HTMLInputElement>;
-  properties: Property[];
 };
 
-export default function DetailsCard({ form, getNumericProps }: Props) {
+export default function FlatDetailsCard({ form, getNumericProps }: Props) {
   const t = useTranslations("translations.add_advertisement");
 
   return (
     <Card className="md:col-span-2 xl:col-span-1">
       <CardHeader>
-        <CardTitle>{t("details.title")}</CardTitle>
+        <CardTitle>{t("flat_details.title")}</CardTitle>
+        <CardDescription>{t("flat_details.description")}</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-y-2">
         <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2">
