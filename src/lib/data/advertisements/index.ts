@@ -79,6 +79,16 @@ export const getAdvertisementsFiltered = async ({
     (sort_by as (typeof NULLABLE_SORT_BY_VALUES)[number]) ?? DEFAULT_SORT_BY
   );
 
+  const propertiesArray = properties?.length
+    ? typeof properties === "object"
+      ? Object.keys(properties)
+      : properties.split(",")
+    : [];
+
+  const propertiesConditions = propertiesArray.map((propertyId) => ({
+    advertisements_properties: { some: { property_id: propertyId } },
+  }));
+
   const [advertisements, paginationData] = await fetchAdvertisements(
     {
       orderBy: {
@@ -113,18 +123,7 @@ export const getAdvertisementsFiltered = async ({
           },
         },
         type: advertisement_type ? parseInt(advertisement_type) : undefined,
-        advertisements_properties: {
-          every: {
-            property_id: properties?.length
-              ? {
-                  in:
-                    typeof properties === "object"
-                      ? Object.keys(properties)
-                      : properties.split(","),
-                }
-              : undefined,
-          },
-        },
+        AND: propertiesConditions,
       },
     },
     page
