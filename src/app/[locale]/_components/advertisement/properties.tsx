@@ -46,7 +46,7 @@ export default function Properties({
         return (
           <Table className="flex flex-col w-full gap-y-2" key={key}>
             <TableHeader className="text-lg font-bold">
-              <TableRow>
+              <TableRow className="block w-full">
                 <TableHead>
                   {t(`advertisement_list.properties.${key}`)}
                 </TableHead>
@@ -61,7 +61,9 @@ export default function Properties({
                   <TableRow
                     key={item.id}
                     className={`${
-                      containsProperty ? "bg-success/40" : "bg-destructive/50"
+                      containsProperty
+                        ? "bg-success/40 hover:bg-success/60"
+                        : "bg-destructive/50 hover:bg-destructive/70"
                     } w-full`}
                   >
                     <TableCell className="w-full">
