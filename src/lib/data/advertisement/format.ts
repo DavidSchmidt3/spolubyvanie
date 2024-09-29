@@ -23,8 +23,14 @@ export function getFormDefaultValues(
     primary_photo: advertisement?.primary_photo_url
       ? getFileNameFromFullPath(advertisement.primary_photo_url)
       : "",
+    properties:
+      advertisement?.advertisements_properties?.reduce((acc, property) => {
+        if (property.property_id) {
+          acc[property.property_id] = true;
+        }
+        return acc;
+      }, {} as Record<string, boolean>) ?? {},
     photos: [],
     title: advertisement?.title ?? "",
-    properties: {},
   };
 }

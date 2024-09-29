@@ -44,14 +44,14 @@ function processObject(
   Object.keys(data).forEach((key) => {
     const value = data[key];
     if (typeof value === "object" && !Array.isArray(value)) {
-      const propertiesQueryString = Object.keys(value).reduce((acc, subKey) => {
-        if (value[subKey]) {
-          acc += `${subKey},`;
+      const propertyQueryArray = Object.keys(value).reduce((acc, subKey) => {
+        if (subKey && value[subKey]) {
+          acc.push(subKey);
         }
         return acc;
-      }, "");
-      if (propertiesQueryString) {
-        appendFunc(key, propertiesQueryString);
+      }, [] as string[]);
+      if (propertyQueryArray) {
+        appendFunc(key, propertyQueryArray.join(","));
       }
     } else if (typeof value === "boolean") {
       if (value) {
