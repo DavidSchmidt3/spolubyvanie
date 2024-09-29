@@ -69,7 +69,7 @@ export default function AdvertisementFilterDialogContent({
 
   const t = useTranslations("translations.advertisement_list");
   return (
-    <CredenzaContent className="max-w-3xl pb-8 bottom-0 h-auto md:min-h-min md:overflow-y-auto">
+    <CredenzaContent className="max-w-3xl pb-8 bottom-0 h-auto md:overflow-y-auto md:h-min md:max-h-[calc(100dvh-2rem)]">
       <CredenzaHeader>
         <CredenzaTitle className="text-2xl">{t("filter.title")}</CredenzaTitle>
       </CredenzaHeader>
