@@ -104,7 +104,7 @@
           "title": "Nepodarilo sa kontaktovať inzerenta, prosím skúste to neskôr"
         },
         "message": {
-          "required": "Prosím zadajte správu"
+          "required": "Prosím zadajte správu dlhšiu ako 10 znakov"
         },
         "unauthenticated": "Pre kontaktovanie inzerenta sa najprv prihláste",
         "not_delivered": "Email nebol doručený",

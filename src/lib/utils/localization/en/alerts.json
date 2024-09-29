@@ -104,7 +104,7 @@
           "title": "There was an error contacting advertisement owner, please try again later"
         },
         "message": {
-          "required": "Message is required"
+          "required": "Please enter message longer than 10 characters"
         },
         "unauthenticated": "Please login to continue",
         "not_delivered": "Email was not delivered",
