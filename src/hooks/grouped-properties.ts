@@ -1,14 +1,15 @@
 import { type Property } from "@/lib/data/advertisements-properties";
 import { advertisementPropertySortOrder } from "@/lib/data/advertisements-properties/types";
+import { groupBy } from "lodash";
 
 export const useGroupedProperties = (properties: Property[]) => {
   if (!properties) return [];
 
   // Group properties by type
-  const grouped = Map.groupBy(properties, ({ type }) => type);
+  const grouped = groupBy(properties, "type");
 
   // Convert Map to array of entries
-  const entries = Array.from(grouped.entries());
+  const entries = Object.entries(grouped) as [Property["type"], Property[]][];
 
   // Sort the entries based on advertisementPropertySortOrder
   const sortedEntries = entries.toSorted(([keyA], [keyB]) => {
