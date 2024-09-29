@@ -243,7 +243,7 @@
       "properties": {
         "room": "Izba",
         "roommate": "Spolubyvajúci",
-        "apartment": "Byt",
+        "apartment": "Vybavenie bytu",
         "special_apartment": "Extra vybavenie bytu",
         "room_orientation": "Orientácia izby"
       },
