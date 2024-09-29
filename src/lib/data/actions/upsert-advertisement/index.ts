@@ -72,7 +72,7 @@ export const upsertAdvertisement = authActionClient
 
     try {
       await db.$transaction(async (tx) => {
-        const upsertData = parseAdvertisementData(data);
+        const upsertData = parseAdvertisementData(data, isEditing);
         const primary_photo = AdType.OfferingRoom ? data.primary_photo : "";
 
         if (isEditing) {
@@ -121,7 +121,8 @@ type AdvertisementCreate = Prisma.advertisementsUncheckedCreateInput;
 type AdvertisementUpdate = Prisma.advertisementsUncheckedUpdateInput;
 
 function parseAdvertisementData(
-  data: AdvertisementUpsertFormValues
+  data: AdvertisementUpsertFormValues,
+  isEditing: boolean
 ): AdvertisementCreate | AdvertisementUpdate {
   const {
     municipality,
@@ -143,9 +144,22 @@ function parseAdvertisementData(
     properties,
     ...rest
   } = data;
-
   const type = parseInt(advertisement_type) as AdType;
+
   if (type === AdType.OfferingRoom) {
+    const propertiesData = properties
+      ? {
+          deleteMany: isEditing ? {} : undefined,
+          create: Object.keys(properties)
+            .filter((propertyId) => properties[propertyId])
+            .map((propertyId) => ({
+              properties: {
+                connect: { id: propertyId },
+              },
+            })),
+        }
+      : undefined;
+
     return {
       type,
       floor: floor ? parseInt(floor) : undefined,
@@ -155,17 +169,7 @@ function parseAdvertisementData(
       apartment_rooms,
       street,
       primary_photo_url: primary_photo,
-      advertisements_properties: properties
-        ? {
-            create: Object.keys(properties)
-              .filter((propertyId) => properties[propertyId])
-              .map((propertyId) => ({
-                properties: {
-                  connect: { id: propertyId },
-                },
-              })),
-          }
-        : undefined,
+      advertisements_properties: propertiesData,
       municipality_id: municipality,
       price: parseInt(price),
       ...rest,
