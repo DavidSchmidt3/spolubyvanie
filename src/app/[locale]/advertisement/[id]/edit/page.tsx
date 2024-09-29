@@ -68,6 +68,7 @@ export default async function AdvertisementEdit({ params: { id } }: Props) {
       messages={pickLocaleMessages(messages, [
         "translations.advertisement",
         "translations.add_advertisement",
+        "translations.advertisement_list",
         "translations.edit_advertisement",
         "alerts.add_advertisement",
       ])}
