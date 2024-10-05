@@ -324,6 +324,9 @@
         "apartment_rooms": {
           "label": "Number of rooms in apartment"
         },
+        "room_max_occupation": {
+          "label": "Maximum number of occupants in room"
+        },
         "floor": {
           "label": "Apartment floor",
           "placeholder": "Apartment floor"

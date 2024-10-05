@@ -30,6 +30,7 @@ export function getFormDefaultValues(
         }
         return acc;
       }, {} as Record<string, boolean>) ?? {},
+    room_max_occupancy: advertisement?.room_max_occupancy ?? 1,
     photos: [],
     title: advertisement?.title ?? "",
   };

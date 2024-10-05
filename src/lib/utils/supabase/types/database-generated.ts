@@ -24,6 +24,7 @@ export type Database = {
           price: number;
           primary_photo_url: string | null;
           room_area: number | null;
+          room_max_occupancy: number | null;
           street: string | null;
           title: string;
           type: number;
@@ -44,6 +45,7 @@ export type Database = {
           price: number;
           primary_photo_url?: string | null;
           room_area?: number | null;
+          room_max_occupancy?: number | null;
           street?: string | null;
           title: string;
           type: number;
@@ -64,6 +66,7 @@ export type Database = {
           price?: number;
           primary_photo_url?: string | null;
           room_area?: number | null;
+          room_max_occupancy?: number | null;
           street?: string | null;
           title?: string;
           type?: number;

@@ -44,6 +44,7 @@ export const ADVERTISEMENT_UPSERT_SCHEMA = z
       message: "alerts.add_advertisement.photos.max_length",
     }),
     properties: z.record(z.boolean()).or(z.undefined()),
+    room_max_occupancy: z.number().int().min(1).max(3),
   })
   .superRefine((data, ctx) => {
     const advertisement_type = parseInt(data.advertisement_type) as AdType;

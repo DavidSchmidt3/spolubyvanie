@@ -20,6 +20,7 @@ export function getFormattedAdvertisement(
     type: advertisement.type as AdType,
     apartment_area: advertisement.apartment_area,
     apartment_rooms: advertisement.apartment_rooms,
+    room_max_occupancy: advertisement.room_max_occupancy,
     max_floor: advertisement.max_floor,
     available_from: advertisement.available_from,
     views: advertisement.views,

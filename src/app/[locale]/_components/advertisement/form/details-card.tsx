@@ -1,4 +1,5 @@
 import ConditionalTrigger from "@/app/[locale]/_components/advertisement/form/conditional-trigger";
+import MaxOccupancySlide from "@/app/[locale]/_components/advertisement/form/max-occupancy-slider";
 import RoomsSlider from "@/app/[locale]/_components/advertisement/form/rooms-slider";
 import TextField from "@/app/[locale]/_components/advertisement/form/text-field";
 import {
@@ -31,6 +32,12 @@ export default function FlatDetailsCard({ form, getNumericProps }: Props) {
           <CardDescription>{t("flat_details.description")}</CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-y-2">
+          <div className="w-full col-span-2 mb-5">
+            <MaxOccupancySlide
+              control={form.control}
+              label={t("form.room_max_occupation.label")}
+            />
+          </div>
           <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2">
             <TextField
               control={form.control}
