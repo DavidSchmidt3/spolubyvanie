@@ -116,9 +116,5 @@
     "initVersion": "7.30.0"
   },
   "packageManager": "bun@1.1.13",
-  "module": "index.ts",
-  "overrides": {
-    "@types/react": "npm:types-react@19.0.0-rc.1",
-    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
-  }
+  "module": "index.ts"
 }
