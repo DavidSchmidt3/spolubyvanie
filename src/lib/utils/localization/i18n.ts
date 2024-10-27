@@ -29,8 +29,8 @@ export const allMessages = {
   ...enTranslations,
 };
 
-export default getRequestConfig(async (params) => {
-  const locale = await params.locale;
+export default getRequestConfig(async ({ requestLocale }) => {
+  const locale = await requestLocale;
   if (!LOCALES.some((l) => l.code === locale)) notFound();
 
   return {
