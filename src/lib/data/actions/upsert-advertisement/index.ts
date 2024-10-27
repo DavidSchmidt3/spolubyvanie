@@ -141,6 +141,8 @@ function parseAdvertisementData(
     advertisement_type,
     apartment_rooms,
     street,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    locale,
     properties,
     ...rest
   } = data;
