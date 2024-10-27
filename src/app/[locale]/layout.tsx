@@ -3,7 +3,7 @@ import MainNavLoader from "@/app/[locale]/_components/layouts/main-nav-loader";
 import UserNav from "@/app/[locale]/_components/layouts/user-nav";
 import ThemeLocaleInitializer from "@/app/[locale]/_components/theme-locale-utils/fetcher";
 import { ThemeProvider } from "@/app/[locale]/_components/theme-locale-utils/theme-provider";
-import { Toaster } from "@/app/[locale]/_components/ui/toaster";
+import { Toaster } from "@/app/[locale]/_components/ui/sonner";
 import { cn } from "@/lib/utils";
 import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
 import { type Locale } from "@/lib/utils/localization/i18n";
@@ -59,7 +59,7 @@ export default async function RootLayout({ children, params }: Props) {
                 <NextIntlClientProvider
                   messages={pickLocaleMessages(messages, ["alerts"])}
                 >
-                  <Toaster />
+                  <Toaster richColors />
                 </NextIntlClientProvider>
               </div>
             </div>

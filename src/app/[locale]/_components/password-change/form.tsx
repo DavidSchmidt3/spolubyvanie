@@ -60,7 +60,7 @@ export default function PasswordChangeForm({
       toast({
         title: "alerts.password_change.error.title",
         description: result.validationErrors ?? result.serverError,
-        variant: "destructive",
+        variant: "error",
       });
       void pushRouteWithTransition("/password-reset", router);
     }

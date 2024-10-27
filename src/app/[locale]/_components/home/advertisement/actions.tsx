@@ -37,7 +37,7 @@ export default function AdvertisementActions({ advertisement }: Props) {
     if (hasErrored) {
       toast({
         title: "alerts.my_advertisements.delete.error.title",
-        variant: "destructive",
+        variant: "error",
       });
     }
 

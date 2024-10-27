@@ -71,7 +71,7 @@ export default function SettingsForm({ userSettings, user }: Props) {
       toast({
         title: "alerts.settings.save.error.title",
         description: result.validationErrors ?? result.serverError,
-        variant: "destructive",
+        variant: "error",
       });
     }
 

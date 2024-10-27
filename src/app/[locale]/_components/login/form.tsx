@@ -56,7 +56,7 @@ export default function UserLoginForm({ className, ...props }: UserLoginProps) {
       toast({
         title: "alerts.login.error.title",
         description: result.validationErrors ?? result.serverError,
-        variant: "destructive",
+        variant: "error",
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

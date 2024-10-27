@@ -152,7 +152,7 @@ export function FileUploader(props: FileUploaderProps) {
       if (!multiple && maxFiles === 1 && acceptedFiles.length > 1) {
         toast({
           title: "alerts.add_advertisement.photos.only_one_allowed",
-          variant: "destructive",
+          variant: "error",
         });
 
         return;
@@ -161,7 +161,7 @@ export function FileUploader(props: FileUploaderProps) {
       if ((files?.length ?? 0) + acceptedFiles.length > maxFiles) {
         toast({
           title: "alerts.add_advertisement.photos.maximum_exceeded",
-          variant: "destructive",
+          variant: "error",
         });
         return;
       }
@@ -198,7 +198,7 @@ export function FileUploader(props: FileUploaderProps) {
           toast({
             title: "alerts.add_advertisement.photos.file_rejected",
             description,
-            variant: "destructive",
+            variant: "error",
           });
         });
 
@@ -214,7 +214,7 @@ export function FileUploader(props: FileUploaderProps) {
     },
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [files, maxFiles, multiple, setFiles, toast]
+    [files, maxFiles, multiple, setFiles]
   );
 
   function onRemove(index: number) {

@@ -80,3 +80,12 @@ body {
 .image-gallery .image-gallery-image {
   height: calc(100dvh - 18rem) !important;
 }
+
+:where([data-sonner-toast]) :where([data-close-button])  {
+  right: -1rem !important;
+  left: unset !important;
+}
+
+.group.toaster .group-\[\.toaster\]\:text-foreground {
+  font-size: 1rem !important;
+}

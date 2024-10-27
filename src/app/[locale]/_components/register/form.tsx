@@ -59,7 +59,7 @@ export default function UserRegisterForm({
       toast({
         title: "alerts.register.error.title",
         description: result.validationErrors ?? result.serverError,
-        variant: "destructive",
+        variant: "error",
       });
     }
 

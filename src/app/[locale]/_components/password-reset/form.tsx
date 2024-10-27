@@ -60,7 +60,7 @@ export default function PasswordResetForm({
       toast({
         title: "alerts.password_reset.error.title",
         description: result.validationErrors ?? result.serverError,
-        variant: "destructive",
+        variant: "error",
       });
     }
 

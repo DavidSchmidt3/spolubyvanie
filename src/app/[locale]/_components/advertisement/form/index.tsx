@@ -125,7 +125,7 @@ export default function AdvertisementForm({
           ? "alerts.add_advertisement.save.edit.error.title"
           : "alerts.add_advertisement.save.add.error.title",
         description: result.validationErrors ?? result.serverError,
-        variant: "destructive",
+        variant: "error",
       });
     }
 

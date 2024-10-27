@@ -53,7 +53,7 @@ export default function ContactForm({ userId, advertisementTitle }: Props) {
       toast({
         title: "alerts.advertisement.contact.error.title",
         description: result.validationErrors ?? result.serverError,
-        variant: "destructive",
+        variant: "error",
       });
     }
 
