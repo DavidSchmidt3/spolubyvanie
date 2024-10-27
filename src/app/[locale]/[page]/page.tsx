@@ -7,20 +7,22 @@ import { createQueryStringFromObject } from "@/lib/utils/localization/navigation
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { type ParsedUrlQuery } from "querystring";
-import { Suspense } from "react";
+import { Suspense, use } from "react";
 
 type Props = {
-  searchParams: ParsedUrlQuery;
-  params: {
+  searchParams: Promise<ParsedUrlQuery>;
+  params: Promise<{
     page: string;
     locale: Locale;
-  };
+  }>;
 };
 
-export default async function Home({ params, searchParams }: Props) {
-  const messages = await getMessages();
+export default function Home({ searchParams, params }: Props) {
+  const { page, locale } = use(params);
+  const awaitedSearchParams = use(searchParams ?? {});
+  const messages = use(getMessages());
   const queryString = createQueryStringFromObject(
-    searchParams as Record<string, string | string[]>
+    awaitedSearchParams as Record<string, string | string[]>
   );
   const keyString = `search=${queryString}`;
 
@@ -39,9 +41,9 @@ export default async function Home({ params, searchParams }: Props) {
         <Suspense fallback={<Loading />} key={keyString}>
           <AdvertisementFilterDataFetcher />
           <AdvertisementList
-            page={params.page}
-            searchParams={searchParams}
-            locale={params.locale}
+            page={page}
+            searchParams={awaitedSearchParams}
+            locale={locale}
           />
         </Suspense>
       </div>

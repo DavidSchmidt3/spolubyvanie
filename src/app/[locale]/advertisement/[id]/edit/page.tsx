@@ -19,12 +19,14 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 
 type Props = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
-export default async function AdvertisementEdit({ params: { id } }: Props) {
+export default async function AdvertisementEdit({ params }: Props) {
+  const { id } = await params;
+
   const [
     user,
     regions,

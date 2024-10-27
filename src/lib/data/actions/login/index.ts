@@ -15,7 +15,7 @@ import { formatZodErrors } from "@/lib/utils/zod";
 import { redirect } from "next/navigation";
 
 export async function googleLogin() {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
@@ -44,7 +44,7 @@ export async function googleLogin() {
 }
 
 export async function logout() {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   await supabase.auth.signOut();
 
@@ -61,7 +61,7 @@ export const signInWithEmail = actionClient
     handleValidationErrorsShape: formatZodErrors,
   })
   .action(async ({ parsedInput: { email, password } }) => {
-    const supabase = createClient();
+    const supabase = await createClient();
 
     const { error } = await supabase.auth.signInWithPassword({
       email,

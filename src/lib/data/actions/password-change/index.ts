@@ -14,7 +14,7 @@ export const changePassword = actionClient
     handleValidationErrorsShape: formatZodErrors,
   })
   .action(async ({ parsedInput: { password, accessToken } }) => {
-    const supabase = createClient();
+    const supabase = await createClient();
 
     try {
       await supabase.auth.exchangeCodeForSession(accessToken);

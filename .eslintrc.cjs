@@ -4,7 +4,11 @@ module.exports = {
   parserOptions: {
     project: true,
   },
-  plugins: ["@typescript-eslint", "eslint-plugin-react-compiler"],
+  plugins: [
+    "@typescript-eslint",
+    "eslint-plugin-react-compiler",
+    "react-hooks",
+  ],
   extends: [
     "@extropysk/eslint-config-react",
     "next/core-web-vitals",

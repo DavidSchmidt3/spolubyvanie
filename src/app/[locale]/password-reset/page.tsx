@@ -10,13 +10,15 @@ import {
 } from "next-intl/server";
 
 type Props = {
-  params: {
+  params: Promise<{
     locale: Locale;
-  };
+  }>;
 };
 
 export const dynamic = "force-static";
-export default async function PasswordReset({ params: { locale } }: Props) {
+export default async function PasswordReset({ params }: Props) {
+  const { locale } = await params;
+
   unstable_setRequestLocale(locale);
   const messages = await getMessages();
   const t = await getTranslations("translations");
@@ -46,7 +48,9 @@ export default async function PasswordReset({ params: { locale } }: Props) {
   );
 }
 
-export async function generateMetadata({ params: { locale } }: Props) {
+export async function generateMetadata({ params }: Props) {
+  const { locale } = await params;
+
   const t = await getTranslations({ locale, namespace: "metadata" });
 
   return {

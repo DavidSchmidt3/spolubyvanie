@@ -25,7 +25,6 @@ const cspHeader = `
 const config = {
   experimental: {
     ppr: true,
-    esmExternals: false,
     reactCompiler: true,
     serverActions: {
       bodySizeLimit: "21mb",

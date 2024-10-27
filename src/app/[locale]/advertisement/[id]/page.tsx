@@ -5,14 +5,14 @@ import { getAdvertisementProperties } from "@/lib/data/advertisements-properties
 import { type Locale } from "@/lib/utils/localization/i18n";
 
 type Props = {
-  params: {
+  params: Promise<{
     id: string;
     locale: Locale;
-  };
+  }>;
 };
 
 export default async function AdvertisementPage({ params }: Props) {
-  const { id, locale } = params;
+  const { id, locale } = await params;
   const [advertisement, properties] = await Promise.all([
     getAdvertisement(id),
     getAdvertisementProperties(),

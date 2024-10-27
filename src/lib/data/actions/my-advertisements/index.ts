@@ -15,7 +15,7 @@ export const deleteAdvertisement = authActionClient
   })
   .action(async ({ parsedInput: data, ctx: { userId } }) => {
     try {
-      const supabase = createClient();
+      const supabase = await createClient();
       const advertisementPhotos = await db.advertisements_photos.findMany({
         where: {
           advertisement_id: data.advertisement_id,

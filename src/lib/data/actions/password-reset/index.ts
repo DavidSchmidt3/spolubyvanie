@@ -14,7 +14,7 @@ export const resetPassword = actionClient
     handleValidationErrorsShape: formatZodErrors,
   })
   .action(async ({ parsedInput: { email, locale } }) => {
-    const supabase = createClient();
+    const supabase = await createClient();
 
     const redirectUrl = getPasswordChangeRedirectUrl(locale);
     const { error } = await supabase.auth.resetPasswordForEmail(email, {

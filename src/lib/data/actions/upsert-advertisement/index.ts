@@ -25,7 +25,7 @@ const fileService = {
     photos: File[],
     userId: string
   ) => {
-    const supabase = createClient();
+    const supabase = await createClient();
     const uploadPromises = photos.map(async (photo) => {
       const asciiOnlyName = getAsciiName(photo.name);
       const data = await supabase.storage
@@ -46,7 +46,7 @@ const fileService = {
     return result;
   },
   deletePhotos: async (photos: string[]) => {
-    const supabase = createClient();
+    const supabase = await createClient();
     const deleteResult = await supabase.storage
       .from(PHOTO_BUCKET)
       .remove(photos);

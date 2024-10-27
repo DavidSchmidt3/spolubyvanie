@@ -14,7 +14,7 @@ export const signUpWithEmail = actionClient
     handleValidationErrorsShape: formatZodErrors,
   })
   .action(async ({ parsedInput: { email, password } }) => {
-    const supabase = createClient();
+    const supabase = await createClient();
     const { error } = await supabase.auth.signUp({
       email,
       password,

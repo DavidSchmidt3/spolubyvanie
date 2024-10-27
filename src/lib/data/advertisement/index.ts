@@ -58,7 +58,7 @@ export async function fetchAdvertisement(id: string) {
 
 export async function getAdvertisementPhotosFiles(photosUrls: string[]) {
   try {
-    const supabase = createClient();
+    const supabase = await createClient();
     const photos = await Promise.all(
       photosUrls.map(async (photoUrl, idx) => {
         const fileName = getFileNameFromFullPath(photoUrl) ?? `photo-${idx}`;

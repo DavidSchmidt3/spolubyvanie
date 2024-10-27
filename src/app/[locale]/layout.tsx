@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/app/[locale]/_components/theme-locale-utils/the
 import { Toaster } from "@/app/[locale]/_components/ui/toaster";
 import { cn } from "@/lib/utils";
 import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
+import { Locale } from "@/lib/utils/localization/i18n";
 import "@/styles/globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -25,14 +26,17 @@ export const metadata = {
   description: "Nájdi si spolubývajúcich",
 };
 
-export default async function RootLayout({
-  children,
-  params: { locale },
-}: {
+type Props = {
   children: React.ReactNode;
-  params: { locale: string };
-}) {
+  params: Promise<{
+    page: string;
+    locale: Locale;
+  }>;
+};
+export default async function RootLayout({ children, params }: Props) {
+  const { locale } = await params;
   const messages = await getMessages();
+
   return (
     <html lang={locale} suppressHydrationWarning className="overflow-y-hidden">
       <body

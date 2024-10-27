@@ -4,7 +4,7 @@ import "server-only";
 
 export type User = Awaited<ReturnType<typeof getUser>>;
 export const getUser = cache(async () => {
-  const supabase = createClient();
+  const supabase = await createClient();
   const user = await supabase.auth.getUser();
 
   return user.data.user;

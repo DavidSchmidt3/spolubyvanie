@@ -7,13 +7,14 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 
 type Props = {
-  params: {
+  params: Promise<{
     page: string;
     locale: Locale;
-  };
+  }>;
 };
 
 export default async function Page({ params }: Props) {
+  const { page, locale } = await params;
   const messages = await getMessages();
   const user = await getUser();
 
@@ -33,7 +34,7 @@ export default async function Page({ params }: Props) {
       ])}
     >
       <div className="flex flex-col justify-start h-full overflow-auto">
-        <MyAdvertisementsList page={params.page} locale={params.locale} />
+        <MyAdvertisementsList page={page} locale={locale} />
       </div>
     </NextIntlClientProvider>
   );
