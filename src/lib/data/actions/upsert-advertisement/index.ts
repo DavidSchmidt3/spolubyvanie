@@ -153,7 +153,7 @@ function parseAdvertisementData(
       ? {
           deleteMany: isEditing ? {} : undefined,
           create: Object.keys(properties)
-            .filter((propertyId) => properties[propertyId])
+            .filter((propertyId) => properties[propertyId]?.checked)
             .map((propertyId) => ({
               properties: {
                 connect: { id: propertyId },
