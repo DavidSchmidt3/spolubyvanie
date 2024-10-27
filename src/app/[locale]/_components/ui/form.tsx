@@ -195,6 +195,7 @@ const FormMessage = React.forwardRef<
     return null;
   }
 
+  const isTranslationNeeded = (body as string).startsWith("alerts.");
   return (
     <p
       ref={ref}
@@ -202,7 +203,7 @@ const FormMessage = React.forwardRef<
       className={cn("text-sm font-medium text-destructive", className)}
       {...props}
     >
-      {t(body as MessageKeys<IntlMessages>)}
+      {isTranslationNeeded ? t(body as MessageKeys<IntlMessages>) : body}
     </p>
   );
 });

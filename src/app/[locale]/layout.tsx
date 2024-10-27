@@ -6,7 +6,7 @@ import { ThemeProvider } from "@/app/[locale]/_components/theme-locale-utils/the
 import { Toaster } from "@/app/[locale]/_components/ui/toaster";
 import { cn } from "@/lib/utils";
 import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
-import { Locale } from "@/lib/utils/localization/i18n";
+import { type Locale } from "@/lib/utils/localization/i18n";
 import "@/styles/globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";

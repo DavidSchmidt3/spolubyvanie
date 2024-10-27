@@ -8,10 +8,16 @@ import {
 import { getAdvertisementProperties } from "@/lib/data/advertisements-properties";
 import { getUser } from "@/lib/data/user";
 import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
+import { type Locale } from "@/lib/utils/localization/i18n";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 
-export default async function Page() {
+type Props = {
+  params: Promise<{ locale: Locale }>;
+};
+
+export default async function Page({ params }: Props) {
+  const { locale } = await params;
   const [user, messages, regions, districts, municipalities, properties] =
     await Promise.all([
       getUser(),
@@ -36,6 +42,7 @@ export default async function Page() {
       ])}
     >
       <AdvertisementForm
+        locale={locale}
         regions={regions}
         districts={districts}
         municipalities={municipalities}

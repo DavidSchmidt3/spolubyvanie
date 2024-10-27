@@ -32,7 +32,7 @@ export default function FlatDetailsCard({ form, getNumericProps }: Props) {
           <CardDescription>{t("flat_details.description")}</CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-y-2">
-          <div className="w-full col-span-2 mb-5">
+          <div className="w-full col-span-2 mb-4">
             <MaxOccupancySlide
               control={form.control}
               label={t("form.room_max_occupation.label")}

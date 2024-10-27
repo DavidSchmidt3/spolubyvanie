@@ -25,6 +25,7 @@ import {
 import { getFormDefaultValues } from "@/lib/data/advertisement/format";
 import { type Property } from "@/lib/data/advertisements-properties";
 import { dataUrlToFile, type Photo } from "@/lib/utils";
+import { type Locale } from "@/lib/utils/localization/i18n";
 import {
   pushRouteWithTransition,
   useRouter,
@@ -38,6 +39,7 @@ type PropsBase = {
   districts: District[];
   municipalities: Municipality[];
   properties: Property[];
+  locale: Locale;
 };
 
 type EditProps = PropsBase & {
@@ -55,6 +57,7 @@ export default function AdvertisementForm({
   districts,
   municipalities,
   properties,
+  locale,
   isEdit = false,
   ...props
 }: EditProps | CreateProps) {
@@ -93,7 +96,7 @@ export default function AdvertisementForm({
     if (isEdit) {
       return (props as EditProps).initialDefaultValues;
     }
-    return getFormDefaultValues();
+    return getFormDefaultValues(locale, properties);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

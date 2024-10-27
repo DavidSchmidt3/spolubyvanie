@@ -411,7 +411,19 @@ model properties {
   sk_translation            String                      @db.VarChar
   en_translation            String                      @db.VarChar
   type                      advertisement_property      @default(roommate)
+  property_group_id         String?                     @db.Uuid
   advertisements_properties advertisements_properties[]
+  properties_group          properties_group?           @relation(fields: [property_group_id], references: [id], onDelete: NoAction)
+
+  @@schema("public")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model properties_group {
+  id             String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  sk_translation String       @db.VarChar
+  en_translation String       @db.VarChar
+  properties     properties[]
 
   @@schema("public")
 }

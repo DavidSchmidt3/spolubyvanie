@@ -14,6 +14,7 @@ import { getFormDefaultValues } from "@/lib/data/advertisement/format";
 import { getAdvertisementProperties } from "@/lib/data/advertisements-properties";
 import { getUser } from "@/lib/data/user";
 import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
+import { type Locale } from "@/lib/utils/localization/i18n";
 import { redirect } from "@/lib/utils/localization/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
@@ -21,11 +22,12 @@ import { getMessages } from "next-intl/server";
 type Props = {
   params: Promise<{
     id: string;
+    locale: Locale;
   }>;
 };
 
 export default async function AdvertisementEdit({ params }: Props) {
-  const { id } = await params;
+  const { id, locale } = await params;
 
   const [
     user,
@@ -60,7 +62,7 @@ export default async function AdvertisementEdit({ params }: Props) {
     });
   }
 
-  const defaultValues = getFormDefaultValues(advertisement);
+  const defaultValues = getFormDefaultValues(locale, properties, advertisement);
   const photos = await getAdvertisementPhotosFiles(
     advertisement.advertisement_photos?.map((photo) => photo.url) ?? []
   );
@@ -76,6 +78,7 @@ export default async function AdvertisementEdit({ params }: Props) {
       ])}
     >
       <AdvertisementForm
+        locale={locale}
         regions={regions}
         districts={districts}
         municipalities={municipalities}

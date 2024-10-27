@@ -1,4 +1,6 @@
+import { CheckPropertySchema } from "@/lib/data/advertisements-properties/types";
 import { AdType, createAdTypeRegex } from "@/lib/data/advertisements/types";
+import { type Locale } from "@/lib/utils/localization/i18n";
 import * as z from "zod";
 
 export const ADVERTISEMENT_UPSERT_SCHEMA = z
@@ -20,6 +22,7 @@ export const ADVERTISEMENT_UPSERT_SCHEMA = z
       message: "alerts.add_advertisement.type.required",
     }),
     street: z.string(),
+    locale: z.custom<Locale>((value) => value as Locale),
     apartment_area: z.string().regex(/^\d+$/).or(z.literal("")),
     apartment_rooms: z.number().int().min(1).max(5),
     room_area: z.string().regex(/^\d+$/).or(z.literal("")),
@@ -43,7 +46,7 @@ export const ADVERTISEMENT_UPSERT_SCHEMA = z
     photos: z.array(z.instanceof(File)).max(10, {
       message: "alerts.add_advertisement.photos.max_length",
     }),
-    properties: z.record(z.boolean()).or(z.undefined()),
+    properties: z.record(CheckPropertySchema).or(z.undefined()),
     room_max_occupancy: z.number().int().min(1).max(3),
   })
   .superRefine((data, ctx) => {
@@ -105,6 +108,38 @@ export const ADVERTISEMENT_UPSERT_SCHEMA = z
           message:
             "alerts.add_advertisement.room_area.larger_than_apartment_area",
         });
+      }
+
+      if (data.properties) {
+        const checkedProperties = Object.values(data.properties).filter(
+          (p) => p.checked
+        );
+
+        const propertiesByGroup: Record<string, typeof checkedProperties> = {};
+
+        for (const prop of checkedProperties) {
+          const groupId = prop.property_group_id;
+          if (groupId) {
+            if (!propertiesByGroup[groupId]) {
+              propertiesByGroup[groupId] = [];
+            }
+            propertiesByGroup[groupId].push(prop);
+          }
+        }
+
+        for (const groupId in propertiesByGroup) {
+          const groupProperties = propertiesByGroup[groupId];
+          if (groupProperties && groupProperties?.length >= 2) {
+            const propertiesGroup = groupProperties[0]?.properties_group;
+            if (propertiesGroup) {
+              ctx.addIssue({
+                path: ["properties"],
+                code: "custom",
+                message: propertiesGroup[`${data.locale}_translation`],
+              });
+            }
+          }
+        }
       }
     }
   });

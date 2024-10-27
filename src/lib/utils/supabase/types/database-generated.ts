@@ -216,6 +216,7 @@ export type Database = {
           en_translation: string;
           id: string;
           order: number | null;
+          property_group_id: string | null;
           sk_translation: string;
           type: Database["public"]["Enums"]["advertisement_property"];
         };
@@ -223,6 +224,7 @@ export type Database = {
           en_translation: string;
           id?: string;
           order?: number | null;
+          property_group_id?: string | null;
           sk_translation: string;
           type?: Database["public"]["Enums"]["advertisement_property"];
         };
@@ -230,8 +232,35 @@ export type Database = {
           en_translation?: string;
           id?: string;
           order?: number | null;
+          property_group_id?: string | null;
           sk_translation?: string;
           type?: Database["public"]["Enums"]["advertisement_property"];
+        };
+        Relationships: [
+          {
+            foreignKeyName: "properties_property_group_id_fkey";
+            columns: ["property_group_id"];
+            isOneToOne: false;
+            referencedRelation: "properties_group";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      properties_group: {
+        Row: {
+          en_translation: string;
+          id: string;
+          sk_translation: string;
+        };
+        Insert: {
+          en_translation: string;
+          id?: string;
+          sk_translation: string;
+        };
+        Update: {
+          en_translation?: string;
+          id?: string;
+          sk_translation?: string;
         };
         Relationships: [];
       };
