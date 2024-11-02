@@ -1,4 +1,5 @@
 "use server";
+import { Property } from "@/lib/data/advertisements-properties";
 import { getFormattedAdvertisement } from "@/lib/data/advertisements/format";
 import {
   ADVERTISEMENTS_FILTER_SCHEMA,
@@ -79,16 +80,7 @@ export const getAdvertisementsFiltered = async ({
     (sort_by as (typeof NULLABLE_SORT_BY_VALUES)[number]) ?? DEFAULT_SORT_BY
   );
 
-  const propertiesArray = properties?.length
-    ? typeof properties === "object"
-      ? Object.keys(properties)
-      : properties.split(",")
-    : [];
-
-  const propertiesConditions = propertiesArray.map((propertyId) => ({
-    advertisements_properties: { some: { property_id: propertyId } },
-  }));
-
+  const propertiesConditions = getPropertiesConditions(properties);
   const [advertisements, paginationData] = await fetchAdvertisements(
     {
       orderBy: {
@@ -154,3 +146,35 @@ export async function getAdvertisements(
 
   return getAdvertisementsFiltered({ ...safelyParsedSearchParams.data, page });
 }
+
+const parseProperties = (
+  properties: AdvertisementFullSchemaValues["properties"]
+): string[] => {
+  if (!properties) {
+    return [];
+  }
+
+  if (Array.isArray(properties)) {
+    return properties
+      .filter((property): property is Property => property?.checked === true)
+      .map((property) => property.id);
+  }
+
+  if (typeof properties === "string" && properties.length > 0) {
+    return properties.split(",");
+  }
+
+  return [];
+};
+
+const getPropertiesConditions = (
+  properties: AdvertisementFullSchemaValues["properties"]
+) => {
+  const propertyIds = parseProperties(properties);
+
+  return propertyIds.map((propertyId) => ({
+    advertisements_properties: {
+      some: { property_id: propertyId },
+    },
+  }));
+};

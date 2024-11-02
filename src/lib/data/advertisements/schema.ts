@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { CheckPropertySchema } from "../advertisements-properties/types";
 import { createAdTypeRegex } from "./types";
 
 const ADVERTISEMENT_FILTER_BASE_SCHEMA = z.object({
@@ -37,7 +38,7 @@ const ADVERTISEMENT_FILTER_BASE_SCHEMA = z.object({
     .or(z.literal("room_area"))
     .or(z.undefined()),
   sort_order: z.literal("asc").or(z.literal("desc")).or(z.undefined()),
-  properties: z.record(z.boolean()).or(z.undefined()).or(z.string()),
+  properties: z.record(CheckPropertySchema).or(z.string()).or(z.undefined()),
 });
 
 export const DEFAULT_SORT_BY = "created_at";

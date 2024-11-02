@@ -1,3 +1,8 @@
+import { type Property } from "@/lib/data/advertisements-properties";
+import {
+  type AdvertisementProperty,
+  type CheckPropertySchemaType,
+} from "@/lib/data/advertisements-properties/types";
 import { type AdvertisementProperties } from "@/lib/data/advertisements/schema";
 import {
   LOCALE_PREFIX,
@@ -33,7 +38,10 @@ function getStringValue(value: string | string[]) {
 
 function processObject(
   data:
-    | Record<string, string | string[] | Record<string, boolean> | undefined>
+    | Record<
+        string,
+        string | string[] | Record<string, CheckPropertySchemaType> | undefined
+      >
     | undefined,
   appendFunc: (key: string, value: string) => void
 ) {
@@ -45,7 +53,7 @@ function processObject(
     const value = data[key];
     if (typeof value === "object" && !Array.isArray(value)) {
       const propertyQueryArray = Object.keys(value).reduce((acc, subKey) => {
-        if (subKey && value[subKey]) {
+        if (subKey && value[subKey]?.checked) {
           acc.push(subKey);
         }
         return acc;
@@ -66,7 +74,10 @@ function processObject(
 export function getCurrentQueryString(
   searchParams?:
     | URLSearchParams
-    | Record<string, string | string[] | Record<string, boolean>>
+    | Record<
+        string,
+        string | string[] | Record<string, CheckPropertySchemaType>
+      >
 ) {
   if (!searchParams) {
     return "";
@@ -86,7 +97,10 @@ export function getCurrentQueryString(
 }
 
 export function createQueryStringFromObject(
-  data: Record<string, string | string[] | Record<string, boolean>>
+  data: Record<
+    string,
+    string | string[] | Record<string, CheckPropertySchemaType>
+  >
 ) {
   const queryString = new URLSearchParams();
   processObject(data, (key, value) => queryString.append(key, value));
@@ -95,7 +109,10 @@ export function createQueryStringFromObject(
 
 export function createQueryParamsFromObject(
   data:
-    | Record<string, string | string[] | Record<string, boolean> | undefined>
+    | Record<
+        string,
+        string | string[] | Record<string, CheckPropertySchemaType> | undefined
+      >
     | undefined
 ) {
   const queryParams = {} as Record<string, string | string[]>;
@@ -106,20 +123,29 @@ export function createQueryParamsFromObject(
 }
 
 export function constructPropertiesObject(
-  advertisementProperties: string | null
+  advertisementProperties: string | null,
+  properties: Property[]
 ): AdvertisementProperties {
   if (!advertisementProperties) {
     return {};
   }
 
-  const properties = advertisementProperties.split(",");
+  const paramProperties = advertisementProperties.split(",");
 
-  return properties.reduce((acc, property) => {
-    if (acc) {
-      acc[property] = true;
+  return paramProperties.reduce((acc, property) => {
+    const propertyObject = properties?.find(
+      (propertyObject) => propertyObject.id === property
+    );
+
+    if (propertyObject && acc) {
+      acc[property] = {
+        ...propertyObject,
+        type: propertyObject.type as AdvertisementProperty,
+        checked: true,
+      };
     }
     return acc;
-  }, {} as Record<string, boolean>);
+  }, {} as Record<string, CheckPropertySchemaType>);
 }
 
 export function buildPaginatedQuery(currentQueryString: string, page: number) {

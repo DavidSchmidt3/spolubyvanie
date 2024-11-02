@@ -86,9 +86,10 @@ export default function AdvertisementFilterDialog({
         (searchParams.get("sort_order") as SortOrder) ??
         ADVERTISEMENT_FILTER_DEFAULT_VALUES.sort_order,
       properties:
-        constructPropertiesObject(searchParams.get("properties")) ?? {},
+        constructPropertiesObject(searchParams.get("properties"), properties) ??
+        {},
     };
-  }, [searchParams]);
+  }, [searchParams, properties]);
 
   const form = useControlledForm<AdvertisementFilterFormValues>({
     schema: ADVERTISEMENTS_FILTER_SCHEMA,
