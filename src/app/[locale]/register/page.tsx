@@ -6,7 +6,7 @@ import { NextIntlClientProvider } from "next-intl";
 import {
   getMessages,
   getTranslations,
-  unstable_setRequestLocale,
+  setRequestLocale,
 } from "next-intl/server";
 
 type Props = {
@@ -15,11 +15,10 @@ type Props = {
   }>;
 };
 
-export const dynamic = "force-static";
 export default async function RegisterPage({ params }: Props) {
   const { locale } = await params;
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   const messages = await getMessages();
   const t = await getTranslations("translations");
 
