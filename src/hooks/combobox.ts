@@ -36,7 +36,7 @@ export const useCombobox = <T>(data: T[]) => {
       limit: 100,
     });
     const formattedResults = nameFieldResult?.result.map((result) => {
-      // @ts-ignore wrong type after enrich
+      // @ts-expect-error wrong type after enrich
       const doc = result.doc;
       return doc as unknown as T;
     });

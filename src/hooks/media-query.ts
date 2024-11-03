@@ -1,9 +1,8 @@
-import * as React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { screens } from "tailwind.config";
 
 export function useMediaQuery(query: keyof typeof screens) {
-  const [value, setValue] = React.useState(false);
+  const [value, setValue] = useState(false);
 
   useEffect(() => {
     function onChange(event: MediaQueryListEvent) {

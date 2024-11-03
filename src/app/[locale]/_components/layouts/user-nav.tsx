@@ -1,4 +1,3 @@
-import { TransitionLink } from "@/app/[locale]/_components/common/transition-link";
 import { Avatar } from "@/app/[locale]/_components/ui/avatar";
 import { Button } from "@/app/[locale]/_components/ui/button";
 import {
@@ -12,11 +11,19 @@ import {
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { logout } from "@/lib/data/actions/login";
 import { getUser } from "@/lib/data/user";
+import { type Locale } from "@/lib/utils/localization/i18n";
+import { Link } from "@/lib/utils/localization/navigation";
 import { getTranslations } from "next-intl/server";
+import { use } from "react";
 
-export default async function UserNav() {
-  const t = await getTranslations("translations");
-  const user = await getUser();
+type Props = {
+  params: Promise<{ locale: Locale }>;
+};
+
+export default function UserNav({ params }: Props) {
+  const t = use(getTranslations("translations"));
+  const user = use(getUser());
+  const { locale } = use(params);
 
   return (
     <DropdownMenu>
@@ -40,17 +47,17 @@ export default async function UserNav() {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <TransitionLink href="/settings" className="w-full">
+        <Link href="/settings" className="w-full">
           <DropdownMenuItem className="text-base cursor-pointer hover:bg-accent/90">
             <div className="flex items-center gap-x-2">
               <Icons.settings />
               {t("settings.title")}
             </div>
           </DropdownMenuItem>
-        </TransitionLink>
+        </Link>
         {user ? (
           <>
-            <TransitionLink
+            <Link
               href={{
                 pathname: "/my-advertisements/[page]",
                 params: { page: "1" },
@@ -63,9 +70,9 @@ export default async function UserNav() {
                   {t("navigation.my_advertisements.label")}
                 </div>
               </DropdownMenuItem>
-            </TransitionLink>
+            </Link>
             <DropdownMenuItem>
-              <form action={logout} className="w-full">
+              <form action={() => logout(locale)} className="w-full">
                 <Button
                   aria-label={t("logout.button")}
                   variant="ghost"
@@ -82,22 +89,22 @@ export default async function UserNav() {
           </>
         ) : (
           <>
-            <TransitionLink href="/add-advertisement" className="w-full">
+            <Link href="/add-advertisement" className="w-full">
               <DropdownMenuItem className="text-base cursor-pointer hover:bg-accent/90">
                 <div className="flex items-center gap-x-2">
                   <Icons.plus className="w-4 h-4" />
                   {t("navigation.add_advertisement.label")}
                 </div>
               </DropdownMenuItem>
-            </TransitionLink>
-            <TransitionLink href="/login" className="w-full">
+            </Link>
+            <Link href="/login" className="w-full">
               <DropdownMenuItem className="text-base cursor-pointer hover:bg-accent/90">
                 <div className="flex items-center gap-x-2">
                   <Icons.person />
                   {t("login.button")}
                 </div>
               </DropdownMenuItem>
-            </TransitionLink>
+            </Link>
           </>
         )}
       </DropdownMenuContent>

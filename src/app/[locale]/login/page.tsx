@@ -1,65 +1,50 @@
-import Container from "@/app/[locale]/_components/common/container";
 import UserAuthForm from "@/app/[locale]/_components/login/form";
-import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
-import { LOCALES, type Locale } from "@/lib/utils/localization/i18n";
-import { NextIntlClientProvider } from "next-intl";
-import {
-  getMessages,
-  getTranslations,
-  setRequestLocale,
-} from "next-intl/server";
+import LoginShell from "@/app/[locale]/_components/login/shell";
+import NextIntlClientProvider from "@/app/[locale]/_components/providers/next-intl-client-provider";
+import { getMessages, getTranslations } from "next-intl/server";
+import { Suspense } from "react";
 
-type Props = {
-  params: Promise<{
-    locale: Locale;
-  }>;
-};
+export default function LoginPage() {
+  // await connection();
+  // const { locale } = await params;
 
-export default async function LoginPage({ params }: Props) {
-  const { locale } = await params;
-
-  setRequestLocale(locale);
-  const messages = await getMessages();
-  const t = await getTranslations("translations");
+  // setRequestLocale(locale);
+  const messages = getMessages();
+  const t = getTranslations("translations");
 
   return (
-    <Container>
-      <div className="container relative flex flex-col items-center justify-center h-full px-5 sm:px-8">
-        <div className="mx-auto flex flex-col justify-center space-y-6 w-full sm:w-[350px] max-w-[350px]">
-          <div className="flex flex-col space-y-2 text-center">
-            <h1 className="text-3xl font-semibold tracking-tight">
-              {t("login.label")}
-            </h1>
-          </div>
-          <NextIntlClientProvider
-            messages={pickLocaleMessages(messages, [
-              "translations.auth",
-              "translations.login",
-              "alerts.login",
-              "alerts.auth",
-            ])}
-          >
-            <UserAuthForm />
-          </NextIntlClientProvider>
-        </div>
-      </div>
-    </Container>
+    <LoginShell promiseT={t}>
+      <Suspense fallback={<div>Loading...</div>}>
+        <NextIntlClientProvider
+          messagesLocal={[
+            "translations.auth",
+            "translations.login",
+            "alerts.login",
+            "alerts.auth",
+          ]}
+          messagesPromise={messages}
+        >
+          <UserAuthForm />
+        </NextIntlClientProvider>
+      </Suspense>
+    </LoginShell>
   );
 }
 
-export async function generateMetadata(props: Props) {
-  const params = await props.params;
+// export async function generateMetadata(props: Props) {
+//   await connection();
+//   const params = await props.params;
 
-  const { locale } = params;
+//   const { locale } = params;
 
-  const t = await getTranslations({ locale, namespace: "metadata" });
+//   const t = await getTranslations({ locale, namespace: "metadata" });
 
-  return {
-    title: t("login.title"),
-    description: t("login.description"),
-  };
-}
+//   return {
+//     title: t("login.title"),
+//     description: t("login.description"),
+//   };
+// }
 
-export function generateStaticParams() {
-  return LOCALES.map((locale) => ({ locale: locale.code }));
-}
+// export function generateStaticParams() {
+//   return LOCALES.map((locale) => ({ locale: locale.code }));
+// }

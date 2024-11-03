@@ -1,9 +1,21 @@
+import { type Locale } from "@/lib/utils/localization/i18n";
 import { redirect } from "@/lib/utils/localization/navigation";
+import { use } from "react";
 
-export default function Page() {
+type Props = {
+  params: Promise<{
+    locale: Locale;
+  }>;
+};
+
+export default function Page({ params }: Props) {
+  const { locale } = use(params);
   redirect({
-    pathname: "/[page]",
-    params: { page: "1" },
+    locale,
+    href: {
+      pathname: "/[page]",
+      params: { page: "1" },
+    },
   });
 
   return null;

@@ -7,10 +7,10 @@ module.exports = {
   plugins: [
     "@typescript-eslint",
     "eslint-plugin-react-compiler",
-    "react-hooks",
+    "react-hooks" 
   ],
   extends: [
-    "@extropysk/eslint-config-react",
+    "plugin:react-hooks/recommended", 
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended-type-checked",
     "plugin:@typescript-eslint/stylistic-type-checked",
@@ -18,6 +18,8 @@ module.exports = {
     "plugin:jest-dom/recommended",
   ],
   rules: {
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
     "@typescript-eslint/array-type": "off",
     "jsx-a11y/heading-has-content": "off",
     "@typescript-eslint/no-unsafe-call": "off",

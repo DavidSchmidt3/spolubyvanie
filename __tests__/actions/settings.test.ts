@@ -43,7 +43,7 @@ describe("saveSettings", () => {
   });
 
   afterAll(() => {
-    // @ts-ignore polyfill delete
+    // @ts-expect-error polyfill delete
     delete global.structuredClone;
   });
 
@@ -76,7 +76,7 @@ describe("saveSettings", () => {
     it(`should reject invalid data: ${JSON.stringify(
       invalidData
     )}`, async () => {
-      // @ts-ignore this is on purpose to test the validation
+      // @ts-expect-error this is on purpose to test the validation
       const result = await saveSettingsAction(invalidData);
       expect(result).toHaveProperty("validationErrors");
       const validationErrors = result!.validationErrors!;

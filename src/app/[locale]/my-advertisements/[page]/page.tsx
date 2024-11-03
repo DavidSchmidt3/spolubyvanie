@@ -20,8 +20,11 @@ export default async function Page({ params }: Props) {
 
   if (!user)
     return redirect({
-      pathname: "/[page]",
-      params: { page: "1" },
+      locale,
+      href: {
+        pathname: "/[page]",
+        params: { page: "1" },
+      },
     });
 
   return (

@@ -2,7 +2,6 @@
 import * as React from "react";
 
 import { Divider } from "@/app/[locale]/_components/common/divider";
-import { TransitionLink } from "@/app/[locale]/_components/common/transition-link";
 import { Button } from "@/app/[locale]/_components/ui/button";
 import {
   Form,
@@ -16,13 +15,11 @@ import { Input } from "@/app/[locale]/_components/ui/input";
 import { PasswordInput } from "@/app/[locale]/_components/ui/password";
 import { useToast } from "@/app/[locale]/_components/ui/use-toast";
 import { useControlledForm } from "@/hooks/form";
+import { useLocale } from "@/hooks/locale";
 import { googleLogin, signInWithEmail } from "@/lib/data/actions/login";
 import { USER_AUTH_FORM_SCHEMA } from "@/lib/data/actions/login/schema";
 import { cn } from "@/lib/utils";
-import {
-  pushRouteWithTransition,
-  useRouter,
-} from "@/lib/utils/localization/navigation";
+import { Link, useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect, useMemo } from "react";
@@ -36,15 +33,24 @@ export default function UserLoginForm({ className, ...props }: UserLoginProps) {
   const t = useTranslations("translations");
   const router = useRouter();
   const { toast } = useToast();
-  const { execute, isExecuting, result, hasErrored } =
-    useAction(signInWithEmail);
+  const {
+    execute: executeSignInWithEmail,
+    isExecuting: isSignInWithEmailExecuting,
+    result,
+    hasErrored,
+  } = useAction(signInWithEmail);
+  const locale = useLocale();
+
+  const { execute: executeGoogle, isExecuting: isGoogleLoginExecuting } =
+    useAction(googleLogin);
 
   const defaultValues = useMemo<UserAuthFormValues>(() => {
     return {
+      locale,
       email: "",
       password: "",
     };
-  }, []);
+  }, [locale]);
 
   const form = useControlledForm<UserAuthFormValues>({
     schema: USER_AUTH_FORM_SCHEMA,
@@ -62,14 +68,18 @@ export default function UserLoginForm({ className, ...props }: UserLoginProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result, hasErrored]);
 
-  async function onSubmit(data: UserAuthFormValues) {
-    execute(data);
+  async function handleEmailLogin(data: UserAuthFormValues) {
+    executeSignInWithEmail(data);
+  }
+
+  async function handleGoogleLogin() {
+    executeGoogle({ locale });
   }
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form onSubmit={form.handleSubmit(handleEmailLogin)}>
           <div className="grid gap-3">
             <FormField
               control={form.control}
@@ -105,19 +115,16 @@ export default function UserLoginForm({ className, ...props }: UserLoginProps) {
                 </FormItem>
               )}
             />
-            <TransitionLink
-              href="/password-reset"
-              className="text-sm text-primary"
-            >
+            <Link href="/password-reset" className="text-sm text-primary">
               {t("login.forgot_password.link")}
-            </TransitionLink>
+            </Link>
             <Button
-              disabled={isExecuting}
+              disabled={isSignInWithEmailExecuting}
               variant="ringHover"
               className="text-base"
               aria-label={t("login.email.button")}
             >
-              {isExecuting && (
+              {isSignInWithEmailExecuting && (
                 <Icons.spinner className="w-4 h-4 mr-2 animate-spin" />
               )}
               {t("login.email.button")}
@@ -126,20 +133,24 @@ export default function UserLoginForm({ className, ...props }: UserLoginProps) {
         </form>
       </Form>
       <Divider text={t("auth.alternative_method.label")} />
-      <form action={googleLogin}>
+      <form action={handleGoogleLogin}>
         <Button
+          disabled={isGoogleLoginExecuting}
           variant="outline"
           type="submit"
           className="w-full text-base"
           aria-label={t("login.google.button")}
         >
+          {isGoogleLoginExecuting && (
+            <Icons.spinner className="w-4 h-4 mr-2 animate-spin" />
+          )}
           <Icons.google className="w-4 h-4 mr-2" />
           {t("login.google.button")}
         </Button>
       </form>
       <Divider text={t("login.no_account.label")} />
       <Button
-        onClick={() => pushRouteWithTransition("/register", router)}
+        onClick={() => router.push("/register")}
         className="w-full text-base"
         variant="outline"
         aria-label={t("login.register.button")}

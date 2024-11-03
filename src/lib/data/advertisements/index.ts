@@ -1,5 +1,4 @@
-"use server";
-import { Property } from "@/lib/data/advertisements-properties";
+import { type Property } from "@/lib/data/advertisements-properties";
 import { getFormattedAdvertisement } from "@/lib/data/advertisements/format";
 import {
   ADVERTISEMENTS_FILTER_SCHEMA,
@@ -10,7 +9,10 @@ import {
 } from "@/lib/data/advertisements/schema";
 import { db } from "@/lib/utils/prisma";
 import { type Prisma } from "@prisma/client";
-import { unstable_cache as next_cache } from "next/cache";
+import {
+  unstable_cacheLife as cacheLife,
+  unstable_cacheTag as cacheTag,
+} from "next/cache";
 import { type ParsedUrlQuery } from "querystring";
 
 export type AdvertisementMeta = Awaited<
@@ -54,7 +56,14 @@ export async function fetchAdvertisements(
   }
 }
 
-export const getAdvertisementsCached = next_cache(async () => {
+export const getAdvertisementsCached = async () => {
+  "use cache";
+  cacheLife({
+    stale: 300,
+    revalidate: 10000000,
+    expire: 10000000,
+  });
+  cacheTag("advertisements");
   const [advertisements, paginationData] = await fetchAdvertisements();
   return {
     advertisements: advertisements.map((advertisement) =>
@@ -62,7 +71,7 @@ export const getAdvertisementsCached = next_cache(async () => {
     ),
     paginationData,
   };
-}, ["advertisements"]);
+};
 
 export const getAdvertisementsFiltered = async ({
   municipality,

@@ -57,8 +57,11 @@ export default async function AdvertisementEdit({ params }: Props) {
 
   if (user.id !== advertisement.user_id) {
     return redirect({
-      pathname: "/my-advertisements/[page]",
-      params: { page: "1" },
+      locale,
+      href: {
+        pathname: "/my-advertisements/[page]",
+        params: { page: "1" },
+      },
     });
   }
 

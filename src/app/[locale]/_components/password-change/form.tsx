@@ -16,10 +16,7 @@ import { useControlledForm } from "@/hooks/form";
 import { changePassword } from "@/lib/data/actions/password-change";
 import { PASSWORD_CHANGE_SCHEMA } from "@/lib/data/actions/password-change/schema";
 import { cn } from "@/lib/utils";
-import {
-  pushRouteWithTransition,
-  useRouter,
-} from "@/lib/utils/localization/navigation";
+import { useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 import { useAction } from "next-safe-action/hooks";
 import { useSearchParams } from "next/navigation";
@@ -62,7 +59,7 @@ export default function PasswordChangeForm({
         description: result.validationErrors ?? result.serverError,
         variant: "error",
       });
-      void pushRouteWithTransition("/password-reset", router);
+      router.push("/password-reset");
     }
 
     if (hasSucceeded) {
@@ -71,7 +68,7 @@ export default function PasswordChangeForm({
         description: "alerts.password_change.success.description",
         variant: "success",
       });
-      void pushRouteWithTransition("/login", router);
+      router.push("/login");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result, hasErrored, hasSucceeded]);

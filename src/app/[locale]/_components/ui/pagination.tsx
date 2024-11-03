@@ -6,7 +6,7 @@ import {
   type ButtonProps,
 } from "@/app/[locale]/_components/ui/button";
 import { cn } from "@/lib/utils";
-import { type Locale, type pathnames } from "@/lib/utils/localization/i18n";
+import { type Locale } from "@/lib/utils/localization/i18n";
 import { Link } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 
@@ -40,20 +40,20 @@ const PaginationItem = React.forwardRef<
 ));
 PaginationItem.displayName = "PaginationItem";
 
-type PaginationLinkProps<Pathname extends keyof typeof pathnames> = {
+type PaginationLinkProps = {
   isActive?: boolean;
   locale?: Locale;
   className?: string;
 } & Pick<ButtonProps, "size"> &
-  React.ComponentProps<typeof Link<Pathname>>;
+  React.ComponentProps<typeof Link>;
 
-const PaginationLink = <Pathname extends keyof typeof pathnames>({
+const PaginationLink = ({
   className,
   isActive,
   href,
   size = "icon",
   ...props
-}: PaginationLinkProps<Pathname>) => (
+}: PaginationLinkProps) => (
   <Link
     aria-current={isActive ? "page" : undefined}
     href={href}
@@ -69,10 +69,7 @@ const PaginationLink = <Pathname extends keyof typeof pathnames>({
 );
 PaginationLink.displayName = "PaginationLink";
 
-const PaginationPrevious = <Pathname extends keyof typeof pathnames>({
-  className,
-  ...props
-}: PaginationLinkProps<Pathname>) => {
+const PaginationPrevious = ({ className, ...props }: PaginationLinkProps) => {
   const t = useTranslations("translations.common.pagination");
   return (
     <PaginationLink
@@ -88,10 +85,7 @@ const PaginationPrevious = <Pathname extends keyof typeof pathnames>({
 };
 PaginationPrevious.displayName = "PaginationPrevious";
 
-const PaginationNext = <Pathname extends keyof typeof pathnames>({
-  className,
-  ...props
-}: PaginationLinkProps<Pathname>) => {
+const PaginationNext = ({ className, ...props }: PaginationLinkProps) => {
   const t = useTranslations("translations.common.pagination");
 
   return (

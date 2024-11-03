@@ -1,6 +1,6 @@
 import Container from "@/app/[locale]/_components/common/container";
-import { TransitionLink } from "@/app/[locale]/_components/common/transition-link";
 import { Button } from "@/app/[locale]/_components/ui/button";
+import { Link } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 
 export default function LoginPrompt() {
@@ -12,11 +12,11 @@ export default function LoginPrompt() {
         <h1 className="text-2xl font-bold text-center">
           {t("login_prompt.title")}
         </h1>
-        <TransitionLink href="/login" className="w-full">
+        <Link href="/login" className="w-full">
           <Button variant="ringHover" className="w-full">
             {t("login_prompt.link")}
           </Button>
-        </TransitionLink>
+        </Link>
       </div>
     </Container>
   );

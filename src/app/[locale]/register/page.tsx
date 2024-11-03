@@ -58,6 +58,6 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale: locale.code }));
 }

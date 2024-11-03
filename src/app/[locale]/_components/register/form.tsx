@@ -15,14 +15,12 @@ import { Input } from "@/app/[locale]/_components/ui/input";
 import { PasswordInput } from "@/app/[locale]/_components/ui/password";
 import { useToast } from "@/app/[locale]/_components/ui/use-toast";
 import { useControlledForm } from "@/hooks/form";
+import { useLocale } from "@/hooks/locale";
 import { googleLogin as googleRegister } from "@/lib/data/actions/login";
 import { USER_AUTH_FORM_SCHEMA } from "@/lib/data/actions/login/schema";
 import { signUpWithEmail } from "@/lib/data/actions/register";
 import { cn } from "@/lib/utils";
-import {
-  pushRouteWithTransition,
-  useRouter,
-} from "@/lib/utils/localization/navigation";
+import { useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect, useMemo } from "react";
@@ -41,13 +39,19 @@ export default function UserRegisterForm({
   const { toast } = useToast();
   const { execute, isExecuting, result, hasErrored, hasSucceeded } =
     useAction(signUpWithEmail);
+  const locale = useLocale();
+  const {
+    execute: executeGoogleRegister,
+    isExecuting: isGoogleRegisterExecuting,
+  } = useAction(googleRegister);
 
   const defaultValues = useMemo<UserAuthFormValues>(() => {
     return {
       email: "",
       password: "",
+      locale,
     };
-  }, []);
+  }, [locale]);
 
   const form = useControlledForm<UserAuthFormValues>({
     schema: USER_AUTH_FORM_SCHEMA,
@@ -69,19 +73,23 @@ export default function UserRegisterForm({
         description: "alerts.register.success.description",
         variant: "success",
       });
-      void pushRouteWithTransition("/login", router);
+      router.push("/login");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result, hasErrored, hasSucceeded]);
 
-  async function onSubmit(data: UserAuthFormValues) {
+  async function handleEmailSignUp(data: UserAuthFormValues) {
     execute(data);
+  }
+
+  async function handleGoogleSignUp() {
+    executeGoogleRegister({ locale });
   }
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form onSubmit={form.handleSubmit(handleEmailSignUp)}>
           <div className="grid gap-3">
             <FormField
               control={form.control}
@@ -132,20 +140,24 @@ export default function UserRegisterForm({
         </form>
       </Form>
       <Divider text={t("auth.alternative_method.label")} />
-      <form action={googleRegister}>
+      <form action={handleGoogleSignUp}>
         <Button
+          disabled={isGoogleRegisterExecuting}
           variant="outline"
           type="submit"
           className="w-full text-base"
           aria-label={t("register.google.button")}
         >
+          {isGoogleRegisterExecuting && (
+            <Icons.spinner className="w-4 h-4 mr-2 animate-spin" />
+          )}
           <Icons.google className="w-4 h-4 mr-2" />
           {t("register.google.button")}
         </Button>
       </form>
       <Divider text={t("register.already_have_account.label")} />
       <Button
-        onClick={() => pushRouteWithTransition("/login", router)}
+        onClick={() => router.push("/login")}
         aria-label={t("register.login.button")}
         className="w-full text-base"
         variant="outline"

@@ -1,14 +1,20 @@
 import { db } from "@/lib/utils/prisma";
-import { unstable_cache as next_cache } from "next/cache";
+import { unstable_cacheLife as cacheLife } from "next/cache";
 
 export type Property = Awaited<
   ReturnType<typeof getAdvertisementProperties>
 >[number];
 
-export const getAdvertisementProperties = next_cache(async () => {
+export const getAdvertisementProperties = async () => {
+  "use cache";
+  cacheLife({
+    stale: 10000000,
+    revalidate: 10000000,
+    expire: 10000000,
+  });
   return db.properties.findMany({
     include: {
       properties_group: true,
     },
   });
-}, ["properties"]);
+};
