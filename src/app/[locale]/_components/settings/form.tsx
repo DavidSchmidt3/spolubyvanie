@@ -20,7 +20,7 @@ import { useTranslations } from "next-intl";
 import { useAction } from "next-safe-action/hooks";
 import { useTheme } from "next-themes";
 import { useParams } from "next/navigation";
-import { startTransition, useEffect, useMemo } from "react";
+import { startTransition, use, useEffect, useMemo } from "react";
 
 const DEFAULT: SettingsFormValues = {
   theme: DEFAULT_THEME,
@@ -28,11 +28,16 @@ const DEFAULT: SettingsFormValues = {
 };
 
 type Props = {
-  userSettings: UserSettings | null;
-  user: User;
+  userSettingsPromise: Promise<UserSettings | null>;
+  userPromise: Promise<User>;
 };
 
-export default function SettingsForm({ userSettings, user }: Props) {
+export default function SettingsForm({
+  userSettingsPromise,
+  userPromise,
+}: Props) {
+  const userSettings = use(userSettingsPromise);
+  const user = use(userPromise);
   const t = useTranslations("translations.settings");
   const { toast } = useToast();
   const router = useRouter();

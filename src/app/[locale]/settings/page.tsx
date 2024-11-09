@@ -1,11 +1,14 @@
 import Container from "@/app/[locale]/_components/common/container";
 import NextIntlClientProvider from "@/app/[locale]/_components/providers/next-intl-provider";
 import SettingsForm from "@/app/[locale]/_components/settings/form";
+import Loading from "@/app/[locale]/_components/settings/loading";
 import { getSettings } from "@/lib/data/settings";
 import { getUser } from "@/lib/data/user";
+import { Suspense } from "react";
 
-export default async function SettingsPage() {
-  const [userSettings, user] = await Promise.all([getSettings(), getUser()]);
+export default function SettingsPage() {
+  const userSettingsPromise = getSettings();
+  const userPromise = getUser();
 
   return (
     <NextIntlClientProvider
@@ -16,7 +19,12 @@ export default async function SettingsPage() {
       ]}
     >
       <Container>
-        <SettingsForm userSettings={userSettings} user={user} />
+        <Suspense fallback={<Loading />}>
+          <SettingsForm
+            userSettingsPromise={userSettingsPromise}
+            userPromise={userPromise}
+          />
+        </Suspense>
       </Container>
     </NextIntlClientProvider>
   );
