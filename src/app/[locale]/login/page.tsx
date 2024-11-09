@@ -1,9 +1,9 @@
 import UserAuthForm from "@/app/[locale]/_components/login/form";
-import LoginShell from "@/app/[locale]/_components/login/shell";
 import NextIntlClientProvider from "@/app/[locale]/_components/providers/next-intl-provider";
 import { LOCALES, type Locale } from "@/lib/utils/localization/i18n";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { connection } from "next/server";
+import FormShell from "../_components/form/shell";
 
 type Props = {
   params: Promise<{
@@ -18,7 +18,7 @@ export default async function LoginPage({ params }: Props) {
   setRequestLocale(locale);
 
   return (
-    <LoginShell>
+    <FormShell title="translations.login.label">
       <NextIntlClientProvider
         messages={[
           "translations.auth",
@@ -29,7 +29,7 @@ export default async function LoginPage({ params }: Props) {
       >
         <UserAuthForm />
       </NextIntlClientProvider>
-    </LoginShell>
+    </FormShell>
   );
 }
 

@@ -1,4 +1,4 @@
-import Container from "@/app/[locale]/_components/common/container";
+import FormShell from "@/app/[locale]/_components/form/shell";
 import PasswordResetForm from "@/app/[locale]/_components/password-reset/form";
 import NextIntlClientProvider from "@/app/[locale]/_components/providers/next-intl-provider";
 import { LOCALES, type Locale } from "@/lib/utils/localization/i18n";
@@ -14,30 +14,20 @@ export default async function PasswordReset({ params }: Props) {
   const { locale } = await params;
 
   setRequestLocale(locale);
-  const t = await getTranslations("translations");
 
   return (
-    <Container>
-      <div className="container relative flex flex-col items-center justify-center h-full px-5 sm:px-8">
-        <div className="mx-auto flex flex-col justify-center space-y-6 w-full sm:w-[350px] max-w-[350px]">
-          <div className="flex flex-col space-y-2 text-center">
-            <h1 className="text-3xl font-semibold tracking-tight">
-              {t("password_reset.title")}
-            </h1>
-          </div>
-          <NextIntlClientProvider
-            messages={[
-              "translations.password_reset",
-              "translations.auth",
-              "alerts.password_reset",
-              "alerts.auth",
-            ]}
-          >
-            <PasswordResetForm />
-          </NextIntlClientProvider>
-        </div>
-      </div>
-    </Container>
+    <FormShell title="translations.password_reset.title">
+      <NextIntlClientProvider
+        messages={[
+          "translations.password_reset",
+          "translations.auth",
+          "alerts.password_reset",
+          "alerts.auth",
+        ]}
+      >
+        <PasswordResetForm />
+      </NextIntlClientProvider>
+    </FormShell>
   );
 }
 

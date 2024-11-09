@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 
 export default function ErrorPage() {
   const t = useTranslations("translations");
+
   return (
     <Container className="text-center">
       <h1 className="text-3xl">{t("common.error.label")}</h1>
