@@ -22,7 +22,7 @@ import { cn } from "@/lib/utils";
 import { Link, useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 import { useAction } from "next-safe-action/hooks";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useTransition } from "react";
 import { type z } from "zod";
 
 type UserAuthFormValues = z.infer<typeof USER_AUTH_FORM_SCHEMA>;
@@ -40,6 +40,7 @@ export default function UserLoginForm({ className, ...props }: UserLoginProps) {
     hasErrored,
   } = useAction(signInWithEmail);
   const locale = useLocale();
+  const [isRoutingPending, startTransition] = useTransition();
 
   const { execute: executeGoogle, isExecuting: isGoogleLoginExecuting } =
     useAction(googleLogin);
@@ -77,7 +78,11 @@ export default function UserLoginForm({ className, ...props }: UserLoginProps) {
   }
 
   return (
-    <div className={cn("grid gap-6", className)} {...props}>
+    <div
+      className={cn("grid gap-6", className)}
+      {...props}
+      data-pending={isRoutingPending}
+    >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleEmailLogin)}>
           <div className="grid gap-3">
@@ -150,7 +155,7 @@ export default function UserLoginForm({ className, ...props }: UserLoginProps) {
       </form>
       <Divider text={t("login.no_account.label")} />
       <Button
-        onClick={() => router.push("/register")}
+        onClick={() => startTransition(() => router.push("/register"))}
         className="w-full text-base"
         variant="outline"
         aria-label={t("login.register.button")}

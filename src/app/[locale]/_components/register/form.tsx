@@ -23,7 +23,7 @@ import { cn } from "@/lib/utils";
 import { useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 import { useAction } from "next-safe-action/hooks";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useTransition } from "react";
 import { type z } from "zod";
 
 type UserAuthFormValues = z.infer<typeof USER_AUTH_FORM_SCHEMA>;
@@ -44,6 +44,7 @@ export default function UserRegisterForm({
     execute: executeGoogleRegister,
     isExecuting: isGoogleRegisterExecuting,
   } = useAction(googleRegister);
+  const [isRoutingPending, startTransition] = useTransition();
 
   const defaultValues = useMemo<UserAuthFormValues>(() => {
     return {
@@ -73,7 +74,9 @@ export default function UserRegisterForm({
         description: "alerts.register.success.description",
         variant: "success",
       });
-      router.push("/login");
+      startTransition(() => {
+        router.push("/login");
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result, hasErrored, hasSucceeded]);
@@ -87,7 +90,11 @@ export default function UserRegisterForm({
   }
 
   return (
-    <div className={cn("grid gap-6", className)} {...props}>
+    <div
+      className={cn("grid gap-6", className)}
+      {...props}
+      data-pending={isRoutingPending}
+    >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleEmailSignUp)}>
           <div className="grid gap-3">

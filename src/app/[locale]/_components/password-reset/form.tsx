@@ -21,7 +21,7 @@ import { useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 import { useAction } from "next-safe-action/hooks";
 import { useParams } from "next/navigation";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useTransition } from "react";
 import { type z } from "zod";
 
 type ResetPasswordFormValues = z.infer<typeof PASSWORD_RESET_SCHEMA>;
@@ -38,6 +38,7 @@ export default function PasswordResetForm({
   const { toast } = useToast();
   const { execute, isExecuting, result, hasErrored, hasSucceeded } =
     useAction(resetPassword);
+  const [isRoutingPending, startTransition] = useTransition();
 
   const defaultValues = useMemo<ResetPasswordFormValues>(() => {
     return {
@@ -67,7 +68,9 @@ export default function PasswordResetForm({
         description: "alerts.password_reset.success.description",
         variant: "success",
       });
-      router.push("/login");
+      startTransition(() => {
+        router.push("/login");
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result, hasErrored, hasSucceeded]);
@@ -77,7 +80,11 @@ export default function PasswordResetForm({
   }
 
   return (
-    <div className={cn("grid gap-6", className)} {...props}>
+    <div
+      className={cn("grid gap-6", className)}
+      {...props}
+      data-pending={isRoutingPending}
+    >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid gap-3">

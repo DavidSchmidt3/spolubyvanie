@@ -29,7 +29,7 @@ import { type Locale } from "@/lib/utils/localization/i18n";
 import { useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 import { useAction } from "next-safe-action/hooks";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useTransition } from "react";
 
 type PropsBase = {
   regions: Region[];
@@ -64,6 +64,7 @@ export default function AdvertisementForm({
     useAction(upsertAdvertisement);
   const { toast } = useToast();
   const router = useRouter();
+  const [isRoutingPending, startTransition] = useTransition();
 
   function getNumericProps(min?: string) {
     return {
@@ -134,9 +135,11 @@ export default function AdvertisementForm({
         variant: "success",
       });
       resetPersistedValues();
-      router.push({
-        pathname: "/my-advertisements/[page]",
-        params: { page: "1" },
+      startTransition(() => {
+        router.push({
+          pathname: "/my-advertisements/[page]",
+          params: { page: "1" },
+        });
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -151,7 +154,11 @@ export default function AdvertisementForm({
   }
 
   return (
-    <Container className="p-1 sm:py-3" fullWidth>
+    <Container
+      className="p-1 sm:py-3"
+      fullWidth
+      data-pending={isRoutingPending}
+    >
       <h1 className="text-2xl font-bold text-center sm:text-3xl">
         {isEdit ? t("edit_advertisement.title") : t("add_advertisement.title")}
       </h1>

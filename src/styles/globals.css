@@ -62,12 +62,9 @@
   body {
     @apply bg-background text-foreground;
   }
-}
-
-body {
-  transition-property: opacity, background, transform, filter;
-  transition-timing-function: ease-in-out;
-  transition-duration: 200ms;
+  body:has(div[data-pending=true]) {
+    @apply animate-pulse;
+  }
 }
 
 .page-transition {

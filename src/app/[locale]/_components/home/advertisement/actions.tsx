@@ -19,7 +19,7 @@ import { useRouter } from "@/lib/utils/localization/navigation";
 import { AlertDialogDescription } from "@radix-ui/react-alert-dialog";
 import { useTranslations } from "next-intl";
 import { useAction } from "next-safe-action/hooks";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 type Props = {
   advertisement: Advertisement;
@@ -32,6 +32,7 @@ export default function AdvertisementActions({ advertisement }: Props) {
   const router = useRouter();
   const { execute, isExecuting, hasErrored, hasSucceeded } =
     useAction(deleteAdvertisement);
+  const [isRoutingPending, startTransition] = useTransition();
 
   useEffect(() => {
     if (hasErrored) {
@@ -57,13 +58,18 @@ export default function AdvertisementActions({ advertisement }: Props) {
   }
 
   return (
-    <div className="flex gap-2 flex-col sm:flex-row">
+    <div
+      className="flex gap-2 flex-col sm:flex-row"
+      data-pending={isRoutingPending}
+    >
       <Button
         className="flex gap-2 h-min"
         onClick={() =>
-          router.push({
-            pathname: "/advertisement/[id]/edit",
-            params: { id: advertisement.id },
+          startTransition(() => {
+            router.push({
+              pathname: "/advertisement/[id]/edit",
+              params: { id: advertisement.id },
+            });
           })
         }
       >

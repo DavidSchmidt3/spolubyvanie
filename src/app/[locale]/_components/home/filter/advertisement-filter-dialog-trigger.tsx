@@ -31,7 +31,7 @@ import {
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 const AdvertisementFilterDialogContent = dynamic(
   () => import("./advertisement-filter-dialog-content"),
   { ssr: false }
@@ -58,6 +58,7 @@ export default function AdvertisementFilterDialog({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const t = useTranslations("translations.advertisement_list");
+  const [isRoutingPending, startTransition] = useTransition();
 
   const defaultValues = useMemo<AdvertisementFilterFormValues>(() => {
     return {
@@ -105,10 +106,12 @@ export default function AdvertisementFilterDialog({
     }
     setIsFetching(true);
     const queryParams = createQueryParamsFromObject(data);
-    router.push({
-      pathname: "/[page]",
-      params: { page: "1" },
-      query: queryParams,
+    startTransition(() => {
+      router.push({
+        pathname: "/[page]",
+        params: { page: "1" },
+        query: queryParams,
+      });
     });
   }
 
@@ -125,7 +128,7 @@ export default function AdvertisementFilterDialog({
   }
 
   return (
-    <Card className="rounded-none">
+    <Card className="rounded-none" data-pending={isRoutingPending}>
       <CardContent className="flex flex-col items-center justify-between px-5 py-5 sm:px-10 sm:flex-row gap-y-4 gap-x-6">
         <div className="flex flex-col gap-y-4">
           <h1 className="text-xl font-bold sm:text-3xl">{t("title")}</h1>
