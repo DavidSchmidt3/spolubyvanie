@@ -13,7 +13,7 @@ import {
   actionClient,
 } from "@/lib/data/actions/safe-action-client";
 import { type Locale } from "@/lib/utils/localization/i18n";
-import { redirect as redirectLocal } from "@/lib/utils/localization/navigation";
+import { permanentRedirect as redirectLocal } from "@/lib/utils/localization/navigation";
 import { createClient } from "@/lib/utils/supabase/server";
 import { formatZodErrors } from "@/lib/utils/zod";
 import { revalidatePath } from "next/cache";
@@ -41,13 +41,13 @@ export const googleLogin = actionClient
 
     if (error) {
       // here is used localized redirect to handle localization because this is redirect in our app
-      redirectLocal({
+      return redirectLocal({
         href: "/error",
         locale,
       });
     }
 
-    redirectLocal({
+    return redirectLocal({
       href: {
         pathname: "/[page]",
         params: {
@@ -58,21 +58,25 @@ export const googleLogin = actionClient
     });
   });
 
-export async function logout(locale: Locale) {
-  const supabase = await createClient();
+export const logout = async (locale: Locale) => {
+  try {
+    const supabase = await createClient();
 
-  await supabase.auth.signOut();
+    await supabase.auth.signOut();
 
-  redirectLocal({
-    locale,
-    href: {
-      pathname: "/[page]",
-      params: {
-        page: "1",
+    return redirectLocal({
+      locale,
+      href: {
+        pathname: "/[page]",
+        params: {
+          page: "1",
+        },
       },
-    },
-  });
-}
+    });
+  } catch (error) {
+    console.error("Error logging out", error);
+  }
+};
 
 export const signInWithEmail = actionClient
   .schema(USER_AUTH_FORM_SCHEMA, {
@@ -98,7 +102,7 @@ export const signInWithEmail = actionClient
     }
 
     revalidatePath("/");
-    redirectLocal({
+    return redirectLocal({
       locale,
       href: {
         pathname: "/[page]",

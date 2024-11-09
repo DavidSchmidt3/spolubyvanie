@@ -1,13 +1,8 @@
 import Container from "@/app/[locale]/_components/common/container";
 import PasswordResetForm from "@/app/[locale]/_components/password-reset/form";
-import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
+import NextIntlClientProvider from "@/app/[locale]/_components/providers/next-intl-provider";
 import { LOCALES, type Locale } from "@/lib/utils/localization/i18n";
-import { NextIntlClientProvider } from "next-intl";
-import {
-  getMessages,
-  getTranslations,
-  setRequestLocale,
-} from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 type Props = {
   params: Promise<{
@@ -19,7 +14,6 @@ export default async function PasswordReset({ params }: Props) {
   const { locale } = await params;
 
   setRequestLocale(locale);
-  const messages = await getMessages();
   const t = await getTranslations("translations");
 
   return (
@@ -32,12 +26,12 @@ export default async function PasswordReset({ params }: Props) {
             </h1>
           </div>
           <NextIntlClientProvider
-            messages={pickLocaleMessages(messages, [
+            messages={[
               "translations.password_reset",
               "translations.auth",
               "alerts.password_reset",
               "alerts.auth",
-            ])}
+            ]}
           >
             <PasswordResetForm />
           </NextIntlClientProvider>

@@ -11,12 +11,18 @@ import {
 } from "@/lib/utils/localization/i18n";
 import { createNavigation } from "next-intl/navigation";
 
-export const { Link, redirect, usePathname, useRouter, getPathname } =
-  createNavigation({
-    locales: LOCALES_CODES,
-    localePrefix: LOCALE_PREFIX,
-    pathnames,
-  });
+export const {
+  Link,
+  redirect,
+  permanentRedirect,
+  usePathname,
+  useRouter,
+  getPathname,
+} = createNavigation({
+  locales: LOCALES_CODES,
+  localePrefix: LOCALE_PREFIX,
+  pathnames,
+});
 
 function getStringValue(value: string | string[]) {
   return Array.isArray(value) ? value.join(",") : value ?? "";

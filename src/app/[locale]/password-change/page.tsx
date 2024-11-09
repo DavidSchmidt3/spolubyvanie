@@ -1,11 +1,9 @@
 import Container from "@/app/[locale]/_components/common/container";
 import PasswordChangeForm from "@/app/[locale]/_components/password-change/form";
-import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages, getTranslations } from "next-intl/server";
+import NextIntlClientProvider from "@/app/[locale]/_components/providers/next-intl-provider";
+import { getTranslations } from "next-intl/server";
 
 export default async function PasswordChange() {
-  const messages = await getMessages();
   const t = await getTranslations("translations");
 
   return (
@@ -18,12 +16,12 @@ export default async function PasswordChange() {
             </h1>
           </div>
           <NextIntlClientProvider
-            messages={pickLocaleMessages(messages, [
+            messages={[
               "translations.password_change",
               "translations.auth",
               "alerts.password_change",
               "alerts.auth",
-            ])}
+            ]}
           >
             <PasswordChangeForm />
           </NextIntlClientProvider>

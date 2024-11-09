@@ -1,7 +1,6 @@
 import { enUS, sk } from "date-fns/locale";
 import { IntlErrorCode } from "next-intl";
 import { getRequestConfig } from "next-intl/server";
-import { notFound } from "next/navigation";
 import enAlerts from "./en/alerts.json";
 import enMetadata from "./en/metadata.json";
 import enTranslations from "./en/translations.json";
@@ -30,10 +29,13 @@ export const allMessages = {
 };
 
 export default getRequestConfig(async ({ requestLocale }) => {
-  const locale = await requestLocale;
-  if (!LOCALES.some((l) => l.code === locale)) notFound();
+  let locale = await requestLocale;
+  if (!locale || !LOCALES.some((l) => l.code === locale)) {
+    locale = DEFAULT_LOCALE;
+  }
 
   return {
+    locale,
     messages: {
       ...(await import(`./${locale}/metadata.json`)).default,
       ...(await import(`./${locale}/alerts.json`)).default,

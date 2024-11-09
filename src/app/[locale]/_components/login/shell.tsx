@@ -1,14 +1,12 @@
 import Container from "@/app/[locale]/_components/common/container";
-import { use } from "react";
+import { useTranslations } from "next-intl";
 
 type Props = {
   children: React.ReactNode;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  promiseT: Promise<any>;
 };
 
-export default function LoginShell({ children, promiseT }: Props) {
-  const t = use(promiseT);
+export default function LoginShell({ children }: Props) {
+  const t = useTranslations("translations");
 
   return (
     <Container>

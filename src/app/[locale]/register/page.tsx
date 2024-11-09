@@ -1,13 +1,8 @@
 import Container from "@/app/[locale]/_components/common/container";
+import NextIntlClientProvider from "@/app/[locale]/_components/providers/next-intl-provider";
 import UserRegisterForm from "@/app/[locale]/_components/register/form";
-import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
 import { LOCALES, type Locale } from "@/lib/utils/localization/i18n";
-import { NextIntlClientProvider } from "next-intl";
-import {
-  getMessages,
-  getTranslations,
-  setRequestLocale,
-} from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 type Props = {
   params: Promise<{
@@ -19,7 +14,6 @@ export default async function RegisterPage({ params }: Props) {
   const { locale } = await params;
 
   setRequestLocale(locale);
-  const messages = await getMessages();
   const t = await getTranslations("translations");
 
   return (
@@ -32,12 +26,12 @@ export default async function RegisterPage({ params }: Props) {
             </h1>
           </div>
           <NextIntlClientProvider
-            messages={pickLocaleMessages(messages, [
+            messages={[
               "translations.register",
               "translations.auth",
               "alerts.register",
               "alerts.auth",
-            ])}
+            ]}
           >
             <UserRegisterForm />
           </NextIntlClientProvider>

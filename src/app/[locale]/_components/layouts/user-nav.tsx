@@ -24,6 +24,7 @@ export default function UserNav({ params }: Props) {
   const t = use(getTranslations("translations"));
   const user = use(getUser());
   const { locale } = use(params);
+  const logoutWithLocale = logout.bind(null, locale);
 
   return (
     <DropdownMenu>
@@ -72,7 +73,7 @@ export default function UserNav({ params }: Props) {
               </DropdownMenuItem>
             </Link>
             <DropdownMenuItem>
-              <form action={() => logout(locale)} className="w-full">
+              <form className="w-full" action={logoutWithLocale}>
                 <Button
                   aria-label={t("logout.button")}
                   variant="ghost"

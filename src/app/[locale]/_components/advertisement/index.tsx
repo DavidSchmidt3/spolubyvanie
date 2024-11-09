@@ -1,6 +1,7 @@
 import ContactForm from "@/app/[locale]/_components/advertisement/contact-form";
 import ImageGallery from "@/app/[locale]/_components/advertisement/image-gallery";
 import InfoCard from "@/app/[locale]/_components/advertisement/info-card";
+import NextIntlClientProvider from "@/app/[locale]/_components/providers/next-intl-provider";
 import {
   Card,
   CardContent,
@@ -9,10 +10,7 @@ import {
 import { addAdvertisementView } from "@/lib/data/actions/upsert-advertisement/view";
 import { type Property } from "@/lib/data/advertisements-properties";
 import { type Advertisement } from "@/lib/data/advertisements/format";
-import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
 import { type Locale } from "@/lib/utils/localization/i18n";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
 
 type Props = {
   advertisement: Advertisement;
@@ -27,7 +25,6 @@ export default async function Advertisement({
 }: Props) {
   const { title, description, advertisement_photos } = advertisement;
   void addAdvertisementView(advertisement.id);
-  const messages = await getMessages();
 
   return (
     <Card className="w-full h-auto p-6 rounded-none">
@@ -53,10 +50,7 @@ export default async function Advertisement({
         </div>
       </CardContent>
       <NextIntlClientProvider
-        messages={pickLocaleMessages(messages, [
-          "translations.advertisement",
-          "alerts.advertisement",
-        ])}
+        messages={["translations.advertisement", "alerts.advertisement"]}
       >
         <ContactForm
           userId={advertisement.user_id}

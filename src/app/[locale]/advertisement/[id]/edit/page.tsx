@@ -1,6 +1,7 @@
 import AdvertisementForm from "@/app/[locale]/_components/advertisement/form";
 import NotFound from "@/app/[locale]/_components/advertisement/not-found";
 import LoginPrompt from "@/app/[locale]/_components/edit-advertisement/login-prompt";
+import NextIntlClientProvider from "@/app/[locale]/_components/providers/next-intl-provider";
 import {
   getDistricts,
   getMunicipalities,
@@ -13,11 +14,8 @@ import {
 import { getFormDefaultValues } from "@/lib/data/advertisement/format";
 import { getAdvertisementProperties } from "@/lib/data/advertisements-properties";
 import { getUser } from "@/lib/data/user";
-import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
 import { type Locale } from "@/lib/utils/localization/i18n";
 import { redirect } from "@/lib/utils/localization/navigation";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
 
 type Props = {
   params: Promise<{
@@ -29,23 +27,15 @@ type Props = {
 export default async function AdvertisementEdit({ params }: Props) {
   const { id, locale } = await params;
 
-  const [
-    user,
-    regions,
-    districts,
-    municipalities,
-    messages,
-    advertisement,
-    properties,
-  ] = await Promise.all([
-    getUser(),
-    getRegions(),
-    getDistricts(),
-    getMunicipalities(),
-    getMessages(),
-    getAdvertisement(id, true),
-    getAdvertisementProperties(),
-  ]);
+  const [user, regions, districts, municipalities, advertisement, properties] =
+    await Promise.all([
+      getUser(),
+      getRegions(),
+      getDistricts(),
+      getMunicipalities(),
+      getAdvertisement(id, true),
+      getAdvertisementProperties(),
+    ]);
 
   if (!user) {
     return <LoginPrompt />;
@@ -72,13 +62,13 @@ export default async function AdvertisementEdit({ params }: Props) {
 
   return (
     <NextIntlClientProvider
-      messages={pickLocaleMessages(messages, [
+      messages={[
         "translations.advertisement",
         "translations.add_advertisement",
         "translations.advertisement_list",
         "translations.edit_advertisement",
         "alerts.add_advertisement",
-      ])}
+      ]}
     >
       <AdvertisementForm
         locale={locale}

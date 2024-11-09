@@ -1,25 +1,19 @@
 import Container from "@/app/[locale]/_components/common/container";
+import NextIntlClientProvider from "@/app/[locale]/_components/providers/next-intl-provider";
 import SettingsForm from "@/app/[locale]/_components/settings/form";
 import { getSettings } from "@/lib/data/settings";
 import { getUser } from "@/lib/data/user";
-import { pickLocaleMessages } from "@/lib/utils/localization/helpers";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
 
 export default async function SettingsPage() {
-  const [messages, userSettings, user] = await Promise.all([
-    getMessages(),
-    getSettings(),
-    getUser(),
-  ]);
+  const [userSettings, user] = await Promise.all([getSettings(), getUser()]);
 
   return (
     <NextIntlClientProvider
-      messages={pickLocaleMessages(messages, [
+      messages={[
         "translations.common",
         "translations.settings",
         "alerts.settings",
-      ])}
+      ]}
     >
       <Container>
         <SettingsForm userSettings={userSettings} user={user} />
