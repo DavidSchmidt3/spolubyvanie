@@ -8,44 +8,82 @@ import {
 import { Skeleton } from "@/app/[locale]/_components/ui/skeleton";
 
 export default function AddAdvertisementLoading() {
-  function Row() {
-    return (
-      <div className="flex flex-col gap-y-3">
-        <Skeleton className="h-5 w-20" />
-        <Skeleton className="h-11 w-full" />
-      </div>
-    );
-  }
-
   return (
     <Container className="p-1 sm:py-3" fullWidth>
-      <Skeleton className="h-10 w-80 mx-auto mb-8" />
-      <div className="grid grid-cols-1 gap-2 mx-4 mt-4 gap-y-4 sm:gap-4 md:grid-cols-2">
+      <div className="flex justify-center w-full space-y-2 text-center">
+        <Skeleton className="w-48 h-8" />
+      </div>
+      <div className="grid grid-cols-1 gap-2 mx-4 mt-4 gap-y-4 sm:gap-4 md:grid-cols-2 xl:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle>
-              <Skeleton className="h-10 w-1/2" />
+              <Skeleton className="w-24 h-6" />
             </CardTitle>
+            <span>
+              <Skeleton className="w-48 h-4" />
+            </span>
           </CardHeader>
-          <CardContent className="flex flex-col gap-y-8">
-            <Row />
-            <Row />
-            <Row />
-            <Row />
-            <Skeleton className="h-48 w-full" />
+          <CardContent className="flex flex-col gap-y-4">
+            <div className="relative flex flex-col justify-center w-full gap-1">
+              <Skeleton className="w-32 h-4" />
+              <Skeleton className="w-full h-10 mt-4" />
+            </div>
+            <div className="mt-2">
+              <Skeleton className="w-32 h-4" />
+              <Skeleton className="w-full h-10 mt-4" />
+            </div>
+            <div className="mt-2">
+              <Skeleton className="w-32 h-4" />
+              <Skeleton className="w-full h-10 mt-4" />
+            </div>
+            <div className="mt-2">
+              <Skeleton className="w-32 h-4" />
+              <Skeleton className="w-full h-10 mt-4" />
+            </div>
+            <div className="mt-2">
+              <Skeleton className="w-32 h-4" />
+              <Skeleton className="w-full h-40 mt-4" />
+            </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="w-full">
           <CardHeader>
             <CardTitle>
-              <Skeleton className="h-11 w-1/2" />
+              <Skeleton className="w-24 h-6" />
             </CardTitle>
+            <span>
+              <Skeleton className="w-48 h-4" />
+            </span>
           </CardHeader>
-          <CardContent className="flex flex-col gap-y-8">
-            <Row />
-            <Row />
-            <Row />
-            <Row />
+          <CardContent className="flex flex-col gap-y-4">
+            <div className="flex flex-col gap-y-4 gap-x-4 sm:gap-x-8">
+              <div className="mt-2">
+                <Skeleton className="w-32 h-4" />
+                <Skeleton className="w-full h-10 mt-4" />
+              </div>
+              <div className="mt-2">
+                <Skeleton className="w-32 h-4" />
+                <Skeleton className="w-full h-10 mt-4" />
+              </div>
+              <div className="mt-2">
+                <Skeleton className="w-32 h-4" />
+                <Skeleton className="w-full h-10 mt-4" />
+                <Skeleton className="w-full h-4 mt-2" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card className="col-span-1 md:col-span-2 xl:col-span-3">
+          <CardHeader>
+            <CardTitle>
+              <Skeleton className="w-24 h-6" />
+            </CardTitle>
+            <span>
+              <Skeleton className="w-48 h-4" />
+            </span>
+          </CardHeader>
+          <CardContent>
+            <Skeleton className="w-full h-72" />
           </CardContent>
         </Card>
       </div>
