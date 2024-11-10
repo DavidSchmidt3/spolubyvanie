@@ -22,11 +22,10 @@ export default function MyAdvertisementPagination({
 
   return (
     <Pagination>
-      <PaginationContent className="pb-4 justify-center flex-wrap">
+      <PaginationContent className="flex-wrap justify-center pb-4">
         {!isFirstPage && (
           <PaginationItem className="w-full text-center sm:w-auto">
             <PaginationPrevious
-              prefetch={true}
               href={{
                 pathname: "/my-advertisements/[page]",
                 params: { page: (parseInt(page) - 1).toString() },
@@ -40,7 +39,6 @@ export default function MyAdvertisementPagination({
             return (
               <PaginationItem key={page}>
                 <PaginationLink
-                  prefetch={page < currentPage}
                   href={{
                     pathname: "/my-advertisements/[page]",
                     params: { page },
@@ -57,7 +55,6 @@ export default function MyAdvertisementPagination({
         {!isLastPage && (
           <PaginationItem className="w-full text-center sm:w-auto">
             <PaginationNext
-              prefetch={false}
               href={{
                 pathname: "/my-advertisements/[page]",
                 params: { page: (parseInt(page) + 1).toString() },

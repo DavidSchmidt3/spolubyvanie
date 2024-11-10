@@ -10,7 +10,6 @@ export type HrefType = Parameters<PushType>[0];
 type Props = {
   className?: string;
   href: HrefType;
-  prefetch?: boolean | null;
   children?: React.ReactNode;
   ariaCurrent?:
     | boolean
@@ -26,7 +25,6 @@ type Props = {
 export default function TransitionLink({
   href,
   className,
-  prefetch,
   children,
   ariaCurrent,
 }: Props) {
@@ -37,7 +35,7 @@ export default function TransitionLink({
     <div data-pending={isRoutingPending}>
       <Link
         href={href}
-        prefetch={prefetch}
+        prefetch
         aria-current={ariaCurrent}
         passHref
         className={className}

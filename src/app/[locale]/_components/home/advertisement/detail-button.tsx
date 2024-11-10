@@ -16,13 +16,12 @@ export default function DetailButton({ id, text }: Props) {
         params: { id },
       }}
       className=""
-      prefetch={false}
     >
       <Button
-        className="flex items-center gap-x-2 max-w-full text-wrap"
+        className="flex items-center max-w-full gap-x-2 text-wrap"
         variant="ringHover"
       >
-        <Icons.magnifier className="w-8 sm:w-10 h-8 sm:h-10" />
+        <Icons.magnifier className="w-8 h-8 sm:w-10 sm:h-10" />
         <p className="font-bold">{text}</p>
       </Button>
     </TransitionLink>

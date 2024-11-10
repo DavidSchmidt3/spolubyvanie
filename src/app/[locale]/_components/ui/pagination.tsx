@@ -49,7 +49,6 @@ type PaginationLinkProps = {
   href: HrefType;
   ariaLabel?: string;
   size?: "icon" | "default";
-  prefetch?: boolean | null;
   children?: React.ReactNode;
 } & Pick<ButtonProps, "size">;
 
@@ -59,13 +58,11 @@ const PaginationLink = ({
   href,
   size = "icon",
   children,
-  prefetch,
   ...props
 }: PaginationLinkProps) => (
   <TransitionLink
     aria-current={isActive ? "page" : undefined}
     href={href}
-    prefetch={prefetch}
     className={cn(
       buttonVariants({
         variant: isActive ? "outline" : "ghost",

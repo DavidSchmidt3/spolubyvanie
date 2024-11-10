@@ -32,8 +32,7 @@ export default function AdvertisementPaginationPrefetch({
         query: parsedQueryString,
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nextPage, currentQueryString]);
+  }, [nextPage, currentQueryString, router, parsedQueryString]);
 
   return null; // This component doesn't render anything
 }
