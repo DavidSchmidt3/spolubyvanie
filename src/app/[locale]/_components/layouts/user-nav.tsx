@@ -1,4 +1,5 @@
 import TransitionLink from "@/app/[locale]/_components/navigation/transition-link";
+import NextIntlClientProvider from "@/app/[locale]/_components/providers/next-intl-provider";
 import { Avatar } from "@/app/[locale]/_components/ui/avatar";
 import { Button } from "@/app/[locale]/_components/ui/button";
 import {
@@ -10,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/app/[locale]/_components/ui/dropdown-menu";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
-import { logout } from "@/lib/data/actions/login";
+import Logout from "@/app/[locale]/_components/user-nav/logout";
 import { getUser } from "@/lib/data/user";
 import { type Locale } from "@/lib/utils/localization/i18n";
 import { getTranslations } from "next-intl/server";
@@ -24,7 +25,6 @@ export default function UserNav({ params }: Props) {
   const t = use(getTranslations("translations"));
   const user = use(getUser());
   const { locale } = use(params);
-  const logoutWithLocale = logout.bind(null, locale);
 
   return (
     <DropdownMenu>
@@ -73,19 +73,9 @@ export default function UserNav({ params }: Props) {
               </DropdownMenuItem>
             </TransitionLink>
             <DropdownMenuItem>
-              <form className="w-full" action={logoutWithLocale}>
-                <Button
-                  aria-label={t("logout.button")}
-                  variant="ghost"
-                  className="justify-start w-full h-6 p-0 text-base text-left cursor-pointer hover:bg-accent/90"
-                  type="submit"
-                >
-                  <div className="flex items-center gap-x-2">
-                    <Icons.door />
-                    {t("logout.button")}
-                  </div>
-                </Button>
-              </form>
+              <NextIntlClientProvider messages={["translations.logout"]}>
+                <Logout locale={locale} />
+              </NextIntlClientProvider>
             </DropdownMenuItem>
           </>
         ) : (

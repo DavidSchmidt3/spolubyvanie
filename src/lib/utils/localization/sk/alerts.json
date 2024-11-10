@@ -23,6 +23,14 @@
         }
       }
     },
+    "logout": {
+      "error": {
+        "title": "Odhlásenie sa nepodarilo"
+      },
+      "success": {
+        "title": "Boli ste úspešne odhlásení"
+      }
+    },
     "user": {
       "error": {
         "unauthenticated": "Prosím prihláste sa pre pokračovanie"

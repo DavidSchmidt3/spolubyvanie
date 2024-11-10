@@ -12,7 +12,6 @@ import {
   ActionError,
   actionClient,
 } from "@/lib/data/actions/safe-action-client";
-import { type Locale } from "@/lib/utils/localization/i18n";
 import { permanentRedirect as redirectLocal } from "@/lib/utils/localization/navigation";
 import { createClient } from "@/lib/utils/supabase/server";
 import { formatZodErrors } from "@/lib/utils/zod";
@@ -58,25 +57,29 @@ export const googleLogin = actionClient
     });
   });
 
-export const logout = async (locale: Locale) => {
-  try {
-    const supabase = await createClient();
+export const logout = actionClient
+  .schema(LOCALE_ACTION_SCHEMA, {
+    handleValidationErrorsShape: formatZodErrors,
+  })
+  .action(async ({ parsedInput: { locale } }) => {
+    try {
+      const supabase = await createClient();
 
-    await supabase.auth.signOut();
+      await supabase.auth.signOut();
 
-    return redirectLocal({
-      locale,
-      href: {
-        pathname: "/[page]",
-        params: {
-          page: "1",
+      return redirectLocal({
+        locale,
+        href: {
+          pathname: "/[page]",
+          params: {
+            page: "1",
+          },
         },
-      },
-    });
-  } catch (error) {
-    console.error("Error logging out", error);
-  }
-};
+      });
+    } catch (error) {
+      console.error("Error logging out", error);
+    }
+  });
 
 export const signInWithEmail = actionClient
   .schema(USER_AUTH_FORM_SCHEMA, {
