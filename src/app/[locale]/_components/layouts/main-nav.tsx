@@ -1,6 +1,6 @@
+import TransitionLink from "@/app/[locale]/_components/navigation/transition-link";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { getUser } from "@/lib/data/user";
-import { Link } from "@/lib/utils/localization/navigation";
 import { getTranslations } from "next-intl/server";
 
 export async function MainNav({ ...props }: React.HTMLAttributes<HTMLElement>) {
@@ -12,7 +12,7 @@ export async function MainNav({ ...props }: React.HTMLAttributes<HTMLElement>) {
       className="flex items-center gap-2 space-x-2 sm:space-x-6 sm:gap-5 lg:space-x-6 sm:mx-6"
       {...props}
     >
-      <Link
+      <TransitionLink
         href={{
           pathname: "/[page]",
           params: { page: "1" },
@@ -23,9 +23,9 @@ export async function MainNav({ ...props }: React.HTMLAttributes<HTMLElement>) {
           <Icons.home className="w-4 h-4" />
           <p>{t("navigation.home.label")}</p>
         </div>
-      </Link>
+      </TransitionLink>
       {user && (
-        <Link
+        <TransitionLink
           href={{
             pathname: "/my-advertisements/[page]",
             params: { page: "1" },
@@ -36,9 +36,9 @@ export async function MainNav({ ...props }: React.HTMLAttributes<HTMLElement>) {
             <Icons.building className="w-5 h-5" />
             <p>{t("navigation.my_advertisements.label")}</p>
           </div>
-        </Link>
+        </TransitionLink>
       )}
-      <Link
+      <TransitionLink
         href="/add-advertisement"
         className="text-base text-center sm:text-lg hidden sm:block"
       >
@@ -46,13 +46,13 @@ export async function MainNav({ ...props }: React.HTMLAttributes<HTMLElement>) {
           <Icons.plus className="w-5 h-5" />
           <p>{t("navigation.add_advertisement.label")}</p>
         </div>
-      </Link>
-      <Link href="/contact" className="hidden text-lg sm:block">
+      </TransitionLink>
+      <TransitionLink href="/contact" className="hidden text-lg sm:block">
         <div className="flex items-center gap-x-2">
           <Icons.person className="w-5 h-5" />
           <p>{t("navigation.contact.label")}</p>
         </div>
-      </Link>
+      </TransitionLink>
     </nav>
   );
 }

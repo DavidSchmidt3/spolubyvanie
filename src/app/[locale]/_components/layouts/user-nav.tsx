@@ -1,3 +1,4 @@
+import TransitionLink from "@/app/[locale]/_components/navigation/transition-link";
 import { Avatar } from "@/app/[locale]/_components/ui/avatar";
 import { Button } from "@/app/[locale]/_components/ui/button";
 import {
@@ -12,7 +13,6 @@ import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { logout } from "@/lib/data/actions/login";
 import { getUser } from "@/lib/data/user";
 import { type Locale } from "@/lib/utils/localization/i18n";
-import { Link } from "@/lib/utils/localization/navigation";
 import { getTranslations } from "next-intl/server";
 import { use } from "react";
 
@@ -48,17 +48,17 @@ export default function UserNav({ params }: Props) {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <Link href="/settings" className="w-full">
+        <TransitionLink href="/settings" className="w-full">
           <DropdownMenuItem className="text-base cursor-pointer hover:bg-accent/90">
             <div className="flex items-center gap-x-2">
               <Icons.settings />
               {t("settings.title")}
             </div>
           </DropdownMenuItem>
-        </Link>
+        </TransitionLink>
         {user ? (
           <>
-            <Link
+            <TransitionLink
               href={{
                 pathname: "/my-advertisements/[page]",
                 params: { page: "1" },
@@ -71,7 +71,7 @@ export default function UserNav({ params }: Props) {
                   {t("navigation.my_advertisements.label")}
                 </div>
               </DropdownMenuItem>
-            </Link>
+            </TransitionLink>
             <DropdownMenuItem>
               <form className="w-full" action={logoutWithLocale}>
                 <Button
@@ -90,22 +90,22 @@ export default function UserNav({ params }: Props) {
           </>
         ) : (
           <>
-            <Link href="/add-advertisement" className="w-full">
+            <TransitionLink href="/add-advertisement" className="w-full">
               <DropdownMenuItem className="text-base cursor-pointer hover:bg-accent/90">
                 <div className="flex items-center gap-x-2">
                   <Icons.plus className="w-4 h-4" />
                   {t("navigation.add_advertisement.label")}
                 </div>
               </DropdownMenuItem>
-            </Link>
-            <Link href="/login" className="w-full">
+            </TransitionLink>
+            <TransitionLink href="/login" className="w-full">
               <DropdownMenuItem className="text-base cursor-pointer hover:bg-accent/90">
                 <div className="flex items-center gap-x-2">
                   <Icons.person />
                   {t("login.button")}
                 </div>
               </DropdownMenuItem>
-            </Link>
+            </TransitionLink>
           </>
         )}
       </DropdownMenuContent>

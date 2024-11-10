@@ -63,7 +63,7 @@
     @apply bg-background text-foreground;
   }
   body:has(div[data-pending=true]) {
-    @apply animate-pulse;
+    @apply animate-pulse-fast;
   }
 }
 

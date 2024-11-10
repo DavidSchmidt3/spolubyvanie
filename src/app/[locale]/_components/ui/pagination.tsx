@@ -1,13 +1,15 @@
 import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
 import * as React from "react";
 
+import TransitionLink, {
+  type HrefType,
+} from "@/app/[locale]/_components/navigation/transition-link";
 import {
   buttonVariants,
   type ButtonProps,
 } from "@/app/[locale]/_components/ui/button";
 import { cn } from "@/lib/utils";
 import { type Locale } from "@/lib/utils/localization/i18n";
-import { Link } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
@@ -44,19 +46,26 @@ type PaginationLinkProps = {
   isActive?: boolean;
   locale?: Locale;
   className?: string;
-} & Pick<ButtonProps, "size"> &
-  React.ComponentProps<typeof Link>;
+  href: HrefType;
+  ariaLabel?: string;
+  size?: "icon" | "default";
+  prefetch?: boolean | null;
+  children?: React.ReactNode;
+} & Pick<ButtonProps, "size">;
 
 const PaginationLink = ({
   className,
   isActive,
   href,
   size = "icon",
+  children,
+  prefetch,
   ...props
 }: PaginationLinkProps) => (
-  <Link
+  <TransitionLink
     aria-current={isActive ? "page" : undefined}
     href={href}
+    prefetch={prefetch}
     className={cn(
       buttonVariants({
         variant: isActive ? "outline" : "ghost",
@@ -65,7 +74,9 @@ const PaginationLink = ({
       className
     )}
     {...props}
-  />
+  >
+    {children}
+  </TransitionLink>
 );
 PaginationLink.displayName = "PaginationLink";
 
@@ -73,7 +84,7 @@ const PaginationPrevious = ({ className, ...props }: PaginationLinkProps) => {
   const t = useTranslations("translations.common.pagination");
   return (
     <PaginationLink
-      aria-label="Go to previous page"
+      ariaLabel="Go to previous page"
       size="default"
       className={cn("gap-1 pl-2.5", className)}
       {...props}
@@ -90,7 +101,7 @@ const PaginationNext = ({ className, ...props }: PaginationLinkProps) => {
 
   return (
     <PaginationLink
-      aria-label="Go to next page"
+      ariaLabel="Go to next page"
       size="default"
       className={cn("gap-1 pr-2.5", className)}
       {...props}

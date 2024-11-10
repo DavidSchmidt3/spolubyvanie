@@ -52,7 +52,7 @@ export default function Properties({
                 </TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody className="w-full">
+            <TableBody className="w-full border-spacing-y-1 border-separate">
               {sortedValue.map((item) => {
                 const containsProperty = advertisementProperties.find(
                   (property) => property.property_id === item.id
@@ -66,10 +66,10 @@ export default function Properties({
                         : "bg-destructive/50 hover:bg-destructive/70"
                     } w-full`}
                   >
-                    <TableCell className="w-full">
+                    <TableCell className="w-full rounded-l-sm">
                       {item[`${locale}_translation`]}
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="rounded-r-sm">
                       {containsProperty ? <Icons.tick /> : <Icons.cross />}
                     </TableCell>
                   </TableRow>

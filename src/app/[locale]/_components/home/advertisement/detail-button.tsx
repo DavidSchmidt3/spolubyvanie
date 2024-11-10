@@ -1,7 +1,7 @@
+import TransitionLink from "@/app/[locale]/_components/navigation/transition-link";
 import { Button } from "@/app/[locale]/_components/ui/button";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { type Advertisement as AdvertisementType } from "@/lib/data/advertisements/format";
-import { Link } from "@/lib/utils/localization/navigation";
 
 type Props = {
   id: AdvertisementType["id"];
@@ -10,7 +10,7 @@ type Props = {
 
 export default function DetailButton({ id, text }: Props) {
   return (
-    <Link
+    <TransitionLink
       href={{
         pathname: "/advertisement/[id]",
         params: { id },
@@ -25,6 +25,6 @@ export default function DetailButton({ id, text }: Props) {
         <Icons.magnifier className="w-8 sm:w-10 h-8 sm:h-10" />
         <p className="font-bold">{text}</p>
       </Button>
-    </Link>
+    </TransitionLink>
   );
 }

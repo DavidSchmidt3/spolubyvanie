@@ -2,6 +2,7 @@
 import * as React from "react";
 
 import { Divider } from "@/app/[locale]/_components/common/divider";
+import TransitionLink from "@/app/[locale]/_components/navigation/transition-link";
 import { Button } from "@/app/[locale]/_components/ui/button";
 import {
   Form,
@@ -19,8 +20,9 @@ import { useLocale } from "@/hooks/locale";
 import { googleLogin, signInWithEmail } from "@/lib/data/actions/login";
 import { USER_AUTH_FORM_SCHEMA } from "@/lib/data/actions/login/schema";
 import { cn } from "@/lib/utils";
-import { Link, useRouter } from "@/lib/utils/localization/navigation";
+import { useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
+
 import { useAction } from "next-safe-action/hooks";
 import { useEffect, useMemo, useTransition } from "react";
 import { type z } from "zod";
@@ -120,9 +122,12 @@ export default function UserLoginForm({ className, ...props }: UserLoginProps) {
                 </FormItem>
               )}
             />
-            <Link href="/password-reset" className="text-sm text-primary">
+            <TransitionLink
+              href="/password-reset"
+              className="text-sm text-primary"
+            >
               {t("login.forgot_password.link")}
-            </Link>
+            </TransitionLink>
             <Button
               disabled={isSignInWithEmailExecuting}
               variant="ringHover"
