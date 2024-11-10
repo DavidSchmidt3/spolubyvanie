@@ -159,7 +159,7 @@
         "invalid_type": "Invalid file type for photo {name}",
         "too_large": "Photo {name} is too large",
         "too_small": "Photo {name} is too small",
-        "upload_success": "Photo uploaded successfully",
+        "upload_success": "Photos uploaded successfully",
         "already_exists": "Same photo {name} has been already uploaded"
       },
       "floor": {

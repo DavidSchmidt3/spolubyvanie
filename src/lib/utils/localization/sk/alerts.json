@@ -159,7 +159,7 @@
         "invalid_type": "Nepodporovaný typ súboru - fotografia {name}",
         "too_large": "Fotografia {name} je príliš veľká",
         "too_small": "Fotografia {name} je príliš malá",
-        "upload_success": "Nahrávanie fotografie bolo úspešné",
+        "upload_success": "Nahrávanie fotografií bolo úspešné",
         "already_exists": "Rovnaká fotografia {name} už bola nahratá"
       },
       "floor": {

@@ -27,9 +27,9 @@ export default function ImageModalGallery({
 
   return (
     <Credenza open={open} onOpenChange={setOpen}>
-      <CredenzaContent className="max-w-3xl rounded-md px-4">
+      <CredenzaContent className="max-w-3xl rounded-md px-4 md:overflow-y-auto md:h-min md:max-h-[calc(100dvh-2rem)]">
         <CredenzaHeader>
-          <CredenzaTitle className="text-center text-lg font-bold">
+          <CredenzaTitle className="text-lg font-bold text-center">
             {advertisement.title}
           </CredenzaTitle>
         </CredenzaHeader>
@@ -38,7 +38,7 @@ export default function ImageModalGallery({
           primaryPhotoUrl={advertisement.primary_photo_url}
           showFullscreenButton={isBiggerThanSm}
         />
-        <CredenzaFooter className="justify-center sm:justify-center flex-row w-full">
+        <CredenzaFooter className="flex-row justify-center w-full sm:justify-center">
           <DetailButton
             id={advertisement.id}
             text={t("show_full_advertisement.link")}
