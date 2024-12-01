@@ -48,6 +48,8 @@ export const ADVERTISEMENT_UPSERT_SCHEMA = z
     }),
     properties: z.record(CheckPropertySchema).or(z.undefined()),
     room_max_occupancy: z.number().int().min(1).max(3),
+    min_age: z.string().regex(/^\d+$/).or(z.literal("")),
+    max_age: z.string().regex(/^\d+$/).or(z.literal("")),
   })
   .superRefine((data, ctx) => {
     const advertisement_type = parseInt(data.advertisement_type) as AdType;
@@ -107,6 +109,14 @@ export const ADVERTISEMENT_UPSERT_SCHEMA = z
           code: "custom",
           message:
             "alerts.add_advertisement.room_area.larger_than_apartment_area",
+        });
+      }
+
+      if (parseInt(data.min_age) > parseInt(data.max_age)) {
+        ctx.addIssue({
+          path: ["min_age"],
+          code: "custom",
+          message: "alerts.add_advertisement.min_age.higher_than_max_age",
         });
       }
 

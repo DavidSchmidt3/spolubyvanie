@@ -168,6 +168,15 @@
       "room_area": {
         "larger_than_apartment_area": "Room area must not be larger than apartment area"
       },
+      "min_age": {
+        "min": "Minimum age must be a positive number",
+        "max": "Minimum age must not be higher than 99",
+        "higher_than_max_age": "Minimum age must not be higher than maximum age"
+      },
+      "max_age": {
+        "min": "Maximum age must be a positive number",
+        "max": "Maximum age must not be higher than 99"
+      },
       "save": {
         "add": {
           "success": {

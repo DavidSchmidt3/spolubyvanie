@@ -12,6 +12,7 @@ import {
 import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
 import { useTranslations } from "next-intl";
 import { type UseFormReturn } from "react-hook-form";
+import AgeField from "./age-field";
 
 type Props = {
   form: UseFormReturn<AdvertisementUpsertFormValues>;
@@ -57,6 +58,7 @@ export default function GeneralCard({
           placeholder={t("form.title.placeholder")}
         />
         <DescriptionField control={form.control} />
+        <AgeField isOffering={isOffering} control={form.control} />
       </CardContent>
     </Card>
   );

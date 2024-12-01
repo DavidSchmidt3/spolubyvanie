@@ -294,6 +294,19 @@
           "label": "Dostupné od",
           "pick_a_date": "Vybrať dátum"
         },
+        "age": {
+          "searching": {
+            "min_age": "Váš vek",
+            "searching_prompt": "Povedzte nám, koľko máte rokov"
+          },
+          "offering": {
+            "min_age": "Vek od",
+            "max_age": "Vek do",
+            "age_category": "Veková kategória",
+            "up_to": "Do",
+            "over": "Nad"
+          }
+        },
         "searching_from": {
           "label": "Hľadám od"
         },

@@ -25,6 +25,8 @@ export function getFormattedAdvertisement(
     available_from: advertisement.available_from,
     views: advertisement.views,
     created_at: advertisement.created_at,
+    min_age: advertisement.min_age,
+    max_age: advertisement.max_age,
     municipality: getIdsInsteadOfNames
       ? advertisement.municipalities.id
       : advertisement.municipalities.name,

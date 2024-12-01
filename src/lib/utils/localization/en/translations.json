@@ -294,6 +294,19 @@
           "label": "Available from",
           "pick_a_date": "Pick a date"
         },
+        "age": {
+          "searching": {
+            "min_age": "Age",
+            "searching_prompt": "Tell us your age"
+          },
+          "offering": {
+            "min_age": "Age from",
+            "max_age": "Age to",
+            "age_category": "Age category",
+            "up_to": "Up to",
+            "over": "Over"
+          }
+        },
         "searching_from": {
           "label": "Searching from"
         },

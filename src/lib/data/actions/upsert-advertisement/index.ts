@@ -144,6 +144,8 @@ function parseAdvertisementData(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     locale,
     properties,
+    min_age,
+    max_age,
     ...rest
   } = data;
   const type = parseInt(advertisement_type) as AdType;
@@ -167,6 +169,8 @@ function parseAdvertisementData(
       floor: floor ? parseInt(floor) : undefined,
       max_floor: max_floor ? parseInt(max_floor) : undefined,
       room_area: room_area ? parseInt(room_area) : undefined,
+      min_age: min_age ? parseInt(min_age) : undefined,
+      max_age: max_age ? parseInt(max_age) : undefined,
       apartment_area: apartment_area ? parseInt(apartment_area) : undefined,
       apartment_rooms,
       street,
@@ -181,6 +185,8 @@ function parseAdvertisementData(
       type,
       primary_photo_url: primary_photo,
       municipality_id: municipality,
+      min_age: min_age ? parseInt(min_age) : undefined,
+      max_age: undefined,
       price: parseInt(price),
       ...rest,
     };

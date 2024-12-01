@@ -25,6 +25,8 @@ export function getFormDefaultValues(
     max_floor: advertisement?.max_floor?.toString() ?? "",
     description: advertisement?.description ?? "",
     locale,
+    min_age: advertisement?.min_age?.toString() ?? "",
+    max_age: advertisement?.max_age?.toString() ?? "",
     available_from: advertisement?.available_from ?? new Date(),
     primary_photo: advertisement?.primary_photo_url
       ? getFileNameFromFullPath(advertisement.primary_photo_url)

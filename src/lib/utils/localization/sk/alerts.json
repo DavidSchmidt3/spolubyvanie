@@ -168,6 +168,15 @@
       "room_area": {
         "larger_than_apartment_area": "Veľkosť miestnosti nesmie byť väčšia ako veľkosť bytu"
       },
+      "min_age": {
+        "min": "Minimálny vek musí byť kladné číslo",
+        "max": "Minimálny vek nesmie byť vyšší ako 99",
+        "higher_than_max_age": "Minimálny vek nesmie byť vyšší ako maximálny vek"
+      },
+      "max_age": {
+        "min": "Maximálny vek musí byť kladné číslo",
+        "max": "Maximálny vek nesmie byť vyšší ako 99"
+      },
       "save": {
         "add": {
           "success": {
