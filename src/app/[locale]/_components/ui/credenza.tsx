@@ -22,8 +22,8 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/app/[locale]/_components/ui/drawer";
-import { useMediaQuery } from "@/hooks/media-query";
 import { cn } from "@/lib/utils";
+import { useMediaQueryContext } from "../providers/media-query-provider";
 
 interface BaseProps {
   children: React.ReactNode;
@@ -39,17 +39,16 @@ interface CredenzaProps extends BaseProps {
   asChild?: true;
 }
 
-const desktop = "md";
-
 const Credenza = ({ children, ...props }: RootCredenzaProps) => {
-  const isDesktop = useMediaQuery(desktop);
+  const isDesktop = useMediaQueryContext();
+
   const Credenza = isDesktop ? Dialog : Drawer;
 
   return <Credenza {...props}>{children}</Credenza>;
 };
 
 const CredenzaTrigger = ({ className, children, ...props }: CredenzaProps) => {
-  const isDesktop = useMediaQuery(desktop);
+  const isDesktop = useMediaQueryContext();
   const CredenzaTrigger = isDesktop ? DialogTrigger : DrawerTrigger;
 
   return (
@@ -64,7 +63,7 @@ const CredenzaTrigger = ({ className, children, ...props }: CredenzaProps) => {
 };
 
 const CredenzaClose = ({ className, children, ...props }: CredenzaProps) => {
-  const isDesktop = useMediaQuery(desktop);
+  const isDesktop = useMediaQueryContext();
   const CredenzaClose = isDesktop ? DialogClose : DrawerClose;
 
   return (
@@ -75,7 +74,7 @@ const CredenzaClose = ({ className, children, ...props }: CredenzaProps) => {
 };
 
 const CredenzaContent = ({ className, children, ...props }: CredenzaProps) => {
-  const isDesktop = useMediaQuery(desktop);
+  const isDesktop = useMediaQueryContext();
   const CredenzaContent = isDesktop ? DialogContent : DrawerContent;
 
   return (
@@ -94,7 +93,7 @@ const CredenzaDescription = ({
   children,
   ...props
 }: CredenzaProps) => {
-  const isDesktop = useMediaQuery(desktop);
+  const isDesktop = useMediaQueryContext();
   const CredenzaDescription = isDesktop ? DialogDescription : DrawerDescription;
 
   return (
@@ -105,7 +104,7 @@ const CredenzaDescription = ({
 };
 
 const CredenzaHeader = ({ className, children, ...props }: CredenzaProps) => {
-  const isDesktop = useMediaQuery(desktop);
+  const isDesktop = useMediaQueryContext();
   const CredenzaHeader = isDesktop ? DialogHeader : DrawerHeader;
 
   return (
@@ -116,7 +115,7 @@ const CredenzaHeader = ({ className, children, ...props }: CredenzaProps) => {
 };
 
 const CredenzaTitle = ({ className, children, ...props }: CredenzaProps) => {
-  const isDesktop = useMediaQuery(desktop);
+  const isDesktop = useMediaQueryContext();
   const CredenzaTitle = isDesktop ? DialogTitle : DrawerTitle;
 
   return (
@@ -135,7 +134,7 @@ const CredenzaBody = ({ className, children, ...props }: CredenzaProps) => {
 };
 
 const CredenzaFooter = ({ className, children, ...props }: CredenzaProps) => {
-  const isDesktop = useMediaQuery(desktop);
+  const isDesktop = useMediaQueryContext();
   const CredenzaFooter = isDesktop ? DialogFooter : DrawerFooter;
 
   return (

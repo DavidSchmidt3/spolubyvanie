@@ -13,6 +13,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Loader } from "lucide-react";
 import { Inter } from "next/font/google";
 import { Suspense } from "react";
+import { MediaQueryProvider } from "./_components/providers/media-query-provider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -38,29 +39,31 @@ export default function RootLayout({ children, params }: Props) {
           inter.variable
         )}
       >
-        <ThemeProvider>
-          <div className="flex flex-col h-full">
-            <div className="fixed top-0 left-0 z-10 flex items-center w-full h-16 py-4 pl-5 pr-2 border-b sm:px-4 bg-background">
-              <Suspense fallback={<MainNavLoader />}>
-                <MainNav />
-              </Suspense>
-              <div className="flex items-center ml-auto sm:space-x-4">
-                <Suspense fallback={<Loader height={32} />}>
-                  <UserNav params={params} />
-                  <ThemeLocaleInitializer />
+        <MediaQueryProvider>
+          <ThemeProvider>
+            <div className="flex flex-col h-full">
+              <div className="fixed top-0 left-0 z-10 flex items-center w-full h-16 py-4 pl-5 pr-2 border-b sm:px-4 bg-background">
+                <Suspense fallback={<MainNavLoader />}>
+                  <MainNav />
                 </Suspense>
-                <NextIntlClientProvider messages={["alerts"]}>
-                  <Toaster richColors />
-                </NextIntlClientProvider>
+                <div className="flex items-center ml-auto sm:space-x-4">
+                  <Suspense fallback={<Loader height={32} />}>
+                    <UserNav params={params} />
+                    <ThemeLocaleInitializer />
+                  </Suspense>
+                  <NextIntlClientProvider messages={["alerts"]}>
+                    <Toaster richColors />
+                  </NextIntlClientProvider>
+                </div>
+              </div>
+              <div className="flex-1 mt-16 overflow-y-auto">
+                {children}
+                <SpeedInsights />
+                <Analytics />
               </div>
             </div>
-            <div className="flex-1 mt-16 overflow-y-auto">
-              {children}
-              <SpeedInsights />
-              <Analytics />
-            </div>
-          </div>
-        </ThemeProvider>
+          </ThemeProvider>
+        </MediaQueryProvider>
       </body>
     </html>
   );
