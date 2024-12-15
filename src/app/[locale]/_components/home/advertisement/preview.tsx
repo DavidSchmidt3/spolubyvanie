@@ -47,6 +47,8 @@ export default function AdvertisementPreview({
     region,
     created_at,
     views,
+    min_age,
+    max_age,
   } = advertisement;
 
   return (
@@ -94,6 +96,16 @@ export default function AdvertisementPreview({
                 />
               </>
             )}
+            <InfoRow
+              label={
+                type === AdType.OfferingRoom ? t("age.range") : t("age.label")
+              }
+              value={
+                type === AdType.OfferingRoom
+                  ? `${min_age?.toString()} - ${max_age?.toString()}`
+                  : min_age?.toString()
+              }
+            />
             <div className="flex justify-end text-base md:text-lg items-center gap-x-2">
               {views}
               <Icons.eye className="w-6 h-6" />

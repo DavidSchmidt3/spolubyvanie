@@ -30,6 +30,8 @@ export default function InfoCard({ advertisement, locale, properties }: Props) {
     district,
     region,
     views,
+    min_age,
+    max_age,
   } = advertisement;
 
   return (
@@ -84,6 +86,18 @@ export default function InfoCard({ advertisement, locale, properties }: Props) {
                 : t("advertisement.searching_from.label")
             }
             value={formatDate(available_from, locale)}
+          />
+          <InfoRow
+            label={
+              type === AdType.OfferingRoom
+                ? t("advertisement.age.range")
+                : t("advertisement.age.label")
+            }
+            value={
+              type === AdType.OfferingRoom
+                ? `${min_age?.toString()} - ${max_age?.toString()}`
+                : min_age?.toString()
+            }
           />
         </div>
       </div>

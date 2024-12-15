@@ -13,15 +13,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/app/[locale]/_components/ui/select";
+import { useConditionalTrigger } from "@/hooks/form";
 import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
 import { Label } from "@radix-ui/react-label";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { useController, type Control } from "react-hook-form";
+import { useController, type UseFormReturn } from "react-hook-form";
 
 type Props = {
   isOffering: boolean;
-  control: Control<AdvertisementUpsertFormValues>;
+  form: UseFormReturn<AdvertisementUpsertFormValues>;
 };
 
 const VALUE_MAPPINGS = [
@@ -33,7 +34,8 @@ const VALUE_MAPPINGS = [
   { value: "6", min_age: 60, max_age: 99 },
 ];
 
-export default function AgeField({ isOffering, control }: Props) {
+export default function AgeField({ isOffering, form }: Props) {
+  const { control } = form;
   const t = useTranslations("translations.add_advertisement.form.age");
 
   const {
@@ -50,8 +52,8 @@ export default function AgeField({ isOffering, control }: Props) {
     setSelectValue(value);
     const valueMapping = VALUE_MAPPINGS.find((item) => item.value === value);
     if (valueMapping) {
-      onAgeChange(valueMapping.min_age);
-      onMaxAgeChange(valueMapping.max_age);
+      onMaxAgeChange(valueMapping.max_age.toString());
+      onAgeChange(valueMapping.min_age.toString());
     }
   }
 
@@ -67,6 +69,12 @@ export default function AgeField({ isOffering, control }: Props) {
       }
     }
   }, [minAgeValue, maxAgeValue]);
+
+  useConditionalTrigger({
+    form,
+    watchField: "max_age",
+    triggerField: "min_age",
+  });
 
   return (
     <>
@@ -105,8 +113,6 @@ export default function AgeField({ isOffering, control }: Props) {
                   placeholder={
                     isOffering ? t("offering.min_age") : t("searching.min_age")
                   }
-                  min={1}
-                  max={99}
                   className="w-full h-12 text-base hover:bg-accent"
                   type="number"
                   {...field}
@@ -132,8 +138,6 @@ export default function AgeField({ isOffering, control }: Props) {
                 <FormControl>
                   <Input
                     placeholder={t("offering.max_age")}
-                    min={1}
-                    max={99}
                     className="w-full h-12 text-base hover:bg-accent"
                     type="number"
                     {...field}

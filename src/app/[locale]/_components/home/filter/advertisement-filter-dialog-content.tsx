@@ -26,6 +26,7 @@ import {
 import _ from "lodash";
 import { useTranslations } from "next-intl";
 import { useWatch, type UseFormReturn } from "react-hook-form";
+import AgeFilter from "./age-filter";
 
 type Props = {
   regions: Awaited<ReturnType<typeof getRegions>>;
@@ -87,8 +88,11 @@ export default function AdvertisementFilterDialogContent({
                 <PriceFilter control={form.control} />
                 <AdvertisementTypeFilter form={form} />
               </div>
+              <div className="flex flex-col gap-y-4 order-3 sm:col-span-2">
+                <AgeFilter />
+              </div>
               {isOffering && (
-                <div className="flex flex-col gap-y-4 order-3 sm:col-span-2">
+                <div className="flex flex-col gap-y-4 order-4 sm:col-span-2">
                   <PropertiesFilter
                     form={form}
                     properties={properties}
@@ -96,10 +100,10 @@ export default function AdvertisementFilterDialogContent({
                   />
                 </div>
               )}
-              <div className="flex flex-col gap-y-4 order-4 sm:col-span-2">
+              <div className="flex flex-col gap-y-4 order-5 sm:col-span-2">
                 <SortByField form={form} />
               </div>
-              <div className="flex flex-col gap-y-4 order-5 my-2 sm:col-span-2">
+              <div className="flex flex-col gap-y-4 order-6 my-2 sm:col-span-2">
                 <Button
                   type="submit"
                   variant="ringHover"

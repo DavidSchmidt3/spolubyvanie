@@ -58,7 +58,7 @@ export default function GeneralCard({
           placeholder={t("form.title.placeholder")}
         />
         <DescriptionField control={form.control} />
-        <AgeField isOffering={isOffering} control={form.control} />
+        <AgeField isOffering={isOffering} form={form} />
       </CardContent>
     </Card>
   );

@@ -54,6 +54,42 @@ export const ADVERTISEMENT_UPSERT_SCHEMA = z
   .superRefine((data, ctx) => {
     const advertisement_type = parseInt(data.advertisement_type) as AdType;
 
+    const minAge = parseInt(data.min_age);
+
+    if (minAge <= 0) {
+      ctx.addIssue({
+        path: ["min_age"],
+        code: "custom",
+        message: "alerts.add_advertisement.min_age.min",
+      });
+    }
+
+    if (minAge > 99) {
+      ctx.addIssue({
+        path: ["min_age"],
+        code: "custom",
+        message: "alerts.add_advertisement.min_age.max",
+      });
+    }
+
+    const maxAge = parseInt(data.max_age);
+
+    if (maxAge <= 0) {
+      ctx.addIssue({
+        path: ["max_age"],
+        code: "custom",
+        message: "alerts.add_advertisement.max_age.min",
+      });
+    }
+
+    if (maxAge > 99) {
+      ctx.addIssue({
+        path: ["max_age"],
+        code: "custom",
+        message: "alerts.add_advertisement.max_age.max",
+      });
+    }
+
     if (advertisement_type === AdType.OfferingRoom) {
       if (!data.photos.length) {
         ctx.addIssue({

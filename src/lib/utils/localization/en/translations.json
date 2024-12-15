@@ -225,6 +225,12 @@
           "placeholder": "Hello, I'm interested in your available room. I'm 24 years old, working, and have no pets. I can come for a viewing any weekday after 5 PM.\nBest regards, Peter"
         },
         "button": "Send email"
+      },
+      "age": {
+        "label": "Age",
+        "min": "Age from",
+        "max": "Age to",
+        "range": "Age (From - To)"
       }
     },
     "advertisement_list": {
