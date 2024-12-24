@@ -11,7 +11,7 @@ type FormErrorsRaw = {
   | undefined
 >;
 
-export const formatZodErrors = (formErrorsRaw: FormErrorsRaw) => {
+export const formatZodErrors = async (formErrorsRaw: FormErrorsRaw) => {
   const formErrors = flattenValidationErrors(formErrorsRaw).fieldErrors;
   const keys = Object.keys(formErrors);
   const errors = keys.map((key) => formErrors[key]!);
