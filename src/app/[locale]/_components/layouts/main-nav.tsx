@@ -17,10 +17,10 @@ export async function MainNav({ ...props }: React.HTMLAttributes<HTMLElement>) {
           pathname: "/[page]",
           params: { page: "1" },
         }}
-        className="text-base sm:text-lg"
+        className="text-base sm:text-lg group"
       >
         <div className="flex items-center gap-x-1 sm:gap-x-2">
-          <Icons.home className="w-4 h-4" />
+          <Icons.home className="w-4 h-4 group-hover:motion-preset-seesaw" />
           <p>{t("navigation.home.label")}</p>
         </div>
       </TransitionLink>
@@ -30,26 +30,26 @@ export async function MainNav({ ...props }: React.HTMLAttributes<HTMLElement>) {
             pathname: "/my-advertisements/[page]",
             params: { page: "1" },
           }}
-          className="text-base text-center sm:text-lg"
+          className="text-base text-center sm:text-lg group"
         >
           <div className="flex items-center gap-x-1 sm:gap-x-2">
-            <Icons.building className="w-5 h-5" />
+            <Icons.building className="w-5 h-5 group-hover:motion-preset-seesaw" />
             <p>{t("navigation.my_advertisements.label")}</p>
           </div>
         </TransitionLink>
       )}
       <TransitionLink
         href="/add-advertisement"
-        className="text-base text-center sm:text-lg hidden sm:block"
+        className="text-base text-center sm:text-lg hidden sm:block group"
       >
         <div className="flex items-center gap-x-1 sm:gap-x-2">
-          <Icons.plus className="w-5 h-5" />
+          <Icons.plus className="w-5 h-5 group-hover:motion-preset-seesaw" />
           <p>{t("navigation.add_advertisement.label")}</p>
         </div>
       </TransitionLink>
-      <TransitionLink href="/contact" className="hidden text-lg sm:block">
+      <TransitionLink href="/contact" className="hidden text-lg sm:block group">
         <div className="flex items-center gap-x-2">
-          <Icons.person className="w-5 h-5" />
+          <Icons.person className="w-5 h-5 group-hover:motion-preset-seesaw" />
           <p>{t("navigation.contact.label")}</p>
         </div>
       </TransitionLink>

@@ -34,9 +34,15 @@ const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
           disabled={disabled}
         >
           {showPassword && !disabled ? (
-            <EyeIcon className="h-4 w-4" aria-hidden="true" />
+            <EyeIcon
+              className="h-4 w-4 hover:motion-preset-seesaw"
+              aria-hidden="true"
+            />
           ) : (
-            <EyeOffIcon className="h-4 w-4" aria-hidden="true" />
+            <EyeOffIcon
+              className="h-4 w-4 hover:motion-preset-seesaw"
+              aria-hidden="true"
+            />
           )}
           <span className="sr-only">
             {showPassword ? t("auth.password.hide") : t("auth.password.show")}

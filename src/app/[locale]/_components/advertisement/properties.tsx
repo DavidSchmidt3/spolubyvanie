@@ -64,13 +64,17 @@ export default function Properties({
                       containsProperty
                         ? "bg-success/40 hover:bg-success/60"
                         : "bg-destructive/50 hover:bg-destructive/70"
-                    } w-full`}
+                    } w-full group`}
                   >
                     <TableCell className="w-full rounded-l-sm">
                       {item[`${locale}_translation`]}
                     </TableCell>
                     <TableCell className="rounded-r-sm">
-                      {containsProperty ? <Icons.tick /> : <Icons.cross />}
+                      {containsProperty ? (
+                        <Icons.tick className="group-hover:motion-preset-seesaw" />
+                      ) : (
+                        <Icons.cross className="group-hover:motion-preset-seesaw" />
+                      )}
                     </TableCell>
                   </TableRow>
                 );

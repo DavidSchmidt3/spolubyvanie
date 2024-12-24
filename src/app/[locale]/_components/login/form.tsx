@@ -148,13 +148,13 @@ export default function UserLoginForm({ className, ...props }: UserLoginProps) {
           disabled={isGoogleLoginExecuting}
           variant="outline"
           type="submit"
-          className="w-full text-base"
+          className="w-full text-base group"
           aria-label={t("login.google.button")}
         >
           {isGoogleLoginExecuting && (
             <Icons.spinner className="w-4 h-4 mr-2 animate-spin" />
           )}
-          <Icons.google className="w-4 h-4 mr-2" />
+          <Icons.google className="w-4 h-4 mr-2 group-hover:motion-preset-seesaw" />
           {t("login.google.button")}
         </Button>
       </form>

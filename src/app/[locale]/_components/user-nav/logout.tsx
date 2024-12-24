@@ -43,14 +43,14 @@ export default function Logout({ locale }: Props) {
         aria-label={t("logout.button")}
         variant="ghost"
         disabled={isExecuting}
-        className="justify-start w-full h-6 p-0 text-base text-left cursor-pointer hover:bg-accent/90"
+        className="justify-start w-full h-6 p-0 text-base text-left cursor-pointer hover:bg-accent/90 group"
         type="submit"
       >
         <div className="flex items-center gap-x-2">
           {isExecuting && (
             <Icons.spinner className="w-4 h-4 mr-2 animate-spin" />
           )}
-          <Icons.door />
+          <Icons.door className="group-hover:motion-preset-seesaw" />
           {t("logout.button")}
         </div>
       </Button>

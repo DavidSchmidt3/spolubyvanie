@@ -89,7 +89,7 @@ export default function AdvertisementFilterDialogContent({
                 <AdvertisementTypeFilter form={form} />
               </div>
               <div className="flex flex-col gap-y-4 order-3 sm:col-span-2">
-                <AgeFilter />
+                <AgeFilter control={form.control} />
               </div>
               {isOffering && (
                 <div className="flex flex-col gap-y-4 order-4 sm:col-span-2">
@@ -108,25 +108,25 @@ export default function AdvertisementFilterDialogContent({
                   type="submit"
                   variant="ringHover"
                   aria-label={t("filter.button")}
-                  className="text-base mt-5 sm:mt-0 flex gap-x-1"
+                  className="text-base mt-5 sm:mt-0 flex gap-x-1 group"
                   disabled={isFetching}
                 >
                   {isFetching && (
                     <Icons.spinner className="w-4 h-4 animate-spin" />
                   )}
-                  <Icons.magnifier className="w-6 h-6" />
+                  <Icons.magnifier className="w-6 h-6 group-hover:motion-preset-seesaw" />
                   {t("filter.button")}
                 </Button>
                 <Button
                   type="button"
                   variant="destructive"
-                  className="text-base h-auto flex gap-x-1"
+                  className="text-base h-auto flex gap-x-1 group"
                   disabled={!isFilterActive || isFetching}
                   onClick={() =>
                     form.reset(ADVERTISEMENT_FILTER_DEFAULT_VALUES)
                   }
                 >
-                  <Icons.cross className="w-6 h-6" />
+                  <Icons.cross className="w-6 h-6 group-hover:motion-preset-seesaw" />
                   {t("filter.reset.button")}
                 </Button>
               </div>

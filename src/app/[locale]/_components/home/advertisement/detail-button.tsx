@@ -18,10 +18,10 @@ export default function DetailButton({ id, text }: Props) {
       className=""
     >
       <Button
-        className="flex items-center max-w-full gap-x-2 text-wrap"
+        className="flex items-center max-w-full gap-x-2 text-wrap group"
         variant="ringHover"
       >
-        <Icons.magnifier className="w-8 h-8 sm:w-10 sm:h-10" />
+        <Icons.magnifier className="w-8 h-8 sm:w-10 sm:h-10 group-hover:motion-preset-seesaw" />
         <p className="font-bold">{text}</p>
       </Button>
     </TransitionLink>

@@ -138,10 +138,10 @@ export default function AdvertisementFilterDialog({
           <Credenza onOpenChange={onOpenChange} open={open}>
             <CredenzaTrigger asChild className="px-4 py-2 sm:py-2">
               <Button
-                className="flex w-48 gap-2 text-base text-wrap h-14 bg-foreground text-background hover:bg-accent-foreground hover:text-background"
+                className="flex w-48 gap-2 text-base text-wrap h-14 bg-foreground text-background hover:bg-accent-foreground hover:text-background group"
                 variant="outline"
               >
-                <Icons.filter className="w-8 h-8" />
+                <Icons.filter className="w-8 h-8 group-hover:motion-preset-seesaw" />
                 {t("filter.title")}
               </Button>
             </CredenzaTrigger>

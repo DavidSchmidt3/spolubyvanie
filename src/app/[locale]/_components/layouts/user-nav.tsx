@@ -31,7 +31,7 @@ export default function UserNav({ params }: Props) {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="relative w-8 h-8 rounded-full"
+          className="relative w-8 h-8 rounded-full hover:motion-preset-seesaw"
           aria-label={t("navigation.guest.label")}
         >
           <Avatar className="w-8 h-8 text-muted-foreground">
@@ -49,9 +49,9 @@ export default function UserNav({ params }: Props) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <TransitionLink href="/settings" className="w-full">
-          <DropdownMenuItem className="text-base cursor-pointer hover:bg-accent/90">
+          <DropdownMenuItem className="text-base cursor-pointer hover:bg-accent/90 group">
             <div className="flex items-center gap-x-2">
-              <Icons.settings />
+              <Icons.settings className="group-hover:motion-preset-seesaw" />
               {t("settings.title")}
             </div>
           </DropdownMenuItem>
@@ -65,9 +65,9 @@ export default function UserNav({ params }: Props) {
               }}
               className="w-full"
             >
-              <DropdownMenuItem className="text-base cursor-pointer hover:bg-accent/90">
+              <DropdownMenuItem className="text-base cursor-pointer hover:bg-accent/90 group">
                 <div className="flex items-center gap-x-2">
-                  <Icons.building className="w-4 h-4" />
+                  <Icons.building className="w-4 h-4 group-hover:motion-preset-seesaw" />
                   {t("navigation.my_advertisements.label")}
                 </div>
               </DropdownMenuItem>
@@ -80,18 +80,18 @@ export default function UserNav({ params }: Props) {
           </>
         ) : (
           <>
-            <TransitionLink href="/add-advertisement" className="w-full">
+            <TransitionLink href="/add-advertisement" className="w-full group">
               <DropdownMenuItem className="text-base cursor-pointer hover:bg-accent/90">
                 <div className="flex items-center gap-x-2">
-                  <Icons.plus className="w-4 h-4" />
+                  <Icons.plus className="w-4 h-4 group-hover:motion-preset-seesaw" />
                   {t("navigation.add_advertisement.label")}
                 </div>
               </DropdownMenuItem>
             </TransitionLink>
-            <TransitionLink href="/login" className="w-full">
+            <TransitionLink href="/login" className="w-full group">
               <DropdownMenuItem className="text-base cursor-pointer hover:bg-accent/90">
-                <div className="flex items-center gap-x-2">
-                  <Icons.person />
+                <div className="flex items-center gap-x-2 ">
+                  <Icons.person className="group-hover:motion-preset-seesaw" />
                   {t("login.button")}
                 </div>
               </DropdownMenuItem>
