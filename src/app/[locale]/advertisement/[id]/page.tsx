@@ -2,7 +2,7 @@ import Advertisement from "@/app/[locale]/_components/advertisement";
 import NotFound from "@/app/[locale]/_components/advertisement/not-found";
 import { getAdvertisement } from "@/lib/data/advertisement";
 import { getAdvertisementProperties } from "@/lib/data/advertisements-properties";
-import { type Locale } from "@/lib/utils/localization/i18n";
+import { LOCALES, type Locale } from "@/lib/utils/localization/i18n";
 
 type Props = {
   params: Promise<{
@@ -29,4 +29,8 @@ export default async function AdvertisementPage({ params }: Props) {
       properties={properties}
     />
   );
+}
+
+export function generateStaticParams() {
+  return LOCALES.map((locale) => ({ locale: locale.code }));
 }

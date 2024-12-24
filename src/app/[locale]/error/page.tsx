@@ -1,5 +1,6 @@
 import Container from "@/app/[locale]/_components/common/container";
 import TransitionLink from "@/app/[locale]/_components/navigation/transition-link";
+import { LOCALES } from "@/lib/utils/localization/i18n";
 import { useTranslations } from "next-intl";
 
 export default function ErrorPage() {
@@ -20,4 +21,8 @@ export default function ErrorPage() {
       </TransitionLink>
     </Container>
   );
+}
+
+export function generateStaticParams() {
+  return LOCALES.map((locale) => ({ locale: locale.code }));
 }

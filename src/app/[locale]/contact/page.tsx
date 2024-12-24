@@ -1,4 +1,5 @@
 import Container from "@/app/[locale]/_components/common/container";
+import { LOCALES } from "@/lib/utils/localization/i18n";
 import { useTranslations } from "next-intl";
 
 export default function Contact() {
@@ -16,4 +17,8 @@ export default function Contact() {
       </h1>
     </Container>
   );
+}
+
+export function generateStaticParams() {
+  return LOCALES.map((locale) => ({ locale: locale.code }));
 }

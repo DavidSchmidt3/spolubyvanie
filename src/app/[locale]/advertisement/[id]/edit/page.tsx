@@ -14,7 +14,7 @@ import {
 import { getFormDefaultValues } from "@/lib/data/advertisement/format";
 import { getAdvertisementProperties } from "@/lib/data/advertisements-properties";
 import { getUser } from "@/lib/data/user";
-import { type Locale } from "@/lib/utils/localization/i18n";
+import { LOCALES, type Locale } from "@/lib/utils/localization/i18n";
 import { redirect } from "@/lib/utils/localization/navigation";
 
 type Props = {
@@ -82,4 +82,8 @@ export default async function AdvertisementEdit({ params }: Props) {
       />
     </NextIntlClientProvider>
   );
+}
+
+export function generateStaticParams() {
+  return LOCALES.map((locale) => ({ locale: locale.code }));
 }

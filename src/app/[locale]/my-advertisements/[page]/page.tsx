@@ -1,7 +1,7 @@
 import MyAdvertisementsList from "@/app/[locale]/_components/my-advertisements/list";
 import NextIntlClientProvider from "@/app/[locale]/_components/providers/next-intl-provider";
 import { getUser } from "@/lib/data/user";
-import { type Locale } from "@/lib/utils/localization/i18n";
+import { LOCALES, type Locale } from "@/lib/utils/localization/i18n";
 import { redirect } from "@/lib/utils/localization/navigation";
 
 type Props = {
@@ -38,4 +38,8 @@ export default async function Page({ params }: Props) {
       </div>
     </NextIntlClientProvider>
   );
+}
+
+export function generateStaticParams() {
+  return LOCALES.map((locale) => ({ locale: locale.code }));
 }

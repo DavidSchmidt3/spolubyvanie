@@ -1,4 +1,4 @@
-import { type Locale } from "@/lib/utils/localization/i18n";
+import { LOCALES, type Locale } from "@/lib/utils/localization/i18n";
 import { redirect } from "@/lib/utils/localization/navigation";
 import { use } from "react";
 
@@ -19,4 +19,8 @@ export default function Page({ params }: Props) {
   });
 
   return null;
+}
+
+export function generateStaticParams() {
+  return LOCALES.map((locale) => ({ locale: locale.code }));
 }

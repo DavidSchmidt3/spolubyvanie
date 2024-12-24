@@ -2,7 +2,7 @@ import Loading from "@/app/[locale]/[page]/loading";
 import AdvertisementList from "@/app/[locale]/_components/home/advertisement/list";
 import AdvertisementFilterDataFetcher from "@/app/[locale]/_components/home/filter/adverisement-filter-data-fetcher";
 import NextIntlClientProvider from "@/app/[locale]/_components/providers/next-intl-provider";
-import { type Locale } from "@/lib/utils/localization/i18n";
+import { LOCALES, type Locale } from "@/lib/utils/localization/i18n";
 import { createQueryStringFromObject } from "@/lib/utils/localization/navigation";
 import { type ParsedUrlQuery } from "querystring";
 import { Suspense, use } from "react";
@@ -46,4 +46,8 @@ export default function Home({ searchParams, params }: Props) {
       </div>
     </NextIntlClientProvider>
   );
+}
+
+export function generateStaticParams() {
+  return LOCALES.map((locale) => ({ locale: locale.code }));
 }

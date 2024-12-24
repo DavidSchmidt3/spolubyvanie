@@ -8,7 +8,7 @@ import {
 } from "@/lib/data/administrative-divisions";
 import { getAdvertisementProperties } from "@/lib/data/advertisements-properties";
 import { getUser } from "@/lib/data/user";
-import { type Locale } from "@/lib/utils/localization/i18n";
+import { LOCALES, type Locale } from "@/lib/utils/localization/i18n";
 
 type Props = {
   params: Promise<{ locale: Locale }>;
@@ -47,4 +47,8 @@ export default async function Page({ params }: Props) {
       />
     </NextIntlClientProvider>
   );
+}
+
+export function generateStaticParams() {
+  return LOCALES.map((locale) => ({ locale: locale.code }));
 }
