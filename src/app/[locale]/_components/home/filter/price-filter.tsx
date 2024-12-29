@@ -30,6 +30,7 @@ export default function PriceFilter({ control }: Props) {
                   className="w-full h-12 text-base hover:bg-accent"
                   inputMode="numeric"
                   pattern="[0-9]*"
+                  min={1}
                   type="number"
                   {...field}
                 />
@@ -52,6 +53,7 @@ export default function PriceFilter({ control }: Props) {
                   className="w-full h-12 text-base hover:bg-accent"
                   inputMode="numeric"
                   pattern="[0-9]*"
+                  min={1}
                   type="number"
                   {...field}
                 />

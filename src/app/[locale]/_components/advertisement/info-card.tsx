@@ -90,13 +90,17 @@ export default function InfoCard({ advertisement, locale, properties }: Props) {
           <InfoRow
             label={
               type === AdType.OfferingRoom
-                ? t("advertisement.age.range")
+                ? t("advertisement.age.range.title")
                 : t("advertisement.age.label")
             }
             value={
               type === AdType.OfferingRoom
-                ? `${min_age?.toString()} - ${max_age?.toString()}`
-                : min_age?.toString()
+                ? `${min_age ? min_age.toString() : ""} - ${
+                    max_age ? max_age.toString() : ""
+                  }`
+                : min_age
+                ? min_age.toString()
+                : ""
             }
           />
         </div>

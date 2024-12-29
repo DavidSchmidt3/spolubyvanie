@@ -104,6 +104,11 @@
         "invalid": "Price must be higher than 0",
         "max_higher_than_min": "Max price must be higher than min price"
       },
+      "age": {
+        "number": "Age must be a number",
+        "invalid": "Age must be higher than 0",
+        "max_higher_than_min": "Max age must be higher than min age"
+      },
       "error": {
         "title": "Failed to filter advertisements"
       },

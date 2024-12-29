@@ -1,6 +1,6 @@
+import { CheckPropertySchema } from "@/lib/data/advertisements-properties/types";
+import { AdType, createAdTypeRegex } from "@/lib/data/advertisements/types";
 import * as z from "zod";
-import { CheckPropertySchema } from "../advertisements-properties/types";
-import { createAdTypeRegex } from "./types";
 
 const ADVERTISEMENT_FILTER_BASE_SCHEMA = z.object({
   municipality: z.array(z.string().uuid()).or(z.undefined()).or(z.string()),
@@ -23,6 +23,26 @@ const ADVERTISEMENT_FILTER_BASE_SCHEMA = z.object({
     })
     .refine((val) => !val || parseInt(val) >= 0, {
       message: "alerts.advertisement.price.invalid",
+    })
+    .or(z.literal(""))
+    .or(z.undefined()),
+  min_age: z
+    .string()
+    .regex(/^\s*\d*\s*$/, {
+      message: "alerts.advertisement.age.number",
+    })
+    .refine((val) => !val || parseInt(val) >= 0, {
+      message: "alerts.advertisement.age.invalid",
+    })
+    .or(z.literal(""))
+    .or(z.undefined()),
+  max_age: z
+    .string()
+    .regex(/^\s*\d*\s*$/, {
+      message: "alerts.advertisement.age.number",
+    })
+    .refine((val) => !val || parseInt(val) >= 0, {
+      message: "alerts.advertisement.age.invalid",
     })
     .or(z.literal(""))
     .or(z.undefined()),
@@ -68,30 +88,47 @@ const ADVERTISEMENT_PAGINATION_SCHEMA = z.object({
   }),
 });
 
-function attachPriceRefinements<
+function attachPriceAgeRefinements<
   O extends z.infer<typeof ADVERTISEMENT_FILTER_BASE_SCHEMA>,
   T extends z.ZodTypeDef,
   I
 >(schema: z.ZodType<O, T, I>) {
   return schema.superRefine((data, context) => {
-    if (!data.price_min || !data.price_max) {
-      return;
-    }
-    if (parseInt(data.price_min) >= parseInt(data.price_max)) {
+    if (
+      data.price_min &&
+      data.price_max &&
+      parseInt(data.price_min) >= parseInt(data.price_max)
+    ) {
       context.addIssue({
         code: z.ZodIssueCode.custom,
         message: "alerts.advertisement.price.max_higher_than_min",
         path: ["price_max"],
       });
     }
+
+    const advertisement_type = data.advertisement_type
+      ? (parseInt(data.advertisement_type) as AdType)
+      : undefined;
+    if (
+      data.min_age &&
+      data.max_age &&
+      advertisement_type === AdType.SearchingRoom && // validate only for searching room - thats when we provide range
+      parseInt(data.min_age) >= parseInt(data.max_age)
+    ) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "alerts.advertisement.age.max_higher_than_min",
+        path: ["min_age"],
+      });
+    }
   });
 }
 
-export const ADVERTISEMENTS_FULL_SCHEMA = attachPriceRefinements(
+export const ADVERTISEMENTS_FULL_SCHEMA = attachPriceAgeRefinements(
   ADVERTISEMENT_FILTER_BASE_SCHEMA.merge(ADVERTISEMENT_PAGINATION_SCHEMA)
 );
 
-export const ADVERTISEMENTS_FILTER_SCHEMA = attachPriceRefinements(
+export const ADVERTISEMENTS_FILTER_SCHEMA = attachPriceAgeRefinements(
   ADVERTISEMENT_FILTER_BASE_SCHEMA
 );
 
@@ -110,6 +147,8 @@ export const ADVERTISEMENT_FILTER_DEFAULT_VALUES: AdvertisementFilterFormValues 
     region: "",
     price_min: "",
     price_max: "",
+    min_age: "",
+    max_age: "",
     advertisement_type: "",
     sort_by: "price",
     sort_order: "asc",

@@ -229,8 +229,15 @@
       "age": {
         "label": "Vek",
         "min": "Vek od",
+        "your": {
+          "title": "Váš vek",
+          "info": "Po zadaní vášho veku odfiltrujete preč inzeráty, ktoré hľadajú spolubývajúcich v inom veku, alebo nemaju zadaný požadovaný vekový rozsah"
+        },
         "max": "Vek do",
-        "range": "Vek (od - do)"
+        "range": {
+          "title": "Vek (od - do)",
+          "info": "Po zadaní vekového rozsahu odfiltrujete preč inzeráty, kde hľadajúci spolubývajúci nemá vek v zadanom rozsahu"
+        }
       }
     },
     "advertisement_list": {

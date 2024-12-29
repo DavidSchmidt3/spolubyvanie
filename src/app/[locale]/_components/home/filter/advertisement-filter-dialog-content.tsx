@@ -89,7 +89,7 @@ export default function AdvertisementFilterDialogContent({
                 <AdvertisementTypeFilter form={form} />
               </div>
               <div className="flex flex-col gap-y-4 order-3 sm:col-span-2">
-                <AgeFilter control={form.control} />
+                <AgeFilter control={form.control} isOffering={isOffering} />
               </div>
               {isOffering && (
                 <div className="flex flex-col gap-y-4 order-4 sm:col-span-2">

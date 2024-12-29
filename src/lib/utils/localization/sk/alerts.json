@@ -104,6 +104,11 @@
         "invalid": "Cena musí byť väčšia ako 0",
         "max_higher_than_min": "Cena do musí byť väčšia ako cena od"
       },
+      "age": {
+        "number": "Vek musí byť číslo",
+        "invalid": "Vek musí byť väčší ako 0",
+        "max_higher_than_min": "Maximálny vek musí byť väčší ako minimálny vek"
+      },
       "error": {
         "title": "Nepodarilo sa filtrovať inzeráty"
       },

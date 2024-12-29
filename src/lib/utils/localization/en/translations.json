@@ -229,8 +229,15 @@
       "age": {
         "label": "Age",
         "min": "Age from",
+        "your": {
+          "title": "Your age",
+          "info": "After entering your age, you will filter out ads that are looking for roommates of a different age or that do not have the required age range specified"
+        },
         "max": "Age to",
-        "range": "Age (From - To)"
+        "range": {
+          "title": "Age (From - To)",
+          "info": "After entering an age range, you will filter out ads where the roommate you are looking for is not in the specified age range."
+        }
       }
     },
     "advertisement_list": {

@@ -77,6 +77,12 @@ export default function AdvertisementFilterDialog({
       price_max:
         searchParams.get("price_max") ??
         ADVERTISEMENT_FILTER_DEFAULT_VALUES.price_max,
+      min_age:
+        searchParams.get("min_age") ??
+        ADVERTISEMENT_FILTER_DEFAULT_VALUES.min_age,
+      max_age:
+        searchParams.get("max_age") ??
+        ADVERTISEMENT_FILTER_DEFAULT_VALUES.max_age,
       advertisement_type:
         searchParams.get("advertisement_type") ??
         ADVERTISEMENT_FILTER_DEFAULT_VALUES.advertisement_type,

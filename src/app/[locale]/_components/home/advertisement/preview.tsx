@@ -98,12 +98,18 @@ export default function AdvertisementPreview({
             )}
             <InfoRow
               label={
-                type === AdType.OfferingRoom ? t("age.range") : t("age.label")
+                type === AdType.OfferingRoom
+                  ? t("age.range.title")
+                  : t("age.label")
               }
               value={
                 type === AdType.OfferingRoom
-                  ? `${min_age?.toString()} - ${max_age?.toString()}`
-                  : min_age?.toString()
+                  ? `${min_age ? min_age.toString() : ""} - ${
+                      max_age ? max_age.toString() : ""
+                    }`
+                  : min_age
+                  ? min_age.toString()
+                  : ""
               }
             />
             <div className="flex justify-end text-base md:text-lg items-center gap-x-2">
