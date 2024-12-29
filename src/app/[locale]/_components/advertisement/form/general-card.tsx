@@ -19,7 +19,7 @@ type Props = {
   getNumericProps: (
     min?: string
   ) => React.InputHTMLAttributes<HTMLInputElement>;
-  isOffering: boolean;
+  isOffering: boolean | null;
   adTypeSelectDisabled: boolean;
 };
 

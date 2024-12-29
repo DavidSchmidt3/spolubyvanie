@@ -18,7 +18,7 @@ import { type UseFormReturn } from "react-hook-form";
 
 type Props = {
   form: UseFormReturn<AdvertisementUpsertFormValues>;
-  isOffering: boolean;
+  isOffering: boolean | null;
   regions: Region[];
   districts: District[];
   municipalities: Municipality[];

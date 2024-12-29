@@ -25,7 +25,7 @@ import { type Control } from "react-hook-form";
 
 type Props = {
   control: Control<AdvertisementUpsertFormValues>;
-  isOffering: boolean;
+  isOffering: boolean | null;
 };
 
 export default function AvailableFromField({ control, isOffering }: Props) {

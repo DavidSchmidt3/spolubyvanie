@@ -21,7 +21,7 @@ import { useEffect, useState } from "react";
 import { useController, type UseFormReturn } from "react-hook-form";
 
 type Props = {
-  isOffering: boolean;
+  isOffering: boolean | null;
   form: UseFormReturn<AdvertisementUpsertFormValues>;
 };
 
