@@ -98,7 +98,7 @@ export default function AdvertisementFilterDialog({
     };
   }, [searchParams, properties]);
 
-  useControlledForm<AdvertisementFilterFormValues>({
+  const form = useControlledForm<AdvertisementFilterFormValues>({
     schema: ADVERTISEMENTS_FILTER_SCHEMA,
     defaultValues,
   });
@@ -153,6 +153,7 @@ export default function AdvertisementFilterDialog({
             </CredenzaTrigger>
             {initialized && (
               <AdvertisementFilterDialogContent
+                form={form}
                 regions={regions}
                 districts={districts}
                 municipalities={municipalities}

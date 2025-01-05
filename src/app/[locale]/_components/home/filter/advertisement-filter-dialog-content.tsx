@@ -25,7 +25,7 @@ import {
 } from "@/lib/data/advertisements/schema";
 import _ from "lodash";
 import { useTranslations } from "next-intl";
-import { useFormContext, useWatch } from "react-hook-form";
+import { type UseFormReturn, useWatch } from "react-hook-form";
 import AgeFilter from "./age-filter";
 
 type Props = {
@@ -33,19 +33,20 @@ type Props = {
   districts: Awaited<ReturnType<typeof getDistricts>>;
   municipalities: Awaited<ReturnType<typeof getMunicipalities>>;
   properties: Property[];
+  form: UseFormReturn<AdvertisementFilterFormValues>;
   onSubmit: (data: AdvertisementFilterFormValues) => void;
   isFetching: boolean;
 };
 
 export default function AdvertisementFilterDialogContent({
   regions,
+  form,
   districts,
   municipalities,
   onSubmit,
   isFetching,
   properties,
 }: Props) {
-  const form = useFormContext<AdvertisementFilterFormValues>();
   const values = useWatch({
     control: form.control,
   });
