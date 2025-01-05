@@ -8,22 +8,21 @@ import {
   type Region,
 } from "@/lib/data/administrative-divisions";
 import { useTranslations } from "next-intl";
-import { type UseFormReturn } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 type Props = {
   regions: Region[];
   districts: District[];
   municipalities: Municipality[];
-  form: UseFormReturn<AdvertisementUpsertFormValues>;
 };
 
 export default function AdministrativeDivisionSelect({
   regions,
   districts,
   municipalities,
-  form,
 }: Props) {
   const t = useTranslations("translations.advertisement");
+  const form = useFormContext<AdvertisementUpsertFormValues>();
   const { filterMunicipality, filterDistrict, filterRegion } =
     useAdministrativeDivision({
       form,
@@ -42,7 +41,6 @@ export default function AdministrativeDivisionSelect({
         emptyText={t("region.empty_text")}
         title={t("region.title")}
         fieldName="region"
-        form={form}
       />
       <PopoverFilterField
         filterData={districts}
@@ -51,7 +49,6 @@ export default function AdministrativeDivisionSelect({
         selectRowText={t("district.select_text")}
         emptyText={t("district.empty_text")}
         title={t("district.title")}
-        form={form}
         fieldName="district"
       />
       <PopoverFilterField
@@ -61,7 +58,6 @@ export default function AdministrativeDivisionSelect({
         selectRowText={t("municipality.select_text")}
         emptyText={t("municipality.empty_text")}
         title={t("municipality.title")}
-        form={form}
         fieldName="municipality"
       />
       <AdministrativeDivisionsTip />

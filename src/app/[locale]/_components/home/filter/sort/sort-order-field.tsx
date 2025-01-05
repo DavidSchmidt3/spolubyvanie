@@ -11,14 +11,11 @@ import {
 } from "@/app/[locale]/_components/ui/radio-group";
 import { type AdvertisementFilterFormValues } from "@/lib/data/advertisements/schema";
 import { useTranslations } from "next-intl";
-import { type UseFormReturn } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
-type Props = {
-  form: UseFormReturn<AdvertisementFilterFormValues>;
-};
-
-export default function SortOrderField({ form }: Props) {
+export default function SortOrderField() {
   const t = useTranslations();
+  const form = useFormContext<AdvertisementFilterFormValues>();
 
   return (
     <FormField

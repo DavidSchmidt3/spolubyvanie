@@ -9,13 +9,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/app/[locale]/_components/ui/card";
-import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
 import { useTranslations } from "next-intl";
-import { type UseFormReturn } from "react-hook-form";
 import AgeField from "./age-field";
 
 type Props = {
-  form: UseFormReturn<AdvertisementUpsertFormValues>;
   getNumericProps: (
     min?: string
   ) => React.InputHTMLAttributes<HTMLInputElement>;
@@ -24,7 +21,6 @@ type Props = {
 };
 
 export default function GeneralCard({
-  form,
   getNumericProps,
   isOffering,
   adTypeSelectDisabled,
@@ -39,26 +35,23 @@ export default function GeneralCard({
       </CardHeader>
       <CardContent className="flex flex-col gap-y-2">
         <AdvertisementTypeFilter
-          form={form}
           clearable={false}
           disabled={adTypeSelectDisabled}
         />
-        <AvailableFromField control={form.control} isOffering={isOffering} />
+        <AvailableFromField isOffering={isOffering} />
         <TextField
-          control={form.control}
           name="price"
           inputProps={getNumericProps()}
           label={t("form.price.label")}
           placeholder={t("form.price.placeholder")}
         />
         <TextField
-          control={form.control}
           name="title"
           label={t("form.title.label")}
           placeholder={t("form.title.placeholder")}
         />
-        <DescriptionField control={form.control} />
-        <AgeField isOffering={isOffering} form={form} />
+        <DescriptionField />
+        <AgeField isOffering={isOffering} />
       </CardContent>
     </Card>
   );

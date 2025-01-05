@@ -174,12 +174,10 @@ export default function AdvertisementForm({
         >
           <GeneralCard
             adTypeSelectDisabled={isEdit}
-            form={form}
             getNumericProps={getNumericProps}
             isOffering={isOffering}
           />
           <LocationCard
-            form={form}
             municipalities={municipalities}
             isOffering={isOffering}
             districts={districts}
@@ -187,11 +185,11 @@ export default function AdvertisementForm({
           />
           {isOffering && (
             <>
-              <FlatDetailsCard form={form} getNumericProps={getNumericProps} />
-              <AdditionalDetailsCard form={form} properties={properties} />
+              <FlatDetailsCard getNumericProps={getNumericProps} />
+              <AdditionalDetailsCard properties={properties} />
             </>
           )}
-          <PhotosUploadCard form={form} />
+          <PhotosUploadCard />
         </div>
         <div className="flex flex-col mx-4 mt-8">
           <Button type="submit" className="w-full" variant="ringHover">

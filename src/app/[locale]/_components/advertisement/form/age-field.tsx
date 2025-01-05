@@ -18,11 +18,10 @@ import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-ad
 import { Label } from "@radix-ui/react-label";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { useController, type UseFormReturn } from "react-hook-form";
+import { useController, useFormContext } from "react-hook-form";
 
 type Props = {
   isOffering: boolean | null;
-  form: UseFormReturn<AdvertisementUpsertFormValues>;
 };
 
 const VALUE_MAPPINGS = [
@@ -34,17 +33,17 @@ const VALUE_MAPPINGS = [
   { value: "6", min_age: 60, max_age: 99 },
 ];
 
-export default function AgeField({ isOffering, form }: Props) {
-  const { control } = form;
+export default function AgeField({ isOffering }: Props) {
+  const form = useFormContext<AdvertisementUpsertFormValues>();
   const t = useTranslations("translations.add_advertisement.form.age");
 
   const {
     field: { onChange: onAgeChange, value: minAgeValue },
-  } = useController({ name: "min_age", control });
+  } = useController({ name: "min_age", control: form.control });
 
   const {
     field: { onChange: onMaxAgeChange, value: maxAgeValue },
-  } = useController({ name: "max_age", control });
+  } = useController({ name: "max_age", control: form.control });
 
   const [selectValue, setSelectValue] = useState<string | null | undefined>();
 
@@ -101,7 +100,7 @@ export default function AgeField({ isOffering, form }: Props) {
       )}
       <div className="flex gap-2 w-full">
         <FormField
-          control={control}
+          control={form.control}
           name="min_age"
           render={({ field }) => (
             <FormItem className="w-full">
@@ -128,7 +127,7 @@ export default function AgeField({ isOffering, form }: Props) {
         />
         {isOffering && (
           <FormField
-            control={control}
+            control={form.control}
             name="max_age"
             render={({ field }) => (
               <FormItem className="w-full">

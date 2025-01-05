@@ -7,17 +7,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/app/[locale]/_components/ui/card";
-import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
 import {
   type District,
   type Municipality,
   type Region,
 } from "@/lib/data/administrative-divisions";
 import { useTranslations } from "next-intl";
-import { type UseFormReturn } from "react-hook-form";
 
 type Props = {
-  form: UseFormReturn<AdvertisementUpsertFormValues>;
   isOffering: boolean | null;
   regions: Region[];
   districts: District[];
@@ -25,7 +22,6 @@ type Props = {
 };
 
 export default function LocationCard({
-  form,
   districts,
   municipalities,
   regions,
@@ -41,14 +37,12 @@ export default function LocationCard({
       </CardHeader>
       <CardContent className="flex flex-col gap-y-2">
         <AdministrativeDivisionSelect
-          form={form}
           regions={regions}
           districts={districts}
           municipalities={municipalities}
         />
         {isOffering && (
           <TextField
-            control={form.control}
             name="street"
             placeholder={t("form.street.placeholder")}
             label={t("form.street.label")}

@@ -24,9 +24,9 @@ interface PersistedFormProps<T extends FieldValues> {
   children: React.ReactNode;
   onSubmit: (data: T) => void;
   persistConfig: {
-    form: UseFormReturn<T>;
     name: string;
     exclude?: (keyof T)[];
+    form: UseFormReturn<T>;
   };
   skipPersist?: boolean;
 }
@@ -37,17 +37,11 @@ function PersistedForm<T extends FieldValues>({
   children,
   skipPersist,
 }: PersistedFormProps<T>) {
-  const { form, name, exclude = [] } = persistConfig;
-
+  const { name, exclude = [], form } = persistConfig;
   return (
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <FormPersist
-          form={form}
-          name={name}
-          exclude={exclude}
-          skipPersist={skipPersist}
-        />
+        <FormPersist name={name} exclude={exclude} skipPersist={skipPersist} />
         {children}
       </form>
     </FormProvider>

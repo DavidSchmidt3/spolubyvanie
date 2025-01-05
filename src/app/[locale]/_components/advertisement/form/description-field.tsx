@@ -10,13 +10,10 @@ import {
 import { Textarea } from "@/app/[locale]/_components/ui/textarea";
 import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
 import { useTranslations } from "next-intl";
-import { type Control } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
-type Props = {
-  control: Control<AdvertisementUpsertFormValues>;
-};
-
-export default function DescriptionField({ control }: Props) {
+export default function DescriptionField() {
+  const { control } = useFormContext<AdvertisementUpsertFormValues>();
   const t = useTranslations("translations.add_advertisement.form");
 
   return (

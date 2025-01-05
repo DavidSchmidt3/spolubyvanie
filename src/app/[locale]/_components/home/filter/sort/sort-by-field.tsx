@@ -22,14 +22,11 @@ import {
 } from "@/lib/data/advertisements/schema";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
-import { useWatch, type UseFormReturn } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 
-type Props = {
-  form: UseFormReturn<AdvertisementFilterFormValues>;
-};
-
-export default function SortByField({ form }: Props) {
+export default function SortByField() {
   const t = useTranslations();
+  const form = useFormContext<AdvertisementFilterFormValues>();
 
   const advertisementType = useWatch({
     name: "advertisement_type",

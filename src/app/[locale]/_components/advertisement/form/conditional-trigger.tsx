@@ -1,12 +1,9 @@
 import { useConditionalTrigger } from "@/hooks/form";
 import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
-import { type UseFormReturn } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
-type Props = {
-  form: UseFormReturn<AdvertisementUpsertFormValues>;
-};
-
-export default function ConditionalTrigger({ form }: Props) {
+export default function ConditionalTrigger() {
+  const form = useFormContext<AdvertisementUpsertFormValues>();
   useConditionalTrigger({
     form,
     watchField: "max_floor",

@@ -8,29 +8,24 @@ import {
 } from "@/app/[locale]/_components/ui/form";
 import { useGroupedProperties } from "@/hooks/grouped-properties";
 import { useLocale } from "@/hooks/locale";
+import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
 import { type Property } from "@/lib/data/advertisements-properties";
 import { type CheckPropertySchemaType } from "@/lib/data/advertisements-properties/types";
+import { type AdvertisementFilterFormValues } from "@/lib/data/advertisements/schema";
 import { useTranslations } from "next-intl";
-import {
-  type FieldValues,
-  type Path,
-  type UseFormReturn,
-} from "react-hook-form";
+import { useFormContext, type FieldValues, type Path } from "react-hook-form";
 
 type Props<T extends FieldValues> = {
   properties: Property[];
-  form: UseFormReturn<T>;
   fieldName: Path<T>;
   className?: string;
 };
 
-export default function PropertiesFormField<T extends FieldValues>({
-  properties,
-  form,
-  fieldName,
-  className = "",
-}: Props<T>) {
+export default function PropertiesFormField<
+  T extends AdvertisementUpsertFormValues | AdvertisementFilterFormValues
+>({ properties, fieldName, className = "" }: Props<T>) {
   const t = useTranslations("translations.advertisement_list");
+  const form = useFormContext<T>();
   const locale = useLocale();
   const groupedProperties = useGroupedProperties(properties);
 

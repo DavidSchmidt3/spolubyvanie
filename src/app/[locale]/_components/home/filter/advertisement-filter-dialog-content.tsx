@@ -25,14 +25,13 @@ import {
 } from "@/lib/data/advertisements/schema";
 import _ from "lodash";
 import { useTranslations } from "next-intl";
-import { useWatch, type UseFormReturn } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 import AgeFilter from "./age-filter";
 
 type Props = {
   regions: Awaited<ReturnType<typeof getRegions>>;
   districts: Awaited<ReturnType<typeof getDistricts>>;
   municipalities: Awaited<ReturnType<typeof getMunicipalities>>;
-  form: UseFormReturn<AdvertisementFilterFormValues>;
   properties: Property[];
   onSubmit: (data: AdvertisementFilterFormValues) => void;
   isFetching: boolean;
@@ -42,11 +41,11 @@ export default function AdvertisementFilterDialogContent({
   regions,
   districts,
   municipalities,
-  form,
   onSubmit,
   isFetching,
   properties,
 }: Props) {
+  const form = useFormContext<AdvertisementFilterFormValues>();
   const values = useWatch({
     control: form.control,
   });
@@ -82,11 +81,10 @@ export default function AdvertisementFilterDialogContent({
                 regions={regions}
                 districts={districts}
                 municipalities={municipalities}
-                form={form}
               />
               <div className="order-1 sm:order-2 flex flex-col gap-y-2 gap-x-4 sm:gap-x-8">
                 <PriceFilter control={form.control} />
-                <AdvertisementTypeFilter form={form} />
+                <AdvertisementTypeFilter />
               </div>
               <div className="flex flex-col gap-y-4 order-3 sm:col-span-2">
                 <AgeFilter control={form.control} isOffering={isOffering} />
@@ -94,14 +92,13 @@ export default function AdvertisementFilterDialogContent({
               {isOffering && (
                 <div className="flex flex-col gap-y-4 order-4 sm:col-span-2">
                   <PropertiesFilter
-                    form={form}
                     properties={properties}
                     fieldName="properties"
                   />
                 </div>
               )}
               <div className="flex flex-col gap-y-4 order-5 sm:col-span-2">
-                <SortByField form={form} />
+                <SortByField />
               </div>
               <div className="flex flex-col gap-y-4 order-6 my-2 sm:col-span-2">
                 <Button

@@ -21,14 +21,14 @@ import { cn } from "@/lib/utils";
 import { getLocaleDateFormat } from "@/lib/utils/localization/i18n";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { type Control } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 type Props = {
-  control: Control<AdvertisementUpsertFormValues>;
   isOffering: boolean | null;
 };
 
-export default function AvailableFromField({ control, isOffering }: Props) {
+export default function AvailableFromField({ isOffering }: Props) {
+  const { control } = useFormContext<AdvertisementUpsertFormValues>();
   const [open, setOpen] = useState(false);
   const t = useTranslations("translations.add_advertisement.form");
   const locale = useLocale();

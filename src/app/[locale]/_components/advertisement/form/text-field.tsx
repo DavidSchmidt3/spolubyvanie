@@ -9,10 +9,9 @@ import {
 } from "@/app/[locale]/_components/ui/form";
 import { Input } from "@/app/[locale]/_components/ui/input";
 import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
-import { type Control } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 type Props = {
-  control: Control<AdvertisementUpsertFormValues>;
   label: string;
   placeholder: string;
   name: keyof {
@@ -24,12 +23,13 @@ type Props = {
 };
 
 export default function TextField({
-  control,
   label,
   placeholder,
   name,
   inputProps,
 }: Props) {
+  const { control } = useFormContext<AdvertisementUpsertFormValues>();
+
   return (
     <FormField
       control={control}

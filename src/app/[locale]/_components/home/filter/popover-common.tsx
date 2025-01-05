@@ -22,11 +22,7 @@ import {
 import { useCombobox } from "@/hooks/combobox";
 import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
 import { type AdvertisementFilterFormValues } from "@/lib/data/advertisements/schema";
-import {
-  type Control,
-  type ControllerRenderProps,
-  type UseFormReturn,
-} from "react-hook-form";
+import { useFormContext, type ControllerRenderProps } from "react-hook-form";
 import { FixedSizeList } from "react-window";
 
 export type CommonPopoverFieldProps = {
@@ -37,9 +33,6 @@ export type CommonPopoverFieldProps = {
   selectRowText: string;
   title: string;
   fieldName: keyof AdvertisementFilterFormValues;
-  form:
-    | UseFormReturn<AdvertisementFilterFormValues>
-    | UseFormReturn<AdvertisementUpsertFormValues>;
 };
 
 type Props = CommonPopoverFieldProps & {
@@ -57,7 +50,6 @@ export default function PopoverCommonField({
   emptyText,
   selectRowText,
   title,
-  form,
   fieldName,
   handleSelect,
   popoverTriggerContent,
@@ -70,14 +62,14 @@ export default function PopoverCommonField({
     return filterFunction(row);
   });
 
-  const control = form.control as Control<
+  const form = useFormContext<
     AdvertisementUpsertFormValues | AdvertisementFilterFormValues
-  >;
+  >();
 
   return (
     <div className="flex flex-col w-full">
       <FormField
-        control={control}
+        control={form.control}
         name={fieldName}
         render={({ field }) => (
           <FormItem>

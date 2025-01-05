@@ -20,38 +20,26 @@ import { type AdvertisementFilterFormValues } from "@/lib/data/advertisements/sc
 import { adTypeKeys, type AdType } from "@/lib/data/advertisements/types";
 import { type MessageKeys } from "global";
 import { useTranslations } from "next-intl";
-import {
-  type Control,
-  type UseFormReturn,
-  type UseFormSetValue,
-} from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 type Props = {
-  form:
-    | UseFormReturn<AdvertisementFilterFormValues>
-    | UseFormReturn<AdvertisementUpsertFormValues>;
   clearable?: boolean;
   disabled?: boolean;
 };
 
 export function AdvertisementTypeFilter({
-  form,
   clearable = true,
   disabled = false,
 }: Props) {
   const t = useTranslations();
-
-  const control = form.control as Control<
+  const form = useFormContext<
     AdvertisementFilterFormValues | AdvertisementUpsertFormValues
-  >;
-  const setValue = form.setValue as UseFormSetValue<
-    AdvertisementFilterFormValues | AdvertisementUpsertFormValues
-  >;
+  >();
 
   return (
     <div className="relative flex flex-col justify-center w-full gap-1">
       <FormField
-        control={control}
+        control={form.control}
         name="advertisement_type"
         render={({ field }) => (
           <FormItem className="relative">
@@ -112,7 +100,7 @@ export function AdvertisementTypeFilter({
               {field.value && clearable && (
                 <SelectCancelButton
                   onCancel={() => {
-                    setValue("advertisement_type", "", {
+                    form.setValue("advertisement_type", "", {
                       shouldValidate: true,
                     });
                   }}

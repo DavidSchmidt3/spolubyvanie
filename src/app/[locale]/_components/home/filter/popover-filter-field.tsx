@@ -6,12 +6,14 @@ import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-ad
 import { type AdvertisementFilterFormValues } from "@/lib/data/advertisements/schema";
 import { ChevronDown } from "lucide-react";
 import {
+  useFormContext,
   type ControllerRenderProps,
   type UseFormSetValue,
 } from "react-hook-form";
 
 export default function PopoverFilterField(props: CommonPopoverFieldProps) {
-  const { form, filterData, fieldName, selectRowText } = props;
+  const { filterData, fieldName, selectRowText } = props;
+  const form = useFormContext();
   const setValue = form.setValue as UseFormSetValue<
     AdvertisementUpsertFormValues | AdvertisementFilterFormValues
   >;

@@ -7,21 +7,15 @@ import {
 } from "@/app/[locale]/_components/ui/accordion";
 import { type Property } from "@/lib/data/advertisements-properties";
 import { useTranslations } from "next-intl";
-import {
-  type FieldValues,
-  type Path,
-  type UseFormReturn,
-} from "react-hook-form";
+import { type FieldValues, type Path } from "react-hook-form";
 
 type Props<T extends FieldValues> = {
   properties: Property[];
-  form: UseFormReturn<T>;
   fieldName: Path<T>;
 };
 
 export default function PropertiesFilter<T extends FieldValues>({
   properties,
-  form,
   fieldName,
 }: Props<T>) {
   const t = useTranslations("translations.advertisement_list");
@@ -34,7 +28,6 @@ export default function PropertiesFilter<T extends FieldValues>({
           <PropertiesFormField
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3"
             properties={properties}
-            form={form}
             fieldName={fieldName}
           />
         </AccordionContent>

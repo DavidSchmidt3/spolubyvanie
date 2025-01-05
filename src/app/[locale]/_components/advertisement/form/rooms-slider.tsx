@@ -9,14 +9,15 @@ import {
 } from "@/app/[locale]/_components/ui/form";
 import { Slider } from "@/app/[locale]/_components/ui/slider";
 import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
-import { type Control } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 type Props = {
-  control: Control<AdvertisementUpsertFormValues>;
   label: string;
 };
 
-export default function RoomsSlider({ control, label }: Props) {
+export default function RoomsSlider({ label }: Props) {
+  const { control } = useFormContext<AdvertisementUpsertFormValues>();
+
   return (
     <FormField
       control={control}

@@ -98,7 +98,7 @@ export default function AdvertisementFilterDialog({
     };
   }, [searchParams, properties]);
 
-  const form = useControlledForm<AdvertisementFilterFormValues>({
+  useControlledForm<AdvertisementFilterFormValues>({
     schema: ADVERTISEMENTS_FILTER_SCHEMA,
     defaultValues,
   });
@@ -157,7 +157,6 @@ export default function AdvertisementFilterDialog({
                 districts={districts}
                 municipalities={municipalities}
                 properties={properties}
-                form={form}
                 onSubmit={onSubmit}
                 isFetching={isFetching}
               />

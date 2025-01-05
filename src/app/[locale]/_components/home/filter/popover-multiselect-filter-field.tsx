@@ -7,36 +7,29 @@ import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
 import { type AdvertisementFilterFormValues } from "@/lib/data/advertisements/schema";
 import { ChevronDown } from "lucide-react";
-import {
-  type ControllerRenderProps,
-  type UseFormGetValues,
-  type UseFormSetValue,
-} from "react-hook-form";
+import { useFormContext, type ControllerRenderProps } from "react-hook-form";
 
 export default function PopoverMultiselectFilterField(
   props: CommonPopoverFieldProps
 ) {
-  const { form, filterData, fieldName, selectRowText } = props;
-  const setValue = form.setValue as UseFormSetValue<
+  const { filterData, fieldName, selectRowText } = props;
+  const form = useFormContext<
     AdvertisementUpsertFormValues | AdvertisementFilterFormValues
-  >;
-  const getValues = form.getValues as UseFormGetValues<
-    AdvertisementUpsertFormValues | AdvertisementFilterFormValues
-  >;
+  >();
 
   function handleUnselect(row: FilterData) {
-    const value = getValues(fieldName);
+    const value = form.getValues(fieldName);
     const newValue = Array.isArray(value)
       ? value?.filter((id) => id !== row.id)
       : [];
-    setValue(fieldName, newValue, { shouldValidate: true });
+    form.setValue(fieldName, newValue, { shouldValidate: true });
   }
 
   function handleAddValue(row: string) {
-    const value = getValues(fieldName);
+    const value = form.getValues(fieldName);
     if (typeof value === "object" && !Array.isArray(value)) return;
     const newValue = value ? [...value, row] : [row];
-    setValue(fieldName, newValue, { shouldValidate: true });
+    form.setValue(fieldName, newValue, { shouldValidate: true });
   }
 
   return (

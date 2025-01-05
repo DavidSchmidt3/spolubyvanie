@@ -14,16 +14,10 @@ import {
 } from "@/app/[locale]/_components/ui/form";
 import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
 import { useTranslations } from "next-intl";
-import {
-  type ControllerRenderProps,
-  type UseFormReturn,
-} from "react-hook-form";
+import { useFormContext, type ControllerRenderProps } from "react-hook-form";
 
-type Props = {
-  form: UseFormReturn<AdvertisementUpsertFormValues>;
-};
-
-export default function PhotosUploadCard({ form }: Props) {
+export default function PhotosUploadCard() {
+  const form = useFormContext<AdvertisementUpsertFormValues>();
   const t = useTranslations("translations.add_advertisement");
 
   function onFilesUpload(
