@@ -29,7 +29,6 @@ export default function AdministrativeDivisionFilter({
   districts,
   municipalities,
 }: Props) {
-  "use no memo";
   const form = useFormContext<AdvertisementFilterFormValues>();
   const t = useTranslations("translations.advertisement");
   const { filterMunicipality, filterDistrict, filterRegion } =

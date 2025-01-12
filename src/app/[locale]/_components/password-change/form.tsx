@@ -30,7 +30,6 @@ export default function PasswordChangeForm({
   className,
   ...props
 }: ResetPasswordProps) {
-  "use no memo";
   const t = useTranslations("translations");
   const router = useRouter();
   const { toast } = useToast();

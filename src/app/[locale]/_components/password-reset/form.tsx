@@ -31,7 +31,6 @@ export default function PasswordResetForm({
   className,
   ...props
 }: ResetPasswordProps) {
-  "use no memo";
   const t = useTranslations("translations");
   const params = useParams();
   const router = useRouter();

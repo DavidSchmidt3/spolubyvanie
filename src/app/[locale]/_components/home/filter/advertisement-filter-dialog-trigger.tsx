@@ -50,7 +50,6 @@ export default function AdvertisementFilterDialog({
   municipalities,
   properties,
 }: Props) {
-  "use no memo";
   const [initialized, setInitialized] = useState(false);
   const [open, setOpen] = useState(false);
   const [isFetching, setIsFetching] = useState(false);

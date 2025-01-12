@@ -33,7 +33,6 @@ export default function UserRegisterForm({
   className,
   ...props
 }: UserRegisterProps) {
-  "use no memo";
   const t = useTranslations("translations");
   const router = useRouter();
   const { toast } = useToast();

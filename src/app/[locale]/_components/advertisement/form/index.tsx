@@ -58,7 +58,6 @@ export default function AdvertisementForm({
   isEdit = false,
   ...props
 }: EditProps | CreateProps) {
-  "use no memo";
   const t = useTranslations("translations");
   const { execute, isExecuting, result, hasErrored, hasSucceeded } =
     useAction(upsertAdvertisement);

@@ -27,7 +27,6 @@ type Props = {
 };
 
 export default function ContactForm({ userId, advertisementTitle }: Props) {
-  "use no memo";
   const t = useTranslations("translations.advertisement");
   const [show, setShow] = useState(true);
   const { toast } = useToast();
