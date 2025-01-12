@@ -245,7 +245,7 @@
       "description": "Browse top listings for affordable and convenient co-living",
       "filter": {
         "advanced": {
-          "label": "Advanced filters"
+          "label": "Detailed filtering"
         },
         "title": "Filter advertisements",
         "button": "Search advertisements",

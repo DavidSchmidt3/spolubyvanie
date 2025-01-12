@@ -245,7 +245,7 @@
       "description": "Prezrite si najlepšie ponuky cenovo dostupného a pohodlného spolubývania",
       "filter": {
         "advanced": {
-          "label": "Pokročilé filtrovanie"
+          "label": "Podrobné filtrovanie"
         },
         "title": "Filtrovanie inzerátov",
         "button": "Hľadaj inzeráty",
