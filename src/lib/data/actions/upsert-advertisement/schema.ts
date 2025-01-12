@@ -193,3 +193,5 @@ export const ADVERTISEMENT_UPSERT_SCHEMA = z
 export type AdvertisementUpsertFormValues = z.infer<
   typeof ADVERTISEMENT_UPSERT_SCHEMA
 >;
+
+export const ADVERTISEMENT_VIEW_SCHEMA = z.string().uuid();
