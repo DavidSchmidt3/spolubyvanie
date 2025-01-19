@@ -48,8 +48,23 @@ export default function AdvertisementPreview({
     created_at,
     views,
     min_age,
+    available_from,
     max_age,
   } = advertisement;
+
+  const formatAgeRange = (
+    type: AdType,
+    minAge: number | null,
+    maxAge: number | null
+  ): string => {
+    if (type === AdType.OfferingRoom) {
+      const minAgeStr = minAge?.toString() ?? "";
+      const maxAgeStr = maxAge?.toString() ?? "";
+      return `${minAgeStr} - ${maxAgeStr}`;
+    }
+
+    return minAge?.toString() ?? "-";
+  };
 
   return (
     <Card className="w-full h-auto p-6 px-6 sm:px-8">
@@ -84,6 +99,14 @@ export default function AdvertisementPreview({
               label={t("date_added.title")}
               value={formatDate(created_at, locale)}
             />
+            <InfoRow
+              label={
+                type === AdType.OfferingRoom
+                  ? t("available_from.label")
+                  : t("searching_from.label")
+              }
+              value={formatDate(available_from, locale)}
+            />
             {type === AdType.OfferingRoom && (
               <>
                 <InfoRow
@@ -102,15 +125,7 @@ export default function AdvertisementPreview({
                   ? t("age.range.title")
                   : t("age.label")
               }
-              value={
-                type === AdType.OfferingRoom
-                  ? `${min_age ? min_age.toString() : ""} - ${
-                      max_age ? max_age.toString() : ""
-                    }`
-                  : min_age
-                  ? min_age.toString()
-                  : ""
-              }
+              value={formatAgeRange(type, min_age, max_age)}
             />
             <div className="flex justify-end text-base md:text-lg items-center gap-x-2">
               {views}
