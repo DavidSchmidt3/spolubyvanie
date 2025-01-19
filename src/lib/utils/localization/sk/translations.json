@@ -127,8 +127,8 @@
         "select_text": "Vybrať kraj",
         "empty_text": "Neboli nájdené žiadne kraje"
       },
-      "date_added": {
-        "title": "Dátum pridania"
+      "date_upserted": {
+        "title": "Dátum pridania/úpravy"
       },
       "views": {
         "title": "Počet zobrazení"
@@ -192,7 +192,7 @@
       "sort_by": {
         "select_label": "Zoradiť podľa",
         "select_text": "Vybrať spôsob zoradenia",
-        "created_at": "Dátumu pridania",
+        "upserted_at": "Dátumu pridania/úpravy",
         "price": "Ceny",
         "room_area": "Veľkosti izby",
         "apartment_rooms": "Počtu izieb bytu"

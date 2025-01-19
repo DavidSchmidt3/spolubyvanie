@@ -30,6 +30,7 @@ export type Database = {
           street: string | null
           title: string
           type: number
+          updated_at: string
           user_id: string
           views: number
         }
@@ -53,6 +54,7 @@ export type Database = {
           street?: string | null
           title: string
           type: number
+          updated_at?: string
           user_id: string
           views?: number
         }
@@ -76,6 +78,7 @@ export type Database = {
           street?: string | null
           title?: string
           type?: number
+          updated_at?: string
           user_id?: string
           views?: number
         }

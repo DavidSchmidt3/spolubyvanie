@@ -13,7 +13,7 @@ export async function getMyAdvertisements(userId: string, page: string) {
           user_id: userId,
         },
         orderBy: {
-          created_at: "desc",
+          updated_at: "desc",
         },
         include: {
           municipalities: {

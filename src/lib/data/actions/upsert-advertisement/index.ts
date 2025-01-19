@@ -82,6 +82,7 @@ export const upsertAdvertisement = authActionClient
             },
             data: {
               ...upsertData,
+              updated_at: new Date(),
             },
           });
           await handleEditPhotos(
@@ -96,6 +97,7 @@ export const upsertAdvertisement = authActionClient
             data: {
               ...(upsertData as AdvertisementCreate),
               user_id: userId,
+              created_at: new Date(),
             },
           });
           await handleAddPhotos(
@@ -174,7 +176,6 @@ function parseAdvertisementData(
       apartment_area: apartment_area ? parseInt(apartment_area) : undefined,
       apartment_rooms,
       street,
-      created_at: new Date(),
       primary_photo_url: primary_photo,
       advertisements_properties: propertiesData,
       municipality_id: municipality,
@@ -186,7 +187,6 @@ function parseAdvertisementData(
       type,
       primary_photo_url: primary_photo,
       municipality_id: municipality,
-      created_at: new Date(),
       min_age: min_age ? parseInt(min_age) : undefined,
       max_age: undefined,
       price: parseInt(price),

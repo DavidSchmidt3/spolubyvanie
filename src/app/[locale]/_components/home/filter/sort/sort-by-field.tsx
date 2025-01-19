@@ -90,10 +90,10 @@ export default function SortByField() {
                   {t("translations.advertisement.sort_by.price")}
                 </SelectItem>
                 <SelectItem
-                  value="created_at"
+                  value="updated_at"
                   className="text-base hover:cursor-pointer"
                 >
-                  {t("translations.advertisement.sort_by.created_at")}
+                  {t("translations.advertisement.sort_by.upserted_at")}
                 </SelectItem>
                 {isOffering && (
                   <>

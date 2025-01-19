@@ -127,7 +127,7 @@
         "select_text": "Select a region",
         "empty_text": "No region found."
       },
-      "date_added": {
+      "date_upserted": {
         "title": "Date added"
       },
       "views": {
@@ -192,7 +192,7 @@
       "sort_by": {
         "select_label": "Sort by",
         "select_text": "Select sorting",
-        "created_at": "Date added",
+        "upserted_at": "Date added/updated",
         "price": "Price",
         "room_area": "Room area",
         "apartment_rooms": "Number of rooms in apartment"

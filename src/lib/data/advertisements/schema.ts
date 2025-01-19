@@ -53,7 +53,7 @@ const ADVERTISEMENT_FILTER_BASE_SCHEMA = z.object({
     .or(z.undefined()),
   sort_by: z
     .literal("price")
-    .or(z.literal("created_at"))
+    .or(z.literal("updated_at"))
     .or(z.literal("apartment_rooms"))
     .or(z.literal("room_area"))
     .or(z.undefined()),
@@ -61,7 +61,7 @@ const ADVERTISEMENT_FILTER_BASE_SCHEMA = z.object({
   properties: z.record(CheckPropertySchema).or(z.string()).or(z.undefined()),
 });
 
-export const DEFAULT_SORT_BY = "created_at";
+export const DEFAULT_SORT_BY = "updated_at";
 export const DEFAULT_SORT_ORDER = "asc";
 export const OFFERING_ROOM_ONLY_SORT_BY_VALUES = [
   "room_area",

@@ -45,7 +45,7 @@ export default function AdvertisementPreview({
     municipality,
     district,
     region,
-    created_at,
+    updated_at,
     views,
     min_age,
     available_from,
@@ -96,8 +96,8 @@ export default function AdvertisementPreview({
             <InfoRow label={t("district.title")} value={district} />
             <InfoRow label={t("region.title")} value={region} />
             <InfoRow
-              label={t("date_added.title")}
-              value={formatDate(created_at, locale)}
+              label={t("date_upserted.title")}
+              value={formatDate(updated_at, locale)}
             />
             <InfoRow
               label={
