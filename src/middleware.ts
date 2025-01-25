@@ -43,7 +43,6 @@ export async function middleware(request: NextRequest) {
     }
   );
 
-  const { data } = await supabase.auth.getUser();
   const pathnameWithoutLocale = request.nextUrl.pathname.replace(
     new RegExp(`^/(${LOCALES_CODES.join("|")})`),
     ""
@@ -54,8 +53,11 @@ export async function middleware(request: NextRequest) {
   );
 
   // if user is already logged in, don't allow him to visit auth pages
-  if (data.user && authPathnames.includes(pathnameWithoutLocale)) {
-    return NextResponse.redirect(`${process.env.BASE_URL}/${redirectLocale}`);
+  if (authPathnames.includes(pathnameWithoutLocale)) {
+    const { data } = await supabase.auth.getUser();
+    if (data.user) {
+      return NextResponse.redirect(`${process.env.BASE_URL}/${redirectLocale}`);
+    }
   }
 
   // if user wants to change password, there must be a code in the url
