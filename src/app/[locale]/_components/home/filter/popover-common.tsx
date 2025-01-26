@@ -102,7 +102,7 @@ export default function PopoverCommonField({
                     className="text-base"
                   />
                   <CommandList>
-                    <CommandEmpty className="text-base">
+                    <CommandEmpty className="text-base text-center absolute top-0 w-full">
                       {emptyText}
                     </CommandEmpty>
                     <CommandGroup>
