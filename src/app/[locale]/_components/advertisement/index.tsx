@@ -1,6 +1,7 @@
 import ContactForm from "@/app/[locale]/_components/advertisement/contact-form";
 import ImageGallery from "@/app/[locale]/_components/advertisement/image-gallery";
 import InfoCard from "@/app/[locale]/_components/advertisement/info-card";
+import Properties from "@/app/[locale]/_components/advertisement/properties";
 import ViewCounter from "@/app/[locale]/_components/advertisement/view-counter";
 import NextIntlClientProvider from "@/app/[locale]/_components/providers/next-intl-provider";
 import {
@@ -24,6 +25,7 @@ export default async function Advertisement({
   properties,
 }: Props) {
   const { title, description, advertisement_photos } = advertisement;
+  const hasPhotos = advertisement_photos.length > 0;
 
   return (
     <>
@@ -34,21 +36,26 @@ export default async function Advertisement({
         </CardHeader>
         <CardContent className="flex flex-col w-full gap-4 p-4 sm:p-8 sm:gap-6 xl:gap-8">
           <p className="text-justify break-words text-wrap">{description}</p>
-          <InfoCard
-            advertisement={advertisement}
-            locale={locale}
-            properties={properties}
-          />
-          <div className="flex justify-center w-full mt-8">
-            <div className="w-full max-w-4xl">
-              {advertisement_photos.length ? (
+
+          <div className="flex flex-col lg:flex-row gap-6 xl:gap-8">
+            <div className={`w-full ${hasPhotos ? "lg:w-1/2" : ""}`}>
+              <InfoCard advertisement={advertisement} locale={locale} />
+            </div>
+
+            {hasPhotos && (
+              <div className="w-full lg:w-1/2">
                 <ImageGallery
                   photoUrls={advertisement_photos}
                   primaryPhotoUrl={advertisement.primary_photo_url}
                 />
-              ) : null}
-            </div>
+              </div>
+            )}
           </div>
+          <Properties
+            advertisementProperties={advertisement.advertisements_properties}
+            locale={locale}
+            properties={properties}
+          />
         </CardContent>
         <NextIntlClientProvider
           messages={["translations.advertisement", "alerts.advertisement"]}
