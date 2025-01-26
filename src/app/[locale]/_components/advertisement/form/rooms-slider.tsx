@@ -7,6 +7,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/app/[locale]/_components/ui/form";
+import { Input } from "@/app/[locale]/_components/ui/input";
 import { Slider } from "@/app/[locale]/_components/ui/slider";
 import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
 import { useFormContext } from "react-hook-form";
@@ -26,13 +27,30 @@ export default function RoomsSlider({ label }: Props) {
         <FormItem>
           <FormLabel className="text-base">{label}</FormLabel>
           <FormControl>
-            <Slider
-              min={1}
-              max={5}
-              step={1}
-              value={[field.value]}
-              onValueChange={(value) => field.onChange(value[0])}
-            />
+            <div className="flex items-center gap-4">
+              <div className="flex-1">
+                <Slider
+                  min={1}
+                  max={5}
+                  step={1}
+                  value={[field.value]}
+                  onValueChange={(value) => field.onChange(value[0])}
+                />
+              </div>
+              <Input
+                type="number"
+                min={1}
+                max={5}
+                className="w-14"
+                value={field.value}
+                onChange={(e) => {
+                  const value = parseInt(e.target.value);
+                  if (value >= 1 && value <= 5) {
+                    field.onChange(value);
+                  }
+                }}
+              />
+            </div>
           </FormControl>
           <FormMessage />
         </FormItem>
