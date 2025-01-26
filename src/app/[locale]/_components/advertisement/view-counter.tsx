@@ -12,7 +12,6 @@ function ViewCounter({ advertisementId }: Props) {
 
   useEffect(() => {
     if (!advertisementId) return;
-    console.log("adding view for advertisement", advertisementId);
     execute(advertisementId);
   }, [execute, advertisementId]);
 

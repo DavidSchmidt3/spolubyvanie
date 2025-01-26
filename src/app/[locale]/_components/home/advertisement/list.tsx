@@ -8,15 +8,17 @@ import { type ParsedUrlQuery } from "querystring";
 
 type Props = {
   searchParams: ParsedUrlQuery;
-  page: string;
-  locale: Locale;
+  params: Promise<{
+    page: string;
+    locale: Locale;
+  }>;
 };
 
 export default async function AdvertisementList({
   searchParams,
-  page,
-  locale,
+  params,
 }: Props) {
+  const { page, locale } = await params;
   const advertisementsFetchResult = await getAdvertisements(searchParams, page);
   const { advertisements, paginationData } = advertisementsFetchResult;
   const t = await getTranslations("translations.advertisement_list");
