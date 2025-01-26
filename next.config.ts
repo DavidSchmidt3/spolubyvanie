@@ -23,7 +23,6 @@ const cspHeader = `
 
 const config: NextConfig = {
   experimental: {
-    ppr: true,
     reactCompiler: true,
     dynamicIO: false,
     serverActions: {
