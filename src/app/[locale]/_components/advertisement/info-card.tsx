@@ -88,7 +88,7 @@ export default function InfoCard({ advertisement, locale }: Props) {
                 }`
               : min_age
               ? min_age.toString()
-              : ""
+              : "-"
           }
         />
       </div>
