@@ -10,9 +10,9 @@ export default function Contact() {
         {t("contact.title")}{" "}
         <a
           href="mailto:
-        david.schmidt382001@gmail.com"
+        spolubyvanieinfo@gmail.com"
         >
-          <b>david.schmidt382001@gmail.com</b>
+          <b>spolubyvanieinfo@gmail.com</b>
         </a>
       </h1>
     </Container>

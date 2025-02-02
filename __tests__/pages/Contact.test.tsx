@@ -9,6 +9,6 @@ it("renders contact page", () => {
       <Contact />
     </NextIntlClientProvider>
   );
-  const linkElement = screen.getByText("david.schmidt382001@gmail.com");
+  const linkElement = screen.getByText("spolubyvanieinfo@gmail.com");
   expect(linkElement).toBeInTheDocument();
 });
