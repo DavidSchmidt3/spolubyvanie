@@ -159,6 +159,10 @@
       "room_area": {
         "label": "Veľkosť izby (m²)"
       },
+      "min_room_area": {
+        "label": "Minimálna veľkosť izby (m²)",
+        "placeholder": "Zadajte minimálnu požadovanú veľkosť"
+      },
       "detail": {
         "link": "Podrobnosti inzerátu"
       },
@@ -182,6 +186,10 @@
       },
       "apartment_rooms": {
         "label": "Počet izieb bytu"
+      },
+      "max_apartment_rooms": {
+        "label": "Maximálny počet izieb bytu",
+        "placeholder": "Zadajte maximálny požadovaný počet"
       },
       "types": {
         "select_label": "Typ inzerátu",

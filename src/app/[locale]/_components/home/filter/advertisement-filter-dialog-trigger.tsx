@@ -94,6 +94,12 @@ export default function AdvertisementFilterDialog({
       properties:
         constructPropertiesObject(searchParams.get("properties"), properties) ??
         {},
+      max_apartment_rooms:
+        searchParams.get("max_apartment_rooms") ??
+        ADVERTISEMENT_FILTER_DEFAULT_VALUES.max_apartment_rooms,
+      min_room_area:
+        searchParams.get("min_room_area") ??
+        ADVERTISEMENT_FILTER_DEFAULT_VALUES.min_room_area,
     };
   }, [searchParams, properties]);
 

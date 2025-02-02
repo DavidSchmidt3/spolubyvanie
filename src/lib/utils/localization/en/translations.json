@@ -159,6 +159,10 @@
       "room_area": {
         "label": "Room area (m²)"
       },
+      "min_room_area": {
+        "label": "Minimum room area (m²)",
+        "placeholder": "Enter minimum desired area"
+      },
       "show_full_advertisement": {
         "link": "Show full advertisement"
       },
@@ -182,6 +186,10 @@
       },
       "apartment_rooms": {
         "label": "Number of rooms in apartment"
+      },
+      "max_apartment_rooms": {
+        "label": "Maximum number of rooms in apartment",
+        "placeholder": "Enter maximum desired number"
       },
       "types": {
         "select_label": "Types of advertisement",

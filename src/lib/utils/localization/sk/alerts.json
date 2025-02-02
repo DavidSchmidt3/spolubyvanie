@@ -109,6 +109,15 @@
         "invalid": "Vek musí byť väčší ako 0",
         "max_higher_than_min": "Maximálny vek musí byť väčší ako minimálny vek"
       },
+      "max_apartment_rooms": {
+        "number": "Maximálny počet izieb musí byť číslo",
+        "low": "Maximálny počet izieb musí byť väčší ako 0",
+        "high": "Maximálny počet izieb musí byť menší ako 6"
+      },
+      "min_room_area": {
+        "number": "Minimálna veľkosť izby musí byť číslo",
+        "invalid": "Minimálna veľkosť izby musí byť väčšia ako 0"
+      },
       "error": {
         "title": "Nepodarilo sa filtrovať inzeráty"
       },

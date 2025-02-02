@@ -10,6 +10,7 @@ import {
 import { Input } from "@/app/[locale]/_components/ui/input";
 import { Slider } from "@/app/[locale]/_components/ui/slider";
 import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
+import { ROOMS_MAX_VALUE } from "@/lib/data/advertisements/schema";
 import { useFormContext } from "react-hook-form";
 
 type Props = {
@@ -31,7 +32,7 @@ export default function RoomsSlider({ label }: Props) {
               <div className="flex-1">
                 <Slider
                   min={1}
-                  max={5}
+                  max={ROOMS_MAX_VALUE}
                   step={1}
                   value={[field.value]}
                   onValueChange={(value) => field.onChange(value[0])}
@@ -40,12 +41,12 @@ export default function RoomsSlider({ label }: Props) {
               <Input
                 type="number"
                 min={1}
-                max={5}
+                max={ROOMS_MAX_VALUE}
                 className="w-14"
                 value={field.value}
                 onChange={(e) => {
                   const value = parseInt(e.target.value);
-                  if (value >= 1 && value <= 5) {
+                  if (value >= 1 && value <= ROOMS_MAX_VALUE) {
                     field.onChange(value);
                   }
                 }}

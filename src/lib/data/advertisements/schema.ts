@@ -2,6 +2,7 @@ import { CheckPropertySchema } from "@/lib/data/advertisements-properties/types"
 import { AdType, createAdTypeRegex } from "@/lib/data/advertisements/types";
 import * as z from "zod";
 
+export const ROOMS_MAX_VALUE = 5;
 const ADVERTISEMENT_FILTER_BASE_SCHEMA = z.object({
   municipality: z.array(z.string().uuid()).or(z.undefined()).or(z.string()),
   district: z.array(z.string().uuid()).or(z.undefined()).or(z.string()),
@@ -56,6 +57,29 @@ const ADVERTISEMENT_FILTER_BASE_SCHEMA = z.object({
     .or(z.literal("updated_at"))
     .or(z.literal("apartment_rooms"))
     .or(z.literal("room_area"))
+    .or(z.undefined()),
+  max_apartment_rooms: z
+    .string()
+    .regex(/^\s*\d*\s*$/, {
+      message: "alerts.advertisement.max_apartment_rooms.number",
+    })
+    .refine((val) => !val || parseInt(val) >= 0, {
+      message: "alerts.advertisement.max_apartment_rooms.low",
+    })
+    .refine((val) => !val || parseInt(val) <= ROOMS_MAX_VALUE, {
+      message: "alerts.advertisement.max_apartment_rooms.high",
+    })
+    .or(z.literal(""))
+    .or(z.undefined()),
+  min_room_area: z
+    .string()
+    .regex(/^\s*\d*\s*$/, {
+      message: "alerts.advertisement.min_room_area.number",
+    })
+    .refine((val) => !val || parseInt(val) >= 0, {
+      message: "alerts.advertisement.min_room_area.invalid",
+    })
+    .or(z.literal(""))
     .or(z.undefined()),
   sort_order: z.literal("asc").or(z.literal("desc")).or(z.undefined()),
   properties: z.record(CheckPropertySchema).or(z.string()).or(z.undefined()),
@@ -150,6 +174,8 @@ export const ADVERTISEMENT_FILTER_DEFAULT_VALUES: AdvertisementFilterFormValues 
     min_age: "",
     max_age: "",
     advertisement_type: "",
+    max_apartment_rooms: "",
+    min_room_area: "",
     sort_by: "price",
     sort_order: "asc",
     properties: {},

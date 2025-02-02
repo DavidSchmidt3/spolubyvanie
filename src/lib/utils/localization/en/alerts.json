@@ -109,6 +109,15 @@
         "invalid": "Age must be higher than 0",
         "max_higher_than_min": "Max age must be higher than min age"
       },
+      "max_apartment_rooms": {
+        "number": "Maximum number of rooms must be a number",
+        "low": "Maximum number of rooms must be higher than 0",
+        "high": "Maximum number of rooms must be lower than 6"
+      },
+      "min_room_area": {
+        "number": "Minimum room area must be a number",
+        "invalid": "Minimum room area must be higher than 0"
+      },
       "error": {
         "title": "Failed to filter advertisements"
       },

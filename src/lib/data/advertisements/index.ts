@@ -83,6 +83,8 @@ export const getAdvertisementsFiltered = async ({
   sort_order,
   advertisement_type,
   page,
+  max_apartment_rooms,
+  min_room_area,
 }: AdvertisementFullSchemaValues) => {
   const isSortOnNullableField = NULLABLE_SORT_BY_VALUES.includes(
     (sort_by as (typeof NULLABLE_SORT_BY_VALUES)[number]) ?? DEFAULT_SORT_BY
@@ -131,6 +133,18 @@ export const getAdvertisementsFiltered = async ({
         },
         type: parsedAdvertisementType,
         AND: propertiesConditions,
+        apartment_rooms: max_apartment_rooms
+          ? {
+              lte: parseInt(max_apartment_rooms),
+              not: null,
+            }
+          : undefined,
+        room_area: min_room_area
+          ? {
+              gte: parseInt(min_room_area),
+              not: null,
+            }
+          : undefined,
       },
     },
     page
@@ -197,14 +211,14 @@ const getPropertiesConditions = (
 const getMinAge = (
   isOffering: boolean,
   isSearching: boolean,
-  min_age: string | undefined, // user's "age" (or lower bound of user’s range)
+  min_age: string | undefined, // user's "age" (or lower bound of user's range)
   max_age: string | undefined // user's upper bound (only relevant for isSearching)
 ) => {
   const userMinAge = min_age ? parseInt(min_age, 10) : undefined;
   const userMaxAge = max_age ? parseInt(max_age, 10) : undefined;
 
   /**
-   * If “Offering” => Ad’s min_age ≤ userAge
+   * If "Offering" => Ad's min_age ≤ userAge
    *   i.e. userAge >= ad.min_age
    *   => ad.min_age <= userAge (Prisma: { lte: userAge })
    */
@@ -213,7 +227,7 @@ const getMinAge = (
   }
 
   /**
-   * If “Searching” => Ad’s min_age must be > userProvidedMinAge
+   * If "Searching" => Ad's min_age must be > userProvidedMinAge
    *                 AND < userProvidedMaxAge
    * We handle that in one field (min_age in the DB).
    */
@@ -229,7 +243,7 @@ const getMinAge = (
     return Object.keys(constraints).length ? constraints : undefined;
   }
 
-  // If neither “Offering” nor “Searching,” no constraint:
+  // If neither "Offering" nor "Searching," no constraint:
   return undefined;
 };
 
@@ -237,7 +251,7 @@ const getMaxAge = (isOffering: boolean, min_age: string | undefined) => {
   const userMinAge = min_age ? parseInt(min_age, 10) : undefined;
 
   /**
-   * If “Offering” => Ad’s max_age ≥ userAge
+   * If "Offering" => Ad's max_age ≥ userAge
    *   i.e. userAge <= ad.max_age
    *   => ad.max_age >= userAge (Prisma: { gte: userAge })
    */
@@ -246,8 +260,8 @@ const getMaxAge = (isOffering: boolean, min_age: string | undefined) => {
   }
 
   /**
-   * If “Searching,” no max_age constraints from your description
-   *   because you only store one field in DB for the searcher’s age (“min_age”).
+   * If "Searching," no max_age constraints from your description
+   *   because you only store one field in DB for the searcher's age ("min_age").
    */
   return undefined;
 };

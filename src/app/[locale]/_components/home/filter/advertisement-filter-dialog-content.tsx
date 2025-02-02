@@ -1,5 +1,7 @@
 import AdministrativeDivisionFilter from "@/app/[locale]/_components/home/filter/administrative-division-filter";
 import { AdvertisementTypeFilter } from "@/app/[locale]/_components/home/filter/advertisement-type-filter";
+import AgeFilter from "@/app/[locale]/_components/home/filter/age-filter";
+import OtherDetailsFilter from "@/app/[locale]/_components/home/filter/other-details-filter";
 import PriceFilter from "@/app/[locale]/_components/home/filter/price-filter";
 import PropertiesFilter from "@/app/[locale]/_components/home/filter/properties-filter";
 import SortByField from "@/app/[locale]/_components/home/filter/sort";
@@ -26,7 +28,6 @@ import {
 import _ from "lodash";
 import { useTranslations } from "next-intl";
 import { type UseFormReturn, useWatch } from "react-hook-form";
-import AgeFilter from "./age-filter";
 
 type Props = {
   regions: Awaited<ReturnType<typeof getRegions>>;
@@ -91,17 +92,22 @@ export default function AdvertisementFilterDialogContent({
                 <AgeFilter control={form.control} isOffering={isOffering} />
               </div>
               {isOffering && (
-                <div className="flex flex-col gap-y-4 order-4 sm:col-span-2">
-                  <PropertiesFilter
-                    properties={properties}
-                    fieldName="properties"
-                  />
-                </div>
+                <>
+                  <div className="flex flex-col gap-y-4 order-4 sm:col-span-2">
+                    <OtherDetailsFilter />
+                  </div>
+                  <div className="flex flex-col gap-y-4 order-5 sm:col-span-2">
+                    <PropertiesFilter
+                      properties={properties}
+                      fieldName="properties"
+                    />
+                  </div>
+                </>
               )}
-              <div className="flex flex-col gap-y-4 order-5 sm:col-span-2">
+              <div className="flex flex-col gap-y-4 order-6 sm:col-span-2">
                 <SortByField />
               </div>
-              <div className="flex flex-col gap-y-4 order-6 my-2 sm:col-span-2">
+              <div className="flex flex-col gap-y-4 order-7 my-2 sm:col-span-2">
                 <Button
                   type="submit"
                   variant="ringHover"
