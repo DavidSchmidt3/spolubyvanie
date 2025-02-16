@@ -1,4 +1,5 @@
 # Create T3 App
+This project is still in development, and some functionalities may be broken. I often update to the latest Next.js canary version, which can cause things to break, along with experimenting with the latest Next.js approaches.
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`. TRPC was removed as there aren't many dynamic data fetching needs in this project and there is no need for mobile app. For server side data fetching I use React Server Components.
 
