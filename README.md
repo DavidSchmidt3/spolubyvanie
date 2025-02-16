@@ -38,3 +38,12 @@ Well, next.js has "interesting" behavior, ([Github discussion](https://github.co
 However, then the next problem occurs. Navigation between routes is still really bad experience, because the page can't be prefetched and you have to wait for the page to load every time you navigate to it. This creates the impression of "nothing is happening" when navigating between pages especially on slow connections. When done via dynamic segment route - next will now prefetch pages content until it finds a loading.tsx which will be prefetched also. Therefore, until on a really slow connection, the route with the loading skeleton will be prefetched and shown to the user.
 
 After the filter change, the same problem occurs, however this is "fixed" by showing the loading indicator to user on filter button and not closing the filter dialog until the new route is fetched and rendered. I could show the same loading indicator for paging, however having the page prefetched is much better.
+
+## License
+This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)** license.
+
+🔹 You are free to view, modify, and learn from the code.  
+🚫 **Commercial use in any form is strictly prohibited** (including original or modified versions).  
+
+Full license details: [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
+
