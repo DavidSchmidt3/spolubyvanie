@@ -289,6 +289,7 @@ model users {
   sessions                    sessions[]
   advertisements              advertisements[]
   user_settings               user_settings?
+  users_filters               users_filters[]
 
   @@index([instance_id])
   @@index([is_anonymous])
@@ -430,6 +431,17 @@ model properties_group {
   sk_translation String       @db.VarChar
   en_translation String       @db.VarChar
   properties     properties[]
+
+  @@schema("public")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model users_filters {
+  id      String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name    String @db.VarChar
+  user_id String @db.Uuid
+  query   String @db.VarChar
+  users   users  @relation(fields: [user_id], references: [id], onDelete: NoAction)
 
   @@schema("public")
 }

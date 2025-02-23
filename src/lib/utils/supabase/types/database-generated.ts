@@ -302,6 +302,27 @@ export type Database = {
         }
         Relationships: []
       }
+      users_filters: {
+        Row: {
+          id: string
+          name: string
+          query: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          query: string
+          user_id: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          query?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
