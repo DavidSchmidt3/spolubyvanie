@@ -15,6 +15,7 @@ import {
 import { Form } from "@/app/[locale]/_components/ui/form";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { useAdvertisementType } from "@/hooks/advertisement-type";
+import { useResetFormAfterClearingAdvertisementType } from "@/hooks/reset-filter-form";
 import {
   type getDistricts,
   type getMunicipalities,
@@ -68,6 +69,9 @@ export default function AdvertisementFilterDialogContent({
     name: "advertisement_type",
   });
   const isOffering = useAdvertisementType(advertisementType);
+  const isTypeSelected = isOffering !== null;
+
+  useResetFormAfterClearingAdvertisementType(form, advertisementType);
 
   const t = useTranslations("translations.advertisement_list");
   return (
@@ -79,31 +83,37 @@ export default function AdvertisementFilterDialogContent({
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-8 px-1">
-              <AdministrativeDivisionFilter
-                regions={regions}
-                districts={districts}
-                municipalities={municipalities}
-              />
-              <div className="order-1 sm:order-2 flex flex-col gap-y-2 gap-x-4 sm:gap-x-8">
-                <PriceFilter control={form.control} />
+              <div className="col-span-2">
                 <AdvertisementTypeFilter />
               </div>
-              <div className="flex flex-col gap-y-4 order-3 sm:col-span-2">
-                <AgeFilter control={form.control} isOffering={isOffering} />
-              </div>
-              {isOffering && (
+              {isTypeSelected ? (
                 <>
-                  <div className="flex flex-col gap-y-4 order-4 sm:col-span-2">
-                    <OtherDetailsFilter />
+                  <AdministrativeDivisionFilter
+                    regions={regions}
+                    districts={districts}
+                    municipalities={municipalities}
+                  />
+                  <div className="order-1 sm:order-2 flex flex-col gap-y-2 gap-x-4 sm:gap-x-8">
+                    <PriceFilter control={form.control} />
                   </div>
-                  <div className="flex flex-col gap-y-4 order-5 sm:col-span-2">
-                    <PropertiesFilter
-                      properties={properties}
-                      fieldName="properties"
-                    />
+                  <div className="flex flex-col gap-y-4 order-3 sm:col-span-2">
+                    <AgeFilter control={form.control} isOffering={isOffering} />
                   </div>
+                  {isOffering && (
+                    <>
+                      <div className="flex flex-col gap-y-4 order-4 sm:col-span-2">
+                        <OtherDetailsFilter />
+                      </div>
+                      <div className="flex flex-col gap-y-4 order-5 sm:col-span-2">
+                        <PropertiesFilter
+                          properties={properties}
+                          fieldName="properties"
+                        />
+                      </div>
+                    </>
+                  )}
                 </>
-              )}
+              ) : null}
               <div className="flex flex-col gap-y-4 order-6 sm:col-span-2">
                 <SortByField />
               </div>
