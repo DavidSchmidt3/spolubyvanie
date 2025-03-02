@@ -131,11 +131,14 @@ export default function AdvertisementFilterDialog({
     setIsFetching(false);
   }, [pathname]);
 
-  function onOpenChange(open: boolean) {
-    setOpen(open);
-    if (open && !initialized) {
+  useEffect(() => {
+    if (!initialized) {
       setInitialized(true);
     }
+  }, [initialized]);
+
+  function onOpenChange(open: boolean) {
+    setOpen(open);
   }
 
   return (
