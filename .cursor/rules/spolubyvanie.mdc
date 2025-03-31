@@ -1,0 +1,133 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+You are an senior developer in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind.
+
+name: nextjs-best-practices.mdc
+description: Best practices for Next.js applications and routing
+globs: **/*.{ts,tsx}
+
+- Use the App Router for better performance and improved data fetching.
+- Utilize Next.js built-in optimizations like image optimization and code splitting.
+
+---
+
+name: prisma-best-practices.mdc
+description: Best practices for using Prisma ORM
+globs: **/*.{ts,tsx}
+
+- Use Prisma Client in a centralized way to manage database connections.
+- Implement proper error handling and transaction management.
+- Use Prisma's type-safe query API to prevent SQL injection.
+- Regularly update your Prisma schema and run migrations.
+
+---
+
+name: react-best-practices.mdc
+description: Best practices for React development
+globs: **/*.{ts,tsx}
+
+- Use functional components with hooks instead of class components.
+- Implement proper state management using Context API or external libraries.
+- Follow React's component composition principles for reusability.
+
+---
+
+name: typescript-best-practices.mdc
+description: TypeScript coding standards and type safety guidelines
+globs: **/*.{ts,tsx}
+
+- Enable strict mode in your `tsconfig.json` for better type checking.
+- Use type guards and assertions to narrow types effectively.
+- Prefer interfaces over types for object shapes.
+- Utilize utility types like `Partial`, `Readonly`, and `Pick` for type manipulation.
+
+---
+
+name: tailwindcss-best-practices.mdc
+description: Best practices for using Tailwind CSS
+globs: **/*.{ts,tsx,css}
+
+- Use utility-first approach for styling components.
+- Organize your Tailwind configuration for reusability and maintainability.
+- Implement responsive design using Tailwind's responsive modifiers.
+- Use `@apply` directive in custom CSS to leverage Tailwind classes.
+
+---
+
+name: react-hook-form-best-practices.mdc
+description: Best practices for using React Hook Form
+globs: **/*.{ts,tsx,js,jsx}
+
+- Use controlled components for better performance and easier state management.
+- Implement proper validation using Zod or Yup for type-safe form validation.
+- Utilize the `useForm` hook's options like `mode` and `reValidateMode` for optimal user experience.
+- Handle form submission asynchronously to prevent blocking the UI.
+
+---
+
+name: zod-best-practices.mdc
+description: Best practices for using Zod for schema validation
+globs: **/*.{ts,tsx,js,jsx}
+
+- Use Zod for runtime type checking and validation.
+- Implement custom validation rules using Zod's `refine` method.
+- Utilize Zod's inferred types for TypeScript integration.
+- Use Zod's `superRefine` for complex, asynchronous validations.
+
+  
+  Code Style and Structure
+  - Write concise, technical TypeScript code with accurate examples.
+  - Use functional and declarative programming patterns; avoid classes.
+  - Prefer iteration and modularization over code duplication.
+  - Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+  - Structure files: exported component, subcomponents, helpers, static content, types.
+  
+  Naming Conventions
+  - Use lowercase with dashes for directories (e.g., components/auth-wizard).
+  - Favor default exports for components.
+  - Use export default function for components.
+  
+  TypeScript Usage
+  - Use TypeScript for all code; prefer types over interfaces.
+  - Avoid enums; use maps instead.
+  - Use functional components with TypeScript interfaces.
+  
+  Syntax and Formatting
+  - Use the "function" keyword for pure functions.
+  - Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
+  - Use declarative JSX.
+  
+  UI and Styling
+  - Use Shadcn UI, Radix, and Tailwind for components and styling.
+  - Implement responsive design with Tailwind CSS; use a mobile-first approach.
+  
+  Performance Optimization
+  - Minimize 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC).
+  - Wrap client components in Suspense with fallback.
+  - Use dynamic loading for non-critical components.
+  - Optimize images: use WebP format, include size data, implement lazy loading.
+  
+  Key Conventions
+  - Optimize Web Vitals (LCP, CLS, FID).
+  - Limit 'use client':
+    - Favor server components and Next.js SSR.
+    - Use only for Web API access in small components.
+    - Avoid for data fetching or state management.
+  
+  Follow Next.js docs for Data Fetching, Rendering, and Routing.
+
+  Project structure:
+  - Components must be located in src/app/[locale]/_components
+  - Ui shadcn components must be located in src/app/[locale]/_components/ui
+  - Hooks must be in src/hooks
+  - Helper functions - which can be decoupled from components must be in src/lib/utils
+
+  Fetching data:
+  - Data are being fetched in server components and passed to client components if needed
+  - Data fetching functions are defined in src/lib/data
+  - Data mutations are defined in src/lib/data/actions
+  
