@@ -88,7 +88,7 @@ export default function AdvertisementActions({ advertisement }: Props) {
         {isExecuting && (
           <Icons.spinner className="w-4 h-4 mr-2 animate-spin p" />
         )}
-        <Icons.cross className="h-4 w-4" />
+        <Icons.trash className="h-4 w-4" />
         {t("advertisement.delete.button")}
       </Button>
       <AlertDialog open={confirmDialogOpen} onOpenChange={setConfirmDialogOpen}>

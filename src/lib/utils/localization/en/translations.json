@@ -194,8 +194,8 @@
       "types": {
         "select_label": "Types of advertisement",
         "select_text": "Select advertisement type",
-        "searching_room": "Searching room",
-        "offering_room": "Offering room"
+        "searching_room": "Searching room (If you are looking for a roommate)",
+        "offering_room": "Offering room (If you are looking for a room)"
       },
       "sort_by": {
         "select_label": "Sort by",
@@ -259,6 +259,25 @@
         "button": "Search advertisements",
         "reset": {
           "button": "Clear filters and sort"
+        },
+        "save": {
+          "button": "Save current filter"
+        },
+        "login_to_save": "Login to save your favourite filters"
+      },
+      "tabs": {
+        "filter": {
+          "title": "Filter"
+        },
+        "config": {
+          "title": "Filter configuration",
+          "no_filters": "No filters found.",
+          "edit": "Edit {{name}}",
+          "delete": "Delete {{name}}",
+          "table": {
+            "title": "Filter name",
+            "actions": "Actions"
+          }
         }
       },
       "properties": {

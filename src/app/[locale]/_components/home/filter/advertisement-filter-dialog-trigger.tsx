@@ -6,22 +6,20 @@ import {
   CredenzaTrigger,
 } from "@/app/[locale]/_components/ui/credenza";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
-import { useControlledForm } from "@/hooks/form";
+import {
+  FilterDialogProvider,
+  TABS,
+  useFilterDialog,
+} from "@/context/filter-dialog";
 import {
   type District,
   type Municipality,
   type Region,
 } from "@/lib/data/administrative-divisions";
 import { type Property } from "@/lib/data/advertisements-properties";
+import { type AdvertisementFilterFormValues } from "@/lib/data/advertisements/schema";
+import { type User, type UserFilter } from "@/lib/data/user";
 import {
-  ADVERTISEMENT_FILTER_DEFAULT_VALUES,
-  ADVERTISEMENTS_FILTER_SCHEMA,
-  type AdvertisementFilterFormValues,
-  type SortByOptions,
-  type SortOrder,
-} from "@/lib/data/advertisements/schema";
-import {
-  constructPropertiesObject,
   createQueryParamsFromObject,
   createQueryStringFromObject,
   getCurrentQueryString,
@@ -31,8 +29,9 @@ import {
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState, useTransition } from "react";
-const AdvertisementFilterDialogContent = dynamic(
+import { useEffect, useState, useTransition } from "react";
+
+const DynamicAdvertisementFilterDialogContent = dynamic(
   () => import("./advertisement-filter-dialog-content"),
   { ssr: false }
 );
@@ -42,71 +41,27 @@ type Props = {
   districts: District[];
   municipalities: Municipality[];
   properties: Property[];
+  userFilters: UserFilter[];
+  user: User;
 };
 
-export default function AdvertisementFilterDialog({
+function AdvertisementFilterDialogTrigger({
   regions,
   districts,
   municipalities,
   properties,
+  userFilters,
+  user,
 }: Props) {
   const [initialized, setInitialized] = useState(false);
   const [open, setOpen] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
+  const { setConfigTabState, setActiveTab } = useFilterDialog();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const t = useTranslations("translations.advertisement_list");
   const [isRoutingPending, startTransition] = useTransition();
-
-  const defaultValues = useMemo<AdvertisementFilterFormValues>(() => {
-    return {
-      municipality:
-        searchParams.get("municipality")?.split(",") ??
-        ADVERTISEMENT_FILTER_DEFAULT_VALUES.municipality,
-      district:
-        searchParams.get("district")?.split(",") ??
-        ADVERTISEMENT_FILTER_DEFAULT_VALUES.district,
-      region:
-        searchParams.get("region") ??
-        ADVERTISEMENT_FILTER_DEFAULT_VALUES.region,
-      price_min:
-        searchParams.get("price_min") ??
-        ADVERTISEMENT_FILTER_DEFAULT_VALUES.price_min,
-      price_max:
-        searchParams.get("price_max") ??
-        ADVERTISEMENT_FILTER_DEFAULT_VALUES.price_max,
-      min_age:
-        searchParams.get("min_age") ??
-        ADVERTISEMENT_FILTER_DEFAULT_VALUES.min_age,
-      max_age:
-        searchParams.get("max_age") ??
-        ADVERTISEMENT_FILTER_DEFAULT_VALUES.max_age,
-      advertisement_type:
-        searchParams.get("advertisement_type") ??
-        ADVERTISEMENT_FILTER_DEFAULT_VALUES.advertisement_type,
-      sort_by:
-        (searchParams.get("sort_by") as SortByOptions) ??
-        ADVERTISEMENT_FILTER_DEFAULT_VALUES.sort_by,
-      sort_order:
-        (searchParams.get("sort_order") as SortOrder) ??
-        ADVERTISEMENT_FILTER_DEFAULT_VALUES.sort_order,
-      properties:
-        constructPropertiesObject(searchParams.get("properties"), properties) ??
-        {},
-      max_apartment_rooms:
-        searchParams.get("max_apartment_rooms") ??
-        ADVERTISEMENT_FILTER_DEFAULT_VALUES.max_apartment_rooms,
-      min_room_area:
-        searchParams.get("min_room_area") ??
-        ADVERTISEMENT_FILTER_DEFAULT_VALUES.min_room_area,
-    };
-  }, [searchParams, properties]);
-
-  const form = useControlledForm<AdvertisementFilterFormValues>({
-    schema: ADVERTISEMENTS_FILTER_SCHEMA,
-    defaultValues,
-  });
 
   async function onSubmit(data: AdvertisementFilterFormValues) {
     const currentQueryString = getCurrentQueryString(searchParams);
@@ -139,6 +94,10 @@ export default function AdvertisementFilterDialog({
 
   function onOpenChange(open: boolean) {
     setOpen(open);
+    if (open) {
+      setConfigTabState("view");
+      setActiveTab(TABS.FILTER);
+    }
   }
 
   return (
@@ -160,12 +119,13 @@ export default function AdvertisementFilterDialog({
               </Button>
             </CredenzaTrigger>
             {initialized && (
-              <AdvertisementFilterDialogContent
-                form={form}
+              <DynamicAdvertisementFilterDialogContent
                 regions={regions}
                 districts={districts}
                 municipalities={municipalities}
+                userFilters={userFilters}
                 properties={properties}
+                user={user}
                 onSubmit={onSubmit}
                 isFetching={isFetching}
               />
@@ -174,5 +134,13 @@ export default function AdvertisementFilterDialog({
         </div>
       </CardContent>
     </Card>
+  );
+}
+
+export default function AdvertisementFilterDialog(props: Props) {
+  return (
+    <FilterDialogProvider>
+      <AdvertisementFilterDialogTrigger {...props} />
+    </FilterDialogProvider>
   );
 }

@@ -4,7 +4,6 @@ import AdvertisementPreview from "@/app/[locale]/_components/home/advertisement/
 import MyAdvertisementsHeader from "@/app/[locale]/_components/my-advertisements/header";
 import MyAdvertisementPagination from "@/app/[locale]/_components/my-advertisements/pagination";
 import { getMyAdvertisements } from "@/lib/data/my-advertisements";
-import { getUser } from "@/lib/data/user";
 import { type Locale } from "@/lib/utils/localization/i18n";
 import { getTranslations } from "next-intl/server";
 
@@ -15,11 +14,7 @@ type Props = {
 
 export default async function MyAdvertisementsList({ page, locale }: Props) {
   const t = await getTranslations("translations");
-  const user = await getUser();
-  const { myAdvertisements, paginationData } = await getMyAdvertisements(
-    user!.id,
-    page
-  );
+  const { myAdvertisements, paginationData } = await getMyAdvertisements(page);
 
   return (
     <Container className="text-center" fullWidth>

@@ -51,11 +51,19 @@ const CredenzaTrigger = ({ className, children, ...props }: CredenzaProps) => {
   const isDesktop = useMediaQueryContext();
   const CredenzaTrigger = isDesktop ? DialogTrigger : DrawerTrigger;
 
+  // Without this, focus is staying in the button causing tab to focus elements outside the dialog
+  // Also causing
+  function handlePreventFocusBreaking() {
+    const buttonElement = document.activeElement as HTMLElement;
+    buttonElement.blur();
+  }
+
   return (
     <CredenzaTrigger
       className={className}
       {...props}
       aria-describedby={undefined}
+      onClick={handlePreventFocusBreaking}
     >
       {children}
     </CredenzaTrigger>

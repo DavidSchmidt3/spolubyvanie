@@ -1,6 +1,6 @@
 import InfoRow from "@/app/[locale]/_components/advertisement/info-row";
 import { type Advertisement } from "@/lib/data/advertisements/format";
-import { AdType, adTypeKeys } from "@/lib/data/advertisements/types";
+import { AD_TYPE_KEYS, AdType } from "@/lib/data/advertisements/types";
 import { formatDate } from "@/lib/utils/date";
 import { type Locale } from "@/lib/utils/localization/i18n";
 import { useTranslations } from "next-intl";
@@ -37,7 +37,9 @@ export default function InfoCard({ advertisement, locale }: Props) {
         <InfoRow
           label={t("advertisement.type.label")}
           value={t(
-            `advertisement.types.${adTypeKeys[type as keyof typeof adTypeKeys]}`
+            `advertisement.types.${
+              AD_TYPE_KEYS[type as keyof typeof AD_TYPE_KEYS]
+            }`
           )}
         />
         <InfoRow label={t("advertisement.price.label")} value={`${price} €`} />

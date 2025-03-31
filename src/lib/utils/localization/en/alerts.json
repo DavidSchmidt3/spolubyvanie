@@ -23,6 +23,16 @@
         }
       }
     },
+    "filters": {
+      "save": {
+        "success": {
+          "title": "Filter saved successfully"
+        },
+        "database_error": {
+          "title": "An database error occurred, please try again later"
+        }
+      }
+    },
     "logout": {
       "error": {
         "title": "Failed to logout"

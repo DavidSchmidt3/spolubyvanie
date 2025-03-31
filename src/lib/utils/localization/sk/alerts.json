@@ -23,6 +23,16 @@
         }
       }
     },
+    "filters": {
+      "save": {
+        "success": {
+          "title": "Filter bol úspešne uložený"
+        },
+        "database_error": {
+          "title": "Nastala databázová chyba, skúste to znova neskôr"
+        }
+      }
+    },
     "logout": {
       "error": {
         "title": "Odhlásenie sa nepodarilo"

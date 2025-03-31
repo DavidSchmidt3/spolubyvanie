@@ -1,11 +1,5 @@
-import AdministrativeDivisionFilter from "@/app/[locale]/_components/home/filter/administrative-division-filter";
-import { AdvertisementTypeFilter } from "@/app/[locale]/_components/home/filter/advertisement-type-filter";
-import AgeFilter from "@/app/[locale]/_components/home/filter/age-filter";
-import OtherDetailsFilter from "@/app/[locale]/_components/home/filter/other-details-filter";
-import PriceFilter from "@/app/[locale]/_components/home/filter/price-filter";
-import PropertiesFilter from "@/app/[locale]/_components/home/filter/properties-filter";
-import SortByField from "@/app/[locale]/_components/home/filter/sort";
-import { Button } from "@/app/[locale]/_components/ui/button";
+import ConfigTab from "@/app/[locale]/_components/home/filter/config-tab";
+import FilterTab from "@/app/[locale]/_components/home/filter/filter-tab";
 import {
   CredenzaBody,
   CredenzaContent,
@@ -14,8 +8,20 @@ import {
 } from "@/app/[locale]/_components/ui/credenza";
 import { Form } from "@/app/[locale]/_components/ui/form";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
-import { useAdvertisementType } from "@/hooks/advertisement-type";
-import { useResetFormAfterClearingAdvertisementType } from "@/hooks/reset-filter-form";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/app/[locale]/_components/ui/tabs";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/app/[locale]/_components/ui/tooltip";
+import { TABS, useFilterDialog } from "@/context/filter-dialog";
+import { useControlledForm } from "@/hooks/form";
 import {
   type getDistricts,
   type getMunicipalities,
@@ -23,130 +29,111 @@ import {
 } from "@/lib/data/administrative-divisions";
 import { type Property } from "@/lib/data/advertisements-properties";
 import {
-  ADVERTISEMENT_FILTER_DEFAULT_VALUES,
+  ADVERTISEMENTS_FILTER_SCHEMA,
   type AdvertisementFilterFormValues,
 } from "@/lib/data/advertisements/schema";
-import _ from "lodash";
+import { type User, type UserFilter } from "@/lib/data/user";
+import { getFilterFormDefaultValues } from "@/lib/utils/filter-form";
 import { useTranslations } from "next-intl";
-import { type UseFormReturn, useWatch } from "react-hook-form";
+import { useSearchParams } from "next/navigation";
+import { useMemo } from "react";
 
 type Props = {
   regions: Awaited<ReturnType<typeof getRegions>>;
   districts: Awaited<ReturnType<typeof getDistricts>>;
   municipalities: Awaited<ReturnType<typeof getMunicipalities>>;
   properties: Property[];
-  form: UseFormReturn<AdvertisementFilterFormValues>;
+  userFilters: UserFilter[];
   onSubmit: (data: AdvertisementFilterFormValues) => void;
   isFetching: boolean;
+  user: User;
 };
 
 export default function AdvertisementFilterDialogContent({
   regions,
-  form,
   districts,
   municipalities,
   onSubmit,
   isFetching,
   properties,
+  userFilters,
+  user,
 }: Props) {
-  const values = useWatch({
-    control: form.control,
-  });
-  const isFilterActive = Object.keys(values).some(
-    (key) =>
-      !_.isEqual(
-        form.getValues()[
-          key as keyof typeof ADVERTISEMENT_FILTER_DEFAULT_VALUES
-        ],
-        ADVERTISEMENT_FILTER_DEFAULT_VALUES[
-          key as keyof typeof ADVERTISEMENT_FILTER_DEFAULT_VALUES
-        ]
-      )
-  );
+  "use no memo";
+  const searchParams = useSearchParams();
+  const { setConfigTabState, activeTab, setActiveTab } = useFilterDialog();
 
-  const advertisementType = useWatch({
-    control: form.control,
-    name: "advertisement_type",
-  });
-  const isOffering = useAdvertisementType(advertisementType);
-  const isTypeSelected = isOffering !== null;
+  const defaultValues = useMemo<AdvertisementFilterFormValues>(() => {
+    return getFilterFormDefaultValues(searchParams, properties);
+  }, [searchParams, properties]);
 
-  useResetFormAfterClearingAdvertisementType(form, advertisementType);
+  const form = useControlledForm<AdvertisementFilterFormValues>({
+    schema: ADVERTISEMENTS_FILTER_SCHEMA,
+    defaultValues,
+  });
 
   const t = useTranslations("translations.advertisement_list");
+
   return (
     <CredenzaContent className="max-w-3xl pb-8 bottom-0 h-auto md:overflow-y-auto md:h-min md:max-h-[calc(100dvh-2rem)]">
       <CredenzaHeader>
-        <CredenzaTitle className="text-2xl">{t("filter.title")}</CredenzaTitle>
+        <CredenzaTitle className="text-2xl flex gap-2 items-center">
+          {t("filter.title")}
+          {!user && (
+            <TooltipProvider delayDuration={0}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Icons.info className="h-5 w-5" />
+                </TooltipTrigger>
+                <TooltipContent side="right">
+                  <span>{t("filter.login_to_save")}</span>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )}
+        </CredenzaTitle>
       </CredenzaHeader>
       <CredenzaBody className="overflow-y-auto">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-8 px-1">
-              <div className="col-span-2">
-                <AdvertisementTypeFilter />
-              </div>
-              {isTypeSelected ? (
-                <>
-                  <AdministrativeDivisionFilter
-                    regions={regions}
-                    districts={districts}
-                    municipalities={municipalities}
-                  />
-                  <div className="order-1 sm:order-2 flex flex-col gap-y-2 gap-x-4 sm:gap-x-8">
-                    <PriceFilter control={form.control} />
-                  </div>
-                  <div className="flex flex-col gap-y-4 order-3 sm:col-span-2">
-                    <AgeFilter control={form.control} isOffering={isOffering} />
-                  </div>
-                  {isOffering && (
-                    <>
-                      <div className="flex flex-col gap-y-4 order-4 sm:col-span-2">
-                        <OtherDetailsFilter />
-                      </div>
-                      <div className="flex flex-col gap-y-4 order-5 sm:col-span-2">
-                        <PropertiesFilter
-                          properties={properties}
-                          fieldName="properties"
-                        />
-                      </div>
-                    </>
-                  )}
-                </>
-              ) : null}
-              <div className="flex flex-col gap-y-4 order-6 sm:col-span-2">
-                <SortByField />
-              </div>
-              <div className="flex flex-col gap-y-4 order-7 my-2 sm:col-span-2">
-                <Button
-                  type="submit"
-                  variant="ringHover"
-                  aria-label={t("filter.button")}
-                  className="text-base mt-5 sm:mt-0 flex gap-x-1 group"
-                  disabled={isFetching}
-                >
-                  {isFetching && (
-                    <Icons.spinner className="w-4 h-4 animate-spin" />
-                  )}
-                  <Icons.magnifier className="w-6 h-6 group-hover:motion-preset-seesaw" />
-                  {t("filter.button")}
-                </Button>
-                <Button
-                  type="button"
-                  variant="destructive"
-                  className="text-base h-auto flex gap-x-1 group"
-                  disabled={!isFilterActive || isFetching}
-                  onClick={() =>
-                    form.reset(ADVERTISEMENT_FILTER_DEFAULT_VALUES)
-                  }
-                >
-                  <Icons.cross className="w-6 h-6 group-hover:motion-preset-seesaw" />
-                  {t("filter.reset.button")}
-                </Button>
-              </div>
-            </div>
-          </form>
-        </Form>
+        <Tabs
+          defaultValue="account"
+          className="w-full"
+          value={activeTab}
+          onValueChange={(value) => {
+            setActiveTab(value as (typeof TABS)[keyof typeof TABS]);
+            if (value === TABS.FILTER) {
+              setConfigTabState("view");
+            }
+          }}
+        >
+          <TabsList className="w-full mb-2">
+            <TabsTrigger value={TABS.FILTER}>
+              {t("tabs.filter.title")}
+            </TabsTrigger>
+            {user ? (
+              <TabsTrigger value={TABS.CONFIG}>
+                {t("tabs.config.title")}
+              </TabsTrigger>
+            ) : null}
+          </TabsList>
+          <TabsContent value={TABS.FILTER}>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)}>
+                <FilterTab
+                  form={form}
+                  regions={regions}
+                  districts={districts}
+                  municipalities={municipalities}
+                  isFetching={isFetching}
+                  properties={properties}
+                  user={user}
+                />
+              </form>
+            </Form>
+          </TabsContent>
+          <TabsContent value={TABS.CONFIG}>
+            <ConfigTab userFilters={userFilters} />
+          </TabsContent>
+        </Tabs>
       </CredenzaBody>
     </CredenzaContent>
   );
