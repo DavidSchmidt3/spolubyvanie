@@ -18,6 +18,7 @@ const localizationMiddleWare = createMiddleware({
 
 export async function middleware(request: NextRequest) {
   let response = localizationMiddleWare(request);
+  console.log("middleware");
 
   const supabase = createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -51,6 +52,8 @@ export async function middleware(request: NextRequest) {
   const redirectLocale = response.headers.get(
     "x-middleware-request-x-next-intl-locale"
   );
+
+  console.log("middleware 2");
 
   // if user is already logged in, don't allow him to visit auth pages
   if (authPathnames.includes(pathnameWithoutLocale)) {
