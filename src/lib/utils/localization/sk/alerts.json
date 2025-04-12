@@ -30,6 +30,9 @@
         },
         "database_error": {
           "title": "Nastala databázová chyba, skúste to znova neskôr"
+        },
+        "error": {
+          "title": "Nepodarilo sa uložiť filter"
         }
       }
     },

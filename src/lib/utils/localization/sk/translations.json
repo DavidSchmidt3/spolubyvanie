@@ -273,6 +273,10 @@
         },
         "config": {
           "title": "Správa filtrov",
+          "save_new": {
+            "title": "Uložiť nový filter",
+            "button": "Uložiť"
+          },
           "no_filters": "Nemáte uložené žiadne filtre",
           "edit": "Upraviť filter {{name}}",
           "delete": "Vymazať filter {{name}}",

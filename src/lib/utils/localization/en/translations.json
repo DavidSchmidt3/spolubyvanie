@@ -270,7 +270,11 @@
           "title": "Filter"
         },
         "config": {
-          "title": "Filter configuration",
+          "title": "Filter config",
+          "save_new": {
+            "title": "Save new filter",
+            "button": "Save"
+          },
           "no_filters": "No filters found.",
           "edit": "Edit {{name}}",
           "delete": "Delete {{name}}",

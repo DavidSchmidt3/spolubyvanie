@@ -1,4 +1,4 @@
-import ConfigTab from "@/app/[locale]/_components/home/filter/config-tab";
+import ConfigTab from "@/app/[locale]/_components/home/filter/config-tab/config-tab";
 import FilterTab from "@/app/[locale]/_components/home/filter/filter-tab";
 import {
   CredenzaBody,
@@ -131,7 +131,7 @@ export default function AdvertisementFilterDialogContent({
             </Form>
           </TabsContent>
           <TabsContent value={TABS.CONFIG}>
-            <ConfigTab userFilters={userFilters} />
+            <ConfigTab userFilters={userFilters} form={form} />
           </TabsContent>
         </Tabs>
       </CredenzaBody>
