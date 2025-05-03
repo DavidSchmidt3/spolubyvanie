@@ -9,7 +9,7 @@
     "db:studio": "prisma studio",
     "db:pull": "prisma db pull",
     "update-types": "npx supabase gen types typescript --project-id arkqgqmjbyvgzrawoqlb --schema public > src/lib/utils/supabase/types/database-generated.ts && eslint src/lib/utils/supabase/types/database-generated.ts --fix",
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "eslint-check": "eslint --max-warnings=0 --ext .ts,.tsx .",
