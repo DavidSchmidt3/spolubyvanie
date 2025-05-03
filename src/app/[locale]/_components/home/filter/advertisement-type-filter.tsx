@@ -17,11 +17,11 @@ import {
 import SelectCancelButton from "@/app/[locale]/_components/ui/select-cancel-button";
 import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-advertisement/schema";
 import { type AdvertisementFilterFormValues } from "@/lib/data/advertisements/schema";
-import { adTypeKeys, type AdType } from "@/lib/data/advertisements/types";
+import { AD_TYPE_KEYS, type AdType } from "@/lib/data/advertisements/types";
 import { type MessageKeys } from "global";
 import { useTranslations } from "next-intl";
+import { useRef } from "react";
 import { useFormContext } from "react-hook-form";
-
 type Props = {
   clearable?: boolean;
   disabled?: boolean;
@@ -32,6 +32,7 @@ export function AdvertisementTypeFilter({
   disabled = false,
 }: Props) {
   const t = useTranslations();
+  const contentRef = useRef<HTMLDivElement>(null);
   const form = useFormContext<
     AdvertisementFilterFormValues | AdvertisementUpsertFormValues
   >();
@@ -47,8 +48,9 @@ export function AdvertisementTypeFilter({
               {t("translations.advertisement.types.select_label")}
             </FormLabel>
             <Select
-              value={field.value}
+              // value={field.value}
               disabled={disabled}
+              defaultValue={field.value}
               onValueChange={async (value) => {
                 if (value) {
                   field.onChange(value);
@@ -74,20 +76,20 @@ export function AdvertisementTypeFilter({
                   )}
                 </SelectTrigger>
               </FormControl>
-              <SelectContent>
+              <SelectContent ref={contentRef}>
                 <SelectGroup>
                   <SelectLabel className="text-base">
                     {t("translations.advertisement.types.select_label")}
                   </SelectLabel>
-                  {Object.keys(adTypeKeys).map((key) => {
+                  {Object.keys(AD_TYPE_KEYS).map((key) => {
                     const adTypeKey = parseInt(key) as AdType;
                     const value =
-                      `translations.advertisement.types.${adTypeKeys[adTypeKey]}` as MessageKeys<IntlMessages>;
+                      `translations.advertisement.types.${AD_TYPE_KEYS[adTypeKey]}_filter` as MessageKeys<IntlMessages>;
                     return (
                       <SelectItem
                         key={key}
                         value={key}
-                        className="text-base hover:cursor-pointer"
+                        className="text-base hover:cursor-pointer hover:bg-accent"
                       >
                         {t(value)}
                       </SelectItem>

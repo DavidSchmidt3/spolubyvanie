@@ -13,7 +13,7 @@ const config = {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
-    "./app/[locale]/_components/**/*.{ts,tsx}",
+    // "./app/[locale]/_components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
   ],

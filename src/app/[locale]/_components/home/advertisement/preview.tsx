@@ -7,7 +7,7 @@ import {
 } from "@/app/[locale]/_components/ui/card";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { type Advertisement as AdvertisementType } from "@/lib/data/advertisements/format";
-import { AdType, adTypeKeys } from "@/lib/data/advertisements/types";
+import { AD_TYPE_KEYS, AdType } from "@/lib/data/advertisements/types";
 import { formatDate } from "@/lib/utils/date";
 import { type Locale } from "@/lib/utils/localization/i18n";
 import { useTranslations } from "next-intl";
@@ -88,7 +88,9 @@ export default function AdvertisementPreview({
           <div className="flex flex-col gap-y-3 w-full md:w-72 lg:w-60 xl:w-72 flex-shrink-0">
             <InfoRow
               label={t("type.label")}
-              value={t(`types.${adTypeKeys[type as keyof typeof adTypeKeys]}`)}
+              value={t(
+                `types.${AD_TYPE_KEYS[type as keyof typeof AD_TYPE_KEYS]}`
+              )}
             />
             <InfoRow label={t("price.label")} value={`${price} €`} />
             <InfoRow label={t("street.label")} value={street} />

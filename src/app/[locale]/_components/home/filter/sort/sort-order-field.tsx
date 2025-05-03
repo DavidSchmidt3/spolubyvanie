@@ -22,7 +22,7 @@ export default function SortOrderField() {
       control={form.control}
       name="sort_order"
       render={({ field }) => (
-        <FormItem className="flex flex-row items-center justify-between rounded-lg w-full sm:w-min h-12 sm:h-auto border px-4 space-y-0">
+        <FormItem className="flex flex-row items-center justify-between rounded-lg w-full sm:w-min h-16 sm:h-auto border px-4 space-y-0">
           <FormLabel className="text-base w-24">
             {t("translations.advertisement.sort_order.label")}
           </FormLabel>
@@ -30,7 +30,7 @@ export default function SortOrderField() {
             <RadioGroup
               onValueChange={field.onChange}
               value={field.value}
-              className="flex flex-row sm:flex-col items-start gap-y-2"
+              className="flex flex-col items-start gap-y-2"
             >
               <FormItem className="flex items-center space-x-3 space-y-0">
                 <FormControl>

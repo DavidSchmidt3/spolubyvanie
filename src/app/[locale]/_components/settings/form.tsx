@@ -5,6 +5,7 @@ import { Button } from "@/app/[locale]/_components/ui/button";
 import { Form } from "@/app/[locale]/_components/ui/form";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { useToast } from "@/app/[locale]/_components/ui/use-toast";
+import { useActionToast } from "@/hooks/action-toast";
 import { useControlledForm } from "@/hooks/form";
 import { saveSettings } from "@/lib/data/actions/settings";
 import {
@@ -20,7 +21,7 @@ import { useTranslations } from "next-intl";
 import { useAction } from "next-safe-action/hooks";
 import { useTheme } from "next-themes";
 import { useParams } from "next/navigation";
-import { startTransition, use, useEffect, useMemo } from "react";
+import { startTransition, use, useMemo } from "react";
 
 const DEFAULT: SettingsFormValues = {
   theme: DEFAULT_THEME,
@@ -47,6 +48,18 @@ export default function SettingsForm({
   const { execute, isExecuting, result, hasErrored, hasSucceeded } =
     useAction(saveSettings);
 
+  const onActionSuccess = () => {
+    updateSettings(result.data?.theme, result.data?.locale);
+  };
+
+  useActionToast({
+    hasErrored,
+    hasSucceeded,
+    result,
+    onSuccess: onActionSuccess,
+    errorTitle: "alerts.settings.save.error.title",
+  });
+
   const defaultValues = useMemo<SettingsFormValues>(() => {
     return {
       locale:
@@ -70,21 +83,6 @@ export default function SettingsForm({
     // call server action only when user is authenticated so we can save settings in DB
     execute(data);
   }
-
-  useEffect(() => {
-    if (hasErrored) {
-      toast({
-        title: "alerts.settings.save.error.title",
-        description: result.validationErrors ?? result.serverError,
-        variant: "error",
-      });
-    }
-
-    if (hasSucceeded) {
-      updateSettings(result.data?.theme, result.data?.locale);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [result, hasErrored, hasSucceeded]);
 
   function updateSettings(newTheme?: Theme, newLocale?: Locale) {
     startTransition(() => {

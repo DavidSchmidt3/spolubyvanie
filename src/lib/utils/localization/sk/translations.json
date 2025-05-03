@@ -195,7 +195,9 @@
         "select_label": "Typ inzerátu",
         "select_text": "Vybrať typ inzerátu",
         "searching_room": "Hľadám izbu",
-        "offering_room": "Ponúkam izbu"
+        "offering_room": "Ponúkam izbu",
+        "searching_room_filter": "Hľadám izbu (Ak hľadáte spolubývajúceho)",
+        "offering_room_filter": "Ponúkam izbu (Ak hľadáte izbu)"
       },
       "sort_by": {
         "select_label": "Zoradiť podľa",
@@ -259,6 +261,31 @@
         "button": "Hľadaj inzeráty",
         "reset": {
           "button": "Vyčistiť filter a zoradenie"
+        },
+        "save": {
+          "button": "Uložiť aktuálny filter"
+        },
+        "login_to_save": "Prihláste sa pre možnosť uložiť svoje obľúbené filtre"
+      },
+      "tabs": {
+        "filter": {
+          "title": "Filtrovanie"
+        },
+        "config": {
+          "title": "Správa filtrov",
+          "save_new": {
+            "title": "Uložiť nový filter",
+            "button": "Uložiť"
+          },
+          "no_filters": "Nemáte uložené žiadne filtre",
+          "edit": "Upraviť filter {{name}}",
+          "delete": "Vymazať filter {{name}}",
+          "table": {
+            "title": "Názov filtra",
+            "actions": "Akcia",
+            "apply": "Aplikovať filter",
+            "delete": "Vymazať filter"
+          }
         }
       },
       "properties": {

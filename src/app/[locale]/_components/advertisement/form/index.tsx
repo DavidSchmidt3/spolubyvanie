@@ -9,7 +9,7 @@ import Container from "@/app/[locale]/_components/common/container";
 import { Button } from "@/app/[locale]/_components/ui/button";
 import PersistedForm from "@/app/[locale]/_components/ui/form";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
-import { useToast } from "@/app/[locale]/_components/ui/use-toast";
+import { useActionToast } from "@/hooks/action-toast";
 import { useAdvertisementType } from "@/hooks/advertisement-type";
 import { usePersistedForm } from "@/hooks/form";
 import { upsertAdvertisement } from "@/lib/data/actions/upsert-advertisement";
@@ -61,9 +61,31 @@ export default function AdvertisementForm({
   const t = useTranslations("translations");
   const { execute, isExecuting, result, hasErrored, hasSucceeded } =
     useAction(upsertAdvertisement);
-  const { toast } = useToast();
   const router = useRouter();
   const [isRoutingPending, startTransition] = useTransition();
+
+  const onActionSuccess = () => {
+    resetPersistedValues();
+    startTransition(() => {
+      router.push({
+        pathname: "/my-advertisements/[page]",
+        params: { page: "1" },
+      });
+    });
+  };
+
+  useActionToast({
+    hasErrored,
+    successTitle: isEdit
+      ? "alerts.add_advertisement.save.edit.success.title"
+      : "alerts.add_advertisement.save.add.success.title",
+    errorTitle: isEdit
+      ? "alerts.add_advertisement.save.edit.error.title"
+      : "alerts.add_advertisement.save.add.error.title",
+    hasSucceeded,
+    result,
+    onSuccess: onActionSuccess,
+  });
 
   function getNumericProps(min?: string) {
     return {
@@ -114,35 +136,6 @@ export default function AdvertisementForm({
   function onSubmit(data: AdvertisementUpsertFormValues) {
     execute(data);
   }
-
-  useEffect(() => {
-    if (hasErrored) {
-      toast({
-        title: isEdit
-          ? "alerts.add_advertisement.save.edit.error.title"
-          : "alerts.add_advertisement.save.add.error.title",
-        description: result.validationErrors ?? result.serverError,
-        variant: "error",
-      });
-    }
-
-    if (hasSucceeded) {
-      toast({
-        title: isEdit
-          ? "alerts.add_advertisement.save.edit.success.title"
-          : "alerts.add_advertisement.save.add.success.title",
-        variant: "success",
-      });
-      resetPersistedValues();
-      startTransition(() => {
-        router.push({
-          pathname: "/my-advertisements/[page]",
-          params: { page: "1" },
-        });
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [result, hasErrored, hasSucceeded]);
 
   const advertisementType = form.watch("advertisement_type");
   const isOffering = useAdvertisementType(advertisementType);

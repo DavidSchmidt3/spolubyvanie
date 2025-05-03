@@ -3,7 +3,7 @@ export enum AdType {
   OfferingRoom,
 }
 
-export const adTypeKeys = {
+export const AD_TYPE_KEYS = {
   [AdType.SearchingRoom]: "searching_room",
   [AdType.OfferingRoom]: "offering_room",
 } as const;

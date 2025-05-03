@@ -53,15 +53,23 @@ export default function RootLayout({ children, params }: Props) {
                     <UserNav params={params} />
                     <ThemeLocaleInitializer />
                   </Suspense>
-                  <NextIntlClientProvider messages={["alerts"]}>
-                    <Toaster richColors />
-                  </NextIntlClientProvider>
                 </div>
               </div>
               <div className="flex-1 mt-16 overflow-y-auto">
                 {children}
                 <SpeedInsights />
                 <Analytics />
+                <NextIntlClientProvider messages={["alerts"]}>
+                  <Toaster
+                    richColors
+                    duration={20000}
+                    toastOptions={{
+                      style: {
+                        zIndex: "1000 !important",
+                      },
+                    }}
+                  />
+                </NextIntlClientProvider>
               </div>
             </div>
           </ThemeProvider>
