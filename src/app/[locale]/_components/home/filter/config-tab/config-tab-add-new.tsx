@@ -1,3 +1,5 @@
+import { useRouter } from "next/navigation";
+
 import { Button } from "@/app/[locale]/_components/ui/button";
 import {
   Form,
@@ -9,30 +11,54 @@ import {
 } from "@/app/[locale]/_components/ui/form";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { Input } from "@/app/[locale]/_components/ui/input";
-import { useToast } from "@/app/[locale]/_components/ui/use-toast";
 import { TABS, useFilterDialog } from "@/context/filter-dialog";
+import { useActionToast } from "@/hooks/action-toast";
 import { useControlledForm } from "@/hooks/form";
-import { upsertFilter } from "@/lib/data/actions/filters";
-import { FILTER_FORM_SCHEMA } from "@/lib/data/actions/filters/schema";
+import { UPSERT_FILTER_FORM_SCHEMA } from "@/lib/data/actions/filters/schema";
 import { type AdvertisementFilterFormValues } from "@/lib/data/advertisements/schema";
 import { createQueryStringFromObject } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
-import { useAction } from "next-safe-action/hooks";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { type UseFormReturn } from "react-hook-form";
 import { type z } from "zod";
 
-type FilterFormValues = z.infer<typeof FILTER_FORM_SCHEMA>;
+export type FilterFormValues = z.infer<typeof UPSERT_FILTER_FORM_SCHEMA>;
 
 type Props = {
   form: UseFormReturn<AdvertisementFilterFormValues>;
+  hasErrored: boolean;
+  hasSucceeded: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  result: any;
+  isExecuting: boolean;
+  execute: (data: FilterFormValues) => void;
 };
 
-export default function ConfigTabAddNew({ form }: Props) {
+export default function ConfigTabAddNew({
+  form,
+  hasErrored,
+  hasSucceeded,
+  result,
+  isExecuting,
+  execute,
+}: Props) {
   const t = useTranslations("translations.advertisement_list.tabs.config");
-  const { toast } = useToast();
-  const { execute, isExecuting, hasSucceeded, hasErrored } =
-    useAction(upsertFilter);
+  const router = useRouter();
+
+  const onActionSuccess = () => {
+    router.refresh();
+    setActiveTab(TABS.CONFIG);
+    setConfigTabState("view");
+  };
+
+  useActionToast({
+    hasErrored,
+    hasSucceeded,
+    result,
+    successTitle: "alerts.filters.save.success.title",
+    errorTitle: "alerts.filters.save.error.title",
+    onSuccess: onActionSuccess,
+  });
 
   const { setActiveTab, setConfigTabState } = useFilterDialog();
 
@@ -44,7 +70,7 @@ export default function ConfigTabAddNew({ form }: Props) {
   }, []);
 
   const nameForm = useControlledForm<FilterFormValues>({
-    schema: FILTER_FORM_SCHEMA,
+    schema: UPSERT_FILTER_FORM_SCHEMA,
     defaultValues,
   });
 
@@ -52,31 +78,11 @@ export default function ConfigTabAddNew({ form }: Props) {
     const currentFilterValues = form.getValues();
     const queryString = createQueryStringFromObject(currentFilterValues);
 
-    console.log(queryString);
     execute({
       name: data.name,
       query: queryString,
     });
   };
-
-  useEffect(() => {
-    if (hasErrored) {
-      toast({
-        title: "alerts.filters.save.error.title",
-        variant: "error",
-      });
-    }
-
-    if (hasSucceeded) {
-      toast({
-        title: "alerts.filters.save.success.title",
-        variant: "success",
-      });
-      setActiveTab(TABS.CONFIG);
-      setConfigTabState("view");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hasErrored, hasSucceeded]);
 
   return (
     <div className="space-y-4 px-4">

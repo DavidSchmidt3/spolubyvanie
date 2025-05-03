@@ -280,7 +280,9 @@
           "delete": "Delete {{name}}",
           "table": {
             "title": "Filter name",
-            "actions": "Actions"
+            "actions": "Actions",
+            "apply": "Apply filter",
+            "delete": "Delete filter"
           }
         }
       },

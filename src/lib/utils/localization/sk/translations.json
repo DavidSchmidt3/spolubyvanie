@@ -282,7 +282,9 @@
           "delete": "Vymazať filter {{name}}",
           "table": {
             "title": "Názov filtra",
-            "actions": "Akcia"
+            "actions": "Akcia",
+            "apply": "Aplikovať filter",
+            "delete": "Vymazať filter"
           }
         }
       },

@@ -34,6 +34,17 @@
         "error": {
           "title": "Failed to save filter"
         }
+      },
+      "delete": {
+        "success": {
+          "title": "Filter deleted successfully"
+        },
+        "database_error": {
+          "title": "An database error occurred, please try again later"
+        },
+        "error": {
+          "title": "Failed to delete filter"
+        }
       }
     },
     "logout": {

@@ -28,6 +28,7 @@ export default async function Home({ searchParams, params }: Props) {
         "translations.advertisement",
         "translations.advertisement_list",
         "alerts.advertisement",
+        "alerts.filters",
       ]}
     >
       {/* We need to suspense when search params change, therefore pass a key to suspense, so we need to explicitly use this with suspense both with loading.tsx

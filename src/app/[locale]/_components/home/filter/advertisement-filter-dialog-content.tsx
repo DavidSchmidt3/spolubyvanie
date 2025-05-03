@@ -131,7 +131,11 @@ export default function AdvertisementFilterDialogContent({
             </Form>
           </TabsContent>
           <TabsContent value={TABS.CONFIG}>
-            <ConfigTab userFilters={userFilters} form={form} />
+            <ConfigTab
+              userFilters={userFilters}
+              form={form}
+              userId={user?.id ?? ""}
+            />
           </TabsContent>
         </Tabs>
       </CredenzaBody>

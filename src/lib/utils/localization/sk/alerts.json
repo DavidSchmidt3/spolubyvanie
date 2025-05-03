@@ -34,6 +34,17 @@
         "error": {
           "title": "Nepodarilo sa uložiť filter"
         }
+      },
+      "delete": {
+        "success": {
+          "title": "Filter bol úspešne odstránený"
+        },
+        "database_error": {
+          "title": "Nastala databázová chyba, skúste to znova neskôr"
+        },
+        "error": {
+          "title": "Nepodarilo sa odstrániť filter"
+        }
       }
     },
     "logout": {
