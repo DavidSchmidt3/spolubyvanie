@@ -10,7 +10,7 @@ import {
 } from "@/app/[locale]/_components/ui/form";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { Textarea } from "@/app/[locale]/_components/ui/textarea";
-import { useToast } from "@/app/[locale]/_components/ui/use-toast";
+import { useActionToast } from "@/hooks/action-toast";
 import { useControlledForm } from "@/hooks/form";
 import { contactAdvertisementOwner } from "@/lib/data/actions/email";
 import {
@@ -19,7 +19,7 @@ import {
 } from "@/lib/data/actions/email/schema";
 import { useTranslations } from "next-intl";
 import { useAction } from "next-safe-action/hooks";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 type Props = {
   userId: string;
@@ -29,10 +29,22 @@ type Props = {
 export default function ContactForm({ userId, advertisementTitle }: Props) {
   const t = useTranslations("translations.advertisement");
   const [show, setShow] = useState(true);
-  const { toast } = useToast();
   const { execute, isExecuting, result, hasErrored, hasSucceeded } = useAction(
     contactAdvertisementOwner
   );
+
+  const onActionSuccess = () => {
+    setShow(false);
+  };
+
+  useActionToast({
+    hasErrored,
+    hasSucceeded,
+    result,
+    successTitle: "alerts.advertisement.contact.success.title",
+    errorTitle: "alerts.advertisement.contact.error.title",
+    onSuccess: onActionSuccess,
+  });
 
   const defaultValues = useMemo<ContactFormValues>(() => {
     return {
@@ -46,25 +58,6 @@ export default function ContactForm({ userId, advertisementTitle }: Props) {
     schema: CONTACT_FORM_SCHEMA,
     defaultValues,
   });
-
-  useEffect(() => {
-    if (hasErrored) {
-      toast({
-        title: "alerts.advertisement.contact.error.title",
-        description: result.validationErrors ?? result.serverError,
-        variant: "error",
-      });
-    }
-
-    if (hasSucceeded) {
-      toast({
-        title: "alerts.advertisement.contact.success.title",
-        variant: "success",
-      });
-      setShow(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [result, hasErrored, hasSucceeded, setShow]);
 
   async function onSubmit(data: ContactFormValues) {
     execute(data);

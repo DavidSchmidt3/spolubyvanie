@@ -11,7 +11,7 @@ import {
 } from "@/app/[locale]/_components/ui/form";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { PasswordInput } from "@/app/[locale]/_components/ui/password";
-import { useToast } from "@/app/[locale]/_components/ui/use-toast";
+import { useActionToast } from "@/hooks/action-toast";
 import { useControlledForm } from "@/hooks/form";
 import { changePassword } from "@/lib/data/actions/password-change";
 import { PASSWORD_CHANGE_SCHEMA } from "@/lib/data/actions/password-change/schema";
@@ -20,7 +20,7 @@ import { useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 import { useAction } from "next-safe-action/hooks";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useTransition } from "react";
+import { useMemo, useTransition } from "react";
 import { type z } from "zod";
 
 type ChangePasswordFormValues = z.infer<typeof PASSWORD_CHANGE_SCHEMA>;
@@ -32,12 +32,33 @@ export default function PasswordChangeForm({
 }: ResetPasswordProps) {
   const t = useTranslations("translations");
   const router = useRouter();
-  const { toast } = useToast();
   const searchParams = useSearchParams();
   const accessToken = searchParams.get("code") ?? "";
   const { execute, isExecuting, result, hasErrored, hasSucceeded } =
     useAction(changePassword);
   const [isRoutingPending, startTransition] = useTransition();
+
+  const onActionSuccess = () => {
+    startTransition(() => {
+      router.push("/login");
+    });
+  };
+
+  const onActionError = () => {
+    startTransition(() => {
+      router.push("/password-reset");
+    });
+  };
+
+  useActionToast({
+    hasErrored,
+    hasSucceeded,
+    result,
+    errorTitle: "alerts.password_change.error.title",
+    successTitle: "alerts.password_change.success.title",
+    onSuccess: onActionSuccess,
+    onError: onActionError,
+  });
 
   const defaultValues = useMemo<ChangePasswordFormValues>(() => {
     return {
@@ -51,31 +72,6 @@ export default function PasswordChangeForm({
     schema: PASSWORD_CHANGE_SCHEMA,
     defaultValues,
   });
-
-  useEffect(() => {
-    if (hasErrored) {
-      toast({
-        title: "alerts.password_change.error.title",
-        description: result.validationErrors ?? result.serverError,
-        variant: "error",
-      });
-      startTransition(() => {
-        router.push("/password-reset");
-      });
-    }
-
-    if (hasSucceeded) {
-      toast({
-        title: "alerts.password_change.success.title",
-        description: "alerts.password_change.success.description",
-        variant: "success",
-      });
-      startTransition(() => {
-        router.push("/login");
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [result, hasErrored, hasSucceeded]);
 
   async function onSubmit(data: ChangePasswordFormValues) {
     execute(data);

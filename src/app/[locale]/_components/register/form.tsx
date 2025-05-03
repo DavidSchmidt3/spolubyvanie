@@ -13,7 +13,7 @@ import {
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { Input } from "@/app/[locale]/_components/ui/input";
 import { PasswordInput } from "@/app/[locale]/_components/ui/password";
-import { useToast } from "@/app/[locale]/_components/ui/use-toast";
+import { useActionToast } from "@/hooks/action-toast";
 import { useControlledForm } from "@/hooks/form";
 import { useLocale } from "@/hooks/locale";
 import { googleLogin as googleRegister } from "@/lib/data/actions/login";
@@ -23,7 +23,7 @@ import { cn } from "@/lib/utils";
 import { useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 import { useAction } from "next-safe-action/hooks";
-import { useEffect, useMemo, useTransition } from "react";
+import { useMemo, useTransition } from "react";
 import { type z } from "zod";
 
 type UserAuthFormValues = z.infer<typeof USER_AUTH_FORM_SCHEMA>;
@@ -35,7 +35,6 @@ export default function UserRegisterForm({
 }: UserRegisterProps) {
   const t = useTranslations("translations");
   const router = useRouter();
-  const { toast } = useToast();
   const { execute, isExecuting, result, hasErrored, hasSucceeded } =
     useAction(signUpWithEmail);
   const locale = useLocale();
@@ -44,6 +43,21 @@ export default function UserRegisterForm({
     isExecuting: isGoogleRegisterExecuting,
   } = useAction(googleRegister);
   const [isRoutingPending, startTransition] = useTransition();
+
+  const onActionSuccess = () => {
+    startTransition(() => {
+      router.push("/login");
+    });
+  };
+
+  useActionToast({
+    hasErrored,
+    hasSucceeded,
+    result,
+    errorTitle: "alerts.register.error.title",
+    successTitle: "alerts.register.success.title",
+    onSuccess: onActionSuccess,
+  });
 
   const defaultValues = useMemo<UserAuthFormValues>(() => {
     return {
@@ -57,28 +71,6 @@ export default function UserRegisterForm({
     schema: USER_AUTH_FORM_SCHEMA,
     defaultValues,
   });
-
-  useEffect(() => {
-    if (hasErrored) {
-      toast({
-        title: "alerts.register.error.title",
-        description: result.validationErrors ?? result.serverError,
-        variant: "error",
-      });
-    }
-
-    if (hasSucceeded) {
-      toast({
-        title: "alerts.register.success.title",
-        description: "alerts.register.success.description",
-        variant: "success",
-      });
-      startTransition(() => {
-        router.push("/login");
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [result, hasErrored, hasSucceeded]);
 
   async function handleEmailSignUp(data: UserAuthFormValues) {
     execute(data);

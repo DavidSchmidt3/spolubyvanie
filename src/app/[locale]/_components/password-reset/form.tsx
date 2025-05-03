@@ -11,7 +11,7 @@ import {
 } from "@/app/[locale]/_components/ui/form";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
 import { Input } from "@/app/[locale]/_components/ui/input";
-import { useToast } from "@/app/[locale]/_components/ui/use-toast";
+import { useActionToast } from "@/hooks/action-toast";
 import { useControlledForm } from "@/hooks/form";
 import { resetPassword } from "@/lib/data/actions/password-reset";
 import { PASSWORD_RESET_SCHEMA } from "@/lib/data/actions/password-reset/schema";
@@ -21,7 +21,7 @@ import { useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
 import { useAction } from "next-safe-action/hooks";
 import { useParams } from "next/navigation";
-import { useEffect, useMemo, useTransition } from "react";
+import { useMemo, useTransition } from "react";
 import { type z } from "zod";
 
 type ResetPasswordFormValues = z.infer<typeof PASSWORD_RESET_SCHEMA>;
@@ -34,10 +34,24 @@ export default function PasswordResetForm({
   const t = useTranslations("translations");
   const params = useParams();
   const router = useRouter();
-  const { toast } = useToast();
   const { execute, isExecuting, result, hasErrored, hasSucceeded } =
     useAction(resetPassword);
   const [isRoutingPending, startTransition] = useTransition();
+
+  const onActionSuccess = () => {
+    startTransition(() => {
+      router.push("/login");
+    });
+  };
+
+  useActionToast({
+    hasErrored,
+    hasSucceeded,
+    result,
+    errorTitle: "alerts.password_reset.error.title",
+    successTitle: "alerts.password_reset.success.title",
+    onSuccess: onActionSuccess,
+  });
 
   const defaultValues = useMemo<ResetPasswordFormValues>(() => {
     return {
@@ -51,28 +65,6 @@ export default function PasswordResetForm({
     schema: PASSWORD_RESET_SCHEMA,
     defaultValues,
   });
-
-  useEffect(() => {
-    if (hasErrored) {
-      toast({
-        title: "alerts.password_reset.error.title",
-        description: result.validationErrors ?? result.serverError,
-        variant: "error",
-      });
-    }
-
-    if (hasSucceeded) {
-      toast({
-        title: "alerts.password_reset.success.title",
-        description: "alerts.password_reset.success.description",
-        variant: "success",
-      });
-      startTransition(() => {
-        router.push("/login");
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [result, hasErrored, hasSucceeded]);
 
   async function onSubmit(data: ResetPasswordFormValues) {
     execute(data);
