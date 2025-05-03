@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 export default function Contact() {
   const t = useTranslations("translations");
   return (
-    <Container>
+    <Container className="h-dvh">
       <h1 className="text-xl text-center">
         {t("contact.title")}{" "}
         <a
