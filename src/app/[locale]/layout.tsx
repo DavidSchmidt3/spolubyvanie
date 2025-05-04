@@ -1,4 +1,3 @@
-import Background from "@/app/[locale]/_components/layouts/background";
 import { MainNav } from "@/app/[locale]/_components/layouts/main-nav";
 import MainNavLoader from "@/app/[locale]/_components/layouts/main-nav-loader";
 import UserNav from "@/app/[locale]/_components/layouts/user-nav";
@@ -42,7 +41,7 @@ export default function RootLayout({ children, params }: Props) {
       >
         <MediaQueryProvider>
           <ThemeProvider>
-            <Background />
+            {/* <Background /> */}
             <div className="flex flex-col h-full z-[1] relative">
               <div className="fixed top-0 left-0 z-10 flex items-center w-full h-16 py-4 pl-5 pr-2 border-b sm:px-4 bg-background">
                 <Suspense fallback={<MainNavLoader />}>
