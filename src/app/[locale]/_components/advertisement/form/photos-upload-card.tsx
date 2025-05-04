@@ -16,7 +16,11 @@ import { type AdvertisementUpsertFormValues } from "@/lib/data/actions/upsert-ad
 import { useTranslations } from "next-intl";
 import { useFormContext, type ControllerRenderProps } from "react-hook-form";
 
-export default function PhotosUploadCard() {
+type Props = {
+  isOffering: boolean | null;
+};
+
+export default function PhotosUploadCard({ isOffering }: Props) {
   const form = useFormContext<AdvertisementUpsertFormValues>();
   const t = useTranslations("translations.add_advertisement");
 
@@ -35,7 +39,11 @@ export default function PhotosUploadCard() {
   }
 
   return (
-    <Card className="col-span-1 md:col-span-2 xl:col-span-3">
+    <Card
+      className={`col-span-1 md:col-span-2 ${
+        isOffering ? "xl:col-span-3" : "xl:col-span-2"
+      }`}
+    >
       <CardHeader>
         <CardTitle>{t("photos.title")}</CardTitle>
         <CardDescription className="text-base whitespace-pre text-wrap">

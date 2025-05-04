@@ -48,15 +48,10 @@ export default function SettingsForm({
   const { execute, isExecuting, result, hasErrored, hasSucceeded } =
     useAction(saveSettings);
 
-  const onActionSuccess = () => {
-    updateSettings(result.data?.theme, result.data?.locale);
-  };
-
   useActionToast({
     hasErrored,
     hasSucceeded,
     result,
-    onSuccess: onActionSuccess,
     errorTitle: "alerts.settings.save.error.title",
   });
 
@@ -75,8 +70,8 @@ export default function SettingsForm({
   });
 
   async function onSubmit(data: SettingsFormValues) {
+    updateSettings(form.getValues().theme, form.getValues().locale);
     if (!user) {
-      updateSettings(form.getValues().theme, form.getValues().locale);
       return;
     }
 

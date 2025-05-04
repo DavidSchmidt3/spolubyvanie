@@ -11,45 +11,59 @@ import {
 } from "@/app/[locale]/_components/ui/alert-dialog";
 import { Button, buttonVariants } from "@/app/[locale]/_components/ui/button";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
-import { useActionToast } from "@/hooks/action-toast";
-import { deleteAdvertisement } from "@/lib/data/actions/my-advertisements";
+import { type DeleteAdvertisementsInput } from "@/lib/data/actions/my-advertisements/schema";
 import { type Advertisement } from "@/lib/data/advertisements/format";
 import { cn } from "@/lib/utils";
 import { useRouter } from "@/lib/utils/localization/navigation";
 import { AlertDialogDescription } from "@radix-ui/react-alert-dialog";
 import { useTranslations } from "next-intl";
-import { useAction } from "next-safe-action/hooks";
 import { useState, useTransition } from "react";
 
 type Props = {
   advertisement: Advertisement;
+  isExecuting: boolean;
+  execute: (data: DeleteAdvertisementsInput) => void;
 };
 
-export default function AdvertisementActions({ advertisement }: Props) {
+export default function AdvertisementActions({
+  advertisement,
+  isExecuting,
+  execute,
+}: Props) {
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const t = useTranslations("translations");
   const router = useRouter();
-  const { execute, isExecuting, hasErrored, result, hasSucceeded } =
-    useAction(deleteAdvertisement);
   const [isRoutingPending, startTransition] = useTransition();
-
-  const onActionSuccess = () => {
-    router.refresh();
-  };
-
-  useActionToast({
-    hasErrored,
-    hasSucceeded,
-    result,
-    successTitle: "alerts.my_advertisements.delete.success.title",
-    errorTitle: "alerts.my_advertisements.delete.error.title",
-    onSuccess: onActionSuccess,
-  });
 
   function preventGoingToAdvertisementDetail(e: React.MouseEvent) {
     e.preventDefault();
     e.stopPropagation();
   }
+
+  const handleDialogCancel = (e: React.MouseEvent) => {
+    preventGoingToAdvertisementDetail(e);
+    setConfirmDialogOpen(false);
+  };
+
+  const handleDialogConfirm = (e: React.MouseEvent) => {
+    preventGoingToAdvertisementDetail(e);
+    setConfirmDialogOpen(false);
+    execute({ advertisement_id: advertisement.id });
+  };
+
+  const handleEditButtonClick = () => {
+    startTransition(() => {
+      router.push({
+        pathname: "/advertisement/[id]/edit",
+        params: { id: advertisement.id },
+      });
+    });
+  };
+
+  const handleDeleteButtonClick = (e: React.MouseEvent) => {
+    preventGoingToAdvertisementDetail(e);
+    setConfirmDialogOpen(true);
+  };
 
   return (
     <div
@@ -58,23 +72,14 @@ export default function AdvertisementActions({ advertisement }: Props) {
     >
       <Button
         className="flex gap-2 h-min"
-        onClick={() =>
-          startTransition(() => {
-            router.push({
-              pathname: "/advertisement/[id]/edit",
-              params: { id: advertisement.id },
-            });
-          })
-        }
+        onClick={handleEditButtonClick}
+        disabled={isExecuting}
       >
         <Icons.edit className="h-4 w-4" />
         {t("advertisement.edit.button")}
       </Button>
       <Button
-        onClick={(e) => {
-          preventGoingToAdvertisementDetail(e);
-          setConfirmDialogOpen(true);
-        }}
+        onClick={handleDeleteButtonClick}
         variant="destructive"
         className="flex gap-2 h-min z-10"
         disabled={isExecuting}
@@ -96,20 +101,11 @@ export default function AdvertisementActions({ advertisement }: Props) {
             {t("my_advertisements.delete.confirm_dialog.content")}
           </AlertDialogDescription>
           <AlertDialogFooter>
-            <AlertDialogCancel
-              onClick={(e) => {
-                preventGoingToAdvertisementDetail(e);
-                setConfirmDialogOpen(false);
-              }}
-            >
+            <AlertDialogCancel onClick={handleDialogCancel}>
               {t("my_advertisements.delete.confirm_dialog.cancel")}
             </AlertDialogCancel>
             <AlertDialogAction
-              onClick={(e) => {
-                preventGoingToAdvertisementDetail(e);
-                setConfirmDialogOpen(false);
-                execute({ advertisement_id: advertisement.id });
-              }}
+              onClick={handleDialogConfirm}
               className={`${cn(buttonVariants({ variant: "destructive" }))}`}
             >
               {t("my_advertisements.delete.confirm_dialog.confirm")}
