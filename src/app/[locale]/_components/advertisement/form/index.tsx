@@ -181,7 +181,7 @@ export default function AdvertisementForm({
               <AdditionalDetailsCard properties={properties} />
             </>
           )}
-          <PhotosUploadCard />
+          <PhotosUploadCard isOffering={isOffering} />
         </div>
         <div className="flex flex-col mx-4 mt-8">
           <Button type="submit" className="w-full" variant="ringHover">
