@@ -1,3 +1,6 @@
+"use client";
+import AdvertisementActions from "@/app/[locale]/_components/home/advertisement/actions";
+import DetailButton from "@/app/[locale]/_components/home/advertisement/detail-button";
 import AdvertisementImages from "@/app/[locale]/_components/home/advertisement/images";
 import {
   Card,
@@ -5,12 +8,15 @@ import {
   CardHeader,
 } from "@/app/[locale]/_components/ui/card";
 import { Icons } from "@/app/[locale]/_components/ui/icons";
+import { useActionToast } from "@/hooks/action-toast";
+import { deleteAdvertisement } from "@/lib/data/actions/my-advertisements";
 import { type Advertisement as AdvertisementType } from "@/lib/data/advertisements/format";
 import { AD_TYPE_KEYS, AdType } from "@/lib/data/advertisements/types";
 import { formatDate } from "@/lib/utils/date";
 import { type Locale } from "@/lib/utils/localization/i18n";
+import { useRouter } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
-import DetailButton from "./detail-button";
+import { useAction } from "next-safe-action/hooks";
 
 type Props = {
   advertisement: AdvertisementType;
@@ -28,6 +34,7 @@ function InfoRow({ label, value }: { label: string; value?: string | null }) {
 
 export default function AdvertisementPreview({ advertisement, locale }: Props) {
   const t = useTranslations("translations.advertisement");
+  const router = useRouter();
   const {
     price,
     title,
@@ -45,6 +52,22 @@ export default function AdvertisementPreview({ advertisement, locale }: Props) {
     available_from,
     max_age,
   } = advertisement;
+  const { execute, isExecuting, hasErrored, result, hasSucceeded } = useAction(
+    deleteAdvertisement,
+    {
+      onSuccess: () => {
+        router.refresh();
+      },
+    }
+  );
+
+  useActionToast({
+    hasErrored,
+    hasSucceeded,
+    result,
+    successTitle: "alerts.my_advertisements.delete.success.title",
+    errorTitle: "alerts.my_advertisements.delete.error.title",
+  });
 
   const formatAgeRange = (
     type: AdType,
@@ -60,12 +83,20 @@ export default function AdvertisementPreview({ advertisement, locale }: Props) {
     return minAge?.toString() ?? "-";
   };
 
+  // Optimistic action simulation
+  if (isExecuting || hasSucceeded) return null;
+
   return (
     <Card className="w-full h-auto p-6 px-6 sm:px-8">
       <CardHeader className="p-0 pb-2 flex-col gap-y-2 items-center relative justify-between">
         <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-left w-full">
           {title}
         </h3>
+        <AdvertisementActions
+          advertisement={advertisement}
+          isExecuting={isExecuting}
+          execute={execute}
+        />
       </CardHeader>
       <CardContent className="p-0 pt-3 flex flex-col lg:flex-row gap-4 sm:gap-6 xl:gap-8 w-full">
         <div className="relative flex flex-shrink-0 flex-col items-center gap-y-4 h-min justify-center w-full lg:w-80 xl:w-96">

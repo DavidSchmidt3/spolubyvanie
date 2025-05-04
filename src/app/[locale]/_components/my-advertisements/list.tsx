@@ -1,12 +1,11 @@
 import Container from "@/app/[locale]/_components/common/container";
 import AdvertisementListNoResults from "@/app/[locale]/_components/home/advertisement/list-no-results";
-import AdvertisementPreview from "@/app/[locale]/_components/home/advertisement/preview";
 import MyAdvertisementsHeader from "@/app/[locale]/_components/my-advertisements/header";
 import MyAdvertisementPagination from "@/app/[locale]/_components/my-advertisements/pagination";
+import AdvertisementPreview from "@/app/[locale]/_components/my-advertisements/preview";
 import { getMyAdvertisements } from "@/lib/data/my-advertisements";
 import { type Locale } from "@/lib/utils/localization/i18n";
 import { getTranslations } from "next-intl/server";
-
 type Props = {
   page: string;
   locale: Locale;
@@ -24,7 +23,6 @@ export default async function MyAdvertisementsList({ page, locale }: Props) {
           myAdvertisements.map((myAdvertisement) => (
             <AdvertisementPreview
               key={myAdvertisement.id}
-              myAdvertisement
               advertisement={myAdvertisement}
               locale={locale}
             />
