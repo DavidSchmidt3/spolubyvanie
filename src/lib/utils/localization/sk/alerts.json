@@ -180,11 +180,11 @@
         "required": "Ulica je povinná"
       },
       "description": {
-        "min_length": "Popis musí mať aspoň 100 znakov",
+        "min_length": "Popis musí mať aspoň 50 znakov",
         "max_length": "Popis musí mať najviac 5000 znakov"
       },
       "title": {
-        "min_length": "Názov musí mať aspoň 10 znakov"
+        "min_length": "Názov musí mať aspoň 5 znakov"
       },
       "available_from": {
         "required": "Prosím zadajte platný dátum"

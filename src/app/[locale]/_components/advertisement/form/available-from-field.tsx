@@ -42,7 +42,7 @@ export default function AvailableFromField({ isOffering }: Props) {
           <FormLabel className="text-base">
             {isOffering ? t("available_from.label") : t("searching_from.label")}
           </FormLabel>
-          <Popover open={open} onOpenChange={setOpen}>
+          <Popover open={open} onOpenChange={setOpen} modal={false}>
             <PopoverTrigger asChild>
               <FormControl>
                 <Button

@@ -146,11 +146,7 @@ export default function AdvertisementForm({
   }
 
   return (
-    <Container
-      className="p-1 sm:py-3"
-      fullWidth
-      data-pending={isRoutingPending}
-    >
+    <Container className="p-1 sm:py-3" fullWidth dataPending={isRoutingPending}>
       <h1 className="text-2xl font-bold text-center sm:text-3xl">
         {isEdit ? t("edit_advertisement.title") : t("add_advertisement.title")}
       </h1>

@@ -10,6 +10,7 @@ import {
 import { AdType } from "@/lib/data/advertisements/types";
 import { db } from "@/lib/utils/prisma";
 import { type Prisma } from "@prisma/client";
+import { unstable_cacheLife as cacheLife } from "next/cache";
 import { type ParsedUrlQuery } from "querystring";
 
 export type AdvertisementMeta = Awaited<
@@ -54,13 +55,8 @@ export async function fetchAdvertisements(
 }
 
 export const getAdvertisementsCached = async () => {
-  // "use cache";
-  // cacheLife({
-  //   stale: 300,
-  //   revalidate: 10000000,
-  //   expire: 10000000,
-  // });
-  // cacheTag("advertisements");
+  "use cache";
+  cacheLife("minutes");
   const [advertisements, paginationData] = await fetchAdvertisements();
   return {
     advertisements: advertisements.map((advertisement) =>

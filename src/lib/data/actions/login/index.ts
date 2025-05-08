@@ -66,7 +66,9 @@ export const logout = actionClient
       const supabase = await createClient();
 
       await supabase.auth.signOut();
-
+    } catch (error) {
+      console.error("Error logging out", error);
+    } finally {
       return redirectLocal({
         locale,
         href: {
@@ -76,8 +78,6 @@ export const logout = actionClient
           },
         },
       });
-    } catch (error) {
-      console.error("Error logging out", error);
     }
   });
 

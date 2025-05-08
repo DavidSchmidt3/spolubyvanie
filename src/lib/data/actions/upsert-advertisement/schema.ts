@@ -30,13 +30,13 @@ export const ADVERTISEMENT_UPSERT_SCHEMA = z
     max_floor: z.string().regex(/^\d+$/).or(z.literal("")),
     description: z
       .string()
-      .min(100, {
+      .min(50, {
         message: "alerts.add_advertisement.description.min_length",
       })
       .max(5000, {
         message: "alerts.add_advertisement.description.max_length",
       }),
-    title: z.string().min(10, {
+    title: z.string().min(5, {
       message: "alerts.add_advertisement.title.min_length",
     }),
     available_from: z.date({

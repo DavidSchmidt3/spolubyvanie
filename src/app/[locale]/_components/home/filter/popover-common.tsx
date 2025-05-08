@@ -73,7 +73,7 @@ export default function PopoverCommonField({
         name={fieldName}
         render={({ field }) => (
           <FormItem>
-            <Popover open={open} onOpenChange={setOpen} modal={true}>
+            <Popover open={open} onOpenChange={setOpen} modal={false}>
               <div className="relative flex flex-col w-full gap-y-1">
                 <FormLabel className="text-base">{title}</FormLabel>
                 <PopoverTrigger asChild>

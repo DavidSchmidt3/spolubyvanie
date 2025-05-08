@@ -18,16 +18,15 @@ import { getTranslations } from "next-intl/server";
 import { use } from "react";
 
 type Props = {
-  params: Promise<{ locale: Locale }>;
+  locale: Locale;
 };
 
-export default function UserNav({ params }: Props) {
+export default function UserNav({ locale }: Props) {
   const t = use(getTranslations("translations"));
   const user = use(getUser());
-  const { locale } = use(params);
 
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"

@@ -3,13 +3,15 @@ import { createClient } from "@/lib/utils/supabase/server";
 import { cache } from "react";
 import "server-only";
 
-export type User = Awaited<ReturnType<typeof getUser>>;
-export const getUser = cache(async () => {
+export const getUncachedUser = async () => {
   const supabase = await createClient();
   const user = await supabase.auth.getUser();
 
   return user.data.user;
-});
+};
+
+export type User = Awaited<ReturnType<typeof getUser>>;
+export const getUser = cache(getUncachedUser);
 
 export type UserFilter = Awaited<ReturnType<typeof getUserFilters>>[number];
 export const getUserFilters = cache(async () => {
