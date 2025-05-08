@@ -180,11 +180,11 @@
         "required": "Street is required"
       },
       "description": {
-        "min_length": "Description must be at least 100 characters long",
+        "min_length": "Description must be at least 50 characters long",
         "max_length": "Description must be at most 5000 characters long"
       },
       "title": {
-        "min_length": "Title must be at least 10 characters long"
+        "min_length": "Title must be at least 5 characters long"
       },
       "available_from": {
         "required": "Please enter a valid date"

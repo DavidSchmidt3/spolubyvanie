@@ -1,3 +1,4 @@
+import { type routing } from "@/i18n/routing";
 import type enAlerts from "src/lib/utils/localization/en/alerts.json";
 import type enMetadata from "src/lib/utils/localization/en/metadata.json";
 import type enTranslations from "src/lib/utils/localization/en/translations.json";
@@ -32,3 +33,9 @@ type AllKeys<T, P extends string = ""> = T extends object
   : never;
 
 export type PathKeys<T> = AllKeys<T>;
+
+declare module "next-intl" {
+  interface AppConfig {
+    Locale: (typeof routing.locales)[number];
+  }
+}

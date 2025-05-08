@@ -13,6 +13,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Loader } from "lucide-react";
 import { Inter } from "next/font/google";
+import { unstable_rootParams as getRootParams } from "next/server";
 import { Suspense } from "react";
 
 const inter = Inter({
@@ -27,12 +28,14 @@ export const metadata = {
 
 type Props = {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
 };
-export default function RootLayout({ children, params }: Props) {
+
+export default async function RootLayout({ children }: Props) {
+  const rootParams = await getRootParams();
+  const locale = rootParams.locale as Locale;
+
   return (
-    // TODO: when this is fixed https://github.com/vercel/next.js/discussions/71927
-    <html className="overflow-y-hidden" suppressHydrationWarning lang="sk">
+    <html className="overflow-y-hidden" lang={locale} suppressHydrationWarning>
       <body
         className={cn(
           "bg-background h-dvh font-sans antialiased",
@@ -45,12 +48,24 @@ export default function RootLayout({ children, params }: Props) {
             <div className="flex flex-col h-full z-[1] relative">
               <div className="fixed top-0 left-0 z-10 flex items-center w-full h-16 py-4 pl-5 pr-2 border-b sm:px-4 bg-background">
                 <Suspense fallback={<MainNavLoader />}>
-                  <MainNav />
+                  <NextIntlClientProvider
+                    messages={["translations.navigation"]}
+                  >
+                    <MainNav />
+                  </NextIntlClientProvider>
                 </Suspense>
                 <div className="flex items-center ml-auto sm:space-x-4">
                   <Suspense fallback={<Loader height={32} />}>
-                    <UserNav params={params} />
-                    <ThemeLocaleInitializer />
+                    <NextIntlClientProvider
+                      messages={[
+                        "translations.login",
+                        "translations.navigation",
+                        "translations.settings",
+                      ]}
+                    >
+                      <UserNav locale={locale} />
+                      <ThemeLocaleInitializer />
+                    </NextIntlClientProvider>
                   </Suspense>
                 </div>
               </div>
