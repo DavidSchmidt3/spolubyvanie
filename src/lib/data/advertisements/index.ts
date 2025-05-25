@@ -9,6 +9,7 @@ import {
 } from "@/lib/data/advertisements/schema";
 import { AdType } from "@/lib/data/advertisements/types";
 import { db } from "@/lib/utils/prisma";
+import { saveAdvertisementToCache } from "@/lib/utils/redis";
 import { type Prisma } from "@prisma/client";
 import { unstable_cacheLife as cacheLife } from "next/cache";
 import { type ParsedUrlQuery } from "querystring";
@@ -24,7 +25,7 @@ export async function fetchAdvertisements(
   page?: string
 ) {
   try {
-    return await db.advertisements
+    const advertisements = await db.advertisements
       .paginate({
         ...filter,
         include: {
@@ -42,12 +43,23 @@ export async function fetchAdvertisements(
               url: true,
             },
           },
+          advertisements_properties: {
+            select: {
+              property_id: true,
+            },
+          },
         },
       })
       .withPages({
         page: page ? parseInt(page) : 1,
         limit: 10,
       });
+
+    advertisements[0].forEach((advertisement) => {
+      saveAdvertisementToCache(advertisement);
+    });
+
+    return advertisements;
   } catch (error) {
     console.error("Error fetching advertisements", error);
     return [[], null] as const;

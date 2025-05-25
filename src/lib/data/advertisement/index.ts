@@ -1,5 +1,6 @@
 import { getFormattedAdvertisement } from "@/lib/data/advertisements/format";
 import { db } from "@/lib/utils/prisma";
+import { getAdvertisementFromCache } from "@/lib/utils/redis";
 import {
   getFileNameFromFullPath,
   PHOTO_BUCKET,
@@ -19,11 +20,18 @@ export async function getAdvertisement(
   return null;
 }
 
+async function fetchAdvertisement(id: string) {
+  return (
+    (await getAdvertisementFromCache(id)) ??
+    (await fetchAdvertisementFromDB(id))
+  );
+}
+
 export type AdvertisementFetchResult = Exclude<
-  Awaited<ReturnType<typeof fetchAdvertisement>>,
+  Awaited<ReturnType<typeof fetchAdvertisementFromDB>>,
   undefined
 >;
-export async function fetchAdvertisement(id: string) {
+export async function fetchAdvertisementFromDB(id: string) {
   try {
     return await db.advertisements.findUniqueOrThrow({
       where: {

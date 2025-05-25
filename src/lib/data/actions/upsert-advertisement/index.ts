@@ -9,6 +9,7 @@ import {
 } from "@/lib/data/actions/upsert-advertisement/schema";
 import { AdType } from "@/lib/data/advertisements/types";
 import { db, type TransactionalPrismaClient } from "@/lib/utils/prisma";
+import { deleteAdvertisementFromCache } from "@/lib/utils/redis";
 import {
   getFileNameFromFullPath,
   PHOTO_BUCKET,
@@ -92,6 +93,7 @@ export const upsertAdvertisement = authActionClient
             userId,
             tx
           );
+          await deleteAdvertisementFromCache(advertisementId);
         } else {
           const { id: advertisementId } = await tx.advertisements.create({
             data: {
