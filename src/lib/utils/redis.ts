@@ -1,7 +1,9 @@
 import { createClient } from "redis";
 import { type AdvertisementFetchResult } from "../data/advertisement";
 
-export const redis = await createClient().connect();
+export const redis = await createClient({
+  url: process.env.REDIS_URL,
+}).connect();
 
 const ADVERTISEMENT_CACHE_KEY = "advertisement";
 export const saveAdvertisementToCache = (
