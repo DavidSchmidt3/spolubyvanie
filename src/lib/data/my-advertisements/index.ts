@@ -1,5 +1,6 @@
 import { getFormattedAdvertisement } from "@/lib/data/advertisements/format";
 import { db } from "@/lib/utils/prisma";
+import { saveAdvertisementToCache } from "@/lib/utils/redis";
 import "server-only";
 import { getUser } from "../user";
 
@@ -41,12 +42,21 @@ export async function getMyAdvertisements(page: string) {
               url: true,
             },
           },
+          advertisements_properties: {
+            select: {
+              property_id: true,
+            },
+          },
         },
       })
       .withPages({
         page: isNaN(parsedPage) ? 1 : parsedPage,
         limit: 10,
       });
+
+    myAdvertisements.forEach((advertisement) => {
+      saveAdvertisementToCache(advertisement);
+    });
 
     return {
       myAdvertisements: myAdvertisements.map((advertisement) =>
