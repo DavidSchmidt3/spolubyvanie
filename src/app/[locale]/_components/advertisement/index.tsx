@@ -11,18 +11,21 @@ import {
 } from "@/app/[locale]/_components/ui/card";
 import { type Property } from "@/lib/data/advertisements-properties";
 import { type Advertisement } from "@/lib/data/advertisements/format";
+import { type User } from "@/lib/data/user";
 import { type Locale } from "@/lib/utils/localization/i18n";
 
 type Props = {
   advertisement: Advertisement;
   locale: Locale;
   properties: Property[];
+  user: User;
 };
 
 export default async function Advertisement({
   advertisement,
   locale,
   properties,
+  user,
 }: Props) {
   const { title, description, advertisement_photos } = advertisement;
   const hasPhotos = advertisement_photos.length > 0;
@@ -63,6 +66,7 @@ export default async function Advertisement({
           <ContactForm
             userId={advertisement.user_id}
             advertisementTitle={advertisement.title}
+            loggedUser={user}
           />
         </NextIntlClientProvider>
       </Card>
