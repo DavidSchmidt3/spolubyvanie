@@ -21,6 +21,7 @@ import { type User } from "@/lib/data/user";
 import { useTranslations } from "next-intl";
 import { useAction } from "next-safe-action/hooks";
 import { useMemo, useState } from "react";
+import { Input } from "../../ui/input";
 
 type Props = {
   userId: string;
@@ -57,8 +58,9 @@ export default function ContactForm({
       userId,
       advertisementTitle,
       message: "",
+      email: loggedUser?.email ?? "",
     };
-  }, [userId, advertisementTitle]);
+  }, [userId, advertisementTitle, loggedUser]);
 
   const form = useControlledForm<ContactFormValues>({
     schema: CONTACT_FORM_SCHEMA,
@@ -73,19 +75,19 @@ export default function ContactForm({
     <div className="flex flex-col items-center justify-center">
       <div className="w-full max-w-3xl">
         <h2 className="text-xl font-bold sm:text-2xl">{t("contact.title")}</h2>
-        {loggedUser ? (
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="mt-2">
-              <div className="grid gap-3">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="mt-2">
+            {loggedUser ? null : (
+              <div className="grid gap-3 mb-3">
                 <FormField
                   control={form.control}
-                  name="message"
+                  name="email"
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Textarea
-                          placeholder={t("contact.message.placeholder")}
-                          className="text-base resize-none min-h-52 hover:bg-accent/90"
+                        <Input
+                          placeholder={t("contact.email.placeholder")}
+                          className="text-base"
                           {...field}
                         />
                       </FormControl>
@@ -93,25 +95,39 @@ export default function ContactForm({
                     </FormItem>
                   )}
                 />
-                <Button
-                  disabled={isExecuting}
-                  variant="ringHover"
-                  type="submit"
-                  aria-label={t("contact.button")}
-                >
-                  {isExecuting && (
-                    <Icons.spinner className="w-4 h-4 mr-2 animate-spin" />
-                  )}
-                  {t("contact.button")}
-                </Button>
               </div>
-            </form>
-          </Form>
-        ) : (
-          <h3 className="text-xl font-bold sm:text-xl mt-3">
-            {t("contact.login_prompt.title")}
-          </h3>
-        )}
+            )}
+            <div className="grid gap-3">
+              <FormField
+                control={form.control}
+                name="message"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Textarea
+                        placeholder={t("contact.message.placeholder")}
+                        className="text-base resize-none min-h-52 hover:bg-accent/90"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button
+                disabled={isExecuting}
+                variant="ringHover"
+                type="submit"
+                aria-label={t("contact.button")}
+              >
+                {isExecuting && (
+                  <Icons.spinner className="w-4 h-4 mr-2 animate-spin" />
+                )}
+                {t("contact.button")}
+              </Button>
+            </div>
+          </form>
+        </Form>
       </div>
     </div>
   ) : null;

@@ -146,6 +146,9 @@
         "title": "Nepodarilo sa filtrovať inzeráty"
       },
       "contact": {
+        "email": {
+          "invalid": "Prosím zadajte platný email"
+        },
         "error": {
           "title": "Nepodarilo sa kontaktovať inzerenta, prosím skúste to neskôr"
         },

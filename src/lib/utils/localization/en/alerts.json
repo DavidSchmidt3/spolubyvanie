@@ -146,6 +146,9 @@
         "title": "Failed to filter advertisements"
       },
       "contact": {
+        "email": {
+          "invalid": "Please enter a valid email"
+        },
         "error": {
           "title": "There was an error contacting advertisement owner, please try again later"
         },
