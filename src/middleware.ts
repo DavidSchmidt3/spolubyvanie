@@ -19,30 +19,6 @@ const localizationMiddleWare = createMiddleware({
 export async function middleware(request: NextRequest) {
   let response = localizationMiddleWare(request);
 
-  const supabase = createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll();
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value)
-          );
-          response = NextResponse.next({
-            request,
-          });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-            response.cookies.set(name, value, options)
-          );
-        },
-      },
-    }
-  );
-
   const pathnameWithoutLocale = request.nextUrl.pathname.replace(
     new RegExp(`^/(${LOCALES_CODES.join("|")})`),
     ""
@@ -54,6 +30,30 @@ export async function middleware(request: NextRequest) {
 
   // if user is already logged in, don't allow him to visit auth pages
   if (authPathnames.includes(pathnameWithoutLocale)) {
+    const supabase = createServerClient<Database>(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          getAll() {
+            return request.cookies.getAll();
+          },
+          setAll(cookiesToSet) {
+            cookiesToSet.forEach(({ name, value }) =>
+              request.cookies.set(name, value)
+            );
+            response = NextResponse.next({
+              request,
+            });
+            cookiesToSet.forEach(({ name, value, options }) =>
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+              response.cookies.set(name, value, options)
+            );
+          },
+        },
+      }
+    );
+
     const { data } = await supabase.auth.getUser();
     if (data.user) {
       return NextResponse.redirect(`${process.env.BASE_URL}/${redirectLocale}`);
