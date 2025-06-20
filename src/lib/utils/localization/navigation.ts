@@ -145,3 +145,13 @@ export function buildPaginatedQuery(currentQueryString: string, page: number) {
   queryString.set("page", page.toString());
   return queryString.toString();
 }
+
+export function createQueryParamsFromQueryString(query: string) {
+  const params = new URLSearchParams(decodeURI(query));
+  return createQueryParamsFromObject(Object.fromEntries(params.entries()));
+}
+
+export function createObjectFromQueryString(query: string) {
+  const params = new URLSearchParams(decodeURI(query));
+  return createQueryParamsFromObject(Object.fromEntries(params.entries()));
+}

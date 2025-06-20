@@ -306,18 +306,21 @@ export type Database = {
         Row: {
           id: string
           name: string
+          notify_with_email: boolean
           query: string
           user_id: string
         }
         Insert: {
           id?: string
           name: string
+          notify_with_email?: boolean
           query: string
           user_id: string
         }
         Update: {
           id?: string
           name?: string
+          notify_with_email?: boolean
           query?: string
           user_id?: string
         }

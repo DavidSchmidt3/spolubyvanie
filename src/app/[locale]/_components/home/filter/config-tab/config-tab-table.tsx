@@ -12,7 +12,7 @@ import { useActionToast } from "@/hooks/action-toast";
 import { type DELETE_FILTER_SCHEMA } from "@/lib/data/actions/filters/schema";
 import { type UserFilter } from "@/lib/data/user";
 import {
-  createQueryParamsFromObject,
+  createQueryParamsFromQueryString,
   useRouter,
 } from "@/lib/utils/localization/navigation";
 import { useTranslations } from "next-intl";
@@ -64,10 +64,7 @@ export function ConfigTabTable({
     const filterToApply = userFilters.find((filter) => filter.id === id);
     if (!filterToApply) return;
 
-    const params = new URLSearchParams(decodeURI(filterToApply.query));
-    const queryParams = createQueryParamsFromObject(
-      Object.fromEntries(params.entries())
-    );
+    const queryParams = createQueryParamsFromQueryString(filterToApply.query);
 
     router.push({
       pathname: "/[page]",

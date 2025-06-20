@@ -5,6 +5,7 @@ import {
   DEFAULT_SORT_BY,
   DEFAULT_SORT_ORDER,
   NULLABLE_SORT_BY_VALUES,
+  type AdvertisementFilterFormValues,
   type AdvertisementFullSchemaValues,
 } from "@/lib/data/advertisements/schema";
 import { AdType } from "@/lib/data/advertisements/types";
@@ -78,7 +79,24 @@ export const getAdvertisementsCached = async () => {
   };
 };
 
-export const getAdvertisementsFiltered = async ({
+export const getAdvertisementsFiltered = async (
+  params: AdvertisementFullSchemaValues
+) => {
+  const { page } = params;
+
+  const [advertisements, paginationData] = await fetchAdvertisements(
+    createAdvertisementFilterObject(params),
+    page
+  );
+  return {
+    advertisements: advertisements.map((advertisement) =>
+      getFormattedAdvertisement(advertisement)
+    ),
+    paginationData,
+  };
+};
+
+export function createAdvertisementFilterObject({
   municipality,
   district,
   region,
@@ -90,10 +108,9 @@ export const getAdvertisementsFiltered = async ({
   max_age,
   sort_order,
   advertisement_type,
-  page,
   max_apartment_rooms,
   min_room_area,
-}: AdvertisementFullSchemaValues) => {
+}: AdvertisementFilterFormValues) {
   const isSortOnNullableField = NULLABLE_SORT_BY_VALUES.includes(
     (sort_by as (typeof NULLABLE_SORT_BY_VALUES)[number]) ?? DEFAULT_SORT_BY
   );
@@ -104,66 +121,58 @@ export const getAdvertisementsFiltered = async ({
   const isSearching = parsedAdvertisementType === AdType.SearchingRoom;
 
   const propertiesConditions = getPropertiesConditions(properties);
-  const [advertisements, paginationData] = await fetchAdvertisements(
-    {
-      orderBy: {
-        [sort_by ?? DEFAULT_SORT_BY]: isSortOnNullableField
-          ? {
-              nulls: "last",
-              sort: sort_order,
-            }
-          : sort_order ?? DEFAULT_SORT_ORDER,
-      },
-      where: {
-        municipality_id: municipality?.length
-          ? {
-              in: Array.isArray(municipality)
-                ? municipality
-                : municipality.split(","),
-            }
-          : undefined,
-        price: {
-          gte: price_min ? parseInt(price_min) : undefined,
-          lte: price_max ? parseInt(price_max) : undefined,
-        },
-        min_age: getMinAge(isOffering, isSearching, min_age, max_age),
-        max_age: getMaxAge(isOffering, min_age),
-        municipalities: {
-          district_id: district?.length
-            ? {
-                in: Array.isArray(district) ? district : district.split(","),
-              }
-            : undefined,
-          districts: {
-            // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- cant apply nulls on non-nullable fields
-            region_id: region || undefined,
-          },
-        },
-        type: parsedAdvertisementType,
-        AND: propertiesConditions,
-        apartment_rooms: max_apartment_rooms
-          ? {
-              lte: parseInt(max_apartment_rooms),
-              not: null,
-            }
-          : undefined,
-        room_area: min_room_area
-          ? {
-              gte: parseInt(min_room_area),
-              not: null,
-            }
-          : undefined,
-      },
-    },
-    page
-  );
+
   return {
-    advertisements: advertisements.map((advertisement) =>
-      getFormattedAdvertisement(advertisement)
-    ),
-    paginationData,
+    orderBy: {
+      [sort_by ?? DEFAULT_SORT_BY]: isSortOnNullableField
+        ? {
+            nulls: "last",
+            sort: sort_order,
+          }
+        : sort_order ?? DEFAULT_SORT_ORDER,
+    },
+    where: {
+      municipality_id: municipality?.length
+        ? {
+            in: Array.isArray(municipality)
+              ? municipality
+              : municipality.split(","),
+          }
+        : undefined,
+      price: {
+        gte: price_min ? parseInt(price_min) : undefined,
+        lte: price_max ? parseInt(price_max) : undefined,
+      },
+      min_age: getMinAge(isOffering, isSearching, min_age, max_age),
+      max_age: getMaxAge(isOffering, min_age),
+      municipalities: {
+        district_id: district?.length
+          ? {
+              in: Array.isArray(district) ? district : district.split(","),
+            }
+          : undefined,
+        districts: {
+          // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- cant apply nulls on non-nullable fields
+          region_id: region || undefined,
+        },
+      },
+      type: parsedAdvertisementType,
+      AND: propertiesConditions,
+      apartment_rooms: max_apartment_rooms
+        ? {
+            lte: parseInt(max_apartment_rooms),
+            not: null,
+          }
+        : undefined,
+      room_area: min_room_area
+        ? {
+            gte: parseInt(min_room_area),
+            not: null,
+          }
+        : undefined,
+    },
   };
-};
+}
 
 export async function getAdvertisements(
   searchParams: ParsedUrlQuery,
