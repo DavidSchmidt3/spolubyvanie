@@ -6,12 +6,18 @@ import { logout } from "@/lib/data/actions/login";
 import { type Locale } from "@/lib/utils/localization/i18n";
 import { useTranslations } from "next-intl";
 import { useAction } from "next-safe-action/hooks";
+import { type ReactNode } from "react";
 
 type Props = {
   locale: Locale;
+  children?: (buttonProps: {
+    disabled: boolean;
+    onClick: () => void;
+    isExecuting: boolean;
+  }) => ReactNode;
 };
 
-export default function Logout({ locale }: Props) {
+export default function Logout({ locale, children }: Props) {
   const t = useTranslations("translations");
   const { execute, isExecuting, hasErrored, hasSucceeded, result } =
     useAction(logout);
@@ -24,12 +30,28 @@ export default function Logout({ locale }: Props) {
     successTitle: "alerts.logout.success.title",
   });
 
-  const handleLogout = async () => {
-    execute({ locale });
-  };
+  function handleSubmit(event: React.FormEvent) {
+    event.preventDefault();
+    void execute({ locale });
+  }
+  function handleClick() {
+    void execute({ locale });
+  }
+
+  if (children) {
+    return (
+      <form className="w-full" onSubmit={handleSubmit}>
+        {children({
+          disabled: isExecuting,
+          onClick: handleClick,
+          isExecuting,
+        })}
+      </form>
+    );
+  }
 
   return (
-    <form className="w-full" action={handleLogout}>
+    <form className="w-full" onSubmit={handleSubmit}>
       <Button
         aria-label={t("logout.button")}
         variant="ghost"
@@ -38,9 +60,6 @@ export default function Logout({ locale }: Props) {
         type="submit"
       >
         <div className="flex items-center gap-x-2">
-          {isExecuting && (
-            <Icons.spinner className="w-4 h-4 mr-2 animate-spin" />
-          )}
           <Icons.door className="group-hover:motion-preset-seesaw" />
           {t("logout.button")}
         </div>

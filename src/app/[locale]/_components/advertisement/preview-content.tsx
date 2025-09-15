@@ -75,7 +75,7 @@ export default function AdvertisementPreviewContent({
         </h3>
         {actions}
       </CardHeader>
-      <CardContent className="p-0 pt-3 flex flex-col lg:flex-row gap-4 sm:gap-6 xl:gap-8 w-full">
+      <CardContent className="p-0 pt-3 flex flex-col xl:flex-row gap-4 sm:gap-6 xl:gap-8 w-full">
         <div className="relative flex flex-shrink-0 flex-col items-center gap-y-4 h-min justify-center w-full lg:w-80 xl:w-96">
           <AdvertisementImages advertisement={advertisement} />
           <DetailButton id={id} text={t("detail.link")} />

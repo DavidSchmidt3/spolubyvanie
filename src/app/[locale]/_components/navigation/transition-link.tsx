@@ -32,7 +32,7 @@ export default function TransitionLink({
   const router = useRouter();
 
   return (
-    <div data-pending={isRoutingPending}>
+    <div data-pending={isRoutingPending} className="w-full">
       <Link
         href={href}
         prefetch

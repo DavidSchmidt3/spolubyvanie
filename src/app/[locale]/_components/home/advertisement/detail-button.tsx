@@ -15,7 +15,7 @@ export default function DetailButton({ id, text }: Props) {
         pathname: "/advertisement/[id]",
         params: { id },
       }}
-      className=""
+      className="flex justify-center"
     >
       <Button
         className="flex items-center max-w-full gap-x-2 text-wrap group"

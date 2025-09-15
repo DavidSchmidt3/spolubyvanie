@@ -21,6 +21,12 @@
       },
       "my_advertisements": {
         "label": "Moje inzeráty"
+      },
+      "map": {
+        "label": "Mapa"
+      },
+      "collapse": {
+        "label": "Zatvoriť"
       }
     },
     "common": {

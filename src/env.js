@@ -30,6 +30,8 @@ export const env = createEnv({
     NEXT_PUBLIC_SUPABASE_URL: z.string().url(),
     NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string(),
     NEXT_PUBLIC_VERCEL_URL: z.string().url(),
+    NEXT_PUBLIC_MAP_DEFAULT_LONGITUDE: z.string(),
+    NEXT_PUBLIC_MAP_DEFAULT_LATITUDE: z.string(),
   },
 
   /**
@@ -47,8 +49,10 @@ export const env = createEnv({
     SMTP_HOST: process.env.SMTP_HOST,
     SMTP_EMAIL: process.env.SMTP_EMAIL,
     SMTP_USER: process.env.SMTP_USER,
-    SMTP_PASSWORD: process.env.SMTP_PASS,
+    SMTP_PASSWORD: process.env.SMTP_PASSWORD,
     REDIS_URL: process.env.REDIS_URL,
+    NEXT_PUBLIC_MAP_DEFAULT_LONGITUDE: process.env.NEXT_PUBLIC_MAP_DEFAULT_LONGITUDE,
+    NEXT_PUBLIC_MAP_DEFAULT_LATITUDE: process.env.NEXT_PUBLIC_MAP_DEFAULT_LATITUDE,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
@@ -59,5 +63,5 @@ export const env = createEnv({
    * Makes it so that empty strings are treated as undefined. `SOME_VAR: z.string()` and
    * `SOME_VAR=''` will throw an error.
    */
-  emptyStringAsUndefined: true,
+  emptyStringAsUndefined: false,
 });

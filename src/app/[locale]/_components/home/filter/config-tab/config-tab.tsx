@@ -37,6 +37,7 @@ export default function ConfigTab({ userFilters, form, userId }: Props) {
         ...newFilter,
         user_id: userId,
         id: crypto.randomUUID(),
+        notify_with_email: false,
       };
 
       return {

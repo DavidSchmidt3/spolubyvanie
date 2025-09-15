@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { screens } from "tailwind.config";
 
-export function useMediaQuery(query: keyof typeof screens) {
+export function useMediaQuery(query: string) {
   const [value, setValue] = useState(false);
 
   useEffect(() => {
@@ -9,7 +8,7 @@ export function useMediaQuery(query: keyof typeof screens) {
       setValue(event.matches);
     }
 
-    const result = matchMedia(`(min-width: ${screens[query]})`);
+    const result = matchMedia(query);
     result.addEventListener("change", onChange);
     setValue(result.matches);
 

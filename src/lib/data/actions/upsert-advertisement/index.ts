@@ -19,6 +19,7 @@ import { createClient } from "@/lib/utils/supabase/server";
 import { formatZodErrors } from "@/lib/utils/zod";
 import { type Prisma } from "@prisma/client";
 import { revalidateTag } from "next/cache";
+import { type GeocodeRequestEvent, inngest } from "../../inngest/client";
 
 const fileService = {
   uploadPhotos: async (
@@ -77,7 +78,11 @@ export const upsertAdvertisement = authActionClient
         const primary_photo = AdType.OfferingRoom ? data.primary_photo : "";
 
         if (isEditing) {
-          const { id: advertisementId } = await tx.advertisements.update({
+          const {
+            id: advertisementId,
+            municipalities,
+            street,
+          } = await tx.advertisements.update({
             where: {
               id: data.id,
             },
@@ -85,7 +90,19 @@ export const upsertAdvertisement = authActionClient
               ...upsertData,
               updated_at: new Date(),
             },
+            include: {
+              municipalities: {
+                include: {
+                  districts: {
+                    include: {
+                      regions: true,
+                    },
+                  },
+                },
+              },
+            },
           });
+
           await handleEditPhotos(
             data.photos,
             primary_photo,
@@ -93,15 +110,45 @@ export const upsertAdvertisement = authActionClient
             userId,
             tx
           );
+
+          if (AdType.OfferingRoom) {
+            await inngest.send<GeocodeRequestEvent>({
+              name: "app/geocode.request",
+              data: {
+                advertisementId,
+                street,
+                municipality: municipalities.name,
+                district: municipalities.districts.name,
+                region: municipalities.districts.regions.name,
+              },
+            });
+          }
+
           await deleteAdvertisementFromCache(advertisementId);
         } else {
-          const { id: advertisementId } = await tx.advertisements.create({
+          const {
+            id: advertisementId,
+            municipalities,
+            street,
+          } = await tx.advertisements.create({
             data: {
               ...(upsertData as AdvertisementCreate),
               user_id: userId,
               created_at: new Date(),
             },
+            include: {
+              municipalities: {
+                include: {
+                  districts: {
+                    include: {
+                      regions: true,
+                    },
+                  },
+                },
+              },
+            },
           });
+
           await handleAddPhotos(
             data.photos,
             primary_photo,
@@ -109,6 +156,19 @@ export const upsertAdvertisement = authActionClient
             userId,
             tx
           );
+
+          if (AdType.OfferingRoom) {
+            await inngest.send<GeocodeRequestEvent>({
+              name: "app/geocode.request",
+              data: {
+                advertisementId,
+                street,
+                municipality: municipalities.name,
+                district: municipalities.districts.name,
+                region: municipalities.districts.regions.name,
+              },
+            });
+          }
         }
 
         revalidateTag("advertisements");
@@ -181,6 +241,7 @@ function parseAdvertisementData(
       primary_photo_url: primary_photo,
       advertisements_properties: propertiesData,
       municipality_id: municipality,
+      geocoding_status: "PENDING",
       price: parseInt(price),
       ...rest,
     };

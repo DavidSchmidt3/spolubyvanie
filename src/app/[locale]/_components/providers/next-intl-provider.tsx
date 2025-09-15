@@ -8,7 +8,7 @@ import {
 
 type Props = {
   children: React.ReactNode;
-  messages: PathKeys<IntlMessages>[];
+  messages?: PathKeys<IntlMessages>[] | IntlMessages;
   locale?: Locale;
 };
 
@@ -21,7 +21,11 @@ export default function NextIntlClientProvider({
 
   return (
     <IntlClientProvider
-      messages={pickLocaleMessages(allMessages, messages)}
+      messages={
+        Array.isArray(messages)
+          ? pickLocaleMessages(allMessages, messages)
+          : messages
+      }
       locale={locale}
     >
       {children}

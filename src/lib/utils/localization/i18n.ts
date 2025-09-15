@@ -119,6 +119,11 @@ export const pathnames = {
     sk: "/inzerat/[id]/upravit",
   },
 
+  "/map": {
+    en: "/map",
+    sk: "/mapa",
+  },
+
   // Also (optional) catch-all segments are supported
   // "/categories/[...slug]": {
   //   en: "/categories/[...slug]",

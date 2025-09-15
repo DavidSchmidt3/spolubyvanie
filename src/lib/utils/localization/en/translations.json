@@ -21,6 +21,12 @@
       },
       "my_advertisements": {
         "label": "My advertisements"
+      },
+      "map": {
+        "label": "Map"
+      },
+      "collapse": {
+        "label": "Collapse"
       }
     },
     "common": {
@@ -195,7 +201,9 @@
         "select_label": "Types of advertisement",
         "select_text": "Select advertisement type",
         "searching_room": "Searching room (If you are looking for a roommate)",
-        "offering_room": "Offering room (If you are looking for a room)"
+        "offering_room": "Offering room (If you are looking for a room)",
+        "searching_room_filter": "Searching room (If you are looking for a roommate)",
+        "offering_room_filter": "Offering room (If you are looking for a room)"
       },
       "sort_by": {
         "select_label": "Sort by",

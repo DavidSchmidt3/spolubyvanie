@@ -2,6 +2,7 @@ import Container from "@/app/[locale]/_components/common/container";
 import TransitionLink from "@/app/[locale]/_components/navigation/transition-link";
 import { Button } from "@/app/[locale]/_components/ui/button";
 import { useTranslations } from "next-intl";
+import NextIntlClientProvider from "../providers/next-intl-provider";
 
 export default function LoginPrompt() {
   const t = useTranslations("translations.add_advertisement");
@@ -12,11 +13,13 @@ export default function LoginPrompt() {
         <h1 className="text-2xl font-bold text-center">
           {t("login_prompt.title")}
         </h1>
-        <TransitionLink href="/login" className="w-full">
-          <Button variant="ringHover" className="w-full">
-            {t("login_prompt.link")}
-          </Button>
-        </TransitionLink>
+        <NextIntlClientProvider messages={["translations.add_advertisement"]}>
+          <TransitionLink href="/login" className="w-full">
+            <Button variant="ringHover" className="w-full">
+              {t("login_prompt.link")}
+            </Button>
+          </TransitionLink>
+        </NextIntlClientProvider>
       </div>
     </Container>
   );

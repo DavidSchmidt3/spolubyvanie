@@ -27,6 +27,14 @@
     --input: 240 5.9% 90%;
     --ring: 142.1 76.2% 36.3%;
     --radius: 1rem;
+    --sidebar: 98.5% 0 0;
+    --sidebar-foreground: 14.5% 0 0;
+    --sidebar-primary: 20.5% 0 0;
+    --sidebar-primary-foreground: 98.5% 0 0;
+    --sidebar-accent: 97% 0 0;
+    --sidebar-accent-foreground: 20.5% 0 0;
+    --sidebar-border: 92.2% 0 0;
+    --sidebar-ring: 70.8% 0 0;
   }
 
   .dark {
@@ -51,6 +59,14 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 142.4 71.8% 29.2%;
+    --sidebar: 20.5% 0 0;
+    --sidebar-foreground: 98.5% 0 0;
+    --sidebar-primary: 48.8% 0.243 264.376;
+    --sidebar-primary-foreground: 98.5% 0 0;
+    --sidebar-accent: 26.9% 0 0;
+    --sidebar-accent-foreground: 98.5% 0 0;
+    --sidebar-border: 100% 0 0 / 10%;
+    --sidebar-ring: 43.9% 0 0;
   }
 }
 
@@ -85,4 +101,24 @@
 
 .group.toaster .group-\[\.toaster\]\:text-foreground {
   font-size: 1rem !important;
+}
+
+.ol-map {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.sidebar {
+  width: 240px;
+  transition: width 0.3s ease-in-out;
+}
+
+.sidebar.collapsed {
+  width: 64px;
 }

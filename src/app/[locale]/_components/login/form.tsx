@@ -31,6 +31,7 @@ type UserAuthFormValues = z.infer<typeof USER_AUTH_FORM_SCHEMA>;
 type UserLoginProps = React.HTMLAttributes<HTMLDivElement>;
 
 export default function UserLoginForm({ className, ...props }: UserLoginProps) {
+  "use no memo";
   const t = useTranslations("translations");
   const router = useRouter();
   const {

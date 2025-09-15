@@ -11,9 +11,10 @@ const withNextIntl = createNextIntlPlugin(
 const cspHeader = `
     default-src 'self';
     script-src 'self' 'unsafe-eval' 'unsafe-inline' https://va.vercel-scripts.com;
-    style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data: https://arkqgqmjbyvgzrawoqlb.supabase.co;
-    font-src 'self';
+    style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
+    img-src 'self' blob: data: https://arkqgqmjbyvgzrawoqlb.supabase.co tile.openstreetmap.org *.tile.openstreetmap.org tiles.openfreemap.org *.tiles.openfreemap.org;
+    font-src 'self' https://cdn.jsdelivr.net;
+    connect-src 'self' tiles.openfreemap.org *.tiles.openfreemap.org;
     object-src 'none';
     base-uri 'self';
     form-action 'self';
@@ -25,7 +26,7 @@ const config: NextConfig = {
   experimental: {
     ppr: true,
     reactCompiler: true,
-    dynamicIO: true,
+    cacheComponents: true,
     serverActions: {
       bodySizeLimit: "21mb",
     },
